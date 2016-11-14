@@ -1,0 +1,69 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-perform-clipboard-operations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{D6A982BE-BF46-48DE-8672-D9925BAEC958}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2870105Z"
+}
+|metadata|
+////
+
+= Perform Clipboard Operations
+
+The DataPresenter controls map their clipboard operations to common keyboard shortcuts found in many operating systems. For example, the DataPresenter controls map their copy operation to the 'CTRL + C' keyboard shortcut. However, you may want to expose the clipboard functionality through an application menu so that your end users can access it easily. Fortunately, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands.html[DataPresenterCommands] class exposes the following clipboard commands that you can hook up to menu items or buttons:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~copy.html[Copy]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~cut.html[Cut]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~paste.html[Paste]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~clearcellcontents.html[ClearCellContents]
+
+The following example code demonstrates how to perform a clipboard operation. You must enable clipboard operations in order to enable the clipboard commands.
+
+*In XAML:*
+
+----
+<Button 
+    Content="Delete Selected Values" 
+    Command="{x:Static igDP:DataPresenterCommands.ClearCellContents}" 
+    CommandTarget="{Binding ElementName=xamDataPresenter1}" />
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <!--You must enable clipboard operations in order to enable clipboard commands-->
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings AllowClipboardOperations="All" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+'TODO: Place this code in an event handler such as a Button's Click event
+Me.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.ClearCellContents)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+//TODO: Place this code in an event handler such as a Button's Click event
+this.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.ClearCellContents);
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-enable-clipboard-operations.html[Enable Clipboard Operations]
+
+link:xamdatapresenter-handle-clipboard-operation-errors.html[Handle Clipboard Operation Errors]
+
+link:xamdatapresenter-prevent-clipboard-operations-from-modifying-a-field.html[Prevent Clipboard Operations From Modifying a Field]
+
+link:xamdatapresenter-prevent-the-addition-of-specific-formats-to-the-clipboard.html[Prevent the Addition of Specific Formats to the Clipboard]

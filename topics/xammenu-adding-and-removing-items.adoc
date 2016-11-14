@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xammenu-adding-and-removing-items",
+    "controlName": ["xamMenu"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "ba2f0237-f069-4817-b425-7f79e26d7bdc",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.3782429Z"
+}
+|metadata|
+////
+
+= Adding and Removing Items
+
+You can add and remove menu items in xamMenu or xamContextMenu. To add an item to the items collection, use the Add method of the menu or menu item's Item Collection. There are two remove methods: Remove and RemoveAt which exists on the Item Collection as well.
+
+The following code shows you how to add and remove items in xamMenu.
+
+*In Visual Basic:*
+
+----
+' Create Edit menu item
+Dim parentMenuItem As New XamMenuItem()
+parentMenuItem.Header = "Edit"
+menu1.Items.Add(parentMenuItem)
+' Remove a submenu item
+Dim item As XamMenuItem = TryCast(menu1.Items(0), XamMenuItem)
+item.Items.RemoveAt(0)
+----
+
+*In C#:*
+
+----
+// Create a menu item
+XamMenuItem parentMenuItem = new XamMenuItem();
+parentMenuItem.Header = "Edit";
+// Add menu item
+menu1.Items.Add(parentMenuItem);
+// Remove a submenu item
+XamMenuItem item = menu1.Items[0] as XamMenuItem;
+item.Items.RemoveAt(0);
+----
+
+== Related Topics
+
+link:xammenu-binding-to-data.html[Binding to Data]
+
+link:xammenu-layout-settings.html[Layout Settings]
+
+link:xammenu-navigating-pages-using-xammenu.html[Navigating Pages Using xamMenu]
+
+link:xammenu-adding-separators-between-xammenuitems.html[Adding Separators between XamMenuItems]
+
+link:xammenu-adding-icons-to-xammenuitems.html[Adding Icons to XamMenuItems]
+
+link:xammenu-adding-check-boxes-to-xammenuitems.html[Adding Check Boxes to XamMenuItems]

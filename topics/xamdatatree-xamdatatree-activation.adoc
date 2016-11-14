@@ -1,0 +1,95 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatatree-xamdatatree-activation",
+    "controlName": ["xamDataTree"],
+    "tags": ["How Do I","Selection"],
+    "guid": "f2b4e667-5e47-4fd1-950f-eb2388ae420f",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.8761096Z"
+}
+|metadata|
+////
+
+= Activation (xamDataTree)
+
+The xamDataTree™ control supports activation of its nodes. A node is considered to be active if it is the current node focus. Only one node can be active at any given time. Activation is implemented on the xamDataTree control so that actions that can only be executed on a single node, such as editing, can be performed.
+
+*Activation Using the Keyboard*
+
+If the xamDataTree control does not have an active item, and the tree receives focus, then the first node in the tree will become active. Once there is an active node in the tree, your end user can navigate through the tree using the arrow keys.
+
+The following table lists all the keys that can be used to interact with the xamDataTree control.
+
+[options="header", cols="a,a"]
+|====
+|Key|Functionality
+
+|Up
+|Moves the active node up
+
+|Down
+|Moves the active node down
+
+|Left
+|Collapse the node if expanded
+
+|Right
+|Expand the node if it has children selecting the Right key again will activate the first child.
+
+|Enter
+|Selects the active node
+
+|Space
+|If check boxes are enabled, this key selects/unselects the check box associated with the active node.
+
+|====
+
+*Activation with Code*
+
+You can get or set the active node using the xamDataTree control’s link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~activenode.html[ActiveNode] property, as demonstrated by the following code snippet.
+
+*In Visual Basic:*
+
+----
+MyTree.ActiveNode = MyTree.Nodes(0).Nodes(0)
+----
+
+*In C#:*
+
+----
+MyTree.ActiveNode = MyTree.Nodes[0].Nodes[0];
+----
+
+You can also set an active node using the Node’s IsActive property. The following code demonstrates how to achieve this.
+
+*In Visual Basic:*
+
+----
+MyTree.Nodes(0).Nodes(0).IsActive = True
+----
+
+*In C#:*
+
+----
+MyTree.Nodes[0].Nodes[0].IsActive = true;
+----
+
+*Related Topics*
+
+link:xamdatatree-active-data-item.html[Configuring Active Data Item (xamDataTree)]
+
+link:xamdatatree-xamdatatree-check-boxes.html[Configuring Check Boxes Visibility (xamDataTree)]
+
+link:xamdatatree-expanded-and-collapsed-xamdatatree-nodes.html[Configuring Expanded/Collapsed Node State (xamDataTree)]
+
+link:xamdatatree-xamdatatree-drag-and-drop.html[Configuring Drag and Drop (xamDataTree)]
+
+link:xamdatatree-xamdatatree-editing.html[Configuring Editing (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-connectors.html[Configuring Node Connectors Visibility (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-layouts.html[Configuring Node Layouts (xamDataTree)]
+
+link:xamdatatree-xamdatatree-selection.html[Selection (xamDataTree)]

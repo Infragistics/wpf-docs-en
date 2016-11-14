@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampivotgrid-databinding-using-sap-xmla-datasource",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Data Binding","Grids","How Do I"],
+    "guid": "a0892f60-61be-4fd8-8db7-9d74e68ae160",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.0782822Z"
+}
+|metadata|
+////
+
+= Using Sap Xmla Datasource
+
+The link:{ApiPlatform}olap.xmla.sap.v{ProductVersion}~infragistics.olap.xmla.sap.xmlasapdatasource_members.html[XmlaSapDataSource] object is a data source for connecting to SAP and its usage is the same as XmlaDataSource with server credential parameters. The following code examples show how to connect XmlaSapDataSource to SAP server.
+
+*In XAML:*
+
+----
+    <olap:XmlaSapDataSource x:Key="DataSource">
+        <olap:XmlaSapDataSource.ConnectionSettings>
+            <olap:XmlaSapConnectionSettings ServerUri="http://server/sap"/>
+        </olap:XmlaSapDataSource.ConnectionSettings>
+        <olap:XmlaSapDataSource.Credentials>
+            <olap:XmlaNetworkCredential Password="P@ssw0rd"
+                                        UserName="Admin">
+            </olap:XmlaNetworkCredential>
+        </olap:XmlaSapDataSource.Credentials>
+    </olap:XmlaSapDataSource>
+    ...
+    <ig:XamPivotGrid x:Name="PivotGrid" DataSource="{StaticResource DataSource}" />
+----
+
+*In Visual Basic:*
+
+----
+Dim Credentials As New XmlaNetworkCredential()
+Credentials.UserName = "Admin"
+Credentials.Password = "P@ssw0rd"
+Dim DataSource As New XmlaSapDataSource()
+DataSource.ServerUri = New Uri("http://server/sap")
+DataSource.Credentials = Credentials
+Me.PivotGrid.DataSource = DataSource
+----
+
+*In C#:*
+
+----
+XmlaNetworkCredential Credentials = new XmlaNetworkCredential();
+Credentials.UserName = "Admin";
+Credentials.Password = "P@ssw0rd";
+XmlaDataSource DataSource = new XmlaSapDataSource();
+DataSource.ServerUri = new Uri("http://server/sap");
+DataSource.Credentials = Credentials;
+this.PivotGrid.DataSource = DataSource;
+----

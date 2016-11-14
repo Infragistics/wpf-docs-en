@@ -1,0 +1,96 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamslider-interaction-modes",
+    "controlName": ["xamSlider"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{E342E2EE-DF2A-441C-AB86-4996D63DCE37}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.0663774Z"
+}
+|metadata|
+////
+
+= Interaction Modes
+
+The xamSlider™ control allows you to configure how the thumbs interact with each other. This can be done by setting the link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamslidernumericthumb.html[xamSliderNumericThumb] object’s link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamsliderthumbbase~interactionmode.html[InteractionMode] property to one of the following link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.sliderthumbinteractionmode.html[SliderThumbInteractionMode] enumeration values:
+
+* link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.sliderthumbinteractionmode.html[Lock] – An active thumb cannot pass over or push a locked thumb.
+* link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.sliderthumbinteractionmode.html[Push] – An active thumb can push a thumb whose mode is set to push along the slider, changing its position to that of the active thumb.
+* link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.sliderthumbinteractionmode.html[Free] – There is not a specified interaction when the thumb mode is set to free.
+
+The interaction between thumbs depends on the InteractionMode value of the non active thumb. For example when you drag a thumb along the slider and you encounter another thumb, it is the interaction mode of the second thumb that determines the interaction between the two thumbs.
+
+The following code demonstrates how to set the interaction modes.
+
+*In XAML:*
+
+----
+<ig:XamNumericRangeSlider 
+        Name="xamNumericRangeSlider1" 
+        MinValue="0" 
+        MaxValue="100">
+   <ig:XamSliderNumericThumb InteractionMode="Free" Value="25" />
+   <ig:XamSliderNumericThumb InteractionMode="Lock" Value="50" />
+   <ig:XamSliderNumericThumb InteractionMode="Push" Value="75" />
+</ig:XamNumericRangeSlider>
+----
+
+*In Visual Basic:*
+
+----
+'Numeric range slider
+Dim numericRangeThumb1 As New XamSliderNumericThumb()
+numericRangeThumb1.InteractionMode = SliderThumbInteractionMode.Free
+numericRangeThumb1.Value = 25
+Dim numericRangeThumb2 As New XamSliderNumericThumb()
+numericRangeThumb2.InteractionMode = SliderThumbInteractionMode.Lock
+numericRangeThumb2.Value = 50
+Dim numericRangeThumb3 As New XamSliderNumericThumb()
+numericRangeThumb3.InteractionMode = SliderThumbInteractionMode.Push
+numericRangeThumb3.Value = 75
+Me.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb1)
+Me.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb2)
+Me.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb3)
+----
+
+*In C#:*
+
+----
+//Numeric range slider
+XamSliderNumericThumb numericRangeThumb1 = new XamSliderNumericThumb
+{
+    InteractionMode= SliderThumbInteractionMode.Free,
+    Value = 25
+};
+xamSliderNumericThumb numericRangeThumb2 = new XamSliderNumericThumb
+{
+    InteractionMode = SliderThumbInteractionMode.Lock,
+    Value = 50
+};
+xamSliderNumericThumb numericRangeThumb3 = new XamSliderNumericThumb
+{
+    InteractionMode = SliderThumbInteractionMode.Push,
+    Value = 75
+};
+this.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb1);
+this.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb2);
+this.xamNumericRangeSlider1.Thumbs.Add(numericRangeThumb3);
+----
+
+== Related Topics
+
+link:xamslider-xamslider-thumbs.html[xamSlider Thumbs]
+
+link:xamslider-xamslider-tick-marks.html[xamSlider Tick Marks]
+
+ifdef::wpf,sl[]
+link:xamslider-tooltips.html[ToolTips]
+endif::wpf,sl[]
+
+link:xamslider-value-tick-marks.html[Value Tick Marks]
+
+link:xamslider-retrieve-the-thumb-values.html[Retrieve the Thumb Values]
+
+link:xamslider-programmatically-add-or-remove-thumbs-at-runtime.html[Programmatically Add or Remove Thumbs at Runtime]

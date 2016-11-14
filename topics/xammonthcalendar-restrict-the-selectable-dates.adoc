@@ -1,0 +1,79 @@
+﻿////
+
+|metadata|
+{
+    "name": "xammonthcalendar-restrict-the-selectable-dates",
+    "controlName": ["xamMonthCalendar"],
+    "tags": ["Editing","How Do I","Selection"],
+    "guid": "{69886B08-7D57-4B58-BB5E-4C18391123CB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.9871505Z"
+}
+|metadata|
+////
+
+= Restrict the Selectable Dates
+
+The xamMonthCalendar™ control gives you three different ways to restrict the dates an end user can select. You can prevent end users from selecting a certain day of the week, a specific range of dates, or dates outside a specified minimum/maximum date.
+
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~disableddaysofweek.html[DisabledDaysOfWeek] property - Set this property to prevent end users from selecting specific days of the week, such as Saturdays and Sundays.
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~disableddates.html[DisabledDates] collection - Add link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.calendardaterange.html[CalendarDateRange] objects to restrict end users from selecting a specific date or range of dates.
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~mindate.html[MinDate] and link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~maxdate.html[MaxDate] properties - Set these properties to prevent end users from selecting outside of a specific range of dates.
+
+The following example code demonstrates how to restrict the selectable dates. The example code restricts the selectable dates by combining the use of all three properties outlined above.
+
+*In XAML:*
+
+----
+<igEditors:XamMonthCalendar 
+    Name="xamMonthCalendar1" 
+    DisabledDaysOfWeek="Saturday, Sunday" 
+    MinDate="1/1/2008" 
+    MaxDate="12/31/2009">
+    <igEditors:XamMonthCalendar.DisabledDates>
+        <igEditors:CalendarDateRange Start="1/1/09" End="1/02/09" />
+    </igEditors:XamMonthCalendar.DisabledDates>
+</igEditors:XamMonthCalendar>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Editors
+...
+'Prevent end users from selecting weekends
+Me.xamMonthCalendar1.DisabledDaysOfWeek = DayOfWeekFlags.Saturday Or DayOfWeekFlags.Sunday
+'Prevent end users from selecting dates before 1/1/2008 and after 12/31/2009
+Me.xamMonthCalendar1.MinDate = New DateTime(2008, 1, 1)
+Me.xamMonthCalendar1.MaxDate = New DateTime(2009, 12, 31)
+'Prevent end users from selecting New Year's Day and day after
+Dim firstHolidayRange As New CalendarDateRange(New DateTime(2009, 1, 1), New DateTime(2009, 1, 2))
+Me.xamMonthCalendar1.DisabledDates.Add(firstHolidayRange)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Editors;
+...
+//Prevent end users from selecting weekends
+this.xamMonthCalendar1.DisabledDaysOfWeek = DayOfWeekFlags.Saturday | DayOfWeekFlags.Sunday;
+//Prevent end users from selecting dates before 1/1/2008 and after 12/31/2009
+this.xamMonthCalendar1.MinDate = new DateTime(2008, 1, 1);
+this.xamMonthCalendar1.MaxDate = new DateTime(2009, 12, 31);
+//Prevent end users from selecting New Year's Day and day after
+CalendarDateRange firstHolidayRange = new CalendarDateRange(new DateTime(2009, 1, 1), new DateTime(2009, 1, 2));
+this.xamMonthCalendar1.DisabledDates.Add(firstHolidayRange);
+...
+----
+
+== Related Topics
+
+link:xammonthcalendar-about-xammonthcalendar.html[About xamMonthCalendar]
+
+link:xammonthcalendar-getting-started-with-xammonthcalendar.html[Adding xamMonthCalendar to Your Page]
+
+link:xammonthcalendar-retrieve-the-selected-dates.html[Retrieve the Selected Dates]
+
+link:xammonthcalendar-switch-to-a-different-calendar-view.html[Switch to a Different Calendar View]

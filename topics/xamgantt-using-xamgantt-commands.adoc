@@ -1,0 +1,217 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-using-xamgantt-commands",
+    "controlName": ["xamGantt"],
+    "tags": ["Commands","Getting Started","How Do I"],
+    "guid": "bc277e9a-c7ff-4343-b4c3-df5b68e218b8",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.2451609Z"
+}
+|metadata|
+////
+
+= Using xamGantt Commands
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes many of the more commonly used commands available in the  _xamGantt_™ control and how to use them.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-adding-xamgantt-to-a-page.html[Adding xamGantt to a Page]
+|This topic describes how you can add the _xamGantt_ control to a page.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref333763466,  _xamGantt_  Commands Reference >>
+* <<_Ref333763503, Code Example: Inserting and Deleting Tasks in  _xamGantt_  Using Commands >>
+* <<_Ref333763543, Related Content >>
+
+** <<_Ref333763550,Topics>>
+** <<_Ref333763850,Samples>>
+
+[[_Ref333763466]]
+== _xamGantt_  Commands Reference
+
+[[_Ref333763478]]
+
+=== Introduction
+
+The  _xamGantt_   control provides a set of commands for performing some common user operations such as inserting and deleting tasks, scrolling, indenting and outdenting and many more.
+
+The following table lists,  _xamGantt’s_   more commonly used commands. For more information, check the full list in the API documentation ( link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[GanttCommandId Enumeration]).
+
+[[_Ref333763484]]
+
+=== Commands reference chart
+
+The following table summarizes the purpose and functionality of the  _xamGantt_   control’s more commonly used commands.
+
+[options="header", cols="a,a"]
+|====
+|Command|Corresponding user action
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[AddSubtask]
+|Adds a new child task to the selected task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[AddTask]
+|Adds a new sibling task below the selected task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[CalculateProject]
+|Calculates the project explicitly (for example, disabling the _xamGantt’s_ automatically project calculations control.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ChangeTaskToActive]
+|Activates the selected task(s).
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ChangeTaskToAutomatic]
+|Changes the task(s) mode to auto scheduled.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ChangeTaskToInactive]
+|Inactivates the selected task(s).
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ChangeTaskToManual]
+|Changes the task(s) mode to manually scheduled.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ClearSort]
+|Resets the sorted column to its initial order.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[DeleteTask]
+|Deletes the selected task(s).
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[HideSubtasks]
+|Collapses the selected summary task(s).
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[IndentTask]
+|Indents the selected task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[InsertTask]
+|Inserts a new task above the selected task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[OutdentTask]
+|Outdents the selected task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[RespectLinks]
+|Determines the tasks scheduling explicitly by the tasks dependencies.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ScrollToProjectFinish]
+|Scrolls the timescale so the project finish date is visible.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ScrollToProjectStart]
+|Scrolls the timescale so the project start date is visible.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ScrollToTaskFinish]
+|Scrolls the timescale so the task finish date is visible.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ScrollToTaskStart]
+|Scrolls the timescale so the task start date is visible.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ShowSubtasks]
+|Expands the selected summary task(s).
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttcommandid.html[ToggleTaskActive]
+|Alternates the selected task(s) state between active and inactive.
+
+|====
+
+[[_Ref333763503]]
+== Code Example: Inserting and Deleting Tasks in  _xamGantt_   Using Commands
+
+[[_Ref333763526]]
+
+=== Description
+
+The following code explains how to use  _xamGantt_   commands to insert and delete tasks.
+
+[[_Ref333763533]]
+
+=== Code
+
+Add the following namespaces in your page:
+
+*In XAML:*
+
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
+----
+
+The code below adds a  _xamGantt_   and two buttons to your page to perform inserting and deleting tasks using commands.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="22" />
+    </Grid.RowDefinitions>
+    <ig:XamGantt x:Name="gantt" Project="{Binding}" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button x:Name="Btn_InsertTask" Content="Insert Task">
+                <ig:Commanding.Command>
+                    <igPrim:GanttCommandSource
+                        TargetName="gantt"
+                        CommandType="InsertTask" 
+                        EventName="Click"/>
+                </ig:Commanding.Command>
+            </Button>
+            <Button x:Name="Btn_DeleteTask" Content="Delete Task">
+                <ig:Commanding.Command>
+                    <igPrim:GanttCommandSource
+                        TargetName="gantt"
+                        CommandType="DeleteTask" 
+                        EventName="Click"/>
+                </ig:Commanding.Command>
+            </Button>
+        </StackPanel>
+</Grid>
+----
+
+[[_Ref333763543]]
+== Related Content
+
+[[_Ref333763550]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-configuring-xamgantt.html[Configuring xamGantt]
+|The topics in this group explain the main configurable aspects of the _xamGantt_ control.
+
+|====
+
+[[_Ref333763850]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/using-commands[Using Commands]"] pick:[wpf=" link:{SamplesURL}/gantt/using-commands[Using Commands]"] 
+|This sample mimics the Microsoft Project 2010 ribbon menu and demonstrates some of the available _xamGantt_ commands.
+
+|====

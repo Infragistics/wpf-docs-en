@@ -1,0 +1,154 @@
+﻿////
+
+|metadata|
+{
+    "name": "igexcelengine-creating-a-workbook",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","How Do I"],
+    "guid": "{969A9A83-5421-4C3F-AAB3-01D3E81815AC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7557043Z"
+}
+|metadata|
+////
+
+= Creating a Workbook (Infragistics Excel Engine)
+
+== Before You Begin
+
+The Infragistics Excel Engine enables you to save data to and load data from Microsoft® Excel®. You can create workbooks and worksheets, input data, and export the data to Excel using the library's various classes. The Infragistics Excel Engine makes it easy to export the data in your application as an Excel spreadsheet as well as import data from Excel into your application.
+
+== What You Will Accomplish
+
+You will create a simple workbook and save it as an Excel file.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft Windows® Presentation Foundation project.
+[start=2]
+. In the Solution Explorer, add a reference to following assembly:
+
+.. {ApiPlatform}Documents.Excel.v{ProductVersion}.dll
+
+[start=3]
+. Add a Button control to the default Grid panel.
+
+.. Set the Content property to "Create a Workbook".
+.. Attach an event handler to the Button control's Click event.
+
+*In XAML:*
+
+----
+<Button Content="Create a Workbook" Click="Button_Click" />
+----
+
+[start=4]
+. Open the code-behind and place using/Imports directives in your code-behind so you don't have to type out a member's fully qualified name.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Documents.Excel
+----
+
+*In C#:*
+
+----
+using Infragistics.Documents.Excel;
+----
+
+[start=5]
+. Add an event handler for the Button control's Click event if a method stub has not been created for you.
+
+*In Visual Basic:*
+
+----
+Private Sub Button_Click(sender As Object, e As RoutedEventArgs) 
+    'TODO: Instantiate a Workbook object 
+    'TODO: Add a worksheet to the workbook
+    'TODO: Add text to the first cell
+    'TODO: Save the workbook.
+End Sub
+----
+
+*In C#:*
+
+----
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    //TODO: Instantiate a Workbook object.
+    //TODO: Add a worksheet to the workbook
+    //TODO: Add text to the first cell
+    //TODO: Save the workbook.
+}
+----
+
+[start=6]
+. Instantiate a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook.html[Workbook] object.
+
+*In Visual Basic:*
+
+----
+Dim workbook1 As New Workbook()
+----
+
+*In C#:*
+
+----
+Workbook workbook1 = new Workbook();
+----
+
+[start=7]
+. Add a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet] object to the workbook.
+
+*In Visual Basic:*
+
+----
+Dim worksheet1 As Worksheet = workbook1.Worksheets.Add("Sheet 1")
+----
+
+*In C#:*
+
+----
+Worksheet worksheet1 = workbook1.Worksheets.Add("Sheet 1");
+----
+
+[start=8]
+. Set the first link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell.html[WorksheetCell] object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~value.html[Value] property to 42.
+
+*In Visual Basic:*
+
+----
+worksheet1.Rows(0).Cells(0).Value = 42
+----
+
+*In C#:*
+
+----
+worksheet1.Rows[0].Cells[0].Value = 42;
+----
+
+[start=9]
+. Save the workbook.
+
+*In Visual Basic:*
+
+----
+workbook1.Save("Workbook1.xls")
+----
+
+*In C#:*
+
+----
+workbook1.Save("Workbook1.xls");
+----
+
+[start=10]
+. Run the project and click the button to create a Workbook object and save it as an Excel file.
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-using-the-infragistics-excel-engine.html[Using the Infragistics Excel Engine]

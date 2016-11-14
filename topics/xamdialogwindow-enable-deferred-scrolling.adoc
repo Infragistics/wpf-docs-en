@@ -1,0 +1,59 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdialogwindow-enable-deferred-scrolling",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Layouts","Performance","Virtualization"],
+    "guid": "{D6360AC1-91F3-4356-996A-613C7FB4AB01}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.9932045Z"
+}
+|metadata|
+////
+
+= Enable Deferred Scrolling
+
+By default deferred scrolling is not enabled on xamGrid. To enable or disable deferred scrolling, you simply set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.deferredscrollingsettings.html[DeferredScrollingSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.deferredscrollingsettings~allowdeferredscrolling.html[AllowDeferredScrolling] property to one of the following values of the Deferred ScrollingType enumeration:
+
+* Default – this value enables deferred scrolling and the default template will be displayed
+* None – this value disables deferred scrolling
+
+The link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.deferredscrollingsettings~defaultcolumnkey.html[DefaultColumnKey] property allows you to set which column’s information you want to display as your end user scrolls through the data. If you do not set this property, then the first column in your data set is displayed.
+
+The following code demonstrates how to enable deferred scrolling.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+    <ig:XamGrid x:Name="MyGrid" AutoGenerateColumns=">
+        <ig:XamGrid.DeferredScrollingSettings>
+            <ig:DeferredScrollingSettings AllowDeferredScrolling="Default" DefaultColumnKey="ProductName" />
+         </ig:XamGrid.DeferredScrollingSettings> 
+       ...
+    </ig:XamGrid>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Me.MyGrid.DeferredScrollingSettings.AllowDeferredScrolling = DeferredScrollingType.Default
+Me.MyGrid.DeferredScrollingSettings.DefaultColumnKey = "ProductName"
+----
+
+*In C#:*
+
+----
+this.MyGrid.DeferredScrollingSettings.AllowDeferredScrolling = DeferredScrollingType.Default;
+this.MyGrid.DeferredScrollingSettings.DefaultColumnKey = "ProductName";
+----
+
+== *Related Topics*
+
+link:xamgrid-customize-deferred-scrolling-template.html[Customize Deferred Scrolling Template]
+
+link:xamdialogwindow-enable-deferred-scrolling.html[Enable Deferred Scrolling]
+
+link:xamgrid-customize-groupby-deferred-scrolling-template.html[Customize GroupBy Deferring Scrolling Template]

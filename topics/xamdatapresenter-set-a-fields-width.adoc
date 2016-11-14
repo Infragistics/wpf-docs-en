@@ -1,0 +1,87 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-set-a-fields-width",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts"],
+    "guid": "{53FFCC6D-438C-4867-AD59-26058518EAB7}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3270185Z"
+}
+|metadata|
+////
+
+= Set a Field's Width
+
+You can set a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~width.html[Width] property or a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~width.html[Width] property to an instance of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlength.html[FieldLength] structure to determine the field's width. This allows you to set a default width for all fields using the DataPresenter control's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldsettings.html[FieldSettings] property and selectively set the width of specific fields in a field layout. If you are using a horizontal record layout, instead of setting the Width property, you must set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~height.html[Height] property.
+
+You can use the FieldLength structure along with the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlengthunittype.html[FieldLengthUnitType] enum to represent the following size settings:
+
+* Auto - A DataPresenter control will dynamically increase a field's width to fit the longest content in a field based on the FieldSettings object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizeoptions.html[AutoSizeOptions] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizescope.html[AutoSizeScope] property values. This setting enables a DataPresenter control to increase a field's width as it encounters longer content. However, a DataPresenter control will not decrease a field's width automatically. In addition, if your end users drag a field's resizing indicator to resize a field, the DataPresenter control will not auto size that field. If your end users want to enable auto sizing again, they must double click the field's resizing indicator to perform an auto-fit operation.
+* InitialAuto - This setting is similar to the Auto setting except that the DataPresenter control will not dynamically increase a field's width as it encounters longer content. Instead, the DataPresenter control sets a field's width once during initialization based on the FieldSettings object's AutoSizeOptions and AutoSizeScope property values.
+* Pixel - You can set a field's width to a pixel value.
+* Star - You can set a field's width to a percentage value using the same star-sizing syntax found in the WPF Grid panel.
+
+If you want to set a Field object's Width property in XAML, you must set the Width property to a string representation of the FieldLength structure. In code, you must instantiate a FieldLength structure to set a Field object's Width property. However, the FieldLength structure exposes a static link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlength~auto.html[Auto] property and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlength~initialauto.html[InitialAuto] property for scenarios where you want to use the Auto or InitialAuto settings.
+
+In addition to pixel and star-sizing values, you can set the Width property using centimeters (cm), inches (in), or points (pt). For example, you can set a Field object's Width property to "2.5cm", "1in", or "72pt" in XAML. However, in code, you must use a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlengthconverter.html[FieldLengthConverter] object to set a field's width using centimeters, inches, or points.
+
+image::images/xamDataPresenter_Set_a_Fields_Width_01.png[]
+
+The following example code demonstrates how to set a field's width using different settings.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:Field Name="name" Width="1*" />
+            <!-- The department field uses a pixel value -->
+            <!-- since a unit of measurement isn't specified -->
+            <igDP:Field Name="department" Width="100px" /> 
+            <igDP:Field Name="salary" Width="2in" />
+            <igDP:Field Name="email" Width="InitialAuto" />        
+        </igDP:FieldLayout>
+    </igDP:XamDataPresenter.FieldLayouts>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Dim converter1 As New FieldLengthConverter()
+Me.xamDataPresenter1.FieldLayouts(0).Fields("name").Width =_
+    New FieldLength(1, FieldLengthUnitType.Star)
+Me.xamDataPresenter1.FieldLayouts(0).Fields("department").Width = New FieldLength(100)
+Me.xamDataPresenter1.FieldLayouts(0).Fields("salary").Width =_
+    DirectCast(converter1.ConvertFrom("2in"), FieldLength)
+Me.xamDataPresenter1.FieldLayouts(0).Fields("name").Width = FieldLength.InitialAuto
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+FieldLengthConverter converter1 = new FieldLengthConverter();
+this.xamDataPresenter1.FieldLayouts[0].Fields["name"].Width =
+    new FieldLength(1, FieldLengthUnitType.Star);
+this.xamDataPresenter1.FieldLayouts[0].Fields["department"].Width = new FieldLength(100);
+this.xamDataPresenter1.FieldLayouts[0].Fields["salary"].Width =
+    (FieldLength)converter1.ConvertFrom("2in");
+this.xamDataPresenter1.FieldLayouts[0].Fields["name"].Width = FieldLength.InitialAuto;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-automatically-fit-fields.html[Automatically Fit Fields]
+
+link:xamdatapresenter-modify-field-sizing-behaviors.html[Modify Field-Sizing Behaviors]
+
+link:xamdatapresenter-perform-an-auto-sizing-operation.html[Perform an Auto-Sizing Operation]

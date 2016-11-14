@@ -1,0 +1,148 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdiagram-configuring-keyboard-shortcuts",
+    "tags": ["Charting","How Do I"],
+    "controlName": ["xamDiagram"],
+    "guid": "e4499ad6-fe8f-4ce5-a953-b69bb5634030",  
+    "buildFlags": [],
+    "createdOn": "2014-06-16T09:40:55.369264Z"
+}
+|metadata|
+////
+
+= Configuring Keyboard Shortcuts (xamDiagram)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to change the keyboard shortcuts associated with  _xamDiagram_™ commands.
+
+[[_Ref387303433]]
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-general-overview.html[General Overview ( _xamDiagram_ )]
+|This topic provides a conceptual overview of the _xamDiagram_ control and its main features and capabilities.
+
+| link:xamdiagram-commands-overview.html[Commands Overview ( _xamDiagram_ )]
+|This topic explains the operational logic of the commands available in the _xamDiagram_ control.
+
+| link:xamdiagram-adding-to-a-page.html[Adding _xamDiagram_ to a Page]
+|This topic explains how to add the _xamDiagram_ control to a {PlatformName} application.
+
+|====
+
+[[_Ref387491193]]
+[[_Ref385408385]]
+== Configuring Keyboard Shortcuts
+
+[[_Ref387491196]]
+
+=== Overview
+
+To change the pre-configured keyboard shortcut for a command, you need to create a new link:http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx[KeyBinding] object specifying the new settings. If you want to completely override the existing settings, you should make sure to clear the existing input gestures.
+
+[[_Ref387491200]]
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Create a link:http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx[KeyBinding] for the copy command
+| link:http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding%28v=vs.110%29.aspx[KeyBinding] 
+|A new `KeyBinding` object, containing information for the new key shortcut and the command target. 
+
+This object should then be added to the link:http://msdn.microsoft.com/en-us/library/system.windows.input.inputbinding(v=vs.110).aspx[InputBindings] collection of the Window.
+
+|====
+
+[[_Ref387491204]]
+
+=== Example
+
+This example demonstrates the property settings needed to configure a new shortcut for the Copy command of the diagram – F4 in addition to the standard Ctrl+C key combination. For a walkthrough on adding a diagram to your application, see link:xamdiagram-adding-to-a-page.html[Adding  _xamDiagram_  to a Page].
+
+.Note:
+[NOTE]
+====
+The settings below add the new key shortcut ( _F4_ ) for the Copy command, but do not override the default shortcut ( _Ctrl+C_  ). In order to override it, you must clear the existing link:http://msdn.microsoft.com/en-us/library/system.windows.input.routedcommand.inputgestures(v=vs.110).aspx[InputGestures] associated with the command.
+====
+
+The screenshot below demonstrates how the  _xamDiagram_   behaves as a result of the following settings:
+
+[options="header", cols="a,a"]
+|====
+|Property|Value
+
+| link:http://msdn.microsoft.com/en-us/library/system.windows.input.keybinding(v=vs.110).aspx[KeyBinding]
+|*In XAML:* 
+
+[source,xaml]
+---- 
+<KeyBinding Command="Copy" Key="F4" CommandTarget="{Binding ElementName=diagram}"/> 
+---- 
+
+|====
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Window.InputBindings>
+      <KeyBinding Command="Copy" Key="F4" CommandTarget="{Binding ElementName=diagram}"/>
+</Window.InputBindings>
+----
+
+[[_Ref385408430]]
+== Related Content
+
+[[_Ref385408435]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-user-interactions-configuration-overview.html[User Interactions Configuration Overview ( _xamDiagram_ )]
+|This topic provides a summary of all user interaction tasks in the _xamDiagram_ control.
+
+| link:xamdiagram-configuring-undo-redo-operations.html[Configuring Undo/Redo ( _xamDiagram_ )]
+|The topic covers configuring an Undo/Redo Manager that is exclusive for the _xamDiagram_ control.
+
+| link:xamdiagram-configuring-ui-elements-with-commands.html[Configuring UI Elements with Commands ( _xamDiagram_ ]
+|This topic explains how to use the commands provided by the _xamDiagram_ in UI elements such as menus and buttons.
+
+|====
+
+[[_Ref385408439]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/diagram/diagram-commands[Diagram Commands]
+|This sample demonstrates the commands available in the _xamDiagram_ control.
+
+|====

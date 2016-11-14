@@ -1,0 +1,266 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-find-replace",
+    "tags": ["Editing","How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "43045bc5-f8d6-46b1-9cbf-b3033b8181ba",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5323074Z"
+}
+|metadata|
+////
+
+= Managing Find/Replace (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the Find and Replace features of the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref365468739,Find and Replace Summary>>
+* <<_Ref365468717,Find Text Content>>
+* <<_Ref365468724,Replace Content>>
+* <<_Ref365468753,Related Content>>
+
+[[_Ref365468739]]
+== Find and Replace Summary
+
+=== Find and replace summary chart
+
+The  _xamRichTextEditor’s_   document supports text content find and replace operations. These functionalities are accessible using methods of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] and both the find and replace functionality use method overloads for operations over single or multiple document spans. In addition, both find and replace functionalities supports match case and wildcard search modes.
+
+.Note
+[NOTE]
+====
+The wildcard support is the same as the pattern used by the link:http://msdn.microsoft.com/en-us/library/swf8kaxw.aspx[Like operator in Visual Basic].
+====
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Method(s)
+
+|<<_Ref365468717,Find Text Content>>
+|Used to find document’s content
+|
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~findall.html[FindAll] 
+
+|<<_Ref365468724,Replace Text Content>>
+|Used to replace document’s content
+|
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~replaceall.html[ReplaceAll] 
+
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~replacecontents.html[ReplaceContents] 
+
+|====
+
+[[_Ref365468717]]
+
+== Find Text Content
+
+=== Overview
+
+You can use the `FindAll` method of the `RichTextDocument` to search the document’s content for specific text. The method returns an object of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.findresult_members.html[FindResult] that can be used to iterate over the matches of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.findmatch_members.html[FindMatch]. Each of the `FindMatch` objects contains the document span occupied by the match.
+
+=== Property settings
+
+The following table maps the desired behaviors to its respective methods.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Find text
+|`FindAll`
+|`span` – the document span to 
+
+`textToFind` – the text to search for 
+
+`error` – a string object that contains the error, if one occurs during the operation, such as when the `textToFind` wildcard is invalid in wildcard matching mode 
+
+`findCriteria` – an object of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.findcriteria_members.html[FindCriteria], used to specify match case search or wildcard search mode
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The code snippet below demonstrates how to invoke the `FindAll` method for searching over the whole document span and iterating over all find matches:
+
+*In C#:*
+
+[source,csharp]
+----
+FindCriteria fc = new FindCriteria();
+fc.CaseSensitive = this.cbCase.IsChecked ?? false;
+fc.Operator =
+    (this.cbWildcard.IsChecked.HasValue && this.cbWildcard.isChecked.Value) ?
+    FindOperator.Wildcard : FindOperator.PlainText;
+DocumentSpan ds = this.xamRichTextEditor1.Document.RootNode.Body.GetDocumentSpan();
+string errorMsg;
+FindResult fr = this.xamRichTextEditor1.Document.FindAll(ds,
+    "text-to-find", out errorMsg, fc);
+if (fr.HasMatch)
+{
+    foreach (FindMatch fm in fr.Matches)
+    {
+        // obtain document span for each find match
+        DocumentSpan span = fm.Span;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim fc As New FindCriteria()
+fc.CaseSensitive = If(Me.cbCase.IsChecked, False)
+fc.[Operator] = _
+    If((Me.cbWildcard.IsChecked.HasValue AndAlso Me.cbWildcard.isChecked.Value), _
+    FindOperator.Wildcard, FindOperator.PlainText)
+Dim ds As DocumentSpan = Me.xamRichTextEditor1.Document.RootNode.Body.GetDocumentSpan()
+Dim errorMsg As String
+Dim fr As FindResult = Me.xamRichTextEditor1.Document.FindAll(ds, "text-to-find", errorMsg, fc)
+If fr.HasMatch Then
+      For Each fm As FindMatch In fr.Matches
+            ' obtain document span for each find match
+            Dim span As DocumentSpan = fm.Span
+      Next
+End If
+----
+
+[[_Ref365468724]]
+== Replace Content
+
+=== Overview
+
+Use the `ReplaceAll` method of the `RichTextDocument` to replace specific text with text or content. To replace specific content use the `ReplaceContents` method. The replace operation takes place over the specified document span or spans. The `ReplaceAll` method returns an object of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.replaceresult_members.html[ReplaceResult], used to iterate over the replacement items of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.replacement_members.html[Replacement]. The `Replacement` objects contain the find match and the replacement text and content.
+
+=== Property settings
+
+The following table maps the desired behaviors to its respective methods.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Replace text
+|`ReplaceAll`
+|`span`/`spans` - the document span(s) over which to perform the replace opertation 
+
+`textToFind` – the text used for performing the search 
+
+`replacementText`/`replacementContent` – a string or link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase_members.html[NodeBase] value used to replace the text 
+
+`error` – a string object containing the error, if one occurs during the operation 
+
+`findCriteria` – an object of type `FindCriteria`, used to specify the match case search or wildcard search mode
+
+|Replace content
+|`ReplaceContent`
+|`span` - the document span over which to perform the replace operation 
+
+`newText`/`contentNode` – a string or `NodeBase` value which will be used to replace the specified content 
+
+`error` – a string object containing the error, if one occurs during the operation 
+
+`breakParagraphBeforeContent` – set to true in order to include new paragraph before the new content 
+
+`breakParagraphAfterContent` – set to true to include new paragraph after the new content
+
+|====
+
+=== Example
+
+The code snippet below demonstrates how to invoke the `ReplaceAll` method for replacing a text content over the whole document span:
+
+*In C#:*
+
+[source,csharp]
+----
+FindCriteria fc = new FindCriteria();
+fc.CaseSensitive = this.cbCase.IsChecked ?? false;
+fc.Operator =
+    (this.cbWildcard.IsChecked.HasValue && this.cbWildcard.isChecked.Value) ?
+    FindOperator.Wildcard : FindOperator.PlainText;
+DocumentSpan ds = this.xamRichTextEditor1.Document.RootNode.Body.GetDocumentSpan();
+string errorMsg;
+this.xamRichTextEditor1.Document.ReplaceAll(ds,
+    "old-text", "new-text", out errorMsg, fc);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim fc As New FindCriteria()
+fc.CaseSensitive = If(Me.cbCase.IsChecked, False)
+fc.[Operator] = _
+    If((Me.cbWildcard.IsChecked.HasValue AndAlso Me.cbWildcard.isChecked.Value), _
+    FindOperator.Wildcard, FindOperator.PlainText)
+Dim ds As DocumentSpan = Me.xamRichTextEditor1.Document.RootNode.Body.GetDocumentSpan()
+Dim errorMsg As String
+Me.xamRichTextEditor1.Document.ReplaceAll(ds, "old-text", "new-text", errorMsg, fc)
+----
+
+[[_Ref365468753]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-clipboard.html[Managing Clipboard]
+|This topic explains the _xamRichTextEditor_ control’s clipboard operations from a developer’s perspective.
+
+| link:xamrichtexteditor-managing-selection.html[Managing Selection]
+|This topic covers the _xamRichTextEditor_ control’s selection feature from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-undo-redo.html[Managing Undo/Redo]
+|This topic explains the _xamRichTextEditor_ control’s Undo and Redo operations from a developer’s perspective.
+
+|====
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/find-and-replace[Find and Replace]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/find-and-replace[Find and Replace]"] 
+|This sample demonstrates how to use the find and replace functionality of the RichTextDocument.
+
+|====

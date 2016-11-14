@@ -1,0 +1,183 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampropertygrid-conf-editors",
+    "tags": ["Editing","How Do I"],
+    "controlName": ["xamPropertyGrid"],
+    "guid": "18d8b04a-243c-45fa-88ca-74aaf7a7faa7",  
+    "buildFlags": [],
+    "createdOn": "2014-08-28T10:43:52.2361397Z"
+}
+|metadata|
+////
+
+= Configuring Editors Definitions (xamPropertyGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to customize the editors used for editing the properties’ values.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-features-overview.html[Features Overview (xamPropertyGrid)]
+|This topic explains the features supported by the control from developer perspective.
+
+| link:xampropertygrid-visual-elements.html[Visual Elements (xamPropertyGrid)]
+|This topic provides an overview of the visual elements of the control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref394493694, Editor Definition Configuration Summary >>
+* <<_Ref394493700, Code Example: Targeting Editor Definition by Property Name >>
+* <<_Ref394493705, Code Example: Targeting Editor Definition by Category and Type >>
+* <<_Ref394493711, Related Content >>
+
+[[_Ref394493694]]
+== Editor Definition Configuration Summary
+
+=== Editor definition configuration summary
+
+The link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid_members.html[ _xamPropertyGrid_  ] automatically assigns an editing control for each property depending on the property’s type. Read-only properties and read/write properties of the same type are assigned equal editing controls, however the editing controls for the read-only properties are disabled. You can force the  _xamPropertyGrid_   to use a different editor control in place of the default editor for any property (or group of properties) by adding a link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition_members.html[PropertyGridEditorDefinition] to the  _xamPropertyGrid’s_   link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~editordefinitions.html[EditorDefinitions] collection.
+
+You can change the editor assigned to specific properties (or groups of properties) by creating a `PropertyGridEditorDefinition` that specifies the property category, property name and/or property type whose editor you would like to customize.
+
+=== Editor definition configuration summary chart
+
+The following table explains briefly the configurable aspects of a `PropertyGridEditorDefinition` object used to provide property editor customization and maps them to properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Property
+
+|[[_Hlk356484826]] 
+
+Target properties by category
+|Provide a category name to assign the editor to all properties in the specified category.
+| link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~category.html[Category]
+
+|Target properties by type
+|Provide a type to assign the editor to all properties of this type.
+| link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~targettype.html[TargetType]
+
+|Target property/properties by name/names
+|Provide a list of property names to assign the editor to all properties with the specified names.
+| link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~targetproperties.html[TargetProperties]
+
+|Set template for editing
+|Provide a template with control(s) which will be used when editing.
+| link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~edittemplate.html[EditTemplate]
+
+|Set template for read-only
+|Provide a template with control(s) which will be used when a read-only property is displayed.
+| link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~readonlytemplate.html[ReadOnlyTemplate]
+
+|====
+
+.Note
+[NOTE]
+====
+The data context of the templates is set to an instance of a link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridpropertyitem_members.html[PropertyGridPropertyItem] so that the property value can be accessed by providing a binding with path set to “Value”.
+====
+
+[[_Ref394493700]]
+== Code Example: Targeting Editor Definition by Property Name
+
+=== Description
+
+The following code example shows how to define an editor (based on a Slider) for editing the property named "Level".
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+Code
+<ig:XamPropertyGrid>
+  <ig:XamPropertyGrid.EditorDefinitions>
+    <ig:PropertyGridEditorDefinition>
+      <ig:PropertyGridEditorDefinition.TargetProperties>
+        <sys:String>Level</sys:String>
+      </ig:PropertyGridEditorDefinition.TargetProperties>
+      <ig:PropertyGridEditorDefinition.EditTemplate>
+        <DataTemplate>
+          <Slider Minimum="0" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
+            Value="{Binding Value}" />
+        </DataTemplate>
+      </ig:PropertyGridEditorDefinition.EditTemplate>
+    </ig:PropertyGridEditorDefinition>
+  </ig:XamPropertyGrid.EditorDefinitions>
+</ig:XamPropertyGrid>
+----
+
+[[_Ref394493705]]
+== Code Example: Targeting Editor Definition by Category and Type
+
+=== Description
+
+The following code example shows how to define an editor (based on a Slider) for editing all properties of type `Int32` in the “Personal” category.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+Code
+<ig:XamPropertyGrid>
+  <ig:XamPropertyGrid.EditorDefinitions>
+    <ig:PropertyGridEditorDefinition Category="Personal" TargetType={x:Type sys:Int32}>
+      <ig:PropertyGridEditorDefinition.EditTemplate>
+        <DataTemplate>
+          <Slider Minimum="0" Maximum="10" TickFrequency="1" IsSnapToTickEnabled="True"
+            Value="{Binding Value}" />
+        </DataTemplate>
+      </ig:PropertyGridEditorDefinition.EditTemplate>
+    </ig:PropertyGridEditorDefinition>
+  </ig:XamPropertyGrid.EditorDefinitions>
+</ig:XamPropertyGrid>
+----
+
+.Note
+[NOTE]
+====
+You can target your editor definition by type or category only.
+====
+
+[[_Ref394493711]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-conf-visuals.html[Configuring Visual Appearance (xamPropertyGrid)]
+|This topic explains how to configure some general control options.
+
+| link:xampropertygrid-conf-properties-filtering.html[Properties List Filtering (xamPropertyGrid)]
+|This topic explains how to configure the filtering of the control’s properties list.
+
+| link:xampropertygrid-conf-properties-sorting.html[Properties List Sorting (xamPropertyGrid)]
+|This topic explains how to provide logic for custom sorting of the properties list.
+
+| link:xampropertygrid-conf-templateselector.html[Configuring Template Selector for Editor Definitions (xamPropertyGrid)]
+|This topic explains how create custom logic for assigning editing template on an editor definition.
+
+|====

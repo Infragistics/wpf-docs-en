@@ -1,0 +1,41 @@
+﻿////
+|metadata|
+{
+    "name": "persistence-about-ig-control-persistence-framework",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{C48FB41A-7C32-4584-AD6E-C09A694DB603}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5420357Z"
+}
+|metadata|
+////
+
+= About Infragistics Control Persistence Framework
+
+The link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence_namespace.html[Infragistics Persistence Framework]™ library provides an unified API that can be used to save and load the current state of controls.
+
+The Persistence Framework does not provide full support for the controls that are specific to the {ProductName} and are not cross-platforms controls.
+
+You can manage every phase of the persistence process. You can define which DependencyObjects get persisted and which DependencyObjects properties can be saved and loaded. The save and load process can be easily customized.
+
+The static link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~save.html[Save] method returns a MemoryStream which can be further processed. It is up to you where it will be stored – e.g. Isolated Storage.
+
+* Single control settings can be stored and loaded via the PersistenceManager object’s Save and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~load.html[Load] methods.
+* Multiple controls properties can be saved to a single data store via the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencegroup.html[PersistenceGroup] property.
+* In order to customize which properties are saved, you need to use the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] object and its two collection properties: link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings~propertysettings.html[PropertySettings] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings~ignorepropertysettings.html[IgnorePropertySettings].
+* Control properties can be identified by a name or a type – you can use link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertynamepersistenceinfo.html[PropertyNamePersistenceInfo] or link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertytypepersistenceinfo.html[PropertyTypePersistenceInfo] properties respectively. You can implement your own business logic how the information gets saved and loaded by creating a new class which extends the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertypersistenceinfobase.html[PropertyPersistenceInfoBase] class.
+* Events are raised for saving and loading of each property. You can change how the property is saved or loaded. Events can be attached to each DependencyObject being saved, via the PersistenceSettings object, or to an entire controls group via the PersistenceGroup object. For the PersistenceGroup, the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~persistencesaved_ev.html[PersistenceSaved] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~persistenceloaded_ev.html[PersistenceLoaded] events are fired only after all group objects are saved and loaded. For the PersistenceSettings, the event is raised after all properties have been saved and loaded.
+* All exceptions that are thrown while loading are caught and presented to you in the PersistenceLoaded event which is raised after an object is loaded.
+
+.Note
+[NOTE]
+====
+In order to persist and restore the `SelectedItems` collection in the  _xamComboEditor_ control, the data model class must have an empty constructor, implement the `IEquitable` interface and override the `Equals` and `GetHashCode` methods.
+====
+
+*Related Topics*
+
+link:persistenceframework-getting-started-with-infragistics-control-persistence-framework.html[Getting Started with Infragistics Control Persistence Framework]
+
+link:persistence-using-ig-control-persistence-framework.html[Using Infragistics Control Persistence Framework]

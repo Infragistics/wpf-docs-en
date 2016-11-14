@@ -1,0 +1,228 @@
+﻿////
+|metadata|
+{
+    "name": "persistence-persistence-groups",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["How Do I","Persistence"],
+    "guid": "{4CE20224-75F5-4B72-98D1-60342A52FAF4}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5740342Z"
+}
+|metadata|
+////
+
+= Persistence Groups
+
+== Before You Begin
+
+The link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence_namespace.html[Infragistics Persistence Framework]™ can consolidate multiple controls’ settings in a group or groups. In this way it is possible to save your application’s state in a single data store or combine multiple controls’ settings within groups.
+
+.Note:
+[NOTE]
+====
+You can save one link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencegroup_members.html[Persistence Group] and load it into another PersistenceGroup as long as the two groups have the same number and type of controls in the same order. Furthermore, you can save multiple controls’ settings in one group and then apply these settings to another group of controls.
+====
+
+== What You Will Accomplish
+
+This topic shows you how to create and use a PersistenceGroup object and combine two TextBox component settings into one group.
+
+== Follow these Steps
+
+[start=1]
+. Create a {PlatformName} Application project
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+* {ApiPlatform}v{ProductVersion}.dll
+* {ApiPlatform}Persistence.v{ProductVersion}.dll
+
+[start=3]
+. Add the following namespaces in the UserControl tag
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+xmlns:igPersistence="clr-namespace:Infragistics.Persistence;assembly={ApiPlatform}Persistence.v{ProductVersion}"
+----
+
+[start=4]
+. Create a UserControl resource collection in the page and define a PersistenceGroup.
+
++
+--
+** Add x:Key attribute with the name of the persistence group. The name uniquely identifies the group as a resource in the resource dictionary.
+** You can add as many groups as your application needs. The only requirement is that they should have unique x:Key attributes.
+** In this example you add only one persistence group to combine your control settings.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<UserControl.Resources>
+    <ig:PersistenceGroup x:Key="CPF_Group" />
+</UserControl.Resources>
+----
+
+[start=5]
+. Create a Grid container
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot">
+   <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+   </Grid.RowDefinitions>
+   <!--Add more elements -->
+----
+
+[start=6]
+. Add two TextBox controls in the page and use the PersistenceGroup attached property to specify that these controls belong to one persistence group defined as a static resource in the UserControl resource dictionary.
++
+*In XAML:*
++
+[source,xaml]
+----
+<StackPanel Grid.Row="0">
+    <TextBox x:Name="txtFirstName" ig:PersistenceManager.PersistenceGroup="{StaticResource CPF_Group}" />
+    <TextBox x:Name="txtLastName" ig:PersistenceManager.PersistenceGroup="{StaticResource CPF_Group}" />
+</StackPanel>
+----
+
+[start=7]
+. Add two buttons for save and load.
++
+*In XAML:*
++
+[source,xaml]
+----
+<StackPanel Orientation="Horizontal" Grid.Row="1">
+    <Button Content="Save" x:Name="BtnSave" Click="BtnSave_Click" Height="22" Width="100" />
+    <Button Content="Load" x:Name="BtnLoad" Click="BtnLoad_Click" Height="22" Width="100" />
+</StackPanel>
+----
+
+[start=8]
+. Add the following using/Import directives so that you don’t have to type out a member’s fully qualified name.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Persistence
+Imports System.IO
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Persistence;
+using System.IO;
+----
+
+[start=9]
+. Define several private members.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+' Name of the PersistenceGroup defined in the XAML UserControl Resources
+Private Const pGroup As String = "CPF_Group"
+Private memoryStream As New MemoryStream()
+
+' Creates PersistenceGroup object that will group controls' settings that will be saved and loaded at the same time
+Private persistenceGroup As New PersistenceGroup()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+// Name of the PersistenceGroup defined in the XAML UserControl Resources
+private const string pGroup = "CPF_Group";
+private MemoryStream memoryStream = new MemoryStream();
+
+// Creates PersistenceGroup object that will group controls' settings that will be saved and loaded at the same time
+private PersistenceGroup persistenceGroup = new PersistenceGroup();
+----
+
+[start=10]
+. Add the following in the constructor of the page after the InitializeComponent() method.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+' Gets already defined in XAML PersistenceGroup as a resource from ResourceDictionary
+persistenceGroup = TryCast(Me.Resources(pGroup), PersistenceGroup)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+// Gets already defined in XAML PersistenceGroup as a resource from ResourceDictionary
+persistenceGroup = this.Resources[pGroup] as PersistenceGroup;
+----
+
+[start=11]
+. Handle the buttons’ Click events to save and load the persistence group.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+    ' Saves PersistenceGroup in MemoryStream object
+    memoryStream = PersistenceManager.Save(persistenceGroup) 
+End Sub
+
+Private Sub BtnLoad_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+   memoryStream.Position = 0
+   ' Loads PersistenceGroup from MemoryStream object
+   PersistenceManager.Load(persistenceGroup, memoryStream) 
+End Subs
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void BtnSave_Click(object sender, RoutedEventArgs e)
+{
+   // Saves PersistenceGroup in MemoryStream object
+   memoryStream = PersistenceManager.Save(persistenceGroup);
+}
+
+private void BtnLoad_Click(object sender, RoutedEventArgs e)
+{
+   memoryStream.Position = 0;
+   // Loads PersistenceGroup from MemoryStream object
+   PersistenceManager.Load(persistenceGroup, memoryStream); 
+}
+----
+
+[start=12]
+. Save and run your application. On the screen you have two TextBox controls. Type some values, and save their configuration, then type some new values into them. Then click the Load button. The stored changes are restored.
+
+*Related Topics*
+
+link:persistence-persistence-settings.html[Persistence Settings]
+
+link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+link:persistence-using-typeconverte.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+
+link:persistence-handle-persistencesaved-and-persistenceloaded-events.html[Handle PersistenceSaved and PersistenceLoaded Events]
+
+link:persistence-handle-savepropertypersistence-and-loadpropertypersistence-events.html[Handle SavePropertyPersistence and LoadPropertyPersistence Events]

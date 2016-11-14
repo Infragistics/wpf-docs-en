@@ -1,0 +1,34 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-services-provided-by-the-xamdatapresenter",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Getting Started"],
+    "guid": "{70076446-8612-4820-AC51-BE9B8DE3279A}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3250181Z"
+}
+|metadata|
+////
+
+= Services Provided by the XamDataPresenter
+
+In order to allow for Custom Views, xamDataPresenter™ does the following:
+
+* Provides support for binding to a wide range of data sources.
+* Analyzes the structure of the data and generates a set of Field definitions for every discovered column in every discovered record with a unique structure.
+* Lazily creates a thin wrapper object (i.e., a DataRecord object) around each record in the underlying data source as those records are accessed by xamDataPresenter code, user code, or Custom View code. These wrappers are used to store state for each record (e.g., Visibility) and to store information to help optimize the storage of DataRecords.
+* Creates an optimized data structure for storing all DataRecords to support an efficient, unified scrolling capability across all records in all nesting (i.e., hierarchical) levels, regardless of data set size.
+* Identifies hierarchical data relationships in the underlying data source and maintains those relationships when storing and creating DataRecords in the optimized data structure.
+* Automatically generates UIElements™ that represent headers, records and cells based on information provided by the Custom View which specifies the basics of the UI supported by the View.
+* Provides a UI for Grouping (through the GroupByArea) and sorting (through clickable Labels, that is, column headers). Any grouping or sorting operation performed by the user through these UIs (or by the developer through code) is automatically reflected in the data records stored in the optimized data structure.
+* Provides an infrastructure for record and cell selection. By implementing the IViewPanel interface on your Custom View's Layout Panel, the selection infrastructure will be able to function properly without having to know the details of record positioning or layout in your Custom View.
+
+== Related Topics
+
+link:xamdatapresenter-how-to-create-a-basic-custom-view.html[How to Create a Basic Custom View]
+
+link:xamdatapresenter-creating-the-custom-view-class-and-layout-panel.html[Creating the Custom View Class and Layout Panel]
+
+link:xamdatapresenter-how-to-use-your-custom-view-with-xamdatapresenter.html[How to Use Your Custom View with xamDataPresenter]

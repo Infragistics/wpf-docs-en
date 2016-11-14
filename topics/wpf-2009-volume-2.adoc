@@ -1,0 +1,74 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-2009-volume-2",
+    "controlName": [],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{08947F2A-04DD-4987-9DCA-AEBBB1EB9D1D}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.6706873Z"
+}
+|metadata|
+////
+
+= 2009 Volume 2
+
+== Enhanced Grid View
+
+The enhanced grid view feature uses a single root-level panel instead of multiple nested panels to arrange all RecordPresenter objects. If you upgrade your application from a previous version of the {ProductName} product, this change will be applied automatically to the xamDataGrid™and xamDataPresenter™ controls in your application resulting in the following issues:
+
+* Any animations or triggers in the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordpresenter.html[RecordPresenter] object's template dealing with nested records will be ignored.
+* Nested records will not be surrounded by chrome.
+* Application logic that assumes a nested element structure may fail.
+* Bindings that assume a nested element structure may fail.
+* Logic that uses UIAutomation to access information may be impacted. The automation objects are still returned as a nested tree but the tree is not guaranteed to be identical to the tree returned when using nested elements.
+
+If the changes affect your application, you can work around the changes in two different ways. Either you can modify your application logic/bindings or you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.gridviewsettings.html[GridViewSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.gridviewsettings~usenestedpanels.html[UseNestedPanels] property to True. For more information on the enhanced grid view, read About Hierarchical Records and Performance.
+
+== FieldLayout Object's Key Property
+
+If you created a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] object without setting its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~key.html[Key] property, the DataPresenter controls automatically assign a default key to your field layout. The default key that the DataPresenter controls assign to the FieldLayout object has changed. This change will not affect your application if you already assigned keys to your FieldLayout objects in a previous version.
+
+The following table lists the changes based on the data source.
+
+[options="header", cols="a,a,a"]
+|====
+|Type of Data Source|Key Prior to 9.2|New Key
+
+|DataTable
+|DataTable instance
+|DataTable.TableName
+
+|ITypedList
+|ITypedList instance
+|ITypedList.GetListName()
+
+|XmlNode
+|XmlNode instance
+|XmlNode.Name
+
+|IEnumerable
+|CustomType
+|CustomType (Unchanged)
+
+|====
+
+If the changes affect your application, you can either set the FieldLayout object's Key property explicitly or modify your application logic to use the new keys.
+
+== GroupByArea Mode
+
+The DataPresenter controls have a new default group-by area (GroupByAreaMulti) that allows your end users to drag a field's headers directly from the record area to the group-by area and vice-versa. In addition, the new group-by area displays instances of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.labelpresenter.html[LabelPresenter] objects. Therefore, the LabelPresenter object's styling and functionality in the new group-by area will be consistent with the DataPresenter control's LabelPresenter objects. This change will affect your application in the following manner:
+
+* Any application logic or style that modifies the previous group-by area or group-by area field labels will be ignored.
+* The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~groupbyarea.html[GroupByArea] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~groupbyareafieldlabelstyle.html[GroupByAreaFieldLabelStyle] properties will be ignored unless the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~groupbyareamode.html[GroupByAreaMode] property is set to DefaultFieldLayoutOnly.
+* If a DataPresenter control's view does not display field headers (LabelPresenter objects), your end users will not be able to use the new group-by area. This will usually only be an issue with the xamDataCarousel™ control since it does not display field headers by default.
+* Any bindings inside a LabelPresenter object's style that assumes it is inside a RecordPresenter object or a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.headerlabelarea.html[HeaderLabelArea] object will fail.
+
+If the change affects your application, you can modify your application logic to use the DataPresenter control's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~groupbyareamulti.html[GroupByAreaMulti] property or you can revert to the previous group-by area by setting the DataPresenter control's GroupByAreaMode to DefaultFieldLayoutOnly. In addition, your styles should target the new link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyareamulti.html[GroupByAreaMulti] control and you can use the LabelPresenter object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.labelpresenter~isingroupbyarea.html[IsInGroupByArea] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.labelpresenter~isinfieldchooser.html[IsInFieldChooser] properties in triggers.
+
+.Note
+[NOTE]
+====
+If you are using xamDataCarousel or xamDataPresenter in carousel view, you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~labellocation.html[LabelLocation] to InCells so your end users can drag field headers to the new group-by area.
+====

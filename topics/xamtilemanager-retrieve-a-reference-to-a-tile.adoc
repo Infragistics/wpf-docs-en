@@ -1,0 +1,82 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-retrieve-a-reference-to-a-tile",
+    "controlName": ["xamTileManager"],
+    "tags": ["How Do I"],
+    "guid": "0aac3af8-0073-45c4-971d-b621267d3b34",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.6493786Z"
+}
+|metadata|
+////
+
+= Retrieve a Reference to a Tile
+
+You can add tiles to xamTileManager™ by adding link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile.html[XamTile] objects, UIElements and/or data items to its Items collection or by binding xamTileManager to data. Since the xamTileManager offers several different ways to create tiles, casting an item in the Items collection to an instance of a XamTile object may fail. Instead, you should use the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~tilefromitem.html[TileFromItem] method exposed by xamTileManager to retrieve a reference to a XamTile object based on an item in the Items collection or in your data source.
+
+The following example code demonstrates how you can retrieve a reference to a XamTile object.
+
+*In XAML:*
+
+----
+<ig:XamTileManager Name="xamTileManager1" HeaderPath="Tag">
+    <TextBlock Tag="Tile 1" Text="Content Area" />
+    <Button Tag="Tile 2" Content="Content Area" />
+    <ig:XamTile Header="Tile 3" Content="Content Area" />
+</ig:XamTileManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Layouts
+...
+Dim tile1 As XamTile = _
+    Me.xamTileManager1.TileFromItem(Me.xamTileManager1.Items(0))
+If tile1 IsNot Nothing Then
+    tile1.CloseAction = TileCloseAction.CollapseTile
+End If
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Layouts;
+...
+XamTile tile1 =
+    this.xamTileManager1.TileFromItem(this.xamTileManager1.Items[0]);
+if (tile1 != null)
+{
+    tile1.CloseAction = TileCloseAction.CollapseTile;
+}
+...
+----
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

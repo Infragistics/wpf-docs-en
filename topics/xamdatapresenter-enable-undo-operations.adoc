@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-enable-undo-operations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{CC2A87D1-D7E1-48AD-8DC1-AF86E82D43C7}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1859903Z"
+}
+|metadata|
+////
+
+= Enable Undo Operations
+
+You can enable undo/redo operations by setting a DataPresenter control's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~isundoenabled.html[IsUndoEnabled] property to True. This will allow your end users to undo or redo changes they perform through a DataPresenter control's user interface. The undo/redo functionality is not limited to editing or clipboard features; in fact, your end users can undo changes such as sorting, grouping, expanding, etc. For example, if your end users sort a field by clicking on a field header, they can undo it. However, if you sort a field using procedural code, your end users will not be able to undo it.
+
+Programmatic changes to a DataPresenter control's state may alter undo/redo operations. For example, assume your DataPresenter control contains two fields, FieldA and FieldB. Your end user sorts FieldA by clicking its header (without holding down the CTRL key) and then you programmatically sort FieldB. At this point, the DataPresenter control will contain two sorted fields. If your end user performs an undo operation, FieldA will be unsorted and FieldB will remain sorted. Subsequently, if your end user performs a redo operation, FieldA will be sorted, but FieldB will not be sorted. The reason this happens is that the redo operation repeats your end user's initial sort on FieldA. Since your end user did not press the CTRL key while sorting FieldA, the DataPresenter control only sorts by a single field which results in the removal of the existing sorted field.
+
+A DataPresenter control will clear its undo history if you change its data source, disable undo operations, or clear/load a layout. You can also clear a DataPresenter control's undo history by invoking its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~clearundohistory.html[ClearUndoHistory] method.
+
+The following example code demonstrates how to enable undo operations.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter 
+    Name="xamDataPresenter1" 
+    BindToSampleData="True" 
+    IsUndoEnabled="True">
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+...
+Me.xamDataPresenter1.IsUndoEnabled = True
+...
+----
+
+*In C#:*
+
+----
+...
+this.xamDataPresenter1.IsUndoEnabled = true;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-limit-the-undo-history.html[Limit the Undo History]
+
+link:xamdatapresenter-perform-an-undo-operation.html[Perform an Undo Operation]
+
+link:xamdatapresenter-about-restoring-deleted-records.html[About Restoring Deleted Records]

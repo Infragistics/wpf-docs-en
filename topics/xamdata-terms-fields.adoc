@@ -1,0 +1,45 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-fields",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Getting Started"],
+    "guid": "{EFFDE14E-FBE6-40DB-B530-FCE3D783967F}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5398611Z"
+}
+|metadata|
+////
+
+= Fields
+
+Fields are peers of your data's "attributes" in DataPresenterBase-derived controls, in the same way that link:xamdata-terms-records.html[Records] are peers of your data items.
+
+Your data's attributes will depend upon your data source's schema. You can use any enumerable collection of .NET objects as your data source. This gives you considerable latitude to choose your data from .NET business objects, ADO.NET DataTables, and XML nodes selected with an XPath expression. Consequently, your data's attributes can identify with the public properties of your .NET business object, the DataColumns of your DataTable, or the LocalName of your XML nodes.
+
+Fields describe general qualities about their piece of data in every record that include:
+
+* A locally-unique link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~name.html[Name] that distinguishes it from other Fields of the same record.
+* An underlying link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~datatype.html[DataType] that describes the .NET Type of data values the cells of its records contain.
+
+image::images/Terms_Fields_01.PNG[diagrams showing how data maps to fields]
+
+Following the data binding stage, the control discovers from your data source the attributes your data has, so that it can auto-generate Field objects from them. You can disable this behavior by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] property to False, which allows you to fully specify all Field objects yourself resulting in greater flexibility in their layout. You will find much more information on the layout of fields in the link:xamdata-terms-fields-field-layout.html[Field Layout] topic.
+
+image::images/Terms_Fields_02.PNG[diagram showing how fields are layed out]
+
+Fields can be used to specify more complex layouts than simple row- or column-based tables.
+
+* A link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~column.html[Column] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~row.html[Row] that determine its position in the Grid that lays out its link:xamdata-terms-fields-field-label.html[Field Label].
+* A link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~columnspan.html[ColumnSpan] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~rowspan.html[RowSpan] that determine the vertical and horizontal extent of the Field Label positioned in the grid.
+
+Fields can be hidden by setting their link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~visibility.html[Visibility] property to False. For example, if you had a Field that contained data intended for machine-use (for example, a GUID that acts as the primary key of your Record) rather than human-readability, then you might want to hide it from the view of your users.
+
+== Related Topics
+
+link:xamdata-terms-fields-field-label.html[Field Label]
+
+link:xamdata-terms-fields-field-layout.html[Field Layout]
+
+link:xamdata-terms-fields-field-settings.html[Field Settings]

@@ -1,0 +1,393 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-enabling-disabling-user-interactions",
+    "controlName": ["xamGantt"],
+    "tags": ["Data Presentation","Editing","Getting Started","How Do I"],
+    "guid": "d1735a2f-7cf1-4e7d-babc-30267993eb48",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.2561636Z"
+}
+|metadata|
+////
+
+= Enabling/Disabling User Interactions
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes the  _xamGantt™_   control’s configurable user interactions.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-xamgantt-user-interactions-in-the-chart-section.html[xamGantt User Interactions in the Chart Section]
+|This topic describes the available user interactions using the _xamGantt_ control’s grid section.
+
+| link:xamgantt-xamgantt-user-interactions-in-the-grid-section.html[xamGantt User Interactions in the Grid Section]
+|This topic describes the available user interactions using the _xamGantt_ control’s chart section.
+
+| link:xamgantt-adding-xamgantt-to-a-page.html[Adding xamGantt to a Page]
+|This topic describes how to add the _xamGantt_ control to a page.
+
+| link:xamgantt-binding-arbitrary-tasks-collection-listbackedproject.html[Binding to Arbitrary Tasks Collection Using ListBackedProject]
+|This topic describes how the _xamGantt_ control is bound to an arbitrary data collection via ListBackedProject.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334129492, User Interactions Configuration Summary >>
+
+** <<_Ref334103852,Enable/Disable User Interactions with Project>>
+** <<_Ref334111197,Enable/Disable User Interactions with Grid Columns>>
+** <<_Ref334113511,Enable/Disable User Interactions with Tasks>>
+** <<_Ref334115985,Enable/Disable User Interactions with Taskbars>>
+
+* <<codeexamples, Code Examples >>
+
+** <<_Ref334119962,Code Example: Disable Tasks Inserting and Deleting>>
+** <<_Ref334129552,Code Example: Disable Columns Moving and Resizing>>
+
+* <<_Ref334129640, Related Content >>
+
+** <<_Ref334129645,Topics>>
+** <<_Ref334129650,Samples>>
+
+[[_Ref334129492]]
+== User Interactions Configuration Summary
+
+=== User interactions configuration summary chart
+
+The following table lists the  _xamGantt_   control’s configurable user interactions. Additional details are available following the summary table.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspects|Details|Properties
+
+|<<_Ref334103852,Enable/Disable User Interactions with Project>>
+|All user interactions with the _xamGantt_ project (tasks editing and project editing) can be enabled/disabled.
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isreadonly.html[IsReadOnly] 
+
+|<<_Ref334111197,Enable/Disable User Interactions with Grid Columns>>
+|The user interactions with the _xamGantt_ grid columns (showing/hiding, moving and resizing) can be enabled/disabled.
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowhide.html[AllowHide] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowmove.html[AllowMove] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowresize.html[AllowResize] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowshow.html[AllowShow] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~isreadonly.html[IsReadOnly] 
+
+|<<_Ref334113511,Enable/Disable User Interactions with Tasks>>
+|The user interactions with the project tasks (inserting, deleting and indenting/outdenting) can be enabled/disabled.
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowchangeindentation.html[AllowChangeIndentation] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdelete.html[AllowDelete] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowinsert.html[AllowInsert] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskdependencylinetype.html[TaskDependencyLineType] 
+
+|<<_Ref334115985,Enable/Disable User Interactions with Taskbars>>
+|The user interactions with the taskbars (dragging and resizing) can be enabled/disabled.
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragdeadline.html[AllowDragDeadline] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragmilestone.html[AllowDragMilestone] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragpercentcomplete.html[AllowDragPercentComplete] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragsummary.html[AllowDragSummary] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragtask.html[AllowDragTask] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowresizesummary.html[AllowResizeSummary] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowresizetask.html[AllowResizeTask] 
+
+|====
+
+[[_Ref334103852]]
+== Enable/Disable User Interactions with Project
+
+[[_Ref334129716]]
+
+=== Overview
+
+By default, all user interactions with  _xamGantt_   project (for example, tasks inserting and deleting, and tasks fields editing) are enabled.
+
+User interactions with the project can be disabled in order to use the  _xamGantt_   control only for displaying the project plan in read-only mode.
+
+[[_Ref334129722]]
+
+=== Property settings
+
+The following table maps the user interaction configuration to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|Of type:
+
+|Enable/disable user interactions with project
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isreadonly.html[IsReadOnly]
+|`Bool`
+
+|====
+
+[[_Ref334111197]]
+== Enable/Disable User Interactions with Grid Columns
+
+[[_Ref334129740]]
+
+=== Overview
+
+By default, all user interactions with grid columns are enabled.
+
+The moving, resizing, showing, hiding and editing can be enabled or disabled either for a specific column or for all columns.
+
+[[_Ref334129746]]
+
+=== Property settings
+
+The following table maps the user interaction configuration to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|Of type:
+
+|Enable/disable columns hiding
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowhide.html[AllowHide]
+|`Nullable<bool>`
+
+|Enable/disable columns moving
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowmove.html[AllowMove]
+|`Nullable<bool>`
+
+|Enable/disable columns resizing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowresize.html[AllowResize]
+|`Nullable<bool>`
+
+|Enable/disable columns showing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~allowshow.html[AllowShow]
+|`Nullable<bool>`
+
+|Enable/disable columns editing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettingsbase~isreadonly.html[IsReadOnly]
+|`Nullable<bool>`
+
+|====
+
+[[_Ref334113511]]
+== Enable/Disable User Interactions with Tasks
+
+[[_Ref334129775]]
+
+=== Overview
+
+By default, all user interactions with project tasks are enabled.
+
+The tasks inserting, deleting, indenting and outdenting can be either enabled or disabled.
+
+[[_Ref334129783]]
+
+=== Property settings
+
+The following table maps the user interaction configuration to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|Of type:
+
+|Enable/disable tasks indenting/outdenting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowchangeindentation.html[AllowChangeIndentation]
+|`Nullable<bool>`
+
+|Enable/disable tasks deleting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdelete.html[AllowDelete]
+|`Nullable<bool>`
+
+|Enable/disable tasks inserting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowinsert.html[AllowInsert]
+|`Nullable<bool>`
+
+|Enable tasks linking
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskdependencylinetype.html[TaskDependencyLineType]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskdependencylinetype.html[ProjectTaskDependencyLineType] and set it to `Direct` or `Indirect`
+
+|Disable tasks linking
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskdependencylinetype.html[TaskDependencyLineType]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskdependencylinetype.html[ProjectTaskDependencyLineType] and set it to `None`
+
+|====
+
+[[_Ref334115985]]
+== Enable/Disable User Interactions with Taskbars
+
+[[_Ref334129796]]
+
+=== Overview
+
+By default, all user interactions with taskbars are enabled.
+
+The taskbars dragging and resizing can be enabled or disabled.
+
+=== Property settings
+
+The following table maps the user interaction configuration to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|Of type:
+
+|Enable/disable deadline indicator dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragdeadline.html[AllowDragDeadline]
+|`Nullable<bool>`
+
+|Enable/disable milestones dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragmilestone.html[AllowDragMilestone]
+|`Nullable<bool>`
+
+|Enable/disable progress bar dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragpercentcomplete.html[AllowDragPercentComplete]
+|`Nullable<bool>`
+
+|Enable/disable summaries dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragsummary.html[AllowDragSummary]
+|`Nullable< link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.allowdragsummarytask.html[AllowDragSummaryTask]>`
+
+|Enable/disable tasks dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowdragtask.html[AllowDragTask]
+|`Nullable<bool>`
+
+|Enable/disable summaries resizing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowresizesummary.html[AllowResizeSummary]
+|`Nullable< link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.allowdragsummarytask.html[AllowDragSummaryTask]>`
+
+|Enable/disable tasks resizing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings~allowresizetask.html[AllowResizeTask]
+|`Nullable<bool>`
+
+|====
+
+[[codeexamples]]
+
+== Code Examples
+
+=== Code examples summary
+
+The following table lists the code examples included in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|<<_Ref334119962,Code Example: Disable Tasks Inserting and Deleting>>
+|The code snippet demonstrates how tasks inserting and deleting are disabled.
+
+|<<_Ref334129552,Code Example: Disable Columns Moving and Resizing>>
+|The code snippet demonstrates how columns moving and resizing are disabled.
+
+|====
+
+[[_Ref334119879]]
+[[_Ref334119962]]
+[[_Ref334119552]]
+== Code Example: Disable Tasks Inserting and Deleting
+
+=== Description
+
+The code snippet demonstrates how to disable tasks inserting and deleting.
+
+The specified link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.tasksettings_members.html[TaskSettings] are applied to all tasks within the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedproject_members.html[ListBackedProject]. The link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttasksettings_members.html[ProjectTaskSettings] object represents the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask_members.html[ProjectTask] settings.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:ListBackedProject x:Name="dataProvider" 
+                      TaskItemsSource="{Binding Tasks}">
+    <ig:ListBackedProject.TaskSettings>
+        <ig:ProjectTaskSettings AllowDelete="
+                                AllowInsert="/>
+        </ig:ListBackedProject.TaskSettings>
+    <ig:ListBackedProject.TaskPropertyMappings>
+        <!-- Specify ProjectTaskPropertyMappings Here -->            
+    </ig:ListBackedProject.TaskPropertyMappings>       
+</ig:ListBackedProject>
+----
+
+[[_Ref334129552]]
+== Code Example: Disable Columns Moving and Resizing
+
+=== Description
+
+The code snippet demonstrates how to disable column moving and resizing.
+
+Applies the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsettings_members.html[ProjectColumnSettings] specified in the  _xamGantt_   link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~defaultcolumnsettings.html[DefaultColumnSettings] to all columns.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGantt x:Name="gantt" 
+             Project="{Binding ElementName=dataProvider}">
+    <ig:XamGantt.DefaultColumnSettings>
+        <!-- Disable moving and resizing for all columns -->
+        <ig:ProjectColumnSettings 
+            AllowMove="
+            AllowResize="/>                                    
+    </ig:XamGantt.DefaultColumnSettings>
+</ig:XamGantt>
+----
+
+[[_Ref334129640]]
+== Related Content
+
+[[_Ref334129645]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-configuring-xamgantt.html[Configuring xamGantt]
+|The topics in this group explain the main configurable aspects of the _xamGantt_ control.
+
+|====
+
+[[_Ref334129650]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/enable-disable-user-interactions[Enable/Disable User Interactions]"] pick:[wpf=" link:{SamplesURL}/gantt/enable-disable-user-interactions[Enable/Disable User Interactions]"] 
+|This sample demonstrates how user interactions such as dragging, resizing, deleting and inserting tasks can be disabled in the _xamGantt_ control.
+
+|====

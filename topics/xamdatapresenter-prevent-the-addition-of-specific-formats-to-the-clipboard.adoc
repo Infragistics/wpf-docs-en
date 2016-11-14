@@ -1,0 +1,65 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-prevent-the-addition-of-specific-formats-to-the-clipboard",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{565CB001-89ED-40AD-BB4A-63E9B69651E3}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2940119Z"
+}
+|metadata|
+////
+
+= Prevent the Addition of Specific Formats to the Clipboard
+
+When your end users perform a cut or copy operation, the DataPresenter controls add data to the clipboard in HTML, CSV (comma-separated value), and text formats. You can handle the DataPresenter controls' link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~clipboardcopying_ev.html[ClipboardCopying] or link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~clipboardpasting_ev.html[ClipboardPasting] events to modify the values before the cut/copy operations add data to the clipboard or before a paste operation pastes data into the DataPresenter controls, respectively. In addition, you can also handle the attached events exposed by the DataObject class in the .NET Framework to prevent the addition of specific formats to the clipboard or to add your own formats to the clipboard.
+
+The following example code demonstrates how to prevent the addition of HTML data to the clipboard.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" DataObject.SettingData="xamDataPresenter1_SettingData">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings AllowClipboardOperations="All" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+...
+'The SettingData event is raised once per format that is being added to the clipboard
+Private Sub xamDataPresenter1_SettingData(ByVal sender As Object, ByVal e As DataObjectSettingDataEventArgs) 
+    If e.Format = DataFormats.Html Then 
+        e.CancelCommand() 
+    End If 
+End Sub
+...
+----
+
+*In C#:*
+
+----
+...
+//The SettingData event is raised once per format that is being added to the clipboard
+private void xamDataPresenter1_SettingData(object sender, DataObjectSettingDataEventArgs e)
+{
+    if (e.Format == DataFormats.Html)
+        e.CancelCommand();
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-enable-clipboard-operations.html[Enable Clipboard Operations]
+
+link:xamdatapresenter-perform-clipboard-operations.html[Perform Clipboard Operations]
+
+link:xamdatapresenter-handle-clipboard-operation-errors.html[Handle Clipboard Operation Errors]
+
+link:xamdatapresenter-prevent-clipboard-operations-from-modifying-a-field.html[Prevent Clipboard Operations From Modifying a Field]

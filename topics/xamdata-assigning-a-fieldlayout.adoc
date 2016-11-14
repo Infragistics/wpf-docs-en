@@ -1,0 +1,82 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-assigning-a-fieldlayout",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Templating"],
+    "guid": "{ADECA58A-4B86-4F14-BFEB-C47E8BAD8FC8}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.4928517Z"
+}
+|metadata|
+////
+
+= Assigning a FieldLayout
+
+A FieldLayout defines the Fields (columns) contained in a particular DataRecord. When a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] is created, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayouts.html[FieldLayouts] collection is searched for an existing link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] whose link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fields.html[Fields] match the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~dataitem.html[DataItem]'s properties. If a FieldLayout is found, it is associated with the DataRecord; if it is not found, a new FieldLayout is created. When a new FieldLayout is created, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitializing_ev.html[FieldLayoutInitializing] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized] events are raised.
+
+If the new FieldLayout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~autogeneratefieldsresolved.html[AutoGenerateFieldsResolved] property returns True, the Fields collection is automatically populated with a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] for every public property on the data item.
+
+.Note
+[NOTE]
+====
+There are some data types where a single field named "Value" is generated instead. These include primitive types such as plus, string, decimal, DateTime, DayOfWeek, Color and any type derived from Visual or Animatable.
+====
+
+The auto-generation of Fields is done between the FieldLayoutInitializing and FieldLayoutInitialized events.
+
+.Note
+[NOTE]
+====
+Auto-generation of fields should not be confused with the "AutoArrange" feature which involves creating an arrangement (layout) for link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenters] within a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordpresenter.html[DataRecordPresenter]. The 'AutoArrange' feature is described below under the heading "Arranging cells within the record".
+====
+
+The automatic generation of Fields combined with the automatic generation and view-dependent arrangement of CellValuePresenters (described below), provides a great "no-touch" development solution for binding to complex data sources and displaying a robust UI for displaying/editing data, all with minimal developer effort.
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~assigningfieldlayouttoitem_ev.html[AssigningFieldLayoutToItem] event is then raised to allow a different FieldLayout to be assigned to the DataRecord. Then, finally, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event is raised.
+
+== Accessing Properties Specific to a Derived Record Type
+
+The InitializeRecord event is raised for DataRecords, link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecords] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.expandablefieldrecord.html[ExpandableFieldRecords] so the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs.html[InitializeRecordEventArgs] exposes a property that returns the base link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs~record.html[Record] class. Therefore, to access properties that are specific to one of the derived Record types, you need to cast to the appropriate type, as shown in the example code below.
+
+----
+private void OnInitializeRecord(object sender, InitializeRecordEventArgs e)
+{
+        DataRecord dr = e.Record as DataRecord;
+        if (dr != null)
+        {
+                Cell cell = dr.Cells["CustomerName"];
+        }
+}
+----
+
+== Manually Adding Fields
+
+The example XAML below shows how to manually add fields instead of using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] feature. It also shows how to add additional unbound fields:
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayoutSettings> 
+                <igDP:FieldLayoutSettings 
+                  AutoGenerateFields="False"/> 
+        </igDP:XamDataGrid.FieldLayoutSettings> 
+        <igDP:XamDataGrid.FieldLayouts> 
+                <igDP:FieldLayout> 
+                        <igDP:FieldLayout.Fields> 
+                                <igDP:Field Name="CustomerName" Label="Customer Name"/> 
+                                <igDP:Field Name="Address"/> 
+                                <igDP:Field Name="City"/> 
+                                <igDP:UnboundField Name="MyExtraDataColumn" 
+                                  DataType="{x:Type sys:Decimal}"/> 
+                        </igDP:FieldLayout.Fields> 
+                </igDP:FieldLayout> 
+        </igDP:XamDataGrid.FieldLayouts> 
+</igDP:XamDataGrid>
+----
+
+.Note
+[NOTE]
+====
+In the example XAML code above, if the AutoGenerateFields property was left to its default value of True, the xamDataPresenter™ will generate Fields for any additional public properties found on the DataRecord, and append them to the end of the collection. Note that since thefCustomerName field was manually defined as the first field, it will be considered the "Primary" field by default. The Primary field receives special handling when using the AutoArrange feature, as described in the link:xamdata-arranging-cells-within-the-record.html[Arranging Cells within the Record] topic.
+====

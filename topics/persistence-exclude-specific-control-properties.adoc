@@ -1,0 +1,89 @@
+﻿////
+
+|metadata|
+{
+    "name": "persistence-exclude-specific-control-properties",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["How Do I","Persistence"],
+    "guid": "{293E5970-0BDB-4391-A666-4F2BCA14589D}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5690342Z"
+}
+|metadata|
+////
+
+= Exclude Specific Control Properties
+
+You can exclude control properties from getting persisted in the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence_namespace.html[Infragistics Persistence Framework]™. This example shows you how to exclude the CheckBox control's Content property from being persisted.
+
+*In XAML:*
+
+----
+<CheckBox x:Name="chkOption" Content="Email Receipt">
+<ig:PersistenceManager.Settings>
+    <ig:PersistenceSettings x:Name="settings" SavePersistenceOptions="AllButIgnored" >
+        <ig:PersistenceSettings.IgnorePropertySettings>
+            <ig:PropertyNamePersistenceInfo PropertyName="Content" />
+        </ig:PersistenceSettings.IgnorePropertySettings>
+    </ig:PersistenceSettings>
+</ig:PersistenceManager.Settings>
+</CheckBox>
+----
+
+Set the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings~savepersistenceoptions.html[SavePersistenceOptions] property to link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.persistenceoption.html[AllButIgnored].
+
+Use the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertynamepersistenceinfo.html[PropertyNamePersistenceInfo] object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertynamepersistenceinfo~propertyname.html[PropertyName] property to specify the CheckBox control’s Content property that will be ignored for persistence.
+
+*In Visual Basic:*
+
+----
+' create a new PersistenceSettings object
+Dim settings As New PersistenceSettings()
+' set save persistence option - AllButIgnored
+settings.SavePersistenceOptions = Persistence.Primitives.PersistenceOption.AllButIgnored
+' we will identify the specific property by its name
+Dim pnpi As New PropertyNamePersistenceInfo()
+pnpi.PropertyName = "Content"
+' add the property in the IgnorePropertySettings collection
+settings.IgnorePropertySettings.Add(pnpi)
+Dim memoryStream As MemoryStream = PersistenceManager.Save(chkOption, settings)
+----
+
+*In C#:*
+
+----
+// create a new PersistenceSettings object
+PersistenceSettings settings = new PersistenceSettings();
+// set save persistence option - AllButIgnored
+settings.SavePersistenceOptions = Persistence.Primitives.PersistenceOption.AllButIgnored;
+// we will identify the specific property by its name
+PropertyNamePersistenceInfo pnpi = new PropertyNamePersistenceInfo();
+pnpi.PropertyName = "Content";
+// add the property in the IgnorePropertySettings collection
+settings.IgnorePropertySettings.Add(pnpi);
+MemoryStream memoryStream = PersistenceManager.Save(chkOption, settings);
+----
+
+*Related Topics*
+
+link:persistence-persistence-settings.html[Persistence Settings]
+
+ifdef::sl,win-rt,win-phone[]
+link:3ff664bc-2a4b-459d-8184-4ddca70ed809[Identifier]
+endif::sl,win-rt,win-phone[]
+
+link:persistence-persistence-groups.html[Persistence Groups]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+ifdef::win-phone[]
+link:persistence-using-propertynamepersistenceinfo-typeconverter-property.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::win-phone[]
+
+ifdef::sl,wpf,win-rt[]
+link:persistence-using-typeconverte.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::sl,wpf,win-rt[]
+
+link:persistence-handle-persistencesaved-and-persistenceloaded-events.html[Handle PersistenceSaved and PersistenceLoaded Events]
+
+link:persistence-handle-savepropertypersistence-and-loadpropertypersistence-events.html[Handle SavePropertyPersistence and LoadPropertyPersistence Events]

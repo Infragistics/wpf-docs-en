@@ -1,0 +1,332 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampivotgrid-printing",
+    "tags": ["API","Exporting","Getting Started","Grids","Printing"],
+    "controlName": ["xamPivotGrid"],
+    "guid": "ad0953fd-b0f6-4111-8de0-a66eb8ecc83b",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.3123324Z"
+}
+|metadata|
+////
+
+= Printing xamPivotGrid
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to print the  _xamPivotGrid™_  .
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampivotgrid-getting-started-with-xampivotgrid.html[Getting Started with xamPivotGrid]
+|This topic demonstrates how to get started with the _xamPivotGrid_ control by providing step-by-step procedure for adding this control to a WPF application. Code examples include listings in XAML as well as procedural code.
+
+| link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+|This topic demonstrates how to generate and print a report.
+
+| link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+|This topic demonstrates how to use the _xamReportPreview_™ control to display a print preview of a report to your end users.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref391456325, Printing xamPivotGrid >>
+
+** <<_Ref391456328,Introduction>>
+** <<OLE_LINK41,Prerequisites>>
+** <<OLE_LINK63,Overview>>
+** <<_Ref391456331,Steps>>
+** <<_Ref382317785,Full code>>
+
+* <<_Ref391456333, Related Content >>
+
+** <<_Ref391456334,Topics>>
+** <<_Ref391456337,Samples>>
+
+[[_Ref391456325]]
+== Printing xamPivotGrid
+
+[[_Ref391456328]]
+
+=== Introduction
+
+Using the WPF Reporting framework, the  _xamPivotGrid_   can be printed or exported to an XPS document. The following procedure explains how to export to an XPS file or print a pivot grid.
+
+=== Prerequisites
+
+To complete the procedure, you need the following:
+
+* The  _xamPivotGrid_   control added to your page (as described in the
+
+link:xampivotgrid-getting-started-with-xampivotgrid.html[Getting Started with xamPivotGrid]
+
+* Reference to the  _{ApiPlatform}Reporting.v{ProductVersion}.dll_   assembly added to the project
+
+=== Overview
+
+Following is a conceptual overview of the process:
+
+*1. Add the report preview control.*
+
+*2.*   *Create a new report.*
+
+*3. Add a section for the xamPivotGrid.*
+
+*4. Apply a theme to the pivot grid report (optional).*
+
+*5.*   *Configure the report settings (optional).*
+
+*6. Generate the preview.*
+
+*7. Print/Export the report.*
+
+[[_Ref391456331]]
+
+=== Steps
+
+The following steps demonstrate how to generate a print preview and how to print the xamPivotGrid.
+
+=== 1. Add the report preview control
+
+Add the  _xamReportPreview_   control to your page. Set its `x:Name` property to make it accessible from code-behind.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igRep:XamReportPreview xmlns:igRep="http://infragistics.com/Reporting" x:Name="xamReportPreview" />
+----
+
+=== 2. Create a new report.
+
+In code-behind, create a new link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report_members.html[Report] instance.
+
+*In C#:*
+
+[source,csharp]
+----
+var report = new Report();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim report = New Report()
+----
+
+=== 3. Add a section for the xamPivotGrid.
+
+A report can have multiple link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~sections.html[Sections]. Create a new link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection_members.html[EmbeddedVisualReportSection], supplying the  _xamPivotGrid_   instance as the argument of the constructor. Add the section to the report.
+
+*In C#:*
+
+[source,csharp]
+----
+var section = new EmbeddedVisualReportSection(this.xamPivotGrid);
+report.Sections.Add(section);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim section = New EmbeddedVisualReportSection(Me.xamPivotGrid)
+report.Sections.Add(section)
+----
+
+=== 4. Apply a theme to the pivot grid report (optional).
+
+Any  _xamPivotGrid_   theme added to the application’s resources, is automatically applied to the printed pivot grid. If no theme is added to the application’s resources, or it is added to another `ResourceDictionary` in one of the application’s visual elements, then the theme must be explicitly added to the resources of the pivot grid report section.
+
+A simplified print-friendly theme is available for the  _xamPivotGrid_   report. It can be found in the  _Themes_   folder under the product installation path.
+
+To load the printing theme, create a new `ResourceDictionary` and add it to the section’s `Resources`. This example assumes that the  _XamPivotGrid.Printing.xaml_   file is included in your project in a folder named  _Themes_   and its build action is set to  _Page_  .
+
+*In C#:*
+
+[source,csharp]
+----
+var printingTheme = new ResourceDictionary() { 
+    Source = new Uri("/AssemblyName;component/Themes/XamPivotGrid.Printing.xaml", UriKind.RelativeOrAbsolute) };
+section.Resources.MergedDictionaries.Add(printingTheme);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim printingTheme = New ResourceDictionary() With { _
+      .Source = New Uri("/AssemblyName;component/Folder/XamPivotGrid.Printing.xaml", UriKind.RelativeOrAbsolute) _
+}
+section.Resources.MergedDictionaries.Add(printingTheme)
+----
+
+=== 5. Configure the report settings (optional).
+
+Report settings can be configured at two levels – through the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~reportsettings.html[ReportSettings] property of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report_members.html[Report] and through the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid~reportsettings.html[ReportSettings] property of the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid_members.html[XamPivotGrid].
+
+The report-level settings provide general options such as page size, page orientation, page print order, etc.
+
+The link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.pivotreportsettings_members.html[PivotReportSettings] allow multiple configurations specific to the printed pivot grid. These include but are not limited to settings for controlling whether custom templates are printed, should the column headers be repeated on every page, etc.
+
+The following example demonstrates how to configure some of the aforementioned settings.
+
+*In C#:*
+
+[source,csharp]
+----
+report.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Mosaic;
+this.xamPivotGrid.ReportSettings.ColumnHeaderCellSettings.RepeatHeaders = true;
+this.xamPivotGrid.ReportSettings.RowHeaderCellSettings.RepeatHeaders = false;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+report.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Mosaic
+Me.pivotGrid.ReportSettings.ColumnHeaderCellSettings.RepeatHeaders = True
+Me.pivotGrid.ReportSettings.RowHeaderCellSettings.RepeatHeaders = False
+----
+
+=== 6. Generate the preview.
+
+To generate a preview of the report, call the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.xamreportpreview~generatepreview.html[GeneratePreview] method of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.xamreportpreview_members.html[XamReportPreview].
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamReportPreview.GeneratePreview(report, false, false);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamReportPreview.GeneratePreview(report, False, False)
+----
+
+=== 7. Print/Export the report.
+
+In order to export the report to an XPS document, call the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~export.html[Export] method. Alternatively call the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~print.html[Print] method to print the report.
+
+*In C#:*
+
+[source,csharp]
+----
+report.Export(OutputFormat.XPS, "PivotReport", true);
+// or
+report.Print(true, false);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+report.Export(OutputFormat.XPS, "PivotReport", True)
+'or
+report.Print(True, False)
+----
+
+[[_Ref382317785]]
+
+=== Full code
+
+Following is the full code for this procedure.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igRep:XamReportPreview xmlns:igRep="http://infragistics.com/Reporting" x:Name="xamReportPreview" />
+----
+
+*In C#:*
+
+[source,csharp]
+----
+var report = new Report();
+var section = new EmbeddedVisualReportSection(this.xamPivotGrid);
+report.Sections.Add(section);
+var printingTheme = new ResourceDictionary()
+{
+    Source = new Uri("/AssemblyName;component/Folder/XamPivotGrid.Printing.xaml", UriKind.RelativeOrAbsolute)
+};
+section.Resources.MergedDictionaries.Add(printingTheme);
+report.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Mosaic;
+this.pivotGrid.ReportSettings.ColumnHeaderCellSettings.RepeatHeaders = true;
+this.pivotGrid.ReportSettings.RowHeaderCellSettings.RepeatHeaders = false;
+this.xamReportPreview.GeneratePreview(report, false, false);
+report.Export(OutputFormat.XPS, "PivotReport", true);
+report.Print(true, false);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim report = New Report()
+Dim section = New EmbeddedVisualReportSection(Me.xamPivotGrid)
+report.Sections.Add(section)
+Dim printingTheme = New ResourceDictionary() With { _
+       .Source = New Uri("/AssemblyName;component/Folder/XamPivotGrid.Printing.xaml", UriKind.RelativeOrAbsolute) _
+}
+section.Resources.MergedDictionaries.Add(printingTheme)
+report.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Mosaic
+Me.pivotGrid.ReportSettings.ColumnHeaderCellSettings.RepeatHeaders = True
+Me.pivotGrid.ReportSettings.RowHeaderCellSettings.RepeatHeaders = False
+Me.xamReportPreview.GeneratePreview(report, False, False)
+report.Export(OutputFormat.XPS, "PivotReport", True)
+report.Print(True, False)
+----
+
+[[_Ref391456333]]
+== Related Content
+
+[[_Ref391456334]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampivotgrid-features.html[xamPivotGrid Features]
+|The topics in this group explain how to configure and use the individual features of _xamPivotGrid_ .
+
+|====
+
+[[_Ref391456337]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/pivot-grid/basic-printing[Basic Printing]
+|This sample demonstrates how to create a basic xamPivotGrid report with its own simplified printing theme.
+
+| link:{SamplesURL}/pivot-grid/customizing-report-settings[Customizing Report Settings]
+|This sample demonstrates the number of _xamPivotGrid_ -specific printing settings available for designing the pivot data report. It also shows how to control the level of styling transferred from the _xamPivotGrid_ control to the printing page, including the _xamPivotGrid_ IGTheme.
+
+|====

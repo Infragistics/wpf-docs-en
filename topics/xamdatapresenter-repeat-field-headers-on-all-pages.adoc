@@ -1,0 +1,91 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-repeat-field-headers-on-all-pages",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Layouts","Tips and Tricks"],
+    "guid": "{342900FF-D55C-495E-83E1-F049BFE2BC98}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3080147Z"
+}
+|metadata|
+////
+
+= Repeat Field Headers on All Pages
+
+The WPF Reporting engine automatically prints the first occurrence of the field headers. If you bind a DataPresenter control to a flat data source that has many records, the WPF Reporting engine will only print the field headers at the top of the first page. However, you can modify this behavior by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsettings.html[ReportSettings] object's RepeatType property.
+
+.Note
+[NOTE]
+====
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~labellocation.html[LabelLocation] property of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object overrides the RepeatType property of the ReportSettings object. If you set the LabelLocation property to InCells or Hidden, the RepeatType property will not affect the printout.
+====
+
+== Settings
+
+You can set the RepeatType property to the following link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.repeattype.html[RepeatType enumeration] values:
+
+* *FirstOccurrence* - The default setting that prints the first occurrence of field headers.
+* *PageBreak* - The WPF Reporting engine prints the field headers at the top of the page for the first record in that particular page. If you have hierarchical data, it also prints the first occurrence of field headers for the child records in that page.
+* *LevelBreak* - This setting prints field headers for all sets of child records that are expanded as well as the next parent-level record. For example, if you expand the second record before printing, field headers will be printed for the first root-level record, the second record's child records, and the third root-level record that follows the expanded child records. If you do not have hierarchical data, this setting is the same as PageBreak.
+
+[options="header", cols="a,a"]
+|====
+|Flat Data|Hierarchical Data
+
+2+|*FirstOccurrence*
+
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_01.png[]
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_02.png[]
+
+2+|*PageBreak*
+
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_03.png[]
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_04.png[]
+
+2+|*LevelBreak*
+
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_05.png[]
+|image::images/xamData_Repeat_Field_Headers_on_All_Pages_06.png[]
+
+|====
+
+The example code demonstrates how to repeat field headers on all pages. The example code assumes you already have a link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object named report1.
+
+*In Visual Basic:*
+[source,vb]
+----
+Imports Infragistics.Windows.Reporting
+...
+report1.ReportSettings.RepeatType = RepeatType.PageBreak
+...
+----
+
+*In C#:*
+[source,csharp]
+----
+using Infragistics.Windows.Reporting;
+...
+report1.ReportSettings.RepeatType = RepeatType.PageBreak;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-printing.html[Exclude DataPresenter Settings When Printing]
+
+link:xamdatapresenter-fit-all-fields-on-a-single-page.html[Fit All Fields on a Single Page]
+
+link:xamdatapresenter-handling-events-to-customize-print-operations.html[Handling Events to Customize Print Operations]
+
+link:xamdatapresenter-print-all-records-in-a-hierarchy.html[Print All Records in a Hierarchy]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]

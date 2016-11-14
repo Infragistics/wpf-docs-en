@@ -1,0 +1,33 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-fields-field-label",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","Data Presentation","Getting Started"],
+    "guid": "{9B046F38-999A-461B-BBAC-0622301693ED}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5428617Z"
+}
+|metadata|
+////
+
+= Field Label
+
+The headings that appear on link:xamdata-terms-fields.html[Fields] are called labels. Field labels should briefly explain the meaning of any values displayed in the cells affiliated with this Field. There will be one cell for each link:xamdata-terms-records-data-record.html[Data Record] in your table. By default, every Field is automatically labeled with the name of your data's "attribute" (recall that this may be a public property name, the local name of an XML node, or a data column name, depending on what link:xamdata-terms-data-sources.html[Data Source] you have used). If these are not meant for your end users to see, you should set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~label.html[Label] property on your Field objects to a presentable name for human consumption.
+
+image::images/Terms_Fields_Field_Labels_01.PNG[Comparison of LabelLocation Settings]
+
+You can identify whether or not labels are shown, where they appear, and how frequently they are repeated. You would simply make some assignments to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~labellocation.html[LabelLocation] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] on your link:xamdata-terms-fields-field-layout.html[Field Layout].
+
+.Note
+[NOTE]
+====
+There will be one Field Layout object for each Type of Data Record in your table. Consequently, your settings for the position and recurrence of the Field labels must be the same for all Data Records that have a particular Type.
+====
+
+image::images/Terms_Fields_Field_Labels_02.PNG[Specifying a ControlTemplate for your Field Label]
+
+Field labels are not limited to simple text. Like many areas of the {ProductName} controls, the use of Microsoft® Windows® Presentation Foundation control templates is fully supported by Field labels. Therefore, you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~labelpresenterstyle.html[LabelPresenterStyle] property to your own style resource that you have designed to control the styling and structure of content for display in a Field label. The scope resolution for link:xamdata-terms-fields-field-settings.html[Field Settings] permits you to define the Label Presenter at the individual field, at the field layout (all Fields for the given Data Record Type), and all fields in the control level. For more information about using custom control templates, see link:xamdata-terms-presenters.html[Presenters].
+
+Other properties available on the Field Settings allow you to customize the dimensions (height and width) of your Field labels. You can also set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~labelclickaction.html[LabelClickAction] property to specify the behavior that will occur when your user clicks on a Field label. For example, you can declaratively set the LabelClickAction property to start sorting on its Field, without having to write a mouse-click event handler.

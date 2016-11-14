@@ -1,0 +1,293 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatetimeinput-using",
+    "controlName": ["xamInputs"],
+    "tags": ["Editing"],
+    "guid": "d7c5196a-07ed-428d-8b93-12f34429a16b",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.0072305Z"
+}
+|metadata|
+////
+
+= Using xamDateTimeInput
+
+== Purpose
+
+This topic demonstrates how to add a xamDateTimeInput™ control to your application and use some of its more notable properties.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:xamdatetimeinput-about.html[About xamDateTimeInput]
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+
+== xamDateTimeInput Configuration Overview
+
+== Control configuration chart
+
+The table below lists some of the configurable behaviors of the xamDateTimeInput control.
+
+[cols="a,a,a"]
+|====
+|*Configurable behavior*
+|*Configuration details*
+|*Configuration properties*
+
+|<<adding,Adding xamDateTimeInput to an application>>
+|Steps needed to add a xamDateTimeInput control to an application.
+|none
+
+|<<modifying,Modifying the xamDateTimeInput>>
+|Configure some of the main properties of the control.
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~autofilldate.html[AutoFillDate] 
+
+link:{ApiPlatform}controls.editors.xamdatetimeinput.v{ProductVersion}~infragistics.controls.editors.xamdatetimeinput~dropdownbuttondisplaymode.html[DropDownButtonDisplayMode] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+
+|====
+
+[[adding]]
+== Adding xamDateTimeInput to an application
+
+[start=1]
+. *Add the Infragistics namespace.*
+.. *Add required references*
++
+In order to add a xamDateTimeInput control to your application you must add the following assemblies to your project:
+
+*** {ApiPlatform}v{ProductVersion}.dll
+*** {ApiPlatform}Controls.Editors.XamCalendar.v{ProductVersion}.dll
+*** {ApiPlatform}Controls.Editors.XamDateTimeInput.v{ProductVersion}.dll
+*** {ApiPlatform}Controls.Editors.XamMaskedInput.v{ProductVersion}.dll
+
+.. *Add the Infragistics namespace*
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Editors
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Editors;
+----
+
+[start=2]
+. *Add a xamDateTimeInput control.*
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamDateTimeInput/>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim input As XamDateTimeInput = New XamDateTimeInput()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamDateTimeInput DateTimeInput = new XamDateTimeInput();
+----
+
+[[modifying]]
+== Modifying the xamDateTimeInput
+
+The table below maps the desired configurations to property settings. The properties are directly accessed from the xamDateTimeInput control.
+
+[cols="a,a,a"]
+|====
+|In order to…
+|Use this property:
+|And set it to…
+
+|<<SetMask,Set a mask>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|A string of your choosing
+
+|<<InvalidValueBehavior,Display error message when invalid value is entered>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|DisplayErrorMessage
+
+|<<AutoFillDate,Make the xamDateTimeInput fill the month and year automatically>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~autofilldate.html[AutoFillDate]
+|MonthAndYear
+
+|<<DropDownButtonDisplayMode,Always display the calendar drop down button>>
+| link:{ApiPlatform}controls.editors.xamdatetimeinput.v{ProductVersion}~infragistics.controls.editors.xamdatetimeinput~dropdownbuttondisplaymode.html[DropDownButtonDisplayMode]
+|Always
+
+|<<SpinButtons,Display buttons for incrementing/decrementing the value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+|Always/Focused/MouseOver
+
+|<<SpinIncrement,Change the increment value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+|A string with one of the following patterns: #y #m #d #h, where ‘#’ is the number of years, months etc. by which the value will be incremented/decremented
+
+|<<IsUndoEnabled,Enable/disable undo/redo operations>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+|True/False
+
+|====
+
+== Modifying the xamDateTimeInput details
+
+[[SetMask]]
+[start=1]
+. *Set a Mask.*
++
+The most important part of setting up an input control is configuring the Mask property. Set a mask that suits your needs by:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamDateTimeInput Mask=”[Your Mask]”/>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+DateTimeInput.Mask = ”[Your Mask]”
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DateTimeInput.Mask = ”[Your Mask]”;
+----
++
+For more information on how to create a mask, please refer to the link:xaminputs-masks.html[Masks].
+
+[[InvalidValueBehavior]]
+[start=2]
+. *Display error message when invalid value is entered.*
++
+There are several options for how the xamDateTimeInput behaves when an invalid value is entered by the user. If you set the InvalidValueBehavior property to DisplayErrorMessage, every time the user enters an invalid value and tries to leave the input control, an error message containing error details is displayed.
+
+[[AutoFillDate]]
+[start=3]
+. *Make the xamDateTimeInput fill the month and year automatically.*
++
+If the AutoFillDate property is set to MonthAndYear, when the user enters a value in the day part of a date and then leaves the control, the month and year part are automatically filled with the current month and year. Analogically if the AutoFillDate is set to Year, when the day and month are filled and the user leaves the control, the year is automatically filled.
+
+[[DropDownButtonDisplayMode]]
+[start=4]
+. *Always display the calendar drop down button.*
++
+By default the calendar drop down button is displayed on mouse/pointer over. If you want it to always be visible, set the DropDownButtonDisplayMode to Always. A third option, Focused, is also available which displays the calendar drop down button only when the control has the input focus.
+
+[[SpinButtons]]
+[start=5]
+. *Display buttons for incrementing/decrementing the value.*
++
+If you want to display buttons for incrementing or decrementing the value of the xamDateTimeInput you need to set the SpinButtonDisplayMode to Always, Focused, or MouseOver.
+
+[[SpinIncrement]]
+[start=6]
+. *Change the increment value.*
++
+If you don’t specify the SpinIncrement property, the part of the date/time where the text cursor is, will increment/decrement by 1. For example if the text cursor is in the seconds part of a date time value and the user clicks the increment button, the value will be incremented by one second. However you are able to specify a specific value for the SpinIncrement, for example two days. You can achieve this by setting the SpinIncrement to “2d”. The other possible patterns are shown in the property settings table above. Also in code behind you can set the SpinIncrement property to a specific TimeSpan struct object.
+
+[[IsUndoEnabled]]
+[start=7]
+. *Enable/disable undo/redo operations.*
++
+By default, the xamInputs support undo/redo operations triggered by CTRL+Z and CTRL + Y keys combinations. If you want to disable this functionality, you can set the IsUndoEnabled property to False.
++
+.Note
+[NOTE]
+====
+Disabling the `IsUndoEnabled` property clears the undo/redo stack. If you disable undo/redo and then re-enable it, the commands won’t work because the undo/redo history is cleared.
+====
+
+== Modifying the xamDateTimeInput example
+
+The images below demonstrate a xamDateTimeInput control in edit and display mode as a result of the following settings:
+
+[cols="a,a"]
+|====
+|*Property*
+|*Setting*
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|mm/dd/yyyy hh:mm:ss
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|DisplayErrorMessage
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~autofilldate.html[AutoFillDate]
+|MonthAndYear
+
+| link:{ApiPlatform}controls.editors.xamdatetimeinput.v{ProductVersion}~infragistics.controls.editors.xamdatetimeinput~dropdownbuttondisplaymode.html[DropDownButtonDisplayMode]
+|Always
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+|Focused
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+|1m
+
+|====
+
+[cols="a,a"]
+|====
+|In edit mode:
+|In display mode:
+
+|image::images/xamInputs_xamDateTimeInput_Using_2.png[] 
+|image::images/xamInputs_xamDateTimeInput_Using_1.png[] 
+
+|====
+
+=== Modifying the xamDateTimeInput property reference
+
+For detailed information about these properties, refer to their listing in the property reference section:
+
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~autofilldate.html[AutoFillDate]
+* link:{ApiPlatform}controls.editors.xamdatetimeinput.v{ProductVersion}~infragistics.controls.editors.xamdatetimeinput~dropdownbuttondisplaymode.html[DropDownButtonDisplayMode]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+* link:xaminputs-using-xaminput-controls-in-xamgrid-cells-for-data-editing.html[Using xamInput Controls in xamGrid Cells for Data Editing]

@@ -1,0 +1,181 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgeographicmap-binding-geographic-data-models",
+    "controlName": ["xamGeographicMap"],
+    "tags": ["Application Scenarios","Data Binding","How Do I"],
+    "guid": "a6fbb597-7e96-4db9-93b5-e1fefd45236a",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.6722035Z"
+}
+|metadata|
+////
+
+= Binding Geographic Data Models
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to bind the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.xamgeographicmap_members.html[xamGeographicMap]™ control to models that contain geographic data.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgeographicmap-adding-xamgeographicmap-to-a-page.html[Adding xamGeographicMap to a Page]
+|This topic provides information on how to add the _xamGeographicMap_ control to an application page.
+
+| link:xamgeographicmap-visual-elements-of-xamgeographicmap.html[Visual Elements of xamGeographicMap]
+|This topic provides information about layout of map elements in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-using-geographic-series.html[Using Geographic Series]
+|This topic provides information about supported types of geographic series in the _xamGeographicMap_ control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections
+
+* <<_Ref320185118,Binding Geographic Data Models>>
+
+** <<_Ref320185129,Introduction>>
+** <<_Ref320186496,Preview>>
+** <<_Ref321311621,Example>>
+
+* <<_Ref320185294,Related Content>>
+
+[[_Ref320185118]]
+== Binding Geographic Data Models
+
+[[_Ref320185129]]
+
+=== Introduction
+
+The _xamGeographicMap_ control is designed to display geo-spatial data from shape files and/or geographic locations from data models on geographic imagery maps. The link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.series~itemssource.html[ItemsSource] property of geographic series is used for the purpose of binding to data models. This property can be bound to any object that that implements the link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable] interface (e.g. link:http://msdn.microsoft.com/en-us/library/6sh2ey19.aspx[List], link:http://msdn.microsoft.com/en-us/library/ms132397.aspx[Collection], link:http://msdn.microsoft.com/en-us/library/7977ey2c.aspx[Queue], link:http://msdn.microsoft.com/en-us/library/system.collections.stack.aspx[Stack]). However, some types of geographic series require that each data item must have properties with specific data structures.
+
+The following table summarized data structures required for each type of geographic series :
+
+[options="header", cols="a,a,a"]
+|====
+|Geographic Series|Data Mapping Properties|Description
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries_members.html[GeographicSymbolSeries]
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries~longitudememberpath.html[LongitudeMemberPath] link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries~latitudememberpath.html[LatitudeMemberPath]
+|Specify the names of data columns of link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.series~itemssource.html[ItemsSource] items that contain geographic longitude and latitude coordinates of symbols. These properties must be mapped to data columns of numeric type such as double, integer, or float, etc.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseries_members.html[GeographicShapeSeries]
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseriesbase~shapememberpath.html[ShapeMemberPath]
+|Specifies the name of data column of link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.series~itemssource.html[ItemsSource] items that contains the geographic points of shapes. This property must be mapped to a data column of link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.windows.point.aspx[Point]> or link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.windows.point.aspx[Point]>>
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicpolylineseries_members.html[GeographicPolylineSeries]
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseriesbase~shapememberpath.html[ShapeMemberPath]
+|Specifies the name of data column of link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.series~itemssource.html[ItemsSource] items that contains the geographic coordinates of lines. This property must be mapped to a data column of link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.windows.point.aspx[Point]> or link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable]< link:http://msdn.microsoft.com/en-us/library/system.windows.point.aspx[Point]>>
+
+|====
+
+[[_Ref320186496]]
+
+=== Preview
+
+The following is a preview of the _xamGeographicMap_ control with link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries_members.html[GeographicSymbolSeries] bound to a data model that contains locations of some cities of the world.
+
+image::images/xamGeographicMap_Binding_Geographic_Data__Models_1.png[]
+
+[[_Ref321311621]]
+
+=== Example
+
+The following code shows how to bind the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries_members.html[GeographicSymbolSeries] to a data model that contains geographic locations of some cities of the world stored using the link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.pointlist_members.html[PointList] class.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGeographicMap.Series>
+    <ig:GeographicSymbolSeries LongitudeMemberPath="X"
+                               LatitudeMemberPath="Y">
+        <ig:GeographicSymbolSeries.ItemsSource>
+            <ig:PointList>
+                <Point X="0.12" Y="51.50" x:Uid="London"/>
+                <Point X="37.51" Y="55.75" x:Uid="Moscow"/>
+                <Point X="151.2" Y="-33.83" x:Uid="Sedney"/>
+                <Point X="139.6917" Y="35.6895" x:Uid="Tokyo"/>
+                <Point X="77.2250" Y="28.6353" x:Uid="Delhi"/>
+                <Point X="-99.1276" Y="19.4270" x:Uid="MexicoCity"/>
+                <Point X="-73.9870" Y="40.7561" x:Uid="NewYork"/>
+                <Point X="-118.2434" Y="34.0522" x:Uid="LosAngeles"/>
+                <Point X="-46.6388" Y="-23.5489" x:Uid="SaoPaulo"/>
+            </ig:PointList>
+        </ig:GeographicSymbolSeries.ItemsSource>
+    </ig:GeographicSymbolSeries>
+</ig:XamGeographicMap.Series>
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim geoLocations = New Infragistics.Controls.Charts.PointList()
+geoLocations.Add(New Point() With { .X = 0.12, .Y = 51.5 })
+geoLocations.Add(New Point() With { .X = 37.51, .Y = 55.75 })
+geoLocations.Add(New Point() With { .X = 151.2, .Y = -33.83 })
+geoLocations.Add(New Point() With { .X = 139.6917, .Y = 35.6895 })
+geoLocations.Add(New Point() With { .X = 77.225, .Y = 28.6353 })
+geoLocations.Add(New Point() With { .X = -99.1276, .Y = 19.427 })
+geoLocations.Add(New Point() With { .X = -73.987, .Y = 40.7561 })
+geoLocations.Add(New Point() With { .X = -118.2434, .Y = 34.0522 })
+geoLocations.Add(New Point() With { .X = -46.6388, .Y = -23.5489 })
+Me.GeoMap.Series(0).ItemsSource = geoLocations
+----
+
+*In C#:*
+
+[source,csharp]
+----
+var geoLocations = new Infragistics.Controls.Charts.PointList();
+geoLocations.Add(new Point() { X = 0.12, Y = 51.50 });
+geoLocations.Add(new Point() { X = 37.51, Y = 55.75 });
+geoLocations.Add(new Point() { X = 151.2, Y = -33.83 });
+geoLocations.Add(new Point() { X = 139.6917, Y = 35.6895 });
+geoLocations.Add(new Point() { X = 77.2250, Y = 28.6353 });
+geoLocations.Add(new Point() { X = -99.1276, Y = 19.4270 });
+geoLocations.Add(new Point() { X = -73.9870, Y = 40.7561 });
+geoLocations.Add(new Point() { X = -118.2434, Y = 34.0522 });
+geoLocations.Add(new Point() { X = -46.6388, Y = -23.5489 });
+this.GeoMap.Series[0].ItemsSource = geoLocations;
+----
+
+[[_Ref320185294]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+| *Topic* | *Purpose* 
+
+| link:xamgeographicmap-adding-xamgeographicmap-to-a-page.html[Adding xamGeographicMap to a Page]
+|This topic provides information on how to add the _xamGeographicMap_ control to an application page.
+
+| link:xamgeographicmap-visual-elements-of-xamgeographicmap.html[Visual Elements of xamGeographicMap]
+|This topic provides information about layout of map elements in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-using-geographic-series.html[Using Geographic Series]
+|This topic provides information about supported types of geographic series in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-shape-files-reference.html[Shape Files Reference]
+|This topic provides resources with information about maps, shape files, and geo-spatial related material. Use these resources to learn about and obtain geo-spatial shape files as well as tools for their editing.
+
+| link:xamgeographicmap-binding-shape-files-with-geospatial-data.html[Binding Shape Files with Geo-spatial Data]
+|This topic provides information on how to bind shape files with geo-spatial data to the _xamGeographicMap_ control.
+
+|====

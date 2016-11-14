@@ -1,0 +1,66 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-the-axis-label",
+    "controlName": ["xamTimeline"],
+    "tags": ["Events","How Do I","Styling"],
+    "guid": "{066ADB75-7071-4395-9B44-1C37F717661D}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1053941Z"
+}
+|metadata|
+////
+
+= Styling Axis Label
+
+The link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.axislabel.html[AxisLabel] object displays the time of each event in a time series. You can use styles to change the appearance or format of the value displayed in the Axis Label. For more information on formatting the Axis Label, see link:xamtimeline-about-formatting-xamwebtimeline.html[About Formatting xamTimeline].
+
+The following xaml code shows how to style the Axis Label to change the color and font size of the text.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Styles for Axis -->
+        <Style x:Key="rscAxisLabelStyle" TargetType="ig:AxisLabel">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:AxisLabel">
+                        <TextBlock x:Name="TextBlockElement" Foreground="Red" 
+                                   FontWeight="Bold" FontSize="15" 
+                                   Text="{TemplateBinding FormattedText}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="480" Margin="25">
+           <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3200" Maximum="2600" 
+                                      AutoRange=" Unit="400" 
+                                      ShowLabels="True" ShowThumb="True" 
+                                      LabelStyle="{StaticResource rscAxisLabelStyle}"
+                                      ShowLabelsInPreview="True"/>
+            </ig:XamTimeline.Axis>
+            <!-- TODO: Add Numeric/Date Series ... -->
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Style_Axis_Label_01.png[]
+
+== Related Topics
+
+link:xamtimeline-style-the-axis.html[Styling Axis]
+
+link:xamtimeline-style-the-axis-pane.html[Styling Axis Pane]
+
+link:xamtimeline-style-axis-thumb.html[Styling Axis Thumb]
+
+link:xamtimeline-style-major-and-minor-grid-lines.html[Styling Major and Minor Grid Lines]
+
+link:xamtimeline-style-major-and-minor-tick-marks.html[Styling Major and Minor Tick Marks]

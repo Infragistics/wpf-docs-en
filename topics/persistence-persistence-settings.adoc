@@ -1,0 +1,61 @@
+﻿////
+
+|metadata|
+{
+    "name": "persistence-persistence-settings",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["How Do I"],
+    "guid": "{2F252AF5-FC64-4C6E-9CB1-908571A9F5B4}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.6090314Z"
+}
+|metadata|
+////
+
+= Persistence Settings
+
+You can configure which of your control’s properties are persisted through the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence_namespace.html[Infragistics Persistence Framework]™ by saving all properties or specific properties or ignoring some of them. To enable such configurations, you will use the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] object.
+
+The PersistenceSettings object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings~savepersistenceoptions.html[SavePersistenceOptions] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings~loadpersistenceoptions.html[LoadPersistenceOptions] properties allow you to specify which of the control’s settings are saved and loaded.
+
+The two persistence options are link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.persistenceoption.html[AllButIgnored] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.persistenceoption.html[OnlySpecified].
+
+* When the option AllButIgnored is set, all control’s properties are saved or loaded except the properties marked to be ignored.
+
+* When the option OnlySpecified is set, only the specified properties are saved or loaded.
+
+You can identify a property by its name and create a PropertyNamePersistenceInfo object.
+
+The link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertynamepersistenceinfo.html[PropertyNamePersistenceInfo] object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertynamepersistenceinfo~options.html[Options] property defines how the property name is searched.
+
+Options are:
+
+* link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.propertynamepersistenceoptions.html[PropertyName] - looks for the specified name
+* link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.propertynamepersistenceoptions.html[PropertyPath] - looks for the specific name in the property path
+* link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.primitives.propertynamepersistenceoptions.html[Contains] – looks in the property path and check if the name is in there
+
+A property or a list of properties can be distinguished by type also. In this case you will use the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.propertytypepersistenceinfo.html[PropertyTypePersistenceInfo] object.
+
+*Related Topics*
+
+link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties]
+
+ifdef::sl,win-rt,win-phone[]
+link:3ff664bc-2a4b-459d-8184-4ddca70ed809[Identifier]
+endif::sl,win-rt,win-phone[]
+
+link:persistence-persistence-groups.html[Persistence Groups]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+ifdef::win-phone[]
+link:persistence-using-propertynamepersistenceinfo-typeconverter-property.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::win-phone[]
+
+ifdef::sl,wpf,win-rt[]
+link:persistence-using-typeconverte.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::sl,wpf,win-rt[]
+
+link:persistence-handle-persistencesaved-and-persistenceloaded-events.html[Handle PersistenceSaved and PersistenceLoaded Events]
+
+link:persistence-handle-savepropertypersistence-and-loadpropertypersistence-events.html[Handle SavePropertyPersistence and LoadPropertyPersistence Events]

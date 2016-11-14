@@ -1,0 +1,356 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-productdata",
+    "controlName": [],
+    "tags": [],
+    "guid": "05ccc277-7602-4c75-9c86-c203916691d4",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5290351Z"
+}
+|metadata|
+////
+
+= Product Data
+
+== Code Example: Product Data
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public class Product : ObservableModel
+{
+    private int _productID;
+    private string _productName;
+    private Category _category;
+    public int ProductID
+    {
+        get
+        {
+            return this._productID;
+        }
+        set
+        {
+            if (this._productID != value)
+            {
+                this._productID = value;
+                OnPropertyChanged("ProductID");
+            }
+        }
+    }
+    public string ProductName
+    {
+        get
+        {
+            return this._productName;
+        }
+        set
+        {
+            if (this._productName != value)
+            {
+                this._productName = value;
+                OnPropertyChanged("ProductName");
+            }
+        }
+    }
+    public Category Category
+    {
+        get
+        {
+            return this._category;
+        }
+        set
+        {
+            if (this._category != value)
+            {
+                this._category = value;
+                OnPropertyChanged("Category");
+            }
+        }
+    }
+}
+public class Category : ObservableModel
+{
+    private int _categoryID;
+    private string _categoryName;
+    private string _description;
+    public int CategoryID
+    {
+        get
+        {
+            return this._categoryID;
+        }
+        set
+        {
+            if (this._categoryID != value)
+            {
+                this._categoryID = value;
+                OnPropertyChanged("CategoryID");
+            }
+        }
+    }
+    public string CategoryName
+    {
+        get
+        {
+            return this._categoryName;
+        }
+        set
+        {
+            if (this._categoryName != value)
+            {
+                this._categoryName = value;
+                OnPropertyChanged("CategoryName");
+            }
+        }
+    }
+    public string Description
+    {
+        get
+        {
+            return this._description;
+        }
+        set
+        {
+            if (this._description != value)
+            {
+                this._description = value;
+                OnPropertyChanged("Description");
+            }
+        }
+    }
+}
+----
+
+*In C#:*
+
+[source,csharp]
+----
+public class ProductData
+{
+    private static ObservableCollection<Product> _products;
+    public static ObservableCollection<Product> Products
+    {
+        get
+        {
+            if (_products == null)
+            {
+                _products = CreateProducts();
+            }
+            return _products;
+        }
+    }
+    private static ObservableCollection<Product> CreateProducts()
+    {
+        return new ObservableCollection<Product>
+        {
+            new Product
+            {
+                ProductID = 1,
+                ProductName = "Chai",
+                Category = new Category()
+                {
+                    CategoryID = 1, 
+                    CategoryName = "Beverages", 
+                    Description = "Soft drinks, coffees, teas, beers, and ales"
+                },
+            },
+            new Product
+            {
+                ProductID = 2,
+                ProductName = "Chang",
+                Category = new Category()
+                {
+                    CategoryID = 1, 
+                    CategoryName = "Beverages", 
+                    Description = "Soft drinks, coffees, teas, beers, and ales"
+                },
+             },
+             new Product
+             {
+                 ProductID = 77,
+                 ProductName = "Original Frankfurter grune So?e",
+                 Category = new Category()
+                 {
+                     CategoryID = 2, 
+                     CategoryName = "Condiments", 
+                     Description = "Sweet and savory sauces, relishes, spreads, and seasonings"
+                 },
+              },
+              new Product
+              {
+                  ProductID = 72,
+                  ProductName = "Mozzarella di Giovanni",
+                  Category = new Category()
+                  {
+                      CategoryID = 4, 
+                      CategoryName = "Dairy Product", 
+                      Description = "Cheeses"
+                  },
+              },
+            };
+        }
+}
+----
+
+*In C#:*
+
+[source,csharp]
+----
+public class ObservableModel : INotifyPropertyChanged
+{
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        if (PropertyChanged != null)
+        {
+            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class Product
+    Inherits ObservableModel
+    Private _productID As Integer
+    Private _productName As String
+    Private _category As Category
+    Public Property ProductID() As Integer
+      Get
+            Return Me._productID
+      End Get
+      Set
+            If Me._productID <> value Then
+                  Me._productID = value
+                  OnPropertyChanged("ProductID")
+            End If
+      End Set
+End Property
+Public Property ProductName() As String
+      Get
+            Return Me._productName
+      End Get
+      Set
+            If Me._productName <> value Then
+                  Me._productName = value
+                  OnPropertyChanged("ProductName")
+            End If
+      End Set
+End Property
+Public Property Category() As Category
+      Get
+            Return Me._category
+      End Get
+      Set
+            If Me._category IsNot value Then
+                  Me._category = value
+                  OnPropertyChanged("Category")
+            End If
+      End Set
+End Property
+End Class
+Public Class Category
+    Inherits ObservableModel
+    Private _categoryID As Integer
+    Private _categoryName As String
+    Private _description As String
+    Public Property CategoryID() As Integer
+      Get
+            Return Me._categoryID
+      End Get
+      Set
+            If Me._categoryID <> value Then
+                  Me._categoryID = value
+                  OnPropertyChanged("CategoryID")
+            End If
+      End Set
+End Property
+Public Property CategoryName() As String
+      Get
+            Return Me._categoryName
+      End Get
+      Set
+            If Me._categoryName <> value Then
+                  Me._categoryName = value
+                  OnPropertyChanged("CategoryName")
+            End If
+      End Set
+End Property
+Public Property Description() As String
+      Get
+            Return Me._description
+      End Get
+      Set
+            If Me._description <> value Then
+                  Me._description = value
+                  OnPropertyChanged("Description")
+            End If
+      End Set
+End Property
+End Class
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class ProductData
+    Private Shared _products As ObservableCollection(Of Product)
+    Public Shared ReadOnly Property Products() As ObservableCollection(Of Product)
+      Get
+          If _products Is Nothing Then
+            _products = CreateProducts()
+          End If
+          Return _products
+      End Get
+    End Property
+    Private Shared Function CreateProducts() As ObservableCollection(Of Product)
+      Return New ObservableCollection(Of Product)() From { 
+          New Product() With {
+            .ProductID = 1, 
+            .ProductName = "Chai", 
+            .Category = New Category() With { 
+                  .CategoryID = 1, 
+                  .CategoryName = "Beverages", 
+                  .Description = "Soft drinks, coffees, teas, beers, and ales" 
+                        } 
+          }, 
+          New Product() With { 
+            .ProductID = 2, 
+            .ProductName = "Chang", 
+            .Category = New Category() With { 
+                  .CategoryID = 1, 
+                  .CategoryName = "Beverages", 
+                  .Description = "Soft drinks, coffees, teas, beers, and ales" 
+                  } 
+          }, 
+          New Product() With { 
+            .ProductID = 77, 
+            .ProductName = "Original Frankfurter grune So?e", 
+            .Category = New Category() With { 
+                  .CategoryID = 2, 
+                  .CategoryName = "Condiments", 
+                  .Description = "Sweet and savory sauces, relishes, spreads, and seasonings" 
+                  } 
+          }, 
+          New Product() With { 
+            .ProductID = 72, 
+            .ProductName = "Mozzarella di Giovanni", 
+            .Category = New Category() With { 
+                  .CategoryID = 4, 
+                  .CategoryName = "Dairy Product", 
+                  .Description = "Cheeses" 
+                  } 
+          } 
+      }
+    End Function
+End Class
+----

@@ -1,0 +1,251 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-excel-2007-color-model",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["How Do I"],
+    "guid": "9b2e7eed-3995-47d5-b1f8-4e682eb035d1",
+    "buildFlags": [],
+    "createdOn": "2012-03-29T11:45:50.9946823Z"
+}
+|metadata|
+////
+
+= Excel 2007 Color Model (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to set colors on various cells format properties.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Main_Features,Main Features>>
+
+** <<_Features_Overview,Features Overview>>
+
+** <<_Workbook_palette,Workbook palette>>
+
+** <<_Filling_a_Cell,Filling a Cell>>
+
+* <<_Specifying_a_Color,Specifying a Color>>
+
+** <<_Overview,Overview>>
+
+** <<_Tint,Tint>>
+
+** <<_Theme_Color,Theme Colors>>
+
+** <<_WorkbookColorInfo,WorkbookColorInfo>>
+
+** <<_GetResolvedColor,GetResolvedColor>>
+
+** <<_Saving_in_new_file_formats,Saving in new file formats>>
+
+* <<_Related_Content,Related Content>>
+
+[[_Main_Features]]
+== Main Features
+
+[[_Features_Overview]]
+=== Features Overview
+
+The following table summarizes the main features of the Excel 2007 Color Model. Additional details are available after the following summary table.
+
+[options="header", cols="a,a"]
+|====
+|Feature|Description
+
+|Workbook palette
+|The color palette is exposed publicly, via the `Workbook`{empty}'s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~palette.html[Palette] property, so you can choose which colors to use when opening saved files in an earlier version of Excel.
+
+|Filling cells
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill_members.html[CellFill] is an abstract class representing a fill of a cell. There are some derived types representing the various fills which can be created.
+
+|====
+
+[[_Workbook_palette]]
+=== Workbook palette
+
+The Color palette has been exposed publicly, via the `Workbook.Palette` property, so that you can choose which colors to use when finding the closest matching color. The palette has an indexer to get and set the 56 colors in it, as well as a  _Reset_   method to reset it back to its preset state.
+
+The color palette is analogous to the color dialog in Microsoft Excel 2007 UI. You can open this color dialog by navigating to Excel Options>Save>Colors.
+
+.Note:
+[NOTE]
+====
+The color dialog in Excel does not display colors in the order they are represented in a color palette.
+====
+
+[[_Filling_a_Cell]]
+=== Filling a cell
+
+.Note:
+[NOTE]
+====
+In previous versions, the cell fill was defined by three properties on the `IWorksheetCellFormat` interface: `FillPattern`, `FillPatternBackgroundColor`, and `FillPatternForegroundColor`. They are all replaced by a single link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.iworksheetcellformat~fill.html[Fill] property, which is a reference to a `CellFill` instance.
+====
+
+The derived types, representing the various fills which can be created, are as follows:
+
+[options="header", cols="a,a"]
+|====
+|Derived type|Description
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfillpattern_members.html[CellFillPattern]
+|Represents one of the following: 
+
+* no color 
+
+* solid color 
+
+* pattern fill for a cell 
+
+It has background color info and a pattern color info which correspond directly to the color sections in the Fill tab of the Format Cells dialog of Excel. It also has a pattern style.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfilllineargradient_members.html[CellFillLinearGradient]
+|Represents a linear gradient fill. It has an angle, which is degrees clockwise of the left to right linear gradient, and a gradients stops collection which describes two or more color transitions along the length of the gradient.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfillrectangulargradient_members.html[CellFillRectangularGradient]
+|Represents a rectangular gradient fill. It has top, left, right, and bottom values, which describe, in relative coordinates, the inner rectangle from which the gradient starts and goes out to the cell edges. It also has a gradient stops collection which describes two or more color transitions along the path from the inner rectangle to the cell edges.
+
+|====
+
+You can create all possible fill types using static properties and methods on the `CellFill` class. They are as follows:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~nocolor.html[NoColor]
+|Represent a fill with no color, which allows a background image of the worksheet, if any, to show through.
+
+|====
+
+[options="header", cols="a,a"]
+|====
+|Method|Description
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createsolidfill.html[CreateSolidFill]
+|Returns a `CellFillPattern` instance which has a pattern style of Solid and a background color set to the `Color` or `WorkbookColorInfo` specified in the method.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createpatternfill.html[CreatePatternFill]
+|Returns a `CellFillPattern` instance which has the specified pattern style and the `Color` or `WorkbookColorInfo` values, specified for the background and pattern colors. These methods can also be used to create solid and no color fills.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createlineargradientfill.html[CreateLinearGradientFill]
+|Returns a `CellFillLinearGradient` instance with the specified angle and gradient stops.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createrectangulargradientfill.html[CreateRectangularGradientFill]
+|Returns a `CellFillRectangularGradient` instance with the specified left, top, right, and bottom of the inner rectangle and gradient stops. If the inner rectangle values are not specified, the center of the cell is used as the inner rectangle.
+
+|====
+
+[[_Specifying_a_Color]]
+== Specifying a Color
+
+[[_Overview]]
+
+=== Overview
+
+You can specify a color (the color of Excel cells background, border, etc) using linear and rectangular gradients in cells. When workbooks with these gradients are saved in XLS file format and opened in Microsoft Excel 2007/2010, the gradients will be visible, but when these files are opened in Microsoft Excel 2003, the cell will be filled with the solid color from the first gradient stop.
+
+These are the ways a color can be defined, as follows:
+
+* The automatic color (which is the `WindowText` system color)
+* Any user defined RGB color
+* A theme color
+
+[[_Tint]]
+
+=== Tint
+
+If an RGB or a theme color is used, an optional tint can be applied to lighten or darken the color. This tint cannot be set directly in Microsoft Excel 2007 UI, but various colors in the color palette displayed to the user are actually theme colors with tints applied.
+
+[[_Theme_Color]]
+
+=== Theme Colors
+
+Each workbook has 12 associated theme colors. They are the following:
+
+* _Light 1_
+
+* _Light 2_
+
+* _Dark 1_
+
+* _Dark 2_
+
+* _Accent1_
+
+* _Accent2_
+
+* _Accent3_
+
+* _Accent4_
+
+* _Accent5_
+
+* _Accent6_
+
+* _Hyperlink_
+
+* _Followed Hyperlink_
+
+They have default values when a workbook is created, and they can be customized via Excel UI.
+
+[[_WorkbookColorInfo]]
+
+=== WorkbookColorInfo
+
+Colors are defined by the `WorkbookColorInfo` class, which is a sealed immutable class. The class has a static Automatic property, which returns the automatic color, and there are various constructors which allow you to create a `WorkbookColorInfo` instance with a color or a theme value and an optional tint.
+
+[[_GetResolvedColor]]
+
+=== GetResolvedColor
+
+The `GetResolvedColor` method allows you to determine what color will actually be seen by the user when they open the file in Excel.
+
+If the `WorkbookColorInfo` represents a theme color, you must pass in a Workbook instance to the method so it can get the theme color’s RGB value from the workbook.
+
+[[_Saving_in_new_file_formats]]
+
+=== Saving in new file formats
+
+When saving out in the newer file formats (Microsoft Excel 2007 and later versions), the newer color information is saved directly into the file. When saving out in an older file format, the index to the closest color in the palette will be saved out. In addition, the older formats have future feature records that can be saved out to indicate the newer color information.
+
+When the older formats are opened in Microsoft Excel 2003 and earlier versions, these future features records are ignored. But when the older file formats are opened in Excel 2007 and later, there records are read and the color information from them overwrites the indexed color that was previously loaded from the normal format records.
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-excel-format-support.html[Excel Format Support]
+|This topic explains Infragistics Excel library support for cell formats.
+
+| link:igexcelengine-using-the-infragistics-excel-engine.html[Using the Infragistics Excel Engine]
+|This section is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by the Infragistics Excel Engine.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/infragistics-excel/new-color-model[New Color Model]
+|This sample demonstrates a way of working with the newer color model on cell formats. You can specify the RGB color and a tint value on all color properties of a cell format. You can use linear and rectangular gradients in cells.
+
+|====

@@ -1,0 +1,302 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-task-related-features",
+    "controlName": ["xamGantt"],
+    "tags": ["Data Presentation","FAQ","Getting Started","How Do I"],
+    "guid": "782925df-138b-4284-bd58-4d7e4cb34387",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.4031319Z"
+}
+|metadata|
+////
+
+= Task-Related Features
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of the major task-related features available using the  _xamGantt™_   control.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref335179586, Main Features Summary >>
+* <<_Ref335139325, Manually/Automatically Scheduled Tasks >>
+* <<_Ref335179531, Active/Inactive Tasks >>
+* <<_Ref335179601, Task Duration and Duration Formatting >>
+* <<_Ref335175940, Task Dependencies >>
+* <<_Ref335176328, Task Constraints >>
+* <<_Ref335177054, Deadlines >>
+* <<_Ref335177094, Milestones >>
+* <<_Ref335177175, Critical Tasks >>
+* <<_Ref335177187, Task Progress >>
+* <<_Ref335177230, Task Slack >>
+* <<_Ref335401312, Related Content >>
+
+[[_Ref335179586]]
+== Main Features Summary
+
+=== Main features summary chart
+
+The following table summarizes the  _xamGantt_   control’s main task-related features. Additional details follow later in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Feature|Description
+
+|<<_Ref335139325,Manually/Automatically Scheduled Tasks>>
+|The _xamGantt_ control provides either automatic or manual task scheduling functionality.
+
+|<<_Ref335179531,Active/Inactive Tasks>>
+|The _xamGantt_ control provides functionality for setting project tasks inactive.
+
+|<<_Ref335175754,Task Duration and Duration Formatting>>
+|The _xamGantt_ control provides functionality for setting tasks duration, task duration units and duration formatting.
+
+|<<_Ref335175940,Task Dependencies>>
+|The _xamGantt_ control provides functionality for creating dependencies between project tasks.
+
+|<<_Ref335176328,Task Constraints>>
+|The _xamGantt_ control provides functionality for specifying the task’s constraint type and date.
+
+|<<_Ref335177054,Deadlines>>
+|The _xamGantt_ control provides functionality for specifying tasks deadlines.
+
+|<<_Ref335177094,Milestones>>
+|The _xamGantt_ control provides functionality for creating project milestones.
+
+|<<_Ref335177175,Critical Tasks>>
+|The _xamGantt_ control provides functionality for calculating and identifying the project’s critical tasks.
+
+|<<_Ref335177187,Task Progress>>
+|The _xamGantt_ control provides functionality for specifying the task’s completed work.
+
+|<<_Ref335177230,Task Slack>>
+|The xamGantt control provides functionality for calculating a task’s slack.
+
+|====
+
+[[_Ref335139325]]
+== Manually/Automatically Scheduled Tasks
+
+=== Manually/automatically scheduled tasks
+
+The  _xamGantt_   control provides a feature based upon the “user-controlled scheduling” functionality introduced in Microsoft Project™ 2010.
+
+The tasks in the  _xamGantt_   control support both automatic and manual scheduling.
+
+*Manually scheduled tasks:*
+
+* are useful during the early stages of creating a project while some of the project’s details are unclear
+* allow entering free form text for the start, finish and duration fields
+
+The  _xamGantt’s_   scheduling engine manages manual and auto tasks differently.
+
+*  *Manually scheduled tasks:*
+
+The scheduling engine calculates the start and finish dates, but does not change their corresponding start, finish and duration fields.
+
+*  *Automatically scheduled tasks:*
+
+The engine calculates the start and finish dates based upon the task dependencies and constraint information.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-tasks-manual-automatic.html[Configuring Tasks as Manual/Automatic]
+
+[[_Ref335179531]]
+== Active/Inactive Tasks
+
+=== Active/Inactive tasks
+
+Tasks in the  _xamGantt_   control can be toggled alternately between active and inactive. The basis for this feature is the inactive tasks feature, first introduced in the Microsoft Project 2010.
+
+Inactive tasks are ignored by the scheduling engine, thus making them useful for  _what-if_  analysis, where a task is not considered in the schedule, but preserves its information and does not delete them.
+
+* Deactivating an ancestor task, results in deactivating all of the descendant tasks
+* Adding an active task to an inactive task (for example, when indenting), results in the active task’s ancestors being made active because an inactive summary should not contain any active tasks.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-tasks-active-inactive.html[Configuring Tasks as Active/Inactive]
+
+[[_Ref335175754]]
+[[_Ref335179601]]
+== Task Duration and Duration Formatting
+
+=== Task duration and duration formatting
+
+The duration of a task is the amount of time that the task requires to be completed. It may be expressed in different units although the value represents a fixed amount of work time.
+
+The  _xamGantt_   control supports the same unit types as Microsoft Project 2010.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-task-duration-duration-format.html[Configuring the Task Duration and Task Duration Unit]
+
+[[_Ref335175940]]
+== Task Dependencies
+
+=== Task dependencies
+
+The  _xamGantt_   control provides functionality for creating dependency between two project tasks.
+
+There are four link types:
+
+[options="header", cols="a,a"]
+|====
+|Link type|Description
+
+|Finish To Start - *FS*
+|This is the default link type unless otherwise specified. 
+
+The successor’s Start date depends upon its predecessor’s Finish date.
+
+|Finish To Finish - *FF*
+|The successor’s Finish date depends upon its predecessor’s Finish date.
+
+|Start To Finish - *SF*
+|The successor’s Finish date depends upon its predecessor’s Start date.
+
+|Start To Start - *SS*
+|The successor’s Start date depends upon the predecessor’s Start date.
+
+|====
+
+You can also specify dependency lead and lag time.
+
+* Where lead time is a value of negative duration indicating the amount of overlap between the tasks
+* Where lag time is a value of positive duration indicating a delay between the task’s links fields
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-task-dependencies.html[Configuring Task Dependencies]
+
+[[_Ref335176328]]
+== Task Constraints
+
+The  _xamGantt_   control exposes the same constraint types as Microsoft Project 2010.
+
+The supported constraints are:
+
+* Flexible constraints (they do not need a constraint date)
+
+** As Soon As Possible (the default type when scheduling a project
+** from its start date)
+** As Late As Possible (the default type when scheduling a project from its finish date)
+
+* Semi-flexible
+
+** Start No Earlier Than
+** Start No Later Than
+** Finish No Earlier Than
+** Finish No Later Than
+
+* Inflexible
+
+** Must Start On
+** Must Finish On
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-task-constraint.html[Configuring Task Constraint]
+
+[[_Ref335177054]]
+== Deadlines
+
+=== Deadlines
+
+The  _xamGantt_   control provides task deadline setting functionality.
+
+The deadline date describes the target date when the task should be completed. This date has an impact on the scheduling engine, but it is treated similarly to a weak constraint.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-deadlines.html[Configuring Deadlines]
+
+[[_Ref335177094]]
+== Milestones
+
+=== Milestones
+
+The  _xamGantt_   control provides project milestone creation functionality.
+
+Milestones have zero duration and mark some important date or event.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-milestones.html[Configuring Milestones]
+
+[[_Ref335177175]]
+== Critical Tasks
+
+=== Critical tasks
+
+The  _xamGantt_   scheduling engine calculates the critical state for the project task based on whether the task is considered to be along the critical path. That happens when the task cannot be delayed without violating a deadline, constraint or increasing the project’s duration.
+
+By default, the  _xamGantt_   engine calculates a single critical path; however, you can customize this configuration.
+
+You can also specify a critical slack limit to determine the required amount of slack for a task to be considered as non critical.
+
+Some tasks are considered critical based on their constraint information. The  _xamGantt’s_   user interface calculates the task’s critical state as a read only value. Additionally, the  _xamGantt_   supports highlighting critical tasks and their values.
+
+==== Related Topics:
+
+* link:xamgantt-configuring-critical-slack-limit.html[Configuring Critical Slack Limit]
+
+[[_Ref335177187]]
+== Task Progress
+
+=== Task progress
+
+The  _xamGantt_   control provides functionality for specifying a task’s completed work.The task progress represents the amount of the duration that has been completed. Changes to the task progress affect the progress of the descendant tasks and vice versa - changing the progress of the descendant task updates the progress of the ancestor summary tasks.
+
+==== Related Topics:
+
+* link:xamgantt-columns-editing.html[xamGantt Columns Editing]
+* link:xamgantt-configuring-task-progress.html[Configuring Task Progress]
+
+[[_Ref335177230]]
+== Task Slack
+
+=== Task slack
+
+The  _xamGantt_   scheduling engine calculates the task’s slack.
+
+Where the slack represents the amount of time that a task may be delayed without affecting its dependent tasks.
+
+The slack calculated information is exposed in the Start Slack, Finish Slack, Free Slack, and Total Slack grid columns.
+
+==== Related Topics:
+
+* link:xamgantt-showing-hiding-tasks-slack.html[Showing/Hiding Tasks Slack]
+
+[[_Ref335401312]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-project-related-features.html[Project-Related Features]
+|This topic gives an overview of the major project-related features available using the _xamGantt_ control.
+
+| link:xamgantt-other-features.html[Other Features]
+|This topic gives an overview of the other major features available using the _xamGantt_ control.
+
+|====

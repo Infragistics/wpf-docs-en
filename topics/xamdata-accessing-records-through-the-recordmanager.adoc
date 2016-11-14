@@ -1,0 +1,42 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-accessing-records-through-the-recordmanager",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding"],
+    "guid": "{06C0EBE9-8ED8-4260-AB18-16717606E5BE}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.4858503Z"
+}
+|metadata|
+////
+
+= Accessing Records Through the RecordManager
+
+One important task when displaying data is enumerating the underlying data. The DataPresenter controls contain a mechanism called link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager.html[RecordManager]. The RecordManager makes it easier for you to access Records in different formats. For example, you can work with data in an unsorted format by using the RecordManager's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager~unsorted.html[UnSorted] option. The UnSorted option returns a read-only link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordcollection.html[DataRecordCollection]. You can then enumerate through this collection of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]s and search for key information from the Record's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]s.
+
+The RecordManager can also retrieve a collection of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager~sorted.html[Sorted] DataRecords. Sorted DataRecords are sorted in whichever order the end user sorts them. Use the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager~issorted.html[IsSorted] property off the RecordManager to check if the end user has sorted the Records.
+
+The following pseudo code tests to see if the end user has sorted records or not. If the end user has sorted any records, an instance of DataRecordCollection is created and stores the sorted records for later access.
+
+*In C#:*
+
+----
+DataRecordCollection myCollection;
+RecordManager myManager = XamDataGrid1.RecordManager;
+if (myManager.IsSorted)
+{
+    myCollection = myManager.Sorted;
+}
+----
+
+*In Visual Basic:*
+
+----
+Dim myCollection As DataRecordCollection
+Dim myManager As RecordManager = XamDataGrid1.RecordManager
+If myManager.IsSorted Then
+    myCollection = myManager.Sorted
+End If
+----

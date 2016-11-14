@@ -1,0 +1,189 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtagcloud-adding-xamtagcloud-to-your-page",
+    "controlName": ["xamTagCloud"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{52ACA076-BFAB-43F9-825F-BB93C7CC983B}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.5473641Z"
+}
+|metadata|
+////
+
+= Adding xamTagCloud To Your Page
+
+== Before You Begin
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamTagCloud™ to your page using procedural code and XAML.
+
+== What You Will Accomplish
+
+You will add a basic xamTagCloud to your page.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ application.
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+{ApiPlatform}v{ProductVersion}.dll
+
+{ApiPlatform}Controls.Menus.XamTagCloud.v{ProductVersion}.dll
+[start=3]
+. Attach an event handler to the UserControl’s Loaded event.
+
+*In XAML:*
+
+----
+<UserControl Loaded="UserControl_Loaded"
+  … >
+    …
+</UserControl>
+----
+
+[start=4]
+. Place using/Imports directives in your code-behind or add an XML namespace declaration for xamTagCloud
+
+*In XAML:*
+
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Menus
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Menus;
+----
+
+[start=5]
+. Add an instance of the xamTag control to the default Grid layout panel named LayoutRoot. If you are doing this in procedural code, you can handle the user control’s Loaded event and place the code in the event handler.
+
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloudpanel~horizontalcontentalignment.html[HorizontalContentAlignment] – Stretch
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloudpanel~verticalcontentalignment.html[VerticalContentAlignment] – Stretch
+** Height – 300
+** Width – 250
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloudpanel~maxscale.html[MaxScale] – 5
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloudpanel~minscale.html[MinScale] - 1
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamTagCloud x:Name="xamTagCloud" Width="250" 
+                              Height="300" 
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch"
+                              MaxScale="5" MinScale="1">
+      <!-- TODO: Add cloud items -->
+   </ig:XamTagCloud>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Dim myTagCloud As New XamTagCloud()
+myTagCloud.HorizontalContentAlignment = HorizontalAlignment.Stretch
+myTagCloud.VerticalContentAlignment = VerticalAlignment.Stretch
+myTagCloud.Height = 300
+myTagCloud.MaxScale = 5
+myTagCloud.MinScale = 1
+----
+
+*In C#:*
+
+----
+XamTagCloud myTagCloud = new XamTagCloud();
+myTagCloud.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+myTagCloud.VerticalContentAlignment = VerticalAlignment.Stretch;
+myTagCloud.Height = 300;
+myTagCloud.MaxScale = 5;
+myTagCloud.MinScale = 1;
+----
+
+[start=6]
+. Add cloud items to the xamTagCloud control. For more information see, link:xamtagcloud-add-cloud-items-to-xamtagcloud.html[Add Cloud Items to xamTagCloud]
+
+*In XAML:*
+
+----
+<ig:XamTagCloud MaxScale="5" MinScale="1" Name="tagCloud">
+<ig:XamTagCloudItem Content = "Silverlight" Weight = "10" />
+<ig:XamTagCloudItem Content = "ASP.Net" Weight = "2" />
+<ig:XamTagCloudItem Content = "WPF" Weight = "5" />
+<ig:XamTagCloudItem Content = "Window Forms" Weight = "5" />
+<ig:XamTagCloudItem Content = ".NET" Weight = "7" />
+ …
+----
+
+*In Visual Basic:*
+
+----
+Dim cloudItem1 As New XamTagCloudItem With {.Content = "Silverlight",   
+   .Weight = 10}
+myTagCloud.Items.Add(cloudItem1)
+Dim cloudItem2 As New XamTagCloudItem With {.Content = "ASP.NET", 
+   .Weight = 2}
+myTagCloud.Items.Add(cloudItem2)
+Dim cloudItem3 As New XamTagCloudItem With {.Content = "WPF", .Weight = 
+   5}
+myTagCloud.Items.Add(cloudItem3)
+Dim cloudItem4 As New XamTagCloudItem With {.Content = "Windows Forms", 
+   .Weight = 5}
+myTagCloud.Items.Add(cloudItem4)
+Dim cloudItem5 As New XamTagCloudItem With {.Content = ".NET", .Weight 
+   = 7}
+myTagCloud.Items.Add(cloudItem5)
+…
+----
+
+*In C#:*
+
+----
+XamTagCloudItem cloudItem1 = new XamTagCloudItem { Content = 
+   "Silverlight", Weight = 10 };
+myTagCloud.Items.Add(cloudItem1);
+XamTagCloudItem cloudItem2 = new XamTagCloudItem { Content = 
+   "ASP.NET", Weight = 2 };
+myTagCloud.Items.Add(cloudItem2);
+XamTagCloudItem cloudItem3 = new XamTagCloudItem { Content = "WPF", 
+   Weight = 5 };
+myTagCloud.Items.Add(cloudItem3);
+XamTagCloudItem cloudItem4 = new XamTagCloudItem { Content = 
+   "Windows Forms", Weight = 5 };
+myTagCloud.Items.Add(cloudItem4);
+XamTagCloudItem cloudItem5 = new XamTagCloudItem { Content = ".NET", 
+   Weight = 7 };
+myTagCloud.Items.Add(cloudItem5);
+…
+----
+
+[start=7]
+. Add the instance of xamTagCloud to the Grid panel’s Children collection.  _Note: When you initially create a new page, a grid panel is created by default and named LayoutRoot._ 
+
+*In Visual Basic:*
+
+----
+Me.LayoutRoot.Children.Add(myTagCloud)
+----
+
+*In C#:*
+
+----
+this.LayoutRoot.Children.Add(myTagCloud);
+----
+
+[start=8]
+. Save and run your application.
+
+== *Related Topic*
+
+link:xamtagcloud-binding-xamtagcloud-to-data.html[Binding xamTagCloud to Data]

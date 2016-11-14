@@ -1,0 +1,118 @@
+﻿////
+|metadata|
+{
+    "name": "xamgrid-columns",
+    "controlName": ["xamGrid"],
+    "tags": ["Data Presentation","Grids","Layouts"],
+    "guid": "{66919FA6-3013-44A6-98B4-AEC94326B711}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.8711975Z"
+}
+|metadata|
+////
+
+= Columns
+
+The xamGrid™ control displays columns based on the property's data type in the underlying data source. For example, if the data source contains two properties of type Boolean and String, the corresponding columns will be a checkbox column and text column. The following table displays the available column types.
+
+[options="header", cols="a,a,a"]
+|====
+|Column|Data Type|Description
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.checkboxcolumn.html[CheckboxColumn]
+|Boolean
+|The check state marks the Boolean value of the data.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnlayout.html[ColumnLayout]
+|IEnumerable
+|Represents a band of data.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.comboboxcolumn.html[ComboBoxColumn]
+|ComboBox
+|Generates a ComboxBox as the content for a cell.
+
+ifdef::sl,wpf[]
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.datecolumn.html[DateColumn]
+|DateTime
+|Displays dates using the Microsoft {PlatformName} DatePicker control. You can determine the format of the DateColumn by setting the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.datecolumn.html[SelectedDateFormat] property to Long or Short.
+endif::sl,wpf[]
+
+| link:{ApiPlatform}controls.grids.datetimecolumn.v{ProductVersion}~infragistics.controls.grids.datetimecolumn_members.html[DateTimeColumn]
+|DateTime
+|Displays dates using the xamDateTimeInput control. You can determine the format of the DateTimeColumn by setting the link:{ApiPlatform}controls.grids.datetimecolumn.v{ProductVersion}~infragistics.controls.grids.datetimecolumn~selecteddatemask.html[SelectedDateMask] property.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.groupcolumn.html[GroupColumn]
+|Other
+|GroupColumns allows you to group multiple columns together under a single common header.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.hyperlinkcolumn.html[HyperlinkColumn]
+|Uri
+|Creates HyperlinkButton objects for the content of a cell.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.imagecolumn.html[ImageColumn]
+|URL
+|Displays images from the URL provided. Your end users can not edit or filter the image column.
+
+ifdef::sl,wpf[]
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids_namespace.html[MultiColumnComboColumn]
+|MultiColumnComboEditor
+|The MultiColumnCombo column is column type that displays multiple columns in a drop down list.
+endif::sl,wpf[]
+
+ifdef::sl,wpf[]
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids_namespace.html[SparklineColumn]
+|Sparkline
+|The Sparkline column is column type that displays a sparkline chart in a cell.
+endif::sl,wpf[]
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.templatecolumn.html[TemplateColumn]
+|Custom
+|The ItemTemplate feature is used in this column to set up custom content.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.textcolumn.html[TextColumn]
+|Other
+|This column type is used for all other data types.
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.unboundcolumn.html[UnboundColumn]
+|Other
+|Unbound columns allow you to add columns that are not bound to any specific data.
+
+|====
+
+*Auto Generate Columns*
+
+The appropriate type of column is automatically generated for each publicly exposed property in the data source if xamGrid's link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~autogeneratecolumns.html[AutoGenerateColumns] property is set to True. If you define columns for xamGrid, it will use these columns if the column's Key property matches the name of a public property in the data source; otherwise, it will auto-generate the columns that do not match. You can turn this feature off and define your own columns if you want total control of what xamGrid displays. For more information on this, see link:xamgrid-define-column-layout.html[Define Column Layout].
+
+*Custom Column Type Mapping*
+
+When the default creation of a column for a particular data type does not fit your application's needs, you can change the column mapping to create a different column type. You can do this by using the ColumnTypeMapping object to assign a column type to use with a data type. For more information on this, see link:xamgrid-change-column-type-mapping.html[Change Column Type Mapping].
+
+== *Related Topics*
+
+link:xamgrid-define-column-layout.html[Define Column Layout]
+
+link:xamgrid-change-column-type-mapping.html[Change Column Type Mapping]
+
+link:xamgrid-change-column-width-settings.html[Change Column Width Settings]
+
+link:xamgrid-comboboxcolumn-column.html[ComboBoxColumn Column]
+
+link:xamgrid-datetime-columns.html[DateTime Columns]
+
+link:xamgrid-create-a-template-column.html[Create a Template Column]
+
+link:xamgrid-editing-data-in-a-template-column.html[Editing Data in a Template Column]
+
+link:xamgrid-filler-column.html[Filler Column]
+
+link:xamgrid-group-column.html[Group Column]
+
+link:xamgrid-override-settings.html[Override Settings]
+
+link:xamgrid-set-the-text-alignment-on-column-headers.html[Set the Text Alignment on Column Headers]
+
+link:xamgrid-template-column-layout.html[Template Column Layout]
+
+link:xamgrid-unbound-column.html[Unbound Column]
+
+link:xamgrid-column-specific-style.html[Column Specific Styles]

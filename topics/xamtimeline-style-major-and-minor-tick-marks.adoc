@@ -1,0 +1,71 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-major-and-minor-tick-marks",
+    "controlName": ["xamTimeline"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{7B65720D-C049-4DD6-9E6B-C3798E79303E}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1284047Z"
+}
+|metadata|
+////
+
+= Styling Major and Minor Tick Marks
+
+The xamTimeline™ control's major and minor tickmarks show the important parts of a timeline. The major tickmarks are placed first at the start point of the timeline and then every major increment after. The minor tickmarks are placed halfway between each major tickmarks. The way to change the appearance of the major and minor tickmarks is through styles.
+
+The following xaml code shows you how to change the color, size, and intervals of the major and minor tickmarks using styles in link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Styles for Axis -->
+        <Style x:Key="rscMajorTickMarkStyle" TargetType="ig:Mark">
+            <Setter Property="Width" Value="4"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Stroke" Value="Red"/>
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="Unit" Value="500"/>
+        </Style>
+        <Style x:Key="rscMinorTickMarkStyle" TargetType="ig:Mark">
+            <Setter Property="Width" Value="4"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="Stroke" Value="Blue"/>
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="Unit" Value="100"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="480" Margin="25">
+            <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3000" Maximum="2200" 
+                                      AutoRange=" Unit="500" 
+                                      ShowLabels="True" 
+                                      ShowLabelsInPreview="True"
+                                      ShowMajorTickMarks="True" ShowMinorTickMarks="True" 
+                                      MajorTickMarkStyle="{StaticResource rscMajorTickMarkStyle}"
+                                      MinorTickMarkStyle="{StaticResource rscMinorTickMarkStyle}"/>
+            </ig:XamTimeline.Axis>
+            <!-- TODO: Add Numeric/Date Series ... -->
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Style_Tick_Marks_01.png[]
+
+== Related Topics
+
+link:xamtimeline-style-the-axis.html[Styling Axis]
+
+link:xamtimeline-style-the-axis-pane.html[Styling Axis Pane]
+
+link:xamtimeline-style-the-axis-label.html[Styling Axis Label]
+
+link:xamtimeline-style-axis-thumb.html[Styling Axis Thumb]
+
+link:xamtimeline-style-major-and-minor-grid-lines.html[Styling Major and Minor Grid Lines]

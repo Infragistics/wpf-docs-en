@@ -1,0 +1,184 @@
+﻿////
+|metadata|
+{
+    "name": "xampivotgrid-databinding-using-xmladatasource",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Data Binding","Grids","How Do I"],
+    "guid": "2f0e90ca-c426-488f-aeec-6b796f3a269a",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.0842818Z"
+}
+|metadata|
+////
+
+= Binding xamPivotGrid to XmlaDataSource
+
+The XmlaDataSource uses an instance of link:http://msdn.microsoft.com/en-us/library/ms175609(v=sql.90).aspx[SQL Server Analysis Services (SSAS)] to connect to data through link:http://msdn.microsoft.com/en-us/library/ms187178(v=SQL.90).aspx[XML for Analysis (XMLA)] HTTP access provider (e.g. msmdpump.dll) XML for Analysis is a standard API in the link:http://msdn.microsoft.com/en-US/library/ms175367(v=SQL.90).aspx[Online Analytical Processing (OLAP)] and link:http://msdn.microsoft.com/en-us/library/ms173767(v=sql.90).aspx[Business Intelligence (BI)] space, supported by a broad range of database vendors including Microsoft®, SAP®, SAS®, and Oracle®.
+
+The following procedure demonstrates how to use the XmlaDataSource as data source for the xamPivotGrid control.
+
+[start=1]
+. Create an instance of XmlaDataSource in the Resources section of your layout root, setting its ServerURI property to the appropriate URL
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid.Resources>
+   <olap:XmlaDataSource x:Key="DataSource" ServerUri="http://sampledata.infragistics.com/olap/msmdpump.dll" />
+</Grid.Resources>
+----
++
+.Note:
+[NOTE]
+====
+If you prefer to setup the data source in code then you instantiate an instance of the XmlaDataSource class and map it to the appropriate URI.
+====
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim DataSource As New XmlaDataSource()
+DataSource.ServerUri = New Uri("http://sampledata.infragistics.com/olap/msmdpump.dll")
+' or by providing all related objects
+Dim Settings As New XmlaConnectionSettings()
+Settings.ServerUri = New Uri("http://sampledata.infragistics.com/olap/msmdpump.dll")
+Dim Connection As New XmlaConnection(Settings)
+Dim DataProvider As New XmlaDataProvider(Connection)
+Dim DataSource As New XmlaDataSource(DataProvider)
+DataSource.LoadSchemaAsync()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XmlaDataSource DataSource = new XmlaDataSource();
+DataSource.ServerUri = new Uri("http://sampledata.infragistics.com/olap/msmdpump.dll");
+// or by providing all related objects
+XmlaConnectionSettings Settings = new XmlaConnectionSettings();
+Settings.ServerUri = new Uri("http://sampledata.infragistics.com/olap/msmdpump.dll");
+XmlaConnection Connection = new XmlaConnection(Settings);
+XmlaDataProvider DataProvider = new XmlaDataProvider(Connection);
+XmlaDataSource DataSource = new XmlaDataSource(DataProvider);
+DataSource.LoadSchemaAsync();
+----
+
+[start=2]
+. Add the xamPivotGrid control and set its DataSource property the XmlaDataSource defined as a static resource.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot" >
+    <ig:XamPivotGrid x:Name="PivotGrid" DataSource="{StaticResource DataSource}" />
+    <!-- TODO add xamPivotDataSelector control -->
+</Grid>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim PivotGrid As New XamPivotGrid()
+PivotGrid.DataSource = DataSource
+Me.LayoutRoot.Children.Add(PivotGrid);
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamPivotGrid PivotGrid = new XamPivotGrid();
+PivotGrid.DataSource = DataSource;
+this.LayoutRoot.Children.Add(PivotGrid);
+----
+
+[start=3]
+. Add the xamPivotDataSelector control and set its DataSource property to the XmlaDataSource resource.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamPivotDataSelector x:Name="DataSelector" DataSource="{StaticResource DataSource}" />
+    <!-- or -->
+<ig:XamPivotDataSelector x:Name="DataSelector" DataSource="{Binding DataSource, ElementName=PivotGrid}" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim DataSelector As New XamPivotDataSelector()
+DataSelector.DataSource = DataSource
+Me.LayoutRoot.Children.Add(DataSelector);
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamPivotDataSelector DataSelector = new XamPivotDataSelector();
+DataSelector.DataSource = DataSource;
+this.LayoutRoot.Children.Add(DataSelector);
+----
++
+Alternatively, the XmlaDataSource may be created in line with the xamPivotGrid control.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamPivotGrid x:Name="PivotGrid">
+    <ig:XamPivotGrid.DataSource>
+        <olap:XmlaDataSource ServerUri="http://sampledata.infragistics.com/olap/msmdpump.dll" />
+    </ig:XamPivotGrid.DataSource>
+</ig:XamPivotGrid>
+----
++
+If server authentication is required, add a Credentials property definition of the XmlaDataSource with a username, password, and domain (optional). A domain definition is only necessary for Basic and Windows authentication.
++
+*In XAML:*
++
+[source,xaml]
+----
+<olap:XmlaDataSource x:Key="DataSource">
+    <olap:XmlaDataSource.ConnectionSettings>
+        <olap:XmlaConnectionSettings 
+            ServerUri="http://sampledata.infragistics.com/olap/msmdpump.dll"/>
+    </olap:XmlaDataSource.ConnectionSettings>
+    <olap:XmlaDataSource.Credentials>
+        <olap:XmlaNetworkCredential 
+            Password="diQ2j#f"
+            UserName="Administrator">
+        </olap:XmlaNetworkCredential>
+    </olap:XmlaDataSource.Credentials>
+</olap:XmlaDataSource>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim Credentials As New XmlaNetworkCredential()
+Credentials.UserName = "Administrator"
+Credentials.Password = "diQ2j#f"
+Dim DataSource As New XmlaDataSource()
+DataSource.ServerUri = New Uri("http://sampledata.infragistics.com/olap/msmdpump.dll")
+DataSource.Credentials = Credentials
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XmlaNetworkCredential DataSource = new XmlaNetworkCredential();
+Credentials.UserName = "Administrator";
+Credentials.Password = "diQ2j#f";
+XmlaDataSource DataSource = new XmlaDataSource();
+DataSource.ServerUri = new Uri("http://sampledata.infragistics.com/olap/msmdpump.dll");
+DataSource.Credentials = Credentials;
+----

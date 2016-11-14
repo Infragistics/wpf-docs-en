@@ -1,0 +1,232 @@
+﻿////
+|metadata|
+{
+    "name": "xamoutlookbar-adding-xamoutlookbar-to-your-page",
+    "controlName": ["xamOutlookBar"],
+    "tags": ["Getting Started"],
+    "guid": "db8c7033-be4e-49c8-b0ea-bdbb24fd6428",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.0561643Z"
+}
+|metadata|
+////
+
+= Adding xamOutlookBar to Your Application
+
+== Before You Begin
+
+You can add xamOutlookBar™ to a Window using the same pattern as any control found in Microsoft® Windows® Presentation Foundation. This pattern involves using a layout container as the main content of the Window and then adding the control to the Children collection of the layout container. It is important to name the layout container in XAML so that you can reference it from the code-behind.
+
+== What You Will Accomplish
+
+You will add xamOutlookBar to a Window using procedural code or XAML.
+
+When you run the finished project, you should see a xamOutlookBar control in your Window that looks similar to the screen shot below.
+
+image::images/xamOutlookBar_Adding_xamOutlookBar_to_a_Window_Using_Procedural_Code_01.png[]
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window project.
+
+[start=2]
+. Add references to your project. In the Solution Explorer, add the following references:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}OutlookBar.v{ProductVersion}.dll
+
+[start=3]
+. Add an XML namespace declaration for xamOutlookBar inside the opening Window tag in XAML. In code-behind you will need using/Imports directives so you don't have to type out a member's fully qualified name.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igOutlookBar="http://infragistics.com/OutlookBar"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.OutlookBar
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.OutlookBar;
+----
+
+[start=4]
+. Name the default Grid layout panel in the Window so that you can reference it in the code-behind.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid Name="layoutRoot">
+</Grid>
+----
+
+[start=5]
+. Add an instance of xamOutlookBar to the layoutRoot Grid layout panel.
++
+--
+.. Name the instance of the xamOutlookBar control.
+.. Set the link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.xamoutlookbar.html[HorizontalAlignment] property to Left.
++
+When you collapse xamOutlookBar's navigation pane, the Grid layout panel will automatically center the navigation pane. This behavior may not be what you want if you are trying to emulate the navigation pane in Microsoft® Outlook®. In order to keep xamOutlookBar's navigation pane attached to an edge of the Grid layout panel, you have to set its HorizontalAlignment property to Left or use a different layout panel such as a DockPanel layout container instead of the Grid layout container.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<igOutlookBar:XamOutlookBar Name="xamOutlookBar1" HorizontalAlignment="Left">
+    <!-- TODO: Add OutlookBarGroup objects here -->
+</igOutlookBar:XamOutlookBar>
+----
++
+Create an instance of the xamOutlookBar control in the Window constructor after the InitializeComponent method and add it to the Grid's Children collection.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim xamOutlookBar1 As New XamOutlookBar() 
+xamOutlookBar1.HorizontalAlignment = HorizontalAlignment.Left
+Me.layoutRoot.Children.Add(xamOutlookBar1)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamOutlookBar xamOutlookBar1 = new XamOutlookBar();
+xamOutlookBar1.HorizontalAlignment = HorizontalAlignment.Left;
+this.layoutRoot.Children.Add(xamOutlookBar1);
+----
+
+[start=6]
+. Add an link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup.html[OutlookBarGroup] object to xamOutlookBar's Groups collection.
++
+You do not have to explicitly declare tags for xamOutlookBar's Groups collection.
++
+--
+.. link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup.html[Header] property - Set this property to display a value in the header of the group.
+.. link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup~key.html[Key] property - Set this property to index into the Groups collection using a string value.
+.. link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup~largeimage.html[LargeImage] property - Set this property to display an icon next to the group header.
+.. link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup~smallimage.html[SmallImage] property - Set this property to display an icon for the group when it is in the overflow area. If you do not set this property, xamOutlookBar will display a default envelope icon when the group is in the overflow area.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<igOutlookBar:OutlookBarGroup 
+    Header="Group 1" 
+    Key="Group1" 
+    SmallImage="ReplaceWithYourImage1.jpg" 
+    LargeImage="ReplaceWithYourImage2.jpg">
+    <!-- TODO: Add a layout panel here -->
+</igOutlookBar:OutlookBarGroup>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim group1 As New OutlookBarGroup()
+group1.Header = "Group 1"
+group1.Key = "Group1"
+group1.LargeImage = New BitmapImage(New Uri("ReplaceWithYourImage1.jpg"))
+group1.SmallImage = New BitmapImage(New Uri("ReplaceWithYourImage2.jpg"))
+xamOutlookBar1.Groups.Add(group1)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+OutlookBarGroup group1 = new OutlookBarGroup();
+group1.Header = "Group 1";
+group1.Key = "Group1";
+group1.LargeImage = new BitmapImage(new Uri("ReplaceWithYourImage1.jpg"));
+group1.SmallImage = new BitmapImage(new Uri("ReplaceWithYourImage2.jpg"));
+xamOutlookBar1.Groups.Add(group1);
+----
+
+[start=7]
+. Set the link:{ApiPlatform}outlookbar.v{ProductVersion}~infragistics.windows.outlookbar.outlookbargroup.html[Content] property of the OutlookBarGroup object to an instance of a StackPanel.
++
+*In XAML:*
++
+[source,xaml]
+----
+<StackPanel>
+    <!-- TODO: Add controls here -->
+</StackPanel>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim panel1 As New StackPanel()
+group1.Content = panel1
+----
++
+*In C#:*
++
+[source,csharp]
+----
+StackPanel panel1 = new StackPanel();
+group1.Content = panel1;
+----
+
+[start=8]
+. Add controls to the StackPanel. In this example, three Button controls will be added to the group.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Button Content="Button 1" />
+<Button Content="Button 2" />
+<Button Content="Button 3" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+For i As Integer = 1 To 3 
+    Dim btnExample As New Button() 
+    btnExample.Content = "Button " + i.ToString() 
+    panel1.Children.Add(btnExample) 
+Next
+----
++
+*In C#:*
++
+[source,csharp]
+----
+for (int i = 1; i <=3; i++)
+{
+    Button btnExample = new Button();
+    btnExample.Content = "Button " + i.ToString();
+    panel1.Children.Add(btnExample);
+}
+----
+
+[start=9]
+. Run the project.
+
+== Related Topics
+
+link:xamoutlookbar-about-xamoutlookbar.html[About xamOutlookBar]
+
+link:xamoutlookbar-using-xamoutlookbar.html[Using xamOutlookBar]

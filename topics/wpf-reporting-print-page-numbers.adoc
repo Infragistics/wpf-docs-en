@@ -1,0 +1,70 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-reporting-print-page-numbers",
+    "controlName": ["IG WPF Reporting"],
+    "tags": ["Reporting"],
+    "guid": "{883690D4-8C23-47F4-AE8E-8ED3BAC0A5B8}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.9117355Z"
+}
+|metadata|
+////
+
+= Print Page Numbers
+
+When you print a report, the WPF Reporting engine only prints the report's content. If you want to print a header or footer, you can set the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object or link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection.html[EmbeddedVisualReportSection] object's link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsection~pageheader.html[PageHeader] or link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsection~pagefooter.html[PageFooter] properties. However, if you want to add page numbers to the header or footer of a report, setting each individual section's header/footer to an integer is the wrong way to do it. Instead, you should create a data template and bind to the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.reportpagepresenter~physicalpagenumber.html[PhysicalPageNumber] property of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.reportpagepresenter.html[ReportPagePresenter] class.
+
+Adding page numbers to a header or footer in a report is a two-step process.
+
+[start=1]
+. Create a DataTemplate object in XAML.
+[start=2]
+. Assign the DataTemplate object to the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportbase~pageheadertemplate.html[PageHeaderTemplate] or link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportbase~pagefootertemplate.html[PageFooterTemplate] property of a Report object or EmbeddedVisualReportSection object.
+
+The following example code demonstrates how to print page numbers to a report using a data template. The XAML creates a basic DataTemplate object and the procedural code assigns it to the PageHeaderTemplate property of a Report object named report1.
+
+*In XAML:*
+
+----
+<!--Add this DataTemplate to the Window's ResourceDictionary-->
+<DataTemplate x:Key="pageNumberDataTemplate">
+    <DockPanel Margin="5">
+        <!--This TextBlock's Text property is bound to the ReportPagePresenter's PhysicalPageNumber property-->
+        <TextBlock 
+            xmlns:igReporting="http://infragistics.com/Reporting" 
+            DockPanel.Dock="Right" 
+            Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type igReporting:ReportPagePresenter}}, Path=PhysicalPageNumber}" />
+            <TextBlock Text="Page Number: " DockPanel.Dock="Right" />
+            <!--This ContentPresenter will display the Header property of the Report or EmbeddedVisualReportSection object.-->
+            <ContentPresenter Content="{Binding}" />
+        </DockPanel>
+</DataTemplate>
+----
+
+*In Visual Basic:*
+
+----
+report1.PageHeaderTemplate = TryCast(Me.TryFindResource("pageNumberDataTemplate"), DataTemplate)
+----
+
+*In C#:*
+
+----
+report1.PageHeaderTemplate = this.TryFindResource("pageNumberDataTemplate") as DataTemplate;
+----
+
+== Related Topics
+
+link:wpf-reporting-understanding-wpf-reporting.html[About WPF Reporting]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-align-content-to-the-top-of-a-page.html[Align Content to the Top of a Page]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]

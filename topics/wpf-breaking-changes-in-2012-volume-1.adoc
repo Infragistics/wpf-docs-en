@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-breaking-changes-in-2012-volume-1",
+    "controlName": [],
+    "tags": [],
+    "guid": "6ee02d3f-1659-448f-bc6f-a99184e59518",  
+    "buildFlags": [],
+    "createdOn": "2012-09-18T15:41:01.6679441Z"
+}
+|metadata|
+////
+
+= 2012 Volume 1
+
+== Topic Overview
+
+=== Purpose
+
+This topic lists breaking changes in the 2012 Volume 1 release of {ProductName} controls.
+
+== Breaking Changes
+
+=== XamPivotGrid/XamPivotDataSelector
+
+In order to improve performance XamTree is replaced with link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree_members.html[XamDataTree]. If you have customized the templates for the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.primitives.filterfielditemcontrol_members.html[FilterFieldItemControl] or link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector_members.html[XamPivotDataSelector] controls, or if your code anyhow depends on XamTree being used, make sure to replace the usage of XamTree with link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree_members.html[XamDataTree] accordingly.
+
+=== DataSourceBase
+
+1. The type of event arguments for link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iolapviewmodel~resultchanged_ev.html[IOlapViewModel.ResultChanged] event changed to link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.resultchangedeventargs_members.html[ResultChangedEventArgs].
+
+2. `DataSourceBase.BuildDataInternal(System.ComponentModel.BackgroundWorker,` `System.ComponentModel.DoWorkEventArgs``)` definition changed to`DataSourceBase.BuildDataInternal(DataSourceBase.BackgroundWorker, DataSourceBase.DoWorkEventArgs)`
+
+`DataSourceBase.BackgroundWorker` class definition is protected and this should minimize the possible conflicts, however if in your derived class you have overridden `DataSourceBase.BuildDataInternal` and you have also used `System.ComponentModel.BackgroundWorker` you might need to specify explicitly which worker type you point to.
+
+Running this worker requires an instance of `Work` that the worker will work on and an instance of `DataSourceState` capturing the current state of the data source which is passed and can be accessed through `DataSourceBase.DoWorkEventArgs.Argument`. If you have `DataSourceBase.BuildDataInternal` overridden, now you can get with ease the information related to this worker’s current work.
+
+[start=3]
+3. When user’s application has a link:{ApiPlatform}controls.grids.xampivotdataslicer.v{ProductVersion}~infragistics.controls.grids.xampivotdataslicer_members.html[XamPivotDataSlicer] which operates over given link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.data.ihierarchy_members.html[IHierarchy] instance and an instance of link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.ifilterviewmodel_members.html[IFilterViewModel] over the same hierarchy instance is needed, the user’s code first should try to get the filter view model through link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebase~getfilterviewmodelfromhierarchy.html[DataSourceBase.GetFilterViewModelFromHierarchy(IHierarchy)] instead of direct call to link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebase~createfilterviewmodel.html[DataSourceBase.CreateFilterViewModel(IHierarchy)]:
+
+*In C#:*
+
+[source,csharp]
+----
+// ensures that both the slicer and the filter tree are using 
+// the same IFilterViewModel instance
+IFilterViewModel filterViewModel = 
+    dataSource.GetFilterViewModelFromHierarchy(hierarchy);
+if (filterViewModel == null)
+{
+    filterViewModel = dataSource.CreateFilterViewModel(hierarchy);
+}
+// the filter tree will be synchronized with the 
+// selection state of slicer’s items
+dataSource.Rows.Add(filterViewModel);
+----

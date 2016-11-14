@@ -1,0 +1,51 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-external-themepacks",
+    "controlName": [],
+    "tags": ["Styling","Templating"],
+    "guid": "{8BD105B1-3A40-4353-AD0E-8B0C81DC902F}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:33:32.0600399Z"
+}
+|metadata|
+////
+
+= External ThemePacks
+
+In addition to specifying themes directly on a control, you can define themes in external ThemePack assemblies. For more information, see link:wpf-creating-a-themepack.html[Creating a ThemePack].
+
+{ProductName} ships with a number of these ThemePacks that provide more style options for you to choose from. You apply the Theme defined in the external ThemePack in exactly the same way you applied a Theme defined in the control assembly. For more information, see link:wpf-referencing-your-themepack.html[Referencing Your ThemePack].
+
+*To define a theme in an external ThemePack assembly:*
+
+[start=1]
+. Add a namespace declaration for the ThemePack assembly.
+
+*In XAML:*
+
+----
+xmlns:igThemeForestGreen="http://infragistics.com/Themes/ForestGreen"
+----
+
+[start=2]
+. Create a Window.Resources section and create an instance of the Theme controls within the ResourceDictionary's MergedDictionaries collection.
+
+*In XAML:*
+
+----
+<Window.Resources>
+	<ResourceDictionary>
+		<ResourceDictionary.MergedDictionaries>
+			<igThemeForestGreen:Primitives/>
+			<igThemeForestGreen:Editors/>
+			<igThemeForestGreen:DataPresenter/>
+		</ResourceDictionary.MergedDictionaries>
+	</ResourceDictionary>
+</Window.Resources>
+----
+
+== Naming Conventions for External ThemePacks
+
+Each of the ThemePacks included with {ProductName} includes three controls: DataPresenter, Editors, and Primitives. The default namespace declarations for these assemblies is "igTheme" +  _ThemeName:_  igThemeForestGreen.

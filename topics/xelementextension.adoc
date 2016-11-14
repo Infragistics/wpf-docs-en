@@ -1,0 +1,110 @@
+﻿////
+
+|metadata|
+{
+    "name": "xelementextension",
+    "controlName": ["xamGantt"],
+    "tags": [],
+    "guid": "638df503-9c8a-4164-95d7-d5bbf36c03cf",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.267162Z"
+}
+|metadata|
+////
+
+= XElementExtension
+
+== Code Example: XElementExtension Class
+
+=== Description
+
+This helper class provides methods for parsing `XElement` objects to required data types.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public static class XElementExtension
+{
+    public static double GetDouble(this XElement element)
+    {
+        double value = 0d;
+        if (element != null)
+            double.TryParse(element.Value, out value);
+        return value;
+    }
+    public static string GetString(this XElement element)
+    {
+        string value = string.Empty;
+        if (element != null)
+        {
+            value = element.Value;
+        }
+        return value;
+    }
+    public static bool GetBool(this XElement element)
+    {
+        bool value = false;
+        if (element != null)
+        {
+            if (element.Value == "1")
+            {
+                value = true;
+            }
+        }
+        return value;
+    }
+    public static int GetInt(this XElement element)
+    {
+        int value = 0;
+        if (element != null)
+            int.TryParse(element.Value, out value);
+        return value;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports System.Runtime.CompilerServices
+Public Module XElementExtension
+    <Extension()>
+    Public Function GetDouble(element As XElement) As Double
+        Dim value As Double = 0.0
+        If element IsNot Nothing Then
+            Double.TryParse(element.Value, value)
+        End If
+        Return value
+    End Function
+    <Extension()>
+    Public Function GetString(element As XElement) As String
+        Dim value As String = String.Empty
+        If element IsNot Nothing Then
+            value = element.Value
+        End If
+        Return value
+    End Function
+    <Extension()>
+    Public Function GetBool(element As XElement) As Boolean
+        Dim value As Boolean = False
+        If element IsNot Nothing Then
+            If element.Value = "1" Then
+                value = True
+            End If
+        End If
+        Return value
+    End Function
+    <Extension()>
+    Public Function GetInt(element As XElement) As Integer
+        Dim value As Integer = 0
+        If element IsNot Nothing Then
+            Integer.TryParse(element.Value, value)
+        End If
+        Return value
+    End Function
+End Module
+----

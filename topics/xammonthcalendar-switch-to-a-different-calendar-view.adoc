@@ -1,0 +1,63 @@
+﻿////
+
+|metadata|
+{
+    "name": "xammonthcalendar-switch-to-a-different-calendar-view",
+    "controlName": ["xamMonthCalendar"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{91D5EC5C-4A8E-4D02-999E-56259E712BCF}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.9921515Z"
+}
+|metadata|
+////
+
+= Switch to a Different Calendar View
+
+You can use the xamMonthCalendar™ control's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~scrolldirection.html[ScrollDirection] property to configure the direction in which the calendar item group(s) are scrolled when pressing the navigational arrows.
+
+End users can zoom out to a different calendar view by clicking on a calendar item's header or zoom in by clicking on a calendar item. You can also switch to a different view programmatically by setting the xamMonthCalendar™ control's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~currentcalendarmode.html[CurrentCalendarMode] property to a link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.calendarmode.html[CalendarMode] value or by executing the built-in link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.monthcalendarcommands~zoomoutcalendarmode.html[ZoomOutCalendarMode] or link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.monthcalendarcommands~zoomincalendarmode.html[ZoomInCalendarMode] commands.
+
+The following example code demonstrates how to switch to a different calendar view.
+
+*In XAML:*
+
+----
+<StackPanel>
+    <Button 
+        Content="Zoom Out" 
+        Command="{x:Static igEditors:MonthCalendarCommands.ZoomOutCalendarMode}" 
+        CommandTarget="{Binding ElementName=xamMonthCalendar1}" />
+    <igEditors:XamMonthCalendar Name="xamMonthCalendar1" />
+</StackPanel>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Editors
+...
+'You can set the CurrentCalendarMode property to a CalendarMode value or use the built-in commands.
+'Me.xamMonthCalendar1.CurrentCalendarMode = CalendarMode.Years
+Me.xamMonthCalendar1.ExecuteCommand(MonthCalendarCommands.ZoomOutCalendarMode)
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Editors;
+...
+//You can set the CurrentCalendarMode property to a CalendarMode value or use the built-in commands.
+//this.xamMonthCalendar1.CurrentCalendarMode = CalendarMode.Years;
+this.xamMonthCalendar1.ExecuteCommand(MonthCalendarCommands.ZoomOutCalendarMode);
+----
+
+== Related Topics
+
+link:xammonthcalendar-about-xammonthcalendar.html[About xamMonthCalendar]
+
+link:xammonthcalendar-getting-started-with-xammonthcalendar.html[Adding xamMonthCalendar to Your Page]
+
+link:xammonthcalendar-restrict-the-selectable-dates.html[Restrict the Selectable Dates]
+
+link:xammonthcalendar-retrieve-the-selected-dates.html[Retrieve the Selected Dates]

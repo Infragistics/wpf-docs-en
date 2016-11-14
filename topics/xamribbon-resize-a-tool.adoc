@@ -1,0 +1,87 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-resize-a-tool",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","How Do I","Styling"],
+    "guid": "{8BD7297E-98D7-41A9-808B-1B0BD0E1E077}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1921915Z"
+}
+|metadata|
+////
+
+= Resize a Tool
+
+
+
+When Ribbon tools are situated in a RibbonGroup, the ribbon tools can take on three different SizingModes:
+
+* ImageOnly - the tool's Caption is hidden and displays the SmallImage.
+* ImageAndTextNormal - the tool's Caption is shown and displays the SmallImage.
+* ImageAndTextLarge - the tool's Caption is shown and displays the LargeImage.
+
+A Ribbon tool's default minimum and maximum size is based on Microsoft® Office® 2007 UI guidelines. For example, buttons normally display in Office 2007 with a small image and a caption. This coincides with a MaximumSize of ImageAndTextNormal for the Ribbon tools. When the ribbon in Office 2007 is reduced to a smaller size, the buttons will hide their captions and only show their images. This coincides with a MinimumSize of ImageOnly for the Ribbon tools.
+
+You can change the default minimum and maximum SizingMode of a ribbon tool. For this purpose, the RibbonGroup class exposes the two attached properties MaximumSize and MinimumSize. By setting these attached properties on a Ribbon tool, you can control the SizingMode of a tool to fit your needs.
+
+The following example code demonstrates how to set the MaximumSize and MinimumSize RibbonGroup attached properties for a ButtonTool.
+
+.Note
+[NOTE]
+====
+The images referenced in the XAML below are not provided in this topic. Replace the SmallImage and LargeImage with your own images.
+====
+
+*In XAML:*
+
+----
+...
+<igRibbon:ButtonTool
+        Caption="Format"
+        SmallImage="Small_Button.gif"
+        Id="btnTool1"
+        LargeImage="Large_Button.gif"
+        igRibbon:RibbonGroup.MaximumSize="ImageAndTextLarge"
+        igRibbon:RibbonGroup.MinimumSize="ImageOnly" />
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim btnTool As New ButtonTool()
+btnTool.Caption = "Format"
+btnTool.Id = "btnTool1"
+btnTool.LargeImage = New BitmapImage(New Uri("pack://application:,,,/Large_Button.png"))
+btnTool.SmallImage = New BitmapImage(New Uri("pack://application:,,,/Small_Button.png"))
+RibbonGroup.SetMaximumSize(btnTool, RibbonToolSizingMode.ImageAndTextLarge)
+RibbonGroup.SetMinimumSize(btnTool, RibbonToolSizingMode.ImageOnly)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+ButtonTool btnTool = new ButtonTool();
+btnTool.Caption = "Format";
+btnTool.Id = "btnTool1";
+btnTool.LargeImage = new BitmapImage(new Uri("pack://application:,,,/Large_Button.png")); 
+btnTool.SmallImage = new BitmapImage(new Uri("pack://application:,,,/Small_Button.png"));
+RibbonGroup.SetMaximumSize(btnTool, RibbonToolSizingMode.ImageAndTextLarge);
+RibbonGroup.SetMinimumSize(btnTool, RibbonToolSizingMode.ImageOnly);
+...
+----
+
+== Related Topics
+
+link:xamribbon-adding-xamribbon-to-your-application-.html[Adding xamRibbon to Your Application]
+
+link:xamribbon-add-a-tab-to-xamribbon.html[Add a Tab to xamRibbon]
+
+link:xamribbon-add-a-ribbon-group-to-a-ribbon-tab.html[Add a Ribbon Group to a Ribbon Tab]

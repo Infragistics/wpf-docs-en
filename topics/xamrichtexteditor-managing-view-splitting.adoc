@@ -1,0 +1,176 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-view-splitting",
+    "tags": ["How Do I","Layouts"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "e663561c-c3ad-47f0-a233-deb494d0992b",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5443073Z"
+}
+|metadata|
+////
+
+= Managing View Splitting (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s view splitting from a developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362354755,Splitting Configuration Summary>>
+* <<_Ref360720395,Current Split State>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362354755]]
+== Splitting Configuration Summary
+
+=== Splitting configuration summary chart
+
+The following table explains briefly the configurable aspects of the  _xamRichTextEditor_   control and maps them to properties that configure them.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|<<_Ref360720395,Obtain Current Split State>>
+|You can obtain the document view split state.
+|
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~isdocumentviewsplit.html[IsDocumentViewSplit] 
+
+|<<_Ref362354833,Set Current Split State>>
+|You can set the document view split state.
+|
+* `IsDocumentViewSplit` 
+
+|====
+
+[[_Ref360720395]]
+== Obtain Current Split State
+
+=== Overview
+
+You can obtain the document view split state.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Obtain the document view split state
+|`IsDocumentViewSplit`
+|Obtain its value.
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The code snippet below demonstrates how to obtain the document view split state:
+
+*In C#:*
+
+[source,csharp]
+----
+bool split = this.xamRichTextEditor1.IsDocumentViewSplit;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim split As Boolean = Me.xamRichTextEditor1.IsDocumentViewSplit
+----
+
+[[_Ref362354833]]
+[[_Ref359594803]]
+== Set Current Split State
+
+=== Overview
+
+You can set the document view split state. When you split the document the  _xamRichTextEditor_   will have two document views with equal initial height (you are not able to control the height programmatically, however the user may resize them). When you turn off document view split, the bottom view will remains.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Set the document view split state
+|`IsDocumentViewSplit`
+|Set it to true or false.
+
+|====
+
+=== Example
+
+The code snippet below demonstrates how to set the document view split state:
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.IsDocumentViewSplit = true;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.IsDocumentViewSplit = True
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-configuring-view-split.html[Configuring the View Split]
+|This topic explains how to configure the _xamRichTextEditor_ allowing users to perform a split view of the document.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/customizations[Customizations]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/customizations[Customizations]"] 
+|This sample demonstrates how to customize the *xamRichTextEditor* .
+
+|====

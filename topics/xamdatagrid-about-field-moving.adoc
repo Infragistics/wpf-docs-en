@@ -1,0 +1,63 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatagrid-about-field-moving",
+    "controlName": ["xamDataGrid"],
+    "tags": ["How Do I"],
+    "guid": "{4E0192B7-8CA5-41C3-934F-73C34C53034A}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.9709473Z"
+}
+|metadata|
+////
+
+= About Field Moving
+
+The xamDataGrid™ control allows your end users to move fields around at run time. For example, if your end users need to reorganize the fields in a field layout, they can drag a field and drop it in a different location relative to the other fields within the same field layout; they can even stack fields vertically on top of each other. If you want to modify this behavior, you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowfieldmoving.html[AllowFieldMoving] property of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object to an link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.allowfieldmoving.html[AllowFieldMoving] enumeration value.
+
+.Note
+[NOTE]
+====
+You cannot move fields between two different field layouts. For example, if you have a hierarchical xamDataGrid, you cannot move a field from a parent record to a child record and vice versa.
+====
+
+The control raises events like link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldpositionchanging_ev.html[FieldPositionChanging] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldpositionchanged_ev.html[FieldPositionChanged] for a UI triggered change. This means that these events will fire when your end user changes the position of a field, but will not fire if the change is done by you in code.
+
+By default, xamDataGrid enables field moving; however, you can disable field moving by setting the AllowFieldMoving property of a FieldLayoutSettings object to AllowFieldMoving.No. You can disable the field-moving feature at the control level, or on individual field layouts. The field layout settings on a field layout will override the field layout settings at the control-level.
+
+The following example code demonstrates how to disable field moving. If you are using a xamDataPresenter™ control with a grid view instead of a xamDataGrid control, you can simply replace references to the xamDataGrid control in the example code.
+
+*In XAML:*
+
+----
+<igDP:XamDataGrid Name="xamDataGrid1" BindToSampleData="True">
+    <igDP:XamDataGrid.FieldLayoutSettings>
+            <igDP:FieldLayoutSettings AllowFieldMoving="No" />
+    </igDP:XamDataGrid.FieldLayoutSettings>
+</igDP:XamDataGrid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Me.xamDataGrid1.FieldLayoutSettings.AllowFieldMoving = AllowFieldMoving.No
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+this.xamDataGrid1.FieldLayoutSettings.AllowFieldMoving = AllowFieldMoving.No;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-load-field-customizations.html[Load Field Customizations]
+
+link:xamdatapresenter-save-field-customizations.html[Save Field Customizations]

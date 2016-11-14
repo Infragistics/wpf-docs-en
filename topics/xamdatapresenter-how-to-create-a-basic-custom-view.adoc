@@ -1,0 +1,38 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-how-to-create-a-basic-custom-view",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Getting Started","How Do I","Layouts"],
+    "guid": "{D2F69640-23EA-43ED-ABF0-6DAF402A906C}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2289989Z"
+}
+|metadata|
+////
+
+= How to Create a Basic Custom View
+
+*To create a basic xamDataPresenter™ Custom View:*
+
+[start=1]
+. Derive a class from ViewBase and override virtual properties and methods on the base class to provide values that define the capabilities of your View and the services that xamDataPresenter should perform on behalf of the View.
+[start=2]
+. Create a derived Panel class that arranges items for your View. Return this derived panel's type from your Custom View's implementation of the protected abstract ItemsPanelType property.
+[start=3]
+. Implement the IViewPanel interface on your Layout Panel. This interface provides support for scrolling as well as page, record and cell navigation.
+
+The following are optional steps for creating a Custom View:
+
+* If you want to support the DeferredScrolling capability of xamDataPresenter, implement the IDeferredScrollPanel interface on your Layout Panel.
+* If you want xamDataPresenter to wrap each RecordPresenter (the UIElement™ that displays each DataRecord) in your Custom View with an element that you supply, override the RecordPresenterContainerType virtual property type of your container element, and override the GetContainerForRecordPresenter virtual method to return an element of the specified type. You may want to consider providing a wrapper element if your Layout Panel needs to store state on each DataRecord, or if you want to provide special styling that surrounds each RecordPresenter in the list.
+* If you want to expose properties to let end users control different aspects of your Custom View, your Custom View class is a good place to do that. If you have only one or two properties, you can expose them directly on your Custom View class. If you need to expose more properties, you may want to consider doing what the built-in GridView and CarouselView classes do, which is to expose a single property (called ViewSettings) that returns a settings object derived from ViewSettingsBase. This reduces clutter on your Custom View class and exposes your view's functionality in a way that developers are familiar with.
+
+== Related Topics
+
+link:xamdatapresenter-services-provided-by-the-xamdatapresenter.html[Services Provided by the XamDataPresenter]
+
+link:xamdatapresenter-creating-the-custom-view-class-and-layout-panel.html[Creating the Custom View Class and Layout Panel]
+
+link:xamdatapresenter-how-to-use-your-custom-view-with-xamdatapresenter.html[How to Use Your Custom View with xamDataPresenter]

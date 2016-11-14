@@ -1,0 +1,149 @@
+﻿////
+|metadata|
+{
+    "name": "xampropertygrid-list-of-attributes",
+    "tags": ["Getting Started"],
+    "controlName": ["xamPropertyGrid"],
+    "guid": "554ef3d0-8ab2-4189-ac78-d4a9038fc8e3",
+    "buildFlags": [],
+    "createdOn": "2014-08-28T10:34:39.9816794Z"
+}
+|metadata|
+////
+
+= List of Supported Attributes (xamPropertyGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic lists the attributes which are used by the control when retrieving properties’ list from the objects.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-features-overview.html[Features Overview (xamPropertyGrid)]
+|This topic explains the features supported by the control from developer perspective.
+
+| link:xampropertygrid-visual-elements.html[Visual Elements (xamPropertyGrid)]
+|This topic provides an overview of the visual elements of the control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref394327955, Supported Attributes List >>
+* <<_Ref394327963, Related Content >>
+
+[[_Ref394327955]]
+== Supported Attributes List
+
+=== Attributes summary
+
+The link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid_members.html[ _xamPropertyGrid_  ] control analyzes the provided objects(s) using reflection or TypeDescriptor (based on the current PropertyGenerator) and builds the properties list. While retrieving properties the control inspects their attributes to determine if any special handling is required for the property.
+
+=== Attributes summary chart
+
+The following table explains briefly the supported attributes and how they influence the display and editing of a control’s properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Task|Details|Attribute
+
+|[[_Hlk356484826]] 
+
+Specify a category for a property.
+|The category will be used for grouping properties in the properties list.
+|`System.ComponentModel.*CategoryAttribute*`
+
+|Specify custom TypeConverters for a property.
+|The control supports custom TypeConverters specified via the TypeConverterAttribute on a property. TypeConverters can be used to convert a property’s value to/from a different representation in an editor.
+|`System.ComponentModel.*TypeConverterAttribute*`
+
+|Specify a display name for a property.
+|The display name will be used in the property name column of the properties list.
+|`System.ComponentModel.*DisplayNameAttribute*`
+
+|Specify a description for a property.
+|The property’s description will be shown in the description area along with the property type.
+|`System.ComponentModel.*DescriptionAttribute*`
+
+|Specify a default property.
+|The default property will be the selected property once the control is first rendered.
+|`System.ComponentModel.*DefaultPropertyAttribute*`
+
+|Specify a default value.
+|The default value will be used when resetting the property value.
+|`System.ComponentModel.*DefaultValueAttribute*`
+
+|Specify a read-only property.
+|Properties with read-only attribute set won’t allow editing.
+|`System.ComponentModel.*ReadOnlyAttribute*`
+
+|Specify a property not to be combined when the control is bound to multiple objects.
+|To disable combining of a property when the control is bound to multiple objects supply this attribute to the property in question and set it to false.
+|`System.ComponentModel.*MergablePropertyAttribute*`
+
+|Specify the sort order of a property in the properties list.
+|Provides a declarative way to specify property sort order. Decorate the property with this attribute and specify the sort order as int.
+|`Infragistics.Controls.Editors.*PropertySortOrderAttribute*`
+
+|Specify the sort order of a category in the properties list.
+|Provides a declarative way to specify category sort order. Decorate the class with this attribute and specify the category name as string and sort order as int.
+|`Infragistics.Controls.Editors.*CategorySortOrderAttribute*`
+
+|====
+
+=== Attributes usage
+
+The following code snippet demonstrates how to use the `MergableProperty` attribute to exclude a specific property from the properties list:
+
+*In C#:*
+
+[source,csharp]
+----
+[MergableProperty(false)]
+public string MyProperty { get; set; }
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+<MergableProperty(False)> _
+Public Property MyProperty() As String
+  Get
+    Return i_MyProperty
+  End Get
+  Set
+    i_MyProperty = Value
+  End Set
+End Property
+Private i_MyProperty As String
+----
+
+[[_Ref394327963]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-user-interactions.html[User Interactions and Usability (xamPropertyGrid)]
+|This topic explains what actions can be performed by the user.
+
+| link:xampropertygrid-conf-properties-sorting.html[Properties List Sorting (xamPropertyGrid)]
+|This topic explains how to provide logic for custom sorting of the properties list.
+
+|====

@@ -1,0 +1,592 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-datamanager",
+    "controlName": [],
+    "tags": ["Data Presentation","Sample Data Source"],
+    "guid": "{8A531B26-1511-4D9E-873F-02447217A2BB}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.2250097Z"
+}
+|metadata|
+////
+
+= DataManager
+
+*In Visual Basic:*
+
+----
+Imports System.Runtime.Serialization
+#Region "DataAccess"
+Public Class DataManager
+#Region "private fields"
+    'The root element of the XML file 
+    Private ReadOnly rootElement As XElement
+    'Path to the XML File 
+    Private ReadOnly dataPath As String
+#End Region
+#Region "Constructors"
+    Public Sub New(ByVal dataPath As String)
+        Me.dataPath = dataPath
+        'load the xml file 
+        rootElement = XElement.Load(dataPath)
+    End Sub
+#End Region
+#Region "public methods"
+#Region "Read"
+    Public Function GetCategories() As IEnumerable(Of Category)
+        'Retrive all the category elements from the XML file and create Category objects. 
+        Dim categories = rootElement.Descendants("Category").Select(Of Category)(Function(cElement) CreateCategory(cElement))
+        Return categories.ToList()
+    End Function
+    Public Function GetProducts() As IEnumerable(Of Product)
+        'Retrive all the Product elements from the XML file and create Product objects. 
+        Dim products = rootElement.Descendants("Product").Select(Of Product)(Function(pElement) CreateProduct(pElement))
+        Return products.ToList()
+    End Function
+    Public Function GetProductsByCategoryID(ByVal categoryID As Integer) As IEnumerable(Of Product)
+        'Get all Product elements with the specified category ID and create Product objects. 
+        Dim products = rootElement.Descendants("Product").Where(Function(pElement) CInt(pElement.Element("CategoryID")) = categoryID).Select(Of Product)(Function(pElement) CreateProduct(pElement))
+        Return products.ToList()
+    End Function
+    Public Function GetCategoriesAndProducts() As IEnumerable(Of Category)
+        'Retrieve the Category and Product elements and create Category and Product objects. 
+        Dim categories = rootElement.Descendants("Category").Select(Of Category)(Function(cElement) CreateCategoryAndProducts(cElement))
+        Return categories.ToList()
+    End Function
+#End Region
+#Region "update"
+    Public Function UpdateCategory(ByVal updatedCategory As Category) As System.Nullable(Of Integer)
+        'Retrieve a reference to the Category element that corresponds to the specified Category object. 
+        Dim originalCategoryElement = rootElement.Descendants("Category").SingleOrDefault(Function(cElement) CInt(cElement.Element("CategoryID")) = updatedCategory.CategoryID)
+        'for adds, return the new categoryID 
+        Dim categoryID As System.Nullable(Of Integer) = Nothing
+        'If the original cateogry XElement is found, replay the changes 
+        'Otherwise, create a new XElement for the category before replaying changes. 
+        If originalCategoryElement IsNot Nothing Then
+            ReplayCategoryChanges(updatedCategory, originalCategoryElement)
+        Else
+            Dim categoryElement As XElement = Me.AddCategory()
+            categoryID = CInt(categoryElement.Element("CategoryID"))
+            ReplayCategoryChanges(updatedCategory, categoryElement)
+        End If
+        'Save to file 
+        Me.rootElement.Save(dataPath)
+        Return categoryID
+    End Function
+    'Implementation is similar to UpdateCategory 
+    Public Function UpdateProduct(ByVal updatedProduct As Product) As System.Nullable(Of Integer)
+        Dim originalProduct = rootElement.Descendants("Product").SingleOrDefault(Function(pElement) CInt(pElement.Element("ProductID")) = updatedProduct.ProductID)
+        Dim productID As System.Nullable(Of Integer) = Nothing
+        If originalProduct IsNot Nothing Then
+            ReplayProductChanges(updatedProduct, originalProduct)
+        Else
+            Dim productElement As XElement = Me.AddProduct()
+            productID = CInt(productElement.Element("ProductID"))
+            ReplayProductChanges(updatedProduct, productElement)
+        End If
+        Me.rootElement.Save(dataPath)
+        Return productID
+    End Function
+#End Region
+#Region "delete"
+    Public Sub DeleteCategory(ByVal deletedCategory As Category, ByVal deleteProductsInCategory As Boolean)
+        'Delete the Category element that corresponds to the specified Category object. 
+        rootElement.Descendants("Category").Single(Function(cElement) CInt(cElement.Element("CategoryID")) = deletedCategory.CategoryID).Remove()
+        If deleteProductsInCategory Then
+            'Delete all Product elements that belong to the specified Category object. 
+            rootElement.Descendants("Product").Where(Function(pElement) CInt(pElement.Element("CategoryID")) = deletedCategory.CategoryID).Remove()
+        End If
+        'Persist changes to the XML file. 
+        Me.rootElement.Save(dataPath)
+    End Sub
+    Public Sub DeleteProduct(ByVal deletedProduct As Product)
+        'Delete the Product element that corresponds to the specified Product object. 
+        rootElement.Descendants("Product").Single(Function(pElement) CInt(pElement.Element("ProductID")) = deletedProduct.ProductID).Remove()
+        Me.rootElement.Save(dataPath)
+    End Sub
+#End Region
+#End Region
+#Region "private methods"
+    'Create a Category object and set its properties using the data in the XElement 
+    Private Function CreateCategory(ByVal categoryElement As XElement) As Category
+        Return New Category With {.CategoryID = CInt(categoryElement.Element("CategoryID")), .CategoryName = categoryElement.Element("CategoryName").Value, .Description = categoryElement.Element("Description").Value, .Products = New List(Of Product)()}
+    End Function
+    'Create a Product object and set its properties using the data in the XElement 
+    Private Function CreateProduct(ByVal productElement As XElement) As Product
+        Return New Product With {.ProductID = CInt(productElement.Element("ProductID")), .CategoryID = CInt(productElement.Element("CategoryID")), .ProductName = productElement.Element("ProductName").Value, .QuantityPerUnit = productElement.Element("QuantityPerUnit").Value, .UnitPrice = CDec(productElement.Element("UnitPrice")), .UnitsInStock = CInt(productElement.Element("UnitsInStock")), .UnitsOnOrder = CInt(productElement.Element("UnitsOnOrder")), .ReorderLevel = CInt(productElement.Element("ReorderLevel")), .Discontinued = CBool(productElement.Element("Discontinued"))}
+    End Function
+    'Create a Category object along with the Product objects that belong in the category.
+    Private Function CreateCategoryAndProducts(ByVal categoryElement As XElement) As Category
+        Dim category As Category = CreateCategory(categoryElement)
+        category.Products = rootElement.Descendants("Product").Where(Function(product) CInt(categoryElement.Element("CategoryID")) = CInt(Product.Element("CategoryID"))).Select(Of Product)(Function(product) CreateProduct(product)).ToList()
+        Return category
+    End Function
+    'Create and add a new Category element to the Categories node. 
+    Private Function AddCategory() As XElement
+        'Get the Categories XElement 
+        Dim categoriesElement = rootElement.Descendants("Categories").Single()
+        'Create a new XElement for the category 
+        Dim categoryElement As New XElement("Category", New XElement("CategoryID"), New XElement("CategoryName"), New XElement("Description"))
+        'increment the CategoryID based on the max CategoryID value. 
+        Dim categoryIDIncrementCounter As Integer = Me.GetMaxCategoryID()
+        categoryElement.SetElementValue("CategoryID", categoryIDIncrementCounter + 1)
+        'Add category XElement as a child of the Categories XElement 
+        categoriesElement.Add(categoryElement)
+        Return categoryElement
+    End Function
+    'Implementation is similar to the AddCategory method. 
+    Private Function AddProduct() As XElement
+        Dim productsElement = rootElement.Descendants("Products").Single()
+        'Create a new XElement for a Product. 
+        Dim productElement As New XElement("Product", New XElement("ProductID"), New XElement("ProductName"), New XElement("CategoryID"), New XElement("QuantityPerUnit"), New XElement("UnitPrice"), _
+        New XElement("UnitsInStock"), New XElement("UnitsOnOrder"), New XElement("ReorderLevel"), New XElement("Discontinued"))
+        'increment the ProductID based on the max ProductID value. 
+        Dim productIDIncrementCounter As Integer = Me.GetMaxProductID()
+        productElement.SetElementValue("ProductID", productIDIncrementCounter + 1)
+        'Add the XElement to the Products node. 
+        productsElement.Add(productElement)
+        Return productElement
+    End Function
+    'helper method to get the max CategoryID in the XML file 
+    Private Function GetMaxCategoryID() As Integer
+        Return rootElement.Descendants("Category").Max(Function(categoryElement) CInt(categoryElement.Element("CategoryID")))
+    End Function
+    'helper method to get the max ProductID in the XML file 
+    Private Function GetMaxProductID() As Integer
+        Return rootElement.Descendants("Product").Max(Function(productElement) CType(productElement.Element("ProductID"), Integer))
+    End Function
+    'Update the category XElement values based on the updated Category object. 
+    Private Sub ReplayCategoryChanges(ByVal updatedCategory As Category, ByVal originalCategoryElement As XElement)
+        originalCategoryElement.SetElementValue("CategoryName", If(updatedCategory.CategoryName Is Nothing, String.Empty, updatedCategory.CategoryName))
+        originalCategoryElement.SetElementValue("Description", If(updatedCategory.Description Is Nothing, String.Empty, updatedCategory.Description))
+    End Sub
+    'Update the product XElement values based on the updated Product object. 
+    Private Sub ReplayProductChanges(ByVal updatedProduct As Product, ByVal originalProductElement As XElement)
+        originalProductElement.SetElementValue("CategoryID", updatedProduct.CategoryID)
+        originalProductElement.SetElementValue("Discontinued", updatedProduct.Discontinued)
+        originalProductElement.SetElementValue("ProductName", If(updatedProduct.ProductName Is Nothing, String.Empty, updatedProduct.ProductName))
+        originalProductElement.SetElementValue("QuantityPerUnit", If(updatedProduct.QuantityPerUnit Is Nothing, String.Empty, updatedProduct.QuantityPerUnit))
+        originalProductElement.SetElementValue("ReorderLevel", updatedProduct.ReorderLevel)
+        originalProductElement.SetElementValue("UnitPrice", updatedProduct.UnitPrice)
+        originalProductElement.SetElementValue("UnitsInStock", updatedProduct.UnitsInStock)
+        originalProductElement.SetElementValue("UnitsOnOrder", updatedProduct.UnitsOnOrder)
+    End Sub
+#End Region
+End Class
+#End Region
+#Region "Category class"
+<DataContract()> _
+Public Class Category
+    Private _CategoryID As Integer
+    <DataMember()> _
+    Public Property CategoryID() As Integer
+        Get
+            Return _CategoryID
+        End Get
+        Set(ByVal value As Integer)
+            _CategoryID = value
+        End Set
+    End Property
+    Private _CategoryName As String
+    <DataMember()> _
+    Public Property CategoryName() As String
+        Get
+            Return _CategoryName
+        End Get
+        Set(ByVal value As String)
+            _CategoryName = value
+        End Set
+    End Property
+    Private _Description As String
+    <DataMember()> _
+    Public Property Description() As String
+        Get
+            Return _Description
+        End Get
+        Set(ByVal value As String)
+            _Description = value
+        End Set
+    End Property
+    Private _Products As IEnumerable(Of Product)
+    <DataMember()> _
+    Public Property Products() As IEnumerable(Of Product)
+        Get
+            Return _Products
+        End Get
+        Set(ByVal value As IEnumerable(Of Product))
+            _Products = value
+        End Set
+    End Property
+End Class
+#End Region
+#Region "Product class"
+<DataContract()> _
+Public Class Product
+    Private _ProductID As Integer
+    <DataMember()> _
+    Public Property ProductID() As Integer
+        Get
+            Return _ProductID
+        End Get
+        Set(ByVal value As Integer)
+            _ProductID = value
+        End Set
+    End Property
+    Private _ProductName As String
+    <DataMember()> _
+    Public Property ProductName() As String
+        Get
+            Return _ProductName
+        End Get
+        Set(ByVal value As String)
+            _ProductName = value
+        End Set
+    End Property
+    Private _CategoryID As Integer
+    <DataMember()> _
+    Public Property CategoryID() As Integer
+        Get
+            Return _CategoryID
+        End Get
+        Set(ByVal value As Integer)
+            _CategoryID = value
+        End Set
+    End Property
+    Private _QuantityPerUnit As String
+    <DataMember()> _
+    Public Property QuantityPerUnit() As String
+        Get
+            Return _QuantityPerUnit
+        End Get
+        Set(ByVal value As String)
+            _QuantityPerUnit = value
+        End Set
+    End Property
+    Private _UnitPrice As Decimal
+    <DataMember()> _
+    Public Property UnitPrice() As Decimal
+        Get
+            Return _UnitPrice
+        End Get
+        Set(ByVal value As Decimal)
+            _UnitPrice = value
+        End Set
+    End Property
+    Private _UnitsInStock As Integer
+    <DataMember()> _
+    Public Property UnitsInStock() As Integer
+        Get
+            Return _UnitsInStock
+        End Get
+        Set(ByVal value As Integer)
+            _UnitsInStock = value
+        End Set
+    End Property
+    Private _UnitsOnOrder As Integer
+    <DataMember()> _
+    Public Property UnitsOnOrder() As Integer
+        Get
+            Return _UnitsOnOrder
+        End Get
+        Set(ByVal value As Integer)
+            _UnitsOnOrder = value
+        End Set
+    End Property
+    Private _ReorderLevel As Integer
+    <DataMember()> _
+    Public Property ReorderLevel() As Integer
+        Get
+            Return _ReorderLevel
+        End Get
+        Set(ByVal value As Integer)
+            _ReorderLevel = value
+        End Set
+    End Property
+    Private _Discontinued As Boolean
+    <DataMember()> _
+    Public Property Discontinued() As Boolean
+        Get
+            Return _Discontinued
+        End Get
+        Set(ByVal value As Boolean)
+            _Discontinued = value
+        End Set
+    End Property
+End Class
+#End Region
+----
+
+*In C#:*
+
+----
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.Xml.Linq;
+using System.Web;
+using System.Collections.ObjectModel;
+namespace IGDocumentation
+{
+    #region DataAccess
+    public class DataManager
+    {
+        #region private fields
+        //The root element of the XML file
+        private readonly XElement rootElement;
+        //Path to the XML File
+        private readonly string dataPath;
+        #endregion
+        #region Constructors
+        public DataManager(string dataPath)
+        {
+            this.dataPath = dataPath;
+            //load the xml file
+            rootElement = XElement.Load(dataPath);
+        }
+        #endregion
+        #region public methods
+        #region Read
+        /*
+         * The collection I return in these methods does not matter 
+         * since the proxy automatically creates ObservableCollection<T> on the client.
+         */
+        public IEnumerable<Category> GetCategories()
+        {
+            //Retrive all the category elements from the XML file and create Category objects.
+            var categories = rootElement.Descendants("Category").Select<XElement, Category>(cElement => CreateCategory(cElement));
+            return categories.ToList<Category>();
+        }
+        public IEnumerable<Product> GetProducts()
+        {
+            //Retrive all the Product elements from the XML file and create Product objects.
+            var products = rootElement.Descendants("Product").Select<XElement, Product>(pElement => CreateProduct(pElement));
+            return products.ToList<Product>();
+        }
+        public IEnumerable<Product> GetProductsByCategoryID(int categoryID)
+        {
+            //Get all Product elements with the specified category ID and create Product objects.
+            var products = rootElement.Descendants("Product").Where<XElement>(pElement => (int)pElement.Element("CategoryID") == categoryID).Select<XElement, Product>(pElement => CreateProduct(pElement));
+            return products.ToList<Product>();
+        }
+        public IEnumerable<Category> GetCategoriesAndProducts()
+        {
+            //Retrieve the Category and Product elements and create Category and Product objects.
+            var categories = rootElement.Descendants("Category").Select<XElement, Category>(cElement => CreateCategoryAndProducts(cElement));
+            return categories.ToList<Category>();
+        }
+        #endregion
+        #region create/update
+        public int? UpdateCategory(Category updatedCategory)
+        {
+            //Retrieve a reference to the Category element that corresponds to the specified Category object.
+            var originalCategoryElement = rootElement.Descendants("Category").SingleOrDefault<XElement>(cElement => (int)cElement.Element("CategoryID") == updatedCategory.CategoryID);
+            //for adds, return the new categoryID
+            int? categoryID = null;
+            //If the original cateogry XElement is found, replay the changes
+            //Otherwise, create a new XElement for the category before replaying changes.
+            if (originalCategoryElement != null)
+            {
+                ReplayCategoryChanges(updatedCategory, originalCategoryElement);
+            }
+            else
+            {
+                XElement categoryElement = this.AddCategory();
+                categoryID = (int)categoryElement.Element("CategoryID");
+                ReplayCategoryChanges(updatedCategory, categoryElement);
+            }
+            //Save to file
+            this.rootElement.Save(dataPath);
+            return categoryID;
+        }
+        //Implementation is similar to UpdateCategory
+        public int? UpdateProduct(Product updatedProduct)
+        {
+            var originalProduct = rootElement.Descendants("Product").SingleOrDefault<XElement>(pElement => (int)pElement.Element("ProductID") == updatedProduct.ProductID);
+            int? productID = null;
+            if (originalProduct != null)
+            {
+                ReplayProductChanges(updatedProduct, originalProduct);
+            }
+            else
+            {
+                XElement productElement = this.AddProduct();
+                productID = (int)productElement.Element("ProductID");
+                ReplayProductChanges(updatedProduct, productElement);
+            }
+            this.rootElement.Save(dataPath);
+            return productID;
+        }
+        #endregion
+        #region delete
+        public void DeleteCategory(Category deletedCategory, bool deleteProductsInCategory)
+        {
+            //Delete the Category element that corresponds to the specified Category object.
+            rootElement.Descendants("Category").Single<XElement>(cElement => (int)cElement.Element("CategoryID") == deletedCategory.CategoryID).Remove();
+            if (deleteProductsInCategory)
+            {
+                //Delete all Product elements that belong to the specified Category object.
+                rootElement.Descendants("Product").Where<XElement>(pElement => (int)pElement.Element("CategoryID") == deletedCategory.CategoryID).Remove<XElement>();
+            }
+            //Persist changes to the XML file.
+            this.rootElement.Save(dataPath);
+        }
+        public void DeleteProduct(Product deletedProduct)
+        {
+            //Delete the Product element that corresponds to the specified Product object.
+            rootElement.Descendants("Product").Single<XElement>(pElement => (int)pElement.Element("ProductID") == deletedProduct.ProductID).Remove();
+            this.rootElement.Save(dataPath);
+        }
+        #endregion
+        #endregion
+        #region private methods
+        //Create a Category object and set its properties using the data in the XElement
+        private Category CreateCategory(XElement categoryElement)
+        {
+            return new Category
+            {
+                CategoryID = (int)categoryElement.Element("CategoryID"),
+                CategoryName = categoryElement.Element("CategoryName").Value,
+                Description = categoryElement.Element("Description").Value,
+                Products = new List<Product>()
+            };
+        }
+        //Create a Product object and set its properties using the data in the XElement
+        private Product CreateProduct(XElement productElement)
+        {
+            return new Product
+            {
+                ProductID = (int)productElement.Element("ProductID"),
+                CategoryID = (int)productElement.Element("CategoryID"),
+                ProductName = productElement.Element("ProductName").Value,
+                QuantityPerUnit = productElement.Element("QuantityPerUnit").Value,
+                UnitPrice = (decimal)productElement.Element("UnitPrice"),
+                UnitsInStock = (int)productElement.Element("UnitsInStock"),
+                UnitsOnOrder = (int)productElement.Element("UnitsOnOrder"),
+                ReorderLevel = (int)productElement.Element("ReorderLevel"),
+                Discontinued = (bool)productElement.Element("Discontinued")
+            };
+        }
+        private Category CreateCategoryAndProducts(XElement categoryElement)
+        {
+            Category category = CreateCategory(categoryElement);
+            category.Products = rootElement.Descendants("Product").Where<XElement>(product => (int)categoryElement.Element("CategoryID") == (int)product.Element("CategoryID")).Select<XElement, Product>(product => CreateProduct(product)).ToList<Product>();
+            return category;
+        }
+        //Create and add a new Category element to the Categories node.
+        private XElement AddCategory()
+        {
+            //Get the Categories XElement
+            var categoriesElement = rootElement.Descendants("Categories").Single<XElement>();
+            //Create a new XElement for the category
+            XElement categoryElement = new XElement("Category",
+                new XElement("CategoryID"),
+                new XElement("CategoryName"),
+                new XElement("Description"));
+            //increment the CategoryID based on the max CategoryID value.
+            int categoryIDIncrementCounter = this.GetMaxCategoryID();
+            categoryElement.SetElementValue("CategoryID", categoryIDIncrementCounter + 1);
+            //Add category XElement as a child of the Categories XElement
+            categoriesElement.Add(categoryElement);
+            return categoryElement;
+        }
+        //Implementation is similar to the AddCategory method.
+        private XElement AddProduct()
+        {
+            var productsElement = rootElement.Descendants("Products").Single<XElement>();
+            //Create a new XElement for a Product.
+            XElement productElement = new XElement("Product",
+                new XElement("ProductID"),
+                new XElement("ProductName"),
+                new XElement("CategoryID"),
+                new XElement("QuantityPerUnit"),
+                new XElement("UnitPrice"),
+                new XElement("UnitsInStock"),
+                new XElement("UnitsOnOrder"),
+                new XElement("ReorderLevel"),
+                new XElement("Discontinued"));
+            //increment the ProductID based on the max ProductID value.
+            int productIDIncrementCounter = this.GetMaxProductID();
+            productElement.SetElementValue("ProductID", productIDIncrementCounter + 1);
+            //Add the XElement to the Products node.
+            productsElement.Add(productElement);
+            return productElement;
+        }
+        //helper method to get the max CategoryID in the XML file
+        private int GetMaxCategoryID()
+        {
+            return rootElement.Descendants("Category").Max<XElement>(categoryElement => (int)categoryElement.Element("CategoryID"));
+        }
+        //helper method to get the max ProductID in the XML file
+        private int GetMaxProductID()
+        {
+            return rootElement.Descendants("Product").Max<XElement>(productElement => (int)productElement.Element("ProductID"));
+        }
+        //Update the category XElement values based on the updated Category object.
+        private void ReplayCategoryChanges(Category updatedCategory, XElement originalCategoryElement)
+        {
+            originalCategoryElement.SetElementValue("CategoryName", updatedCategory.CategoryName ?? string.Empty);
+            originalCategoryElement.SetElementValue("Description", updatedCategory.Description ?? string.Empty);
+        }
+        //Update the product XElement values based on the updated Product object.
+        private void ReplayProductChanges(Product updatedProduct, XElement originalProductElement)
+        {
+            originalProductElement.SetElementValue("CategoryID", updatedProduct.CategoryID);
+            originalProductElement.SetElementValue("Discontinued", updatedProduct.Discontinued);
+            originalProductElement.SetElementValue("ProductName", updatedProduct.ProductName ?? string.Empty);
+            originalProductElement.SetElementValue("QuantityPerUnit", updatedProduct.QuantityPerUnit ?? string.Empty);
+            originalProductElement.SetElementValue("ReorderLevel", updatedProduct.ReorderLevel);
+            originalProductElement.SetElementValue("UnitPrice", updatedProduct.UnitPrice);
+            originalProductElement.SetElementValue("UnitsInStock", updatedProduct.UnitsInStock);
+            originalProductElement.SetElementValue("UnitsOnOrder", updatedProduct.UnitsOnOrder);
+        }
+        #endregion
+    }
+    #endregion
+    /*
+     * You do not need to implement the INotifyPropertyChanged interface since the proxy automatically does it for you on the client.
+     * You also don't need to add [DataContract] and [DataMember] attributes if you are using WCF 3.5 SP1.
+     * Just create classes with a default constructor and any read/write properties are automatically serialized in WCF 3.5 SP1.
+     */
+    #region Category class
+    [DataContract]
+    public class Category
+    {
+        [DataMember]
+        public int CategoryID { get; set; }
+        [DataMember]
+        public string CategoryName { get; set; }
+        [DataMember]
+        public string Description { get; set; }
+        [DataMember]
+        public IEnumerable<Product> Products { get; set; }
+    }
+    #endregion
+    #region Product class
+    [DataContract]
+    public class Product
+    {
+        [DataMember]
+        public int ProductID { get; set; }
+        [DataMember]
+        public string ProductName { get; set; }
+        [DataMember]
+        public int CategoryID { get; set; }
+        [DataMember]
+        public string QuantityPerUnit { get; set; }
+        [DataMember]
+        public decimal UnitPrice { get; set; }
+        [DataMember]
+        public int UnitsInStock { get; set; }
+        [DataMember]
+        public int UnitsOnOrder { get; set; }
+        [DataMember]
+        public int ReorderLevel { get; set; }
+        [DataMember]
+        public bool Discontinued { get; set; }
+    }
+    #endregion
+}
+----

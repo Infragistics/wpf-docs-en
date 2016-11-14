@@ -1,0 +1,217 @@
+﻿////
+
+|metadata|
+{
+    "name": "xaminputs-masks",
+    "controlName": ["xamInputs"],
+    "tags": ["Editing"],
+    "guid": "107abc47-4d60-4a68-84bc-8ace53e29880",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.8992157Z"
+}
+|metadata|
+////
+
+= Masks
+
+== Introduction
+
+The xamMaskedInput™ and other input controls based on the xamMaskedInput™ control (e.g., xamCurrencyInput™ and xamNumericInput™) expose the link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask property]. The following table lists all possible mask characters and tokens that the mask syntax supports.
+
+*Note:* Not all masks are relevant for every input control. For instance, you wouldn’t normally use a mm:ss (minutes and seconds mask) in a xamCurrencyInput control. The “Use with” column of the table below maps the commonly used mask characters to the input controls. Also, the masks depend on the ValueType of the control. For example if you set the link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valuetype.html[ValueType property] of a xamNumericInput control to Int32, it’s unnecessary to use a mask containing decimal placeholder character. 
+
+[cols="a,a,a,a"]
+|====
+|*Mask Character*
+|*Title*
+|*Use with:*
+|*Description*
+
+|#
+|Digit placeholder
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Characters must be numeric (0-9) and entry is required. Example: pass:[(###)-###-####].
+
+|.
+|Decimal placeholder
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Characters are required as specified as the decimal placeholder as defined by the system's international settings. Characters are treated as literals for masking purposes.
+
+|,
+|Thousands separator
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Characters are delimited by the thousands separator as defined by the system's international settings. This character is treated as a literal for masking purposes.
+
+|:
+|Time separator
+|xamMaskedInput
+|Characters are delimited by the time separator as defined by the system's international settings. This character is treated as a literal for masking purposes.
+
+|/
+|Date separator
+|xamMaskedInput
+|This character is also treated as a literal for masking purposes.
+
+|\
+|Escape next chatacter
+|xamMaskedInput
+|This character instructs the mask to treat the next character in the mask string as a literal. This allows you to include the '#', '&', 'A', and '?' as well as other characters with special meanings in the mask. This character is treated as a literal for masking purposes.
+
+|&
+|Character placeholder
+|xamMaskednput
+|Valid values for this placeholder are ANSI characters in the following ranges: 32-126 and 128-255 (keyboard and foreign symbol characters).
+
+|>
+|
+|xamMaskedInput
+|Converts all characters that follow to uppercase
+
+|<
+|
+|xamMaskedInput
+|Converts all characters that follow to lowercase
+
+|A
+|Alphanumeric character placeholder
+|xamMaskedInput
+|Represents an alphanumeric character. For example: a-z, A-Z, or 0-9. Character entry is *required* .
+
+|a
+|Alphanumeric character placeholder
+|xamMaskedInput
+|For example: a-z, A-Z, or 0-9. Character entry is *not required* .
+
+|9
+|Digit placeholder
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Character must be numeric (0-9) but entry is not required.
+
+|h
+|Hexadecimal digit placeholder
+|xamNumericInput xamMaskedInput
+|Character must be a hexadecimal digit (0-9 or a-f). The entry is required. A-F digits will be converted to lower case.
+
+|H
+|Hexadecimal digit placeholder
+|xamNumericInput xamMaskedInput
+|Same as 'h' placeholder however the a-f digits are converted to upper case.
+
+|-
+|Minus sign (optional)
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Minus sign when followed by a number section defined by series of 'n's (like in "-nn,nnn.nn") indicates that negative numbers are allowed. When not followed by a series of 'n's, it's taken as a literal. Minus sign is only shown when the number is actually negative.
+
+|+
+|Plus sign (optional)
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|Plus sign when followed by a number section defined by series of 'n's (like in "+nn,nnn.nn") indicates that negative numbers are allowed. However, it differs from '-' in the respect that it always shows a '+' or a '-' sign depending on whether the number is positive or negative.
+
+|C
+|Character or space placeholder
+|xamMaskedInput
+|Character entry is not required. This operates exactly like the '&' placeholder, and ensures compatibility with Microsoft Access.
+
+|?
+|Letter placeholder
+|xamMaskedInput
+|For example: a-z or A-Z. Character entry is not required.
+
+|n
+|Digit placeholder
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|A group of n's can be used to create a numeric section where numbers are entered from right to left. Character must be numeric (0-9) but entry is not required.
+
+|{char:n:s}
+|Arbitrary set of accepted characters
+|xamMaskedInput
+|The {char:n:s} mask allows you to define a placeholder with arbitrary set of acceptable characters. The 'n' in the mask specifies the number of character placeholders in the mask. The 's' specifies the set of acceptable characters. The following are some examples of this mask: 
+
+* {char:1:abc} - This mask will have single character placeholder that will accept 'a', 'b' or 'c' characters only. 
+
+* {char:4:abc} - Same as above except 4 character placeholders is created. 
+
+* {char:8:0-9a-f} - 8 character placeholders where each will allow 0-9 and a-f characters (in effect hexadecimal characters). 
+
+|mm, dd, yy
+|Date characters
+|xamMaskedInput
+|The combination of these three tokens is used to define a date mask. The mm is for month, dd for day, yy for two-digit years and yyyy for four-digit years. Examples: mm/dd/yyyy, yyyy/mm/dd, mm/yy.
+
+|hh, mm, ss, tt
+|Time characters
+|xamMaskedInput
+|The combination of these tokens is used to define a time mask. The hh is for hour, mm for minute, ss for second, and tt for AM/PM. Examples: hh:mm, hh:mm tt, hh:mm:ss.
+
+|{date:s}
+|Short date
+|xamMaskedInput
+|The {date} token is a placeholder for short date input. The date mask is derived using the underlying culture settings.
+
+|{time}
+|Short time
+|xamMaskedInput
+|The {time} token is a placeholder for short time input. Short time typically does not include the seconds portion of time. The time mask is derived using the underlying culture settings.
+
+|{longtime}
+|Long time
+|xamMaskedInput
+|The {longtime} token is a placeholder for long time input. Long time typically includes the seconds portion of the time. The long time mask is derived using the underlying culture settings.
+
+|{double:-i.f:c}
+|Customized floating poing input
+|xamNumericInput xamMaskedInput
+|The {double:i.f:c} token is a placeholder for a mask that allows floating point input where i and f specify the number of digits in the integer and fraction portions respectively. The :c portion of the mask is optional and specifies that the value must be continuous across fraction and integer portions. For example, with :c in the mask, in order to enter 12.34 the user types in "1234". Notice that the decimal separator character is missing. This alleviates the user from having to manually type in the decimal separator. The "-" (minus) symbol before i.f is also optional. Presence of ‘-‘ symbol indicates that the negative values are allowed. If ‘-‘ symbol is not included then only non-negative values will be allowed.
+
+|{currency:-i.f:c}
+|Customized currency input
+|xamCurrencyInput
+|Same as {double:i.f:c} except the mask is constructed based on currency formatting information of the underlying format provider or the culture. It typically has the currency symbol and also displays the group characters.
+
+|{number:min-max}
+|Range of numbers
+|xamCurrencyInput xamNumericInput xamMaskedInput
+|The {number:min-max} placeholder is used for a number section that can accept values in the range from min to max. Examples: {number:0-255}, {number:-10-10}.
+
+|Literal
+|
+|All input controls
+|All other symbols are displayed as literals; that is, they appear as themselves.
+
+|====
+
+*Note:* You can also escape the mask with {LOC} character sequence to indicate that symbols in the following table should be mapped to the associated symbols in the underlying culture settings.
+
+[cols="a,a"]
+|====
+|*Mask Character*
+|*Description*
+
+|$
+|Currency symbol
+
+|/
+|Date separator
+
+|:
+|Time separator
+
+|,
+|Thousands separator
+
+|.
+|Decimal separator
+
+|+
+|Positive sign
+
+|-
+|Negative sign
+
+|====
+
+== Related Topics
+
+* link:xaminputs.html[xamInputs]
+* link:xaminputs-about.html[About xamInputs]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]

@@ -1,0 +1,557 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-datatypemodels",
+    "controlName": [],
+    "tags": ["Data Binding"],
+    "guid": "08392595-841b-4679-98d7-9a53fa6793b3",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.2700123Z"
+}
+|metadata|
+////
+
+= DataTypeModels
+
+*In C#:*
+
+----
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Windows.Controls;
+namespace DataTypeModels
+{
+    #region DataModels
+    public class StockDataPoint
+    {
+        #region Properties
+        public double Open { get; set; }
+        public double High { get; set; }
+        public double Low { get; set; }
+        public double Close { get; set; }
+        public double Volume { get; set; }
+        public double Change { get { return Close - Open; } }
+        public DateTime Date { get; set; }
+        public int Item { get; set; }
+        #endregion
+    }
+    // ----------------------------------------------------------------------
+
+    public class CollectionData : ObservableCollection<StockDataPoint>
+
+    {
+
+        public CollectionData()
+
+        {
+
+            StockDataGenerator.Generate();
+
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+
+            {
+
+                this.Add(dp);
+
+            }
+
+        }
+
+    }
+
+    // ----------------------------------------------------------------------
+    public class EnumerableData : IEnumerable<StockDataPoint>, INotifyCollectionChanged
+    {
+        public EnumerableData()
+        {
+            _items = new ObservableCollection<StockDataPoint>();
+            _items.CollectionChanged += OnItemsCollectionChanged;
+            StockDataGenerator.Generate();
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+            {
+                this.Add(dp);
+            }
+        }
+        private readonly ObservableCollection<StockDataPoint> _items;
+        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        #region Methods
+        public void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (CollectionChanged != null)
+            {
+                CollectionChanged(sender, e);
+            }
+        }
+        public void Add(StockDataPoint item)
+        {
+            _items.Add(item);
+        }
+        public void Remove(StockDataPoint item)
+        {
+            _items.Remove(item);
+        }
+        public void Clear()
+        {
+            _items.Clear();
+        }
+        public IEnumerator<StockDataPoint> GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return _items.GetEnumerator();
+        }
+        #endregion
+    }
+    // ----------------------------------------------------------------------
+
+    public class ListData : List<StockDataPoint>
+
+    {
+
+        public ListData()
+
+        {
+
+            StockDataGenerator.Generate();
+
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+
+            {
+
+                this.Add(dp);
+
+            }
+
+        }
+
+    }
+
+    // ----------------------------------------------------------------------
+    public class LinkedListData : LinkedList<StockDataPoint>
+    {
+        public LinkedListData()
+        {
+            StockDataGenerator.Generate();
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+            {
+                this.AddLast(dp);
+            }
+        }
+    }
+    // ----------------------------------------------------------------------
+
+    public class QueueData : Queue<StockDataPoint>
+
+    {
+
+        public QueueData()
+
+        {
+
+            StockDataGenerator.Generate();
+
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+
+            {
+
+                this.Enqueue(dp);
+
+            }
+
+        }
+
+    }
+
+    // ----------------------------------------------------------------------
+    public class StackData : Stack<StockDataPoint>
+    {
+        public StackData()
+        {
+            StockDataGenerator.Generate();
+            foreach (StockDataPoint dp in StockDataGenerator.Data)
+            {
+                this.Push(dp);
+            }
+        }
+    }
+    // ----------------------------------------------------------------------
+
+    #endregion
+
+
+
+    #region DataGenerator
+
+
+
+    public static class StockDataGenerator
+
+    {
+
+        static StockDataGenerator()
+
+        {
+
+            rnd = new Random();
+
+            StockSettings = new StockDataSettings();
+
+            Data = GenerateData();
+
+        }
+
+        #region Properties
+
+        public static StockDataSettings StockSettings { get; set; }
+
+        public static List<StockDataPoint> Data { get; set; }
+
+
+
+        #endregion
+
+        #region Fields
+
+        private static Random rnd;
+
+        #endregion
+
+
+
+        #region Methods
+
+        public static DateTime GenerateStockDate(DateTime lastDate)
+
+        {
+
+            return lastDate.Add(StockSettings.DateInterval);
+
+        }
+
+        public static double GenerateStockVolume(double preVolume)
+
+        {
+
+            double sum = 0;
+
+            int min = (int)preVolume - StockSettings.VolumeRange;
+
+            int max = (int)preVolume + StockSettings.VolumeRange;
+
+            for (int i = 0; i < StockSettings.VolumeSample; i++)
+
+            {
+
+                sum += (double)rnd.Next(min, max);
+
+            }
+
+            return sum / StockSettings.VolumeSample;
+
+        }
+
+        public static double GenerateStockOpen(double preClose)
+
+        {
+
+            //open value always equals to previous close value
+
+            return preClose;
+
+        }
+
+        public static double GenerateStockHigh(double open)
+
+        {
+
+            double sum = 0;
+
+            int min = (int)open;
+
+            int max = (int)open + StockSettings.PriceRange;
+
+            for (int i = 0; i < StockSettings.PriceSample; i++)
+
+            {
+
+                sum += (double)rnd.Next(min, max);
+
+            }
+
+            return sum / StockSettings.PriceSample;
+
+        }
+
+        public static double GenerateStockLow(double open)
+
+        {
+
+            double sum = 0;
+
+            int min = (int)open - StockSettings.PriceRange;
+
+            int max = (int)open;
+
+            for (int i = 0; i < StockSettings.PriceSample; i++)
+
+            {
+
+                sum += (double)rnd.Next(min, max);
+
+            }
+
+            return sum / StockSettings.PriceSample;
+
+        }
+
+        public static double GenerateStockClose(double low, double high)
+
+        {
+
+            int min = (int)Math.Ceiling(low);
+
+            int max = (int)Math.Floor(high);
+
+            return (double)rnd.Next(min, max);
+
+            // or return (low + high) / 2.0;
+
+        }
+
+
+
+        #endregion
+
+        public static void Generate()
+
+        {
+
+            Data = GenerateData();
+
+        }
+
+
+
+
+
+        /// <summary>
+
+        /// Generate new StockDataPoint based on the passed StockDataPoint
+
+        /// </summary>
+
+        /// <param name="lastStockDataPoint"></param>
+
+        /// <returns></returns>
+
+        public static StockDataPoint GenerateStockDataPoint(StockDataPoint lastStockDataPoint)
+
+        {
+
+            double open = GenerateStockOpen(lastStockDataPoint.Close);
+
+            double high = GenerateStockHigh(open);
+
+            double low = GenerateStockLow(open);
+
+            double close = GenerateStockClose(low, high);
+
+
+
+            double volume = GenerateStockVolume(lastStockDataPoint.Volume);
+
+            DateTime date = lastStockDataPoint.Date.Add(StockSettings.DateInterval);
+
+
+
+            return new StockDataPoint
+
+            {
+
+                Date = date,
+
+                Open = open,
+
+                Close = close,
+
+                High = high,
+
+                Low = low,
+
+                Volume = volume
+
+            };
+
+        }
+
+
+
+        /// <summary>
+
+        /// Generate new StockDataPoint based on the last StockDataPoint in List of StockDataPoint 
+
+        /// </summary>
+
+        /// <returns></returns>
+
+        public static StockDataPoint GenerateStockDataPoint()
+
+        {
+
+            StockDataPoint lastStockDataPoint = Data[Data.Count - 1];
+
+            lastStockDataPoint.Item = Data.Count;
+
+            return GenerateStockDataPoint(lastStockDataPoint);
+
+
+
+        }
+
+        /// <summary>
+
+        /// Generate List of StockMarketStockDataPoint based on the StockSettings
+
+        /// </summary>
+
+        /// <returns></returns>
+
+        public static List<StockDataPoint> GenerateData()
+
+        {
+
+            List<StockDataPoint> data = new List<StockDataPoint>();
+
+
+
+            StockDataPoint tmpStockDataPoint = new StockDataPoint
+
+            {
+
+                Close = StockSettings.PriceStart,
+
+                Volume = StockSettings.VolumeStart,
+
+                Date = StockSettings.DateStart
+
+            };
+
+
+
+            for (int i = 0; i < StockSettings.StockDataPoints; i++)
+
+            {
+
+                tmpStockDataPoint = GenerateStockDataPoint(tmpStockDataPoint);
+
+                tmpStockDataPoint.Item = i;
+
+                data.Add(tmpStockDataPoint);
+
+            }
+
+            return data;
+
+        }
+
+
+
+        /// <summary>
+
+        /// Append new StockMarketStockDataPoint to existing StockMarketData
+
+        /// </summary>
+
+        public static void AppendStockDataPoint()
+
+        {
+
+            if (Data == null)
+
+                Data = new List<StockDataPoint>();
+
+
+
+            Data.Add(GenerateStockDataPoint());
+
+        }
+
+
+
+    }
+
+    public class StockDataSettings
+
+    {
+
+        public StockDataSettings()
+
+        {
+
+            StockDataPoints = 100;
+
+
+
+            VolumeStart = 2000;
+
+            VolumeRange = 50;
+
+            VolumeSample = 5;
+
+
+
+            PriceStart = 1000;
+
+            PriceRange = 20;
+
+            PriceSample = 5;
+
+
+
+            DateInterval = TimeSpan.FromDays(1);
+
+            DateStart = new DateTime(2010, 1, 1);
+
+        }
+
+        public int StockDataPoints { get; set; }
+
+        public int VolumeRange { get; set; }
+
+        public int VolumeSample { get; set; }
+
+        public int PriceRange { get; set; }
+
+        public int PriceSample { get; set; }
+
+        public double PriceStart { get; set; }
+
+        public double VolumeStart { get; set; }
+
+        public TimeSpan DateInterval { get; set; }
+
+        public DateTime DateStart { get; set; }
+
+    }
+
+
+
+    #endregion
+
+
+
+}
+
+
+
+
+
+
+----

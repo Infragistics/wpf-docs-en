@@ -1,0 +1,96 @@
+﻿////
+|metadata|
+{
+    "name": "xamorgchart-adding-xamorgchart-using-xaml-code",
+    "controlName": ["xamOrgChart"],
+    "tags": ["Data Binding","Getting Started","Sample Data Source"],
+    "guid": "1f9e0fdb-a2b5-422c-94c3-e9aa4f5d0851",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.6572959Z"
+}
+|metadata|
+////
+
+= Adding xamOrgChart Using XAML Code
+
+This topic explains how to add the xamOrgChart™ using XAML code. Before attempting the procedure, make sure you have met the requirements listed in the link:xamorgchart-adding-xamorgchart-to-your-application.html[Adding xamOrgChart to Your Application] topic.
+
+== Overview
+
+Conceptual overview of the adding procedure:
+
+[start=1]
+. <<step_1,Adding the xamOrgChart control to your application and bind it to the data model.>>
+
+[start=2]
+. <<step_2,Adding Node Layouts to the Org Chart.>>
+
+== Steps
+
+[[step_1]]
+[start=1]
+. Add the xamOrgChart control to your application and bind it to the data model.
+.. Add the following XML namespace declaration to your XAML file:
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+xmlns:data="DATA_MODEL_NAMESPACE"
+----
+.. Add an instance of the xamOrgChart control with a DataContext bound to a link:resources-departmentviewmodel.html[DepartmentViewModel] object and an ItemsSource bound to the Departments property.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamOrgChart ItemsSource="{Binding Departments}">
+    <ig:XamOrgChart.DataContext>
+        <data:DepartmentViewModel />
+    </ig:XamOrgChart.DataContext>
+    <ig:XamOrgChart.GlobalNodeLayouts>
+        <!--Add Node Layouts-->
+    </ig:XamOrgChart.GlobalNodeLayouts>
+</ig:XamOrgChart>
+----
+
+[[step_2]]
+[start=2]
+. Add Node Layouts to the Org Chart.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamOrgChart ItemsSource="{Binding Departments}">
+    <ig:XamOrgChart.DataContext>
+        <data:DepartmentViewModel />
+    </ig:XamOrgChart.DataContext>
+    <ig:XamOrgChart.GlobalNodeLayouts>
+        <ig:OrgChartNodeLayout 
+            TargetTypeName="Department"
+            DisplayMemberPath="Name"
+            Key="EmployeePositions" />
+        <ig:OrgChartNodeLayout 
+            TargetTypeName="EmployeePosition"
+            DisplayMemberPath="JobTitle"
+            Key="Employees" />
+        <ig:OrgChartNodeLayout 
+            TargetTypeName="Employee"
+            DisplayMemberPath="FirstName" />
+    </ig:XamOrgChart.GlobalNodeLayouts>
+</ig:XamOrgChart>
+----
+
+== *Related Topics*
+
+link:xamorgchart-adding-xamorgchart-to-your-application.html[Adding xamOrgChart to Your Application]
+
+link:xamorgchart-adding-xamorgchart-using-procedural-code.html[Adding xamOrgChart Using Procedural Code]
+
+link:xamorgchart-understanding-xamorgchart.html[Understanding xamOrgChart]
+
+link:xamorgchart-using-xamorgchart.html[Using xamOrgChart]
+
+link:xamorgchart-api-overview.html[API Overview]

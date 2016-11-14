@@ -1,0 +1,120 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-2011-volume-1",
+    "controlName": [],
+    "tags": [],
+    "guid": "d03572b9-85bf-4a31-b4ee-69aa33340a12",  
+    "buildFlags": [],
+    "createdOn": "2012-01-31T21:16:05.5717981Z"
+}
+|metadata|
+////
+
+= 2011 Volume 1
+
+This topic lists breaking changes in the 2011 Volume 1 release of the {ProductName} product.
+
+== xamDataChart™
+
+The default value of link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axis~labelsettings.html[LabelSettings] property of an link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axis.html[Axis] is null and this property must be instantiated with the link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axislabelsettings.html[AxisLabelSettings] constructor before accessing properties of axis labels.
+
+*In Visual Basic:*
+
+----
+Me.numericYAxis.LabelSettings = New AxisLabelSettings()
+Me.numericYAxis.LabelSettings.Extent = 40
+----
+
+*In C#:*
+
+----
+this.numericYAxis.LabelSettings = new AxisLabelSettings();
+this.numericYAxis.LabelSettings.Extent = 40;
+----
+
+== Office 2010 Blue Theme
+
+Names of resource dictioneries for the Office 2010 Blue theme has been changed:
+
+Office2010Blue.xamZoombar.xaml $$->$$ Office2010Blue.DataVisualization.xaml
+
+== xamNetworkNode™
+
+*Dynamic Layout Changes*
+
+Some application scenarios involve dynamic addition or removal of node items from the graph. This behavior is supported when the data model implements INotifyPropertyChanged. However, please note that any changes to the underlying node data will cause the xamNetworkNode to update its layout, modifying the positions of existing nodes. In future, the control will provide a mechanism for preserving the locations of existing nodes when nodes are added or removed.
+
+*Node Overlap*
+
+In some cases, the layout algorithm for the Network Node control may cause nodes to overlap. This will be addressed as development continues.
+
+== xamBarcode™
+
+When working with xamQRCodeBarcode™ control, be sure to include the following assembly to your project:
+
+* {ApiPlatform}Encodings.v11.1.dll
+
+The encodings were extracted in a separate assembly to reduce the size of the {ApiPlatform}Controls.Barcodes.v11.1 assembly. The xamQRCodeBarcode control is the only barcode symbology from the xamBarcode™ series of controls, which uses encodings that are not supported by the {PlatformName} framework.
+
+Note that Infragistics Barcode Reader™ requires reference to the {ApiPlatform}Encodings.v11.1 assembly to decode QR Code symbols.
+
+== xamPivotGrid™ - FlatDataSource
+
+Starting from the 2011 Volume 1 release, the link:{ApiPlatform}olap.flatdata.v{ProductVersion}~infragistics.olap.flatdata.flatdatasource.html[FlatDataSource] requires unique names for hierarchies on which to base the slice of data to be computed for the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid] control instead of specifying only the dimension name because there was just one hierarchy per dimension in prior releases.
+
+*In C#:*
+
+----
+// In the 2011 Volume 1 release:
+xmlaDataSource.Rows = DataSourceBase.GenerateInitialItems("[Date].[Calendar], [Region].[Country]");
+xmlaDataSource.Columns = DataSourceBase.GenerateInitialItems("[Company].[Product]");
+// In the 2010 Volume 3 release:
+xmlaDataSource.Rows = DataSourceBase.GenerateInitialItems("[Date], [Region]");
+xmlaDataSource.Columns = DataSourceBase.GenerateInitialItems("[Company]");
+----
+
+== xamPivotGrid - Custom Data Provider
+
+This change affects the developers that have implemented their custom data provider for the xamPivotGrid control. The following methods of the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.dataproviderbase.html[DataProviderBase] class have changed:
+
+*In C#:*
+
+[source]
+----
+protected void OnLoadMeasureGroupsCompleted(AsyncCompletedEventArgs)
+----
+
+[source]
+----
+protected void OnLoadMeasureGroupDimensionsCompleted(AsyncCompletedEventArgs)
+----
+
+These methods now need to be called with the cube as third parameter in the constructor of the AsyncCompletedEventArgs object.
+
+*In C#:*
+
+----
+this.OnLoadMeasureGroupsCompleted(new AsyncCompletedEventArgs(e.Error, e.Cancelled, cube));
+this.OnLoadMeasureGroupDimensionsCompleted(new AsyncCompletedEventArgs(e.Error, e.Cancelled, cube));
+----
+
+Another change which concerns the custom data providers in conjunction with the proper work of pre-filtering feature is the need to implement the LoadMembersAsync(ICube cube, IHierarchy hierarchy) method. When there are pre-filters applied the whole hierarchy must be populated. That happens through a call to the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.dataproviderbase~loadmembersasync.html[LoadMembersAsync] method. When all members of the hierarchy are filled into the hierarchy this method call should be as follows in order to fire the related event and notify the data source that operation is completed:
+
+*In C#:*
+
+----
+this.OnLoadMembersCompleted(new AsyncCompletedEventArgs(e.Error, e.Cancelled, hierarchy));
+----
+
+== Renamed Assemblies
+
+[options="header", cols="a,a"]
+|====
+|Former Assembly Name|New Assembly Name
+
+|{ApiPlatform}Excel.v10.3.dll
+|{ApiPlatform}Documents.Excel.v11.1.dll
+
+|====

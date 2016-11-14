@@ -1,0 +1,110 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatacarousel-getting-started-with-xamdatacarousel",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Getting Started"],
+    "guid": "{DE160CFA-D79B-4DDA-93C7-17BDE333DACC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.6558843Z"
+}
+|metadata|
+////
+
+= Adding xamDataCarousel to Your Page
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamDataCarousel™ control to a Page or Window.
+
+[start=1]
+. In the Solution Explorer, add the following references to your project:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}Editors.v{ProductVersion}.dll
+** {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+
+[start=2]
+. Add a namespace declaration for xamDataCarousel.
+
+*In XAML:*
+
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+----
+
+[start=3]
+. Attach an event handler to the Window's Loaded event if you are going to use the code-behind to.
+
+*In XAML:*
+
+----
+<Window ... Loaded="Window_Loaded"  ... >
+----
+
+[start=4]
+. Name the default Grid layout panel in the Window so that you can reference it in the code-behind.
+
+*In XAML:*
+
+----
+<Grid Name="layoutRoot">
+</Grid>
+----
+
+[start=5]
+. Create an instance of xamDataCarousel and add it either through the XAML or code-behind using the Window_Loaded event handler. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True. This will automatically populate xamDataCarousel with sample data so that you can preview the xamDataCarousel control without setting up a data source.
+
+*In XAML:*
+
+----
+<igDP:XamDataCarousel Name="xamDataCarousel1" BindToSampleData="True" />
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+xamDataCarousel1 = New XamDataCarousel()
+' You can data bind your instance of xamDataCarousel instead
+' of using the built in sample data
+xamDataCarousel1.BindToSampleData = True
+Me.layoutRoot.Children.Add(xamDataCarousel1)
+----
+
+*In C#:*
+
+[source,csharp]
+----
+xamDataCarousel1 = new XamDataCarousel();
+// You can data bind your instance of xamDataCarousel instead
+// of using the built in sample data
+xamDataCarousel1.BindToSampleData = true;
+this.layoutRoot.Children.Add(xamDataCarousel1);
+----
+
+[start=6]
+. Run the project to see the xamDataCarousel control populated with sample data.
+
+image::images/xamDataCarousel_Creating_xamDataCarousel_in_XAML_01.png[creating xamdatacarousel in xaml]
+
+== Related Topics
+
+link:creating-a-flat-dataset.html[Creating a Flat DataSet]
+
+link:creating-an-objectdataprovider.html[Creating an ObjectDataProvider]
+
+link:creating-an-xmldataprovider.html[Creating an XmlDataProvider]
+
+link:using-the-data-context-for-data-binding.html[Using the Data Context for Data Binding]

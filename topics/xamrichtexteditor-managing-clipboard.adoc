@@ -1,0 +1,369 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-clipboard",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "6171466c-dada-438f-8121-d9f6922df3d2",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5263066Z"
+}
+|metadata|
+////
+
+= Managing Clipboard (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s clipboard operations from a developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362363405,Introduction to the xamRichTextEditor’s Clipboard Support>>
+* <<_Ref362363409,Clipboard Cut>>
+* <<_Ref362363414,Clipboard Copy>>
+* <<_Ref362363419,Clipboard Paste>>
+* <<_Ref362363496,ClipboardOperationExecuting Event>>
+* <<_Ref362363502,ClipboardOperationExecuted Event>>
+* <<_Ref362363440,Related Content>>
+
+[[_Ref362363405]]
+== Introduction to the xamRichTextEditor’s Clipboard Support
+
+=== Introduction
+
+The  _xamRichTextEditor_   control provides Cut, Copy, and Paste clipboard operations allowing the user to edit the rich content of the document by moving or copying parts of the content at different locations. It is also possible to paste rich text content to and from other applications.
+
+There must be selected content within the  _xamRichTextEditor_   for the Cut and Copy operations to be available. The Paste operation may be executed with, or without content selection.
+
+* If the document does not contain any selected content the clipboard’s contents is inserted after the current caret position
+* If the document contains selected content the clipboard’s content replaces the current selection
+
+[[_Ref362363409]]
+== Clipboard Cut
+
+=== Overview
+
+The cut clipboard operation moves the selected content from the document to the clipboard and removes it from the document.
+
+=== Details
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Do the following:|Details:
+
+|Perform the Cut operation using command
+|Instantiate the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource_members.html[RichTextEditorCommandSource] class
+|Set the following properties: 
+
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource~eventname.html[EventName] 
+
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource~commandtype.html[CommandType] 
+
+|Perform the Cut operation using method
+|Invoke the Cut method
+|
+
+|====
+
+=== Code example using command
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Cut">
+    <ig:Commanding.Command>
+        <igPrim:RichTextEditorCommandSource EventName="Click" CommandType="Cut" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+=== Code example using method
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.ActiveDocumentView.Selection.Cut();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.ActiveDocumentView.Selection.Cut()
+----
+
+[[_Ref362363414]]
+== Clipboard Copy
+
+=== Overview
+
+The copy clipboard operation copies the selected content from the document to the clipboard.
+
+=== Details
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Do the following:|Details:
+
+|Perform the Copy operation using command
+|Instantiate the `RichTextEditorCommandSource` class
+|Set the following properties: 
+
+`EventName` 
+
+`CommandType`
+
+|Perform the Copy operation using method
+|Invoke the Copy method
+|
+
+|====
+
+=== Code example using command
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Copy">
+    <ig:Commanding.Command>
+        <igPrim:RichTextEditorCommandSource EventName="Click" CommandType="Copy" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+=== Code example using method
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.ActiveDocumentView.Selection.Copy();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.ActiveDocumentView.Selection.Copy()
+----
+
+[[_Ref362363419]]
+== Clipboard Paste
+
+=== Overview
+
+The paste clipboard operation places the clipboard content at the  _xamRichTextEditor_   control’s current caret position or replaces the selection in the document if applicable.
+
+=== Details
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Do the following:|Details:
+
+|Perform the Paste operation using command
+|Instantiate the `RichTextEditorCommandSource` class
+|Set the following properties: 
+
+`EventName` 
+
+`CommandType`
+
+|Perform the Paste operation using method
+|Invoke the Paste method
+|
+
+|====
+
+=== Code example using command
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Paste">
+    <ig:Commanding.Command>
+        <igPrim:RichTextEditorCommandSource EventName="Click" CommandType="Paste" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+=== Code example using method
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.ActiveDocumentView.Selection.Paste();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.ActiveDocumentView.Selection.Paste()
+----
+
+[[_Ref362363426]]
+[[_Ref362363496]]
+== ClipboardOperationExecuting Event
+
+=== Overview
+
+This event fires before executing a clipboard operation. The event handler provides an argument of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationcanceleventargs.html[RichTextClipboardOperationCancelEventArgs], which can be used for the following purposes:
+
+=== Details
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Do the following:
+
+|Obtain the clipboard operation
+|Obtain the value of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationcanceleventargs~clipboardoperation.html[ClipboardOperation] property
+
+|Obtain the data object on which the clipboard operation will be performed.
+|Obtain the value of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationcanceleventargs~dataobject.html[DataObject] property
+
+|Cancel the clipboard operation which is about the be executed
+|Set the Cancel property to true
+
+|====
+
+=== Code example
+
+*In C#:*
+
+[source,csharp]
+----
+void xamRichTextEditor1_ClipboardOperationExecuting(object sender, RichTextClipboardOperationCancelEventArgs e)
+{
+    // obtain clipboard operation
+    ClipboardOperation operation = e.ClipboardOperation;
+    // obtain clipboard content as text
+    string s = e.DataObject.GetData("Text") as string;
+    // cancel the clipboard operation if a condition occur
+    e.Cancel = true;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Private Sub xamRichTextEditor1_ClipboardOperationExecuting(sender As Object, e As RichTextClipboardOperationCancelEventArgs)
+      ' obtain clipboard operation
+      Dim operation As ClipboardOperation = e.ClipboardOperation
+      ' obtain clipboard content as text
+      Dim s As String = TryCast(e.DataObject.GetData("Text"), String)
+      ' cancel the clipboard operation if a condition occur
+      e.Cancel = True
+End Sub
+----
+
+[[_Ref362363434]]
+[[_Ref362363502]]
+== ClipboardOperationExecuted Event
+
+=== Overview
+
+This event fires after executing a clipboard operation. The event handler provides an argument of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationeventargs.html[RichTextClipboardOperationEventArgs], which can be used for the following purposes:
+
+=== Details
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Do the following:
+
+|Obtain the clipboard operation
+|Obtain the value of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationeventargs~clipboardoperation.html[ClipboardOperation] property
+
+|Obtain the data object on which the clipboard operation was performed.
+|Obtain the value of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextclipboardoperationeventargs~dataobject.html[DataObject] property
+
+|====
+
+=== Code example
+
+*In C#:*
+
+[source,csharp]
+----
+void xamRichTextEditor1_ClipboardOperationExecuted(object sender, ClipboardOperationEventArgs e)
+{
+    // obtain clipboard operation
+    ClipboardOperation operation = e.ClipboardOperation;
+    // obtain clipboard content as text
+    string s = e.DataObject.GetData("Text") as string;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Private Sub xamRichTextEditor1_ClipboardOperationExecuted(sender As Object, e As ClipboardOperationEventArgs)
+      ' obtain clipboard operation
+      Dim operation As ClipboardOperation = e.ClipboardOperation
+      ' obtain clipboard content as text
+      Dim s As String = TryCast(e.DataObject.GetData("Text"), String)
+End Sub
+----
+
+[[_Ref362363440]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-configuring-selection.html[Configuring Selection]
+|This topic explains how to turn on the _xamRichTextEditor_ control’s multiple selection functionality.
+
+| link:xamrichtexteditor-managing-selection.html[Managing Selection]
+|This topic covers the _xamRichTextEditor_ control’s selection feature from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/clipboard-support[Clipboard Support]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/clipboard-support[Clipboard Support]"] 
+|This sample demonstrates how to invoke commands on the *xamRichTextEditor* in order to use the clipboard.
+
+|====

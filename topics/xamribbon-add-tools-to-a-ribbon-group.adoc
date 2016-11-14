@@ -1,0 +1,78 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-add-tools-to-a-ribbon-group",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Grouping","How Do I","Navigation","Selection"],
+    "guid": "{F651AD7C-2FEA-49B1-A42A-B450316B50BB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1321795Z"
+}
+|metadata|
+////
+
+= Add Tools to a Ribbon Group
+
+
+
+A Ribbon would lack a sense of purpose without tools that your end user could use to accomplish application tasks. For this purpose, the RibbonGroup object exposes an Items collection that you can use to add tools to the Ribbon. Just like any control derived from the ItemsControl class in Microsoft® Windows® Presentation Foundation, you can add tools directly to the Ribbon Group without needing to declare an explicit Items collection.
+
+The following example code demonstrates how to add a ButtonTool and a CheckBoxTool to a RibbonGroup.
+
+*In XAML:*
+
+----
+...
+<igRibbon:RibbonGroup Caption="Font">
+        <igRibbon:ButtonTool Caption="Bold" Id="btnBold" />
+        <igRibbon:CheckBoxTool Caption="Save Changes Automatically" Id="chkBoxAutosave" />
+</igRibbon:RibbonGroup>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim group As New RibbonGroup()
+group.Caption = "Font"
+group.Id = "grpFont"
+Dim btnTool As New ButtonTool()
+btnTool.Caption = "Bold"
+btnTool.Id = "btnBold"
+Dim chkTool As New CheckBoxTool()
+chkTool.Caption = "Save Changes Automatically"
+chkTool.Id = "chkBoxAutosave"
+group.Items.Add(btnTool)
+group.Items.Add(chkTool)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+RibbonGroup group = new RibbonGroup();
+group.Caption = "Font";
+group.Id = "grpFont";
+ButtonTool btnTool = new ButtonTool();
+btnTool.Caption = "Bold";
+btnTool.Id = "btnBold";
+CheckBoxTool chkTool = new CheckBoxTool();
+chkTool.Caption = "Save Changes Automatically";
+chkTool.Id = "chkBoxAutosave";
+group.Items.Add(btnTool);
+group.Items.Add(chkTool);
+...
+----
+
+== Related Topics
+
+link:xamribbon-adding-xamribbon-to-your-application-.html[Adding xamRibbon to Your Application]
+
+link:xamribbon-add-a-tab-to-xamribbon.html[Add a Tab to xamRibbon]
+
+link:xamribbon-add-a-ribbon-group-to-a-ribbon-tab.html[Add a Ribbon Group to a Ribbon Tab]

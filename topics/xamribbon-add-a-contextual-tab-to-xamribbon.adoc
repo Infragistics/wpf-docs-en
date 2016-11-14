@@ -1,0 +1,93 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-add-a-contextual-tab-to-xamribbon",
+    "controlName": ["xamRibbon"],
+    "tags": ["Getting Started","Grouping","How Do I"],
+    "guid": "{CA7FD6F2-C7DC-41FA-9A71-1B76337C7DB6}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.0991729Z"
+}
+|metadata|
+////
+
+= Add a Contextual Tab to xamRibbon
+
+
+
+Contextual Tabs are unique types of Tabs that only appear when your end user puts focus on a specific control within your application. You will have to programmatically show or hide a ContextualTabGroup based on the control that has input focus. For example, if the end user places focus on a xamDataGrid™ control, you can show a ContextualTabGroup that has tools specifically related for data entry tasks.
+
+The xamRibbon™ control exposes a ContextualTabGroups collection. Each ContextualTabGroup exposes a collection of Tabs. When you hide the ContextualTabGroup object, you are also hiding all the Tabs in the ContextualTabGroup's Tabs collection. When you show the ContextualTabGroup object, you are also displaying all the Tabs in the ContextualTabGroup's Tabs collection.
+
+When you add a ContextualTabGroup to the ContextualTabGroups collection, there are three important ContextualTabGroup properties to set:
+
+* The Caption property displays over the Tabs in the ContextualTabGroup's Tabs collection when the ContextualTabGroup is visible.
+* Use the Key property to retrieve a reference to the ContextualTabGroup in the ContextualTabGroups collection.
+* The IsVisible property determines whether the ContextualTabGroup is visible to the end user. Because the IsVisible property defaults to True, you must explicitly set it to False if you wish to hide the ContextualTabGroup.
+
+The following example code demonstrates how to add a Contextual Tab with two Tabs to xamRibbon.
+
+*In XAML:*
+
+----
+...
+<igRibbon:XamRibbon Name="xamRibbon1">
+        <igRibbon:XamRibbon.ContextualTabGroups>
+                <igRibbon:ContextualTabGroup Caption="XamDataGrid Tools"
+                  Key="xdgTools" IsVisible=">
+                        <igRibbon:RibbonTabItem Header="Design">
+                        </igRibbon:RibbonTabItem>
+                        <igRibbon:RibbonTabItem Header="Layout">
+                        </igRibbon:RibbonTabItem>
+                </igRibbon:ContextualTabGroup>
+        </igRibbon:XamRibbon.ContextualTabGroups>
+</igRibbon:XamRibbon>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim contextualGroup As New ContextualTabGroup()
+contextualGroup.Key = "xdgTools"
+contextualGroup.Caption = "XamDataGrid Tools"
+contextualGroup.IsVisible = True
+Me.xamRibbon1.ContextualTabGroups.Add(contextualGroup)
+Dim tab As RibbonTabItem
+tab = New RibbonTabItem()
+tab.Header = "Design"
+contextualGroup.Tabs.Add(tab)
+tab = New RibbonTabItem()
+tab.Header = "Layout"
+contextualGroup.Tabs.Add(tab)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+ContextualTabGroup contextualGroup = new ContextualTabGroup();
+contextualGroup.Key = "xdgTools";
+contextualGroup.Caption = "XamDataGrid Tools";
+contextualGroup.IsVisible = true;
+this.xamRibbon1.ContextualTabGroups.Add(contextualGroup);
+RibbonTabItem tab;
+tab = new RibbonTabItem();
+tab.Header = "Design";
+contextualGroup.Tabs.Add(tab);
+tab = new RibbonTabItem();
+tab.Header = "Layout";
+contextualGroup.Tabs.Add(tab);
+...
+----
+
+== Related Topics
+
+link:xamribbon-adding-xamribbon-to-your-application-.html[Adding xamRibbon to Your Application]
+
+link:xamribbon-showing-a-contextual-tab-group-programmatically.html[Show a Contextual Tab Group Programmatically]

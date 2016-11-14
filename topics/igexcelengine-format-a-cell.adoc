@@ -1,0 +1,60 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-format-a-cell",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Editing","Formatting","How Do I"],
+    "guid": "{F448B6F1-3C38-4279-AA6B-26D2A1A9C7DB}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7607053Z"
+}
+|metadata|
+////
+
+= Formatting a Cell (Infragistics Excel Engine)
+
+The Infragistics Excel Engine allows you to customize the look and behavior of a cell. You can customize a cell by setting properties exposed by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~cellformat.html[CellFormat] property of the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell.html[WorksheetCell], link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetrow.html[WorksheetRow], link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcolumn.html[WorksheetColumn], or link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetmergedcellsregion.html[WorksheetMergedCellsRegion] objects.
+
+You can customize every aspect of a cell's appearance. You can set a cell’s font, background, and borders, as well as text alignment and rotation. You can even apply a different format on a character-by-character basis for a cell’s text.
+
+You can also format cell values by assigning a format string. An acceptable format string follows the .NET standard format and formatting codes.
+
+The following code shows you how to format a cell to display numbers as currency and to color negative values red. The example code assumes you have a reference to a Worksheet named worksheet1.
+
+*In Visual Basic:*
+[source,vb]
+----
+worksheet1.Columns(2).CellFormat.FormatString = """$""#,##0.00;[red](""$""#,##0.00)"
+----
+
+*In C#:*
+[source,csharp]
+----
+worksheet1.Columns[2].CellFormat.FormatString = "\"$\"#,##0.00;[red](\"$\"#,##0.00)";
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Referencing Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Adding a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

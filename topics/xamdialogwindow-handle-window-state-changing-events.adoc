@@ -1,0 +1,107 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdialogwindow-handle-window-state-changing-events",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["Events","How Do I"],
+    "guid": "{413CE87C-DC32-4042-BACA-D5576DA27232}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.9871467Z"
+}
+|metadata|
+////
+
+= Handle Window State Changing Events
+
+There are two events associated when the dialog window’s state changes. These events have the suffix “ing” or “ed” appended to them, reflecting the order in which they occur. The window state changing events allow you to perform some custom business logic before or after the window’s state is changed.
+
+link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~windowstatechanging_ev.html[WindowStateChanging] - The moment right before the dialog window control’s state changes, the WindowStateChanging event fires. You can cancel this event if certain conditions are not met.
+
+link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~windowstatechanged_ev.html[WindowStateChanged] -This event fires after the dialog window control’s state is changed.
+
+The following code demonstrates how to handle the WindowStateChanging and WindowStateChanged events.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamDialogWindow Content="Dialog Window" 
+      x:Name="DialogWindow" 
+      Width="200" Height="200"                                           
+      WindowStateChanged="DialogWindow_WindowStateChanged"                                   
+      WindowStateChanging="DialogWindow_WindowStateChanging"/>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Interactions
+…
+AddHandler DialogWindow.WindowStateChanging, AddressOf DialogWindow_WindowStateChanging
+AddHandler DialogWindow.WindowStateChanged, AddressOf DialogWindow_WindowStateChanged
+…
+Private Sub DialogWindow_WindowStateChanging(ByVal sender As System.Object, ByVal e As WindowStateChangingEventArgs)
+  'If the new window state is minimized,cancel the event
+   If (e.NewWindowState.Equals(WindowState.Minimized)) Then
+      e.Cancel = True
+      Return
+   End If
+   System.Diagnostics.Debug.WriteLine("Window State Changing from "  
+                                       + e.CurrentWindowState.ToString() + 
+                                       " to " + e.NewWindowState.ToString())
+End Sub
+Private Sub DialogWindow_WindowStateChanged(ByVal sender As System.Object, ByVal e 
+As WindowStateChangedEventArgs)
+   System.Diagnostics.Debug.WriteLine("Window State Changed Successfully")
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Interactions;
+…
+DialogWindow.WindowStateChanging += new EventHandler<WindowStateChangingEventArgs>(DialogWindow_WindowStateChanging);
+DialogWindow.WindowStateChanged += new EventHandler<WindowStateChangedEventArgs>(DialogWindow_WindowStateChanged);
+…
+void DialogWindow_WindowStateChanged(object sender, WindowStateChangedEventArgs e)
+{
+   System.Diagnostics.Debug.WriteLine("Dialog Window State Changed Successfully");
+}
+void DialogWindow_WindowStateChanging(object sender, WindowStateChangingEventArgs e)
+{
+   //If the new window state is minimized,cancel the event
+   if(e.NewWindowState.Equals(WindowState.Minimized))
+   {
+      e.Cancel = true;
+      return;
+   }
+   System.Diagnostics.Debug.WriteLine("Window State Changing from "+e.CurrentWindowState+" to "+e.NewWindowState);
+}
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-moving-events.html[Handle Moving Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-modal-and-modeless-dialog-windows.html[Modal and Modeless Dialog Windows]
+
+link:xamdialogwindow-position-minimized-dialog-window.html[Position Minimized Dialog Window]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-the-xamdialogwindow-controls-behavior.html[The xamDialogWindow Control's Behavior]
+
+link:xamdialogwindow-window-header-controls.html[Window Header Controls]

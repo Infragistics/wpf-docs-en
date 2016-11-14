@@ -1,0 +1,185 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-2009-volume-2",
+    "controlName": [],
+    "tags": ["Known Issues"],
+    "guid": "{40005137-84DC-4FF4-9830-80BFCAEC3645}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-31T21:16:05.5587968Z"
+}
+|metadata|
+////
+
+= 2009 Volume 2
+
+== xamMap
+
+The Projection property of the xamMap™ control has been renamed to link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~mapprojection.html[MapProjection]. In addition ProjectionType property has been changed to link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~mapprojectiontype.html[MapProjectionType]. Also the default map projection type has been changed to link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.projectiontype.html[SphericalMercator].
+
+The xamDock™ control has been moved to the Infragistics.Controls assembly and namespace. As result, attributes related to link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.xamdock.html[xamDock] should be changed to the following:
+
+New method for docking link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapnavigationpane.html[MapNavigationPane] using the xamDock control:
+
+*In XAML:*
+
+----
+xmlns:igMap="clr-namespace:Infragistics.Controls.Maps;assembly={ApiPlatform}Controls.Maps.XamMap.v9.2" 
+xmlns:ig="clr-namespace:Infragistics.Controls.;assembly={ApiPlatform}DataVisualization.v9.2" 
+<!-- ... -->
+igMap:MapNavigationPane Margin="10" ig:XamDock.Edge="InsideRight"
+----
+
+== xamTimeline
+
+The xamTimeline™ control's PreventOverlapping property has been removed. Also a new property called link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventtitle~linestyle.html[LineStyle] has been added to the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventtitle.html[EventTitle] object's template. With this property the style of the line that connects the EventTitle with the Timeline axis can be changed, the following is a default template for EventTitle:
+
+*In XAML:*        
+
+[source]
+----
+xmlns:igtl="clr-namespace:Infragistics.Controls.Timelines;assembly={ApiPlatform}Controls.Timelines.XamTimeline.v9.2"
+        <!-- resources used by EventTitle template -->
+        <LinearGradientBrush x:Key="EventTitleBackgroundBrush" StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Offset="0" Color="#FFffffff"
+                    <GradientStop Offset="1" Color="#FFeff1f3"
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="EventTitleBorderBrush" StartPoint="0,0" EndPoint="0,1">
+            <LinearGradientBrush.GradientStops>
+                <GradientStopCollection>
+                    <GradientStop Color="#FFa3aeb9" Offset="0"
+                    <GradientStop Color="#FF8399a9" Offset="0.3700000047683716"
+                    <GradientStop Color="#FF718597" Offset="0.3709999918937683"
+                    <GradientStop Color="#FF617584" Offset="1"
+                </GradientStopCollection>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <!-- default EventTitle template -->
+        <Style TargetType="igtl:EventTitle">
+            <Setter Property="MaxWidth" Value="180" 
+            <Setter Property="IsTabStop" Value="
+            <Setter Property="Background" Value="{StaticResource EventTitleBackgroundBrush}" 
+            <Setter Property="Foreground" Value="#FF333333"
+            <Setter Property="BorderThickness" Value="1" 
+            <Setter Property="BorderBrush" Value="{StaticResource EventTitleBorderBrush}" 
+            <Setter Property="PointStringFormat" Value="{}[{0}]" 
+            <Setter Property="SpanStringFormat" Value="{}[{0}-{1}]" 
+            <Setter Property="Padding" Value="5"
+            <Setter Property="LineStyle">
+                <Setter.Value>
+                    <Style TargetType="Line">
+                        <Setter Property="StrokeThickness" Value="1" 
+                        <Setter Property="Stroke" Value="{StaticResource EventTitleBorderBrush}" 
+                        <Setter Property="Canvas.ZIndex" Value="-1" 
+                        <Setter Property="Margin" Value="0,3,0,0" 
+                        <Setter Property="UseLayoutRounding" Value="True" 
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="igtl:EventTitle">
+                        <Border BorderThickness="0,0,1,1" 
+                                BorderBrush="#59617583" 
+                                CornerRadius="4">
+                            <Border HorizontalAlignment="Left"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    CornerRadius="3"
+                                    UseLayoutRounding="True">
+                                <Grid>
+                                    <Border BorderBrush="#FFFFFFFF" 
+                                            BorderThickness="1" 
+                                            CornerRadius="2" 
+                                    <Grid Margin="{TemplateBinding Padding}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" 
+                                            <RowDefinition Height="Auto" 
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Text="{TemplateBinding FormattedText}"
+                                                           TextWrapping="Wrap" 
+                                        <TextBlock Text="{TemplateBinding Title}" 
+                                                         TextWrapping="Wrap" 
+                                                         Grid.Row="1"
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+----
+
+== xamLinearGauge and xamRadialGauge
+
+The type of ValueChanged event for the following objects of xamLinearGauge™ and xamRadialGauge™ controls had been changed from EventHandler to link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.valuechangedeventargs.html[ValueChangedEventArgs]
+
+* link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.gaugebarmarkerbase~valuechanged_ev.html[ValueChanged] for Infragistics.Controls.Charts.GaugeBarMarkerBase
+
+*In Visual Basic:*
+
+----
+AddHandler Me.xamLinearGauge.Scales(0).BarMarkers(0).ValueChanged, AddressOf LinearGaugeBarMarker_ValueChanged
+Private Sub LinearGaugeBarMarker_ValueChanged(ByVal sender As Object, ByVal e As Infragistics.Controls.Charts.ValueChangedEventArgs)
+        Dim newValue As Double = e.NewValue
+End Sub
+----
+
+*In C#:*
+
+----
+this.xamLinearGauge.Scales[0].BarMarkers[0].ValueChanged += LinearGaugeBarMarker_ValueChanged;
+private void LinearGaugeBarMarker_ValueChanged(object sender, Infragistics.Controls.Charts.ValueChangedEventArgs e)
+{
+    double newValue = e.NewValue;
+}
+----
+
+* link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.gaugeneedlebase~valuechanged_ev.html[ValueChanged] for Infragistics.Controls.Charts.GaugeNeedleBase
+
+*In Visual Basic:*
+
+----
+AddHandler Me.xamLinearGauge.Scales(0).Needles(0).ValueChanged, AddressOf LinearGaugeNeedle_ValueChanged
+Private Sub LinearGaugeNeedle_ValueChanged(ByVal sender As Object, ByVal e As Infragistics.Controls.Charts.ValueChangedEventArgs)
+    Dim newValue As Double = e.NewValue
+End Sub
+----
+
+*In C#:*
+
+----
+this.xamLinearGauge.Scales[0].Needles[0].ValueChanged += LinearGaugeNeedle_ValueChanged;
+private void LinearGaugeNeedle_ValueChanged(object sender, Infragistics.Controls.Charts.ValueChangedEventArgs e)
+{
+    double newValue = e.NewValue;
+}
+----
+
+* link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.radialgaugeneedle~valuechanged_ev.html[ValueChanged] for Infragistics.Controls.Charts.RadialGaugeNeedle
+
+*In Visual Basic:*
+
+----
+AddHandler Me.xamRadialGauge.Scales(0).Needles(0).ValueChanged, AddressOf RadialGaugeNeedle_ValueChanged
+Private Sub RadialGaugeNeedle_ValueChanged(ByVal sender As Object, ByVal e As Infragistics.Controls.Charts.ValueChangedEventArgs)
+    Dim newValue As Double = e.NewValue
+End Sub
+----
+
+*In C#:*
+
+----
+this.xamRadialGauge.Scales[0].Needles[0].ValueChanged += RadialGaugeNeedle_ValueChanged;
+private void RadialGaugeNeedle_ValueChanged(object sender, Infragistics.Controls.Charts.ValueChangedEventArgs e)
+{
+    double newValue = e.NewValue;
+}
+----

@@ -1,0 +1,287 @@
+﻿////
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-serialization-providers",
+    "tags": ["Data Binding"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "39e1f7a9-4be8-47a1-af6b-616bd83d05f3",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.4703414Z"
+}
+|metadata|
+////
+
+= Serialization Providers Overview (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s serialization providers.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362600929,Introduction>>
+* <<_Ref362600934,Serialization Providers Configuration Summary>>
+* <<_Ref362533437,Add Serialization Providers>>
+* <<_Ref362533449,Set Formats Priority>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362600929]]
+== Introduction
+
+=== Serialization Providers summary
+
+The  _xamRichTextEditor_   control supports a flexible architecture based on serialization providers, which allows the import and export of different rich content formats. These are the abilities the  _xamRichTextEditor_   gains when a new serialization provider is added:
+
+* You can use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] control’s link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~load.html[Load] or link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~save.html[Save] methods for importing and exporting rich content by specifying a particular serialization provider. The external serialization providers supplied by Infragistics also define extension methods for `RichTextDocument` to load and save documents in specific formats. More information about this is available later in the <<_Ref359594803,Related Content>> section.
+* The clipboard cut or copy operations adds the content to the clipboard in all internal content formats supported by the  _xamRichTextEditor_   (various plain text formats) plus the format(s) provided by the external serialization providers.
+* The clipboard paste operation is using external serialization providers to obtain and deserialize the clipboard’s content. A description of how to define a format’s priority as the one chosen for deserialization appears later in this topic.
+
+The following table lists the  *Infragistics pick:[sl="SL5"]  pick:[wpf="WPF4"] .Documents.RichTextDocument.v{ProductVersion}*  internal serialization providers and their supported content formats used by the  _xamRichTextEditor_   when reading or writing data to the clipboard:
+
+[options="header", cols="a,a,a"]
+|====
+|Serialization Provider|Format|Description
+
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextserializationprovider.html[PlainTextSerializationProvider]
+|System.String
+|Text content in ANSI format
+
+|
+|UnicodeText
+|Text content in Unicode format
+
+|
+|Text
+|Text content in ANSI format
+
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.imageserializationprovider.html[ImageSerializationProvider]
+|DIB
+|Device Independent Bitmap
+
+|====
+
+.Note
+[NOTE]
+====
+The `ImageSerializationProvider` only supports loading of the Device Independent Bitmap format for images from the clipboard. It cannot load or save documents or save content to the clipboard.
+====
+
+The following table lists the serialization providers located in external assemblies and their respective formats:
+
+[options="header", cols="a,a,a"]
+|====
+|Assembly / Serialization Provider|Format|Description
+
+|*{ApiPlatform}Documents.RichTextDocument.Rtf.v{ProductVersion}* 
+
+link:{ApiPlatform}documents.richtextdocument.rtf.v{ProductVersion}~infragistics.documents.richtext.rtf.rtfserializationprovider.html[RtfSerializationProvider]
+|Rich Text Format
+|Rich content in Rich Text Format
+
+|*{ApiPlatform}Documents.RichTextDocument.Word.v{ProductVersion}* 
+
+link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.wordserializationprovider.html[WordSerializationProvider]
+|Embed Source
+|Rich content in MS Word (docx) format
+
+|====
+
+[[_Ref362600934]]
+== Serialization Providers Configuration Summary
+
+=== Serialization providers configuration summary chart
+
+The following table briefly explains the configurable aspects of the  _xamRichTextEditor_   control and maps them to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|<<_Ref362533437,Add Serialization Providers>>
+|Add external serialization providers to the _xamRichTextEditor_ .
+| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardserializationproviders.html[ClipboardSerializationProviders]
+
+|<<_Ref362533449,Set Formats Priority>>
+|Set a formats priority to be used when obtaining data from the clipboard.
+| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardformats.html[ClipboardFormats]
+
+|====
+
+[[_Ref362533437]]
+== Add Serialization Providers
+
+=== Overview
+
+You can add external serialization providers in the xamRichTextEditor control’s `ClipboardSerializationProviders` property that allows the  _xamRichTextEditor_   to support additional formats for adding and obtaining content on the clipboard.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Add external serialization provider
+|`ClipboardSerializationProviders`
+|Add the external serialization provider
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The code snippet below demonstrates how to add the RTF and Word external serialization providers:
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamRichTextEditor>
+    <ig:XamRichTextEditor.ClipboardSerializationProviders>
+        <ig:PlainTextSerializationProvider />
+        <ig:ImageSerializationProvider />
+        <ig:RtfSerializationProvider />
+        <ig:WordSerializationProvider />
+    </ig:XamRichTextEditor.ClipboardSerializationProviders>
+</ig:XamRichTextEditor>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.ClipboardSerializationProviders.Add(
+    PlainTextSerializationProvider.Instance);
+this.xamRichTextEditor1.ClipboardSerializationProviders.Add(
+    ImageSerializationProvider.Instance);
+this.xamRichTextEditor1.ClipboardSerializationProviders.Add(
+    RtfSerializationProvider.Instance);
+this.xamRichTextEditor1.ClipboardSerializationProviders.Add(
+    WordSerializationProvider.Instance);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.ClipboardSerializationProviders.Add(PlainTextSerializationProvider.Instance)
+Me.xamRichTextEditor1.ClipboardSerializationProviders.Add(ImageSerializationProvider.Instance)
+Me.xamRichTextEditor1.ClipboardSerializationProviders.Add(RtfSerializationProvider.Instance)
+Me.xamRichTextEditor1.ClipboardSerializationProviders.Add(WordSerializationProvider.Instance)
+----
+
+[[_Ref362533449]]
+== Set Formats Priority
+
+=== Overview
+
+Use the `ClipboardFormats` property for setting the order in which to apply the various formats, from the list of supported formats, to use when importing data from the clipboard. The formats are considered in the order they are specified on this property. Obtain the exact format name using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.serializationproviderbase~supportedclipboardformats.html[SupportedClipboardFormats] properties of each serialization provider. Only the formats listed in the `ClipboardFormats` property are used to save or load content on the clipboard. By default, the clipboard contains all formats supported by the internal and external serialization providers supplied by Infragistics in a default preferred order.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set formats priority
+|`ClipboardFormats`
+|A comma separated list of formats in the preferred loading order.
+
+|====
+
+=== Example
+
+The code snippets below demonstrate how to set a format priority:
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamRichTextEditor ClipboardFormats="Rich Text Format, Text">
+    <ig:XamRichTextEditor.ClipboardSerializationProviders>
+        <ig:RtfSerializationProvider />
+        <ig:WordSerializationProvider />
+    </ig:XamRichTextEditor.ClipboardSerializationProviders>
+</ig:XamRichTextEditor>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.ClipboardSerializationProviders.ClipboardFormats =
+    "Rich Text Format, Text";
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.ClipboardSerializationProviders.ClipboardFormats = _
+    "Rich Text Format, Text"
+----
+
+[[_Ref359594803]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-import-export-text.html[Import/Export Plain Text]
+|This topic explains how to import and export plain text data using the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-managing-import-export-rtf.html[Import/Export RTF]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting RTF data.
+
+| link:xamrichtexteditor-managing-import-export-docx.html[Import/Export DOCX]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting DOCX formatted data.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/export-content[Export Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/export-content[Export Content]"] 
+|This sample demonstrates the export of content in different formats.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/import-content[Import Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/import-content[Import Content]"] 
+|This sample demonstrates the import of content in different formats.
+
+|====

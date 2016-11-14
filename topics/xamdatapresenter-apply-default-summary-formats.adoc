@@ -1,0 +1,65 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-apply-default-summary-formats",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Styling","Summaries","Templating"],
+    "guid": "{9914F652-229E-421D-A4E8-0F817F3A4088}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0919715Z"
+}
+|metadata|
+////
+
+= Apply Default Summary Formats
+
+You can format a summary value by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarydefinition~stringformat.html[StringFormat] property of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarydefinition.html[SummaryDefinition] object in a field layout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~summarydefinitions.html[SummaryDefinitions] collection; however, xamDataPresenter™ offers an alternative way to format summary values using very little code. You can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~summarystringformats.html[SummaryStringFormats] property of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object to apply default formatting for summaries in that field.
+
+You can set the SummaryStringFormats property to a comma-delimited list of formats for the different calculators. Each token in the comma-delimited string must start with the name of a summary calculator, followed by a colon, and then a composite format string. For example, if you want to format the value of the sum and average calculator, you can set the Field object's SummaryStringFormats property to "sum:Total Revenue = {0:c}, average: Mean Revenue = {0:c}". In addition to the ('0') placeholder, you can also use the following placeholders in your composite format string:
+
+* {0} - Represents the actual value of the summary.
+* {1} - Represents the name of the summary calculator that is being used to calculate this summary.
+* {2} - Represents the SummaryDefinition object's Key property.
+* {3} - Represents the name of the field that is being used to calculate this summary.
+
+The following example code demonstrates how to apply default summary formats. The example code assumes you have a field named "revenue" in your field layout.
+
+*In XAML:*
+
+----
+...
+<igDP:Field 
+    Name="revenue" 
+    Label="Revenue" 
+    SummaryStringFormats="{}sum:Revenue = {0:c}, average:Mean Revenue = {0:c}" />
+...
+----
+
+*In Visual Basic:*
+
+----
+...
+Me.xamDataPresenter1.FieldLayouts(0).Fields("revenue").SummaryStringFormats = "sum:Revenue = {0:c}, average: Mean Revenue = {0:c}"
+...
+----
+
+*In C#:*
+
+----
+...
+this.xamDataPresenter1.FieldLayouts[0].Fields["revenue"].SummaryStringFormats = "sum:Revenue = {0:c}, average: Mean Revenue = {0:c}";
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-creating-a-custom-summary-calculator.html[Creating a Custom Summary Calculator]
+
+link:xamdatapresenter-enable-row-summaries.html[Enable Row Summaries]
+
+link:xamdatapresenter-format-the-value-of-a-summary.html[Format the Value of a Summary]
+
+link:xamdatapresenter-programmatically-add-summaries-to-a-field.html[Programmatically Add Summaries to a Field]
+
+link:xamdatapresenter-retrieve-the-result-of-a-summary.html[Retrieve the Result of a Summary]

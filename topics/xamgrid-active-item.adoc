@@ -1,0 +1,38 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-active-item",
+    "controlName": ["xamGrid"],
+    "tags": ["Getting Started","Grids","How Do I","Selection"],
+    "guid": "e01456f3-c0ea-4c30-b0da-5bedd78cc44b",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.4882024Z"
+}
+|metadata|
+////
+
+= Active Item
+
+While using the Model-View-ViewModel (MVVM) architecture, the xamGrid control’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~activeitem.html[ActiveItem] property allows you to easily access the data item in the root-level link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnbase~columnlayout.html[ColumnLayout].
+
+To enable this feature, create a Binding to the xamGrid control’s ActiveItem property, as demonstrated in the following code snippet:
+
+*In XAML:*
+
+----
+ <ig:XamGrid x:Name="dataGrid" 
+             ActiveItem="{Binding Path=ActiveCustomer, Mode=TwoWay}"
+             ItemsSource="{Binding Path=Customers}" >
+----
+
+Based on the above code snippet:
+
+* If the ActiveCell changes rows, the ActiveCustomer property on the ViewModel will update.
+* If the ActiveCustomer property is changed, the grid will try to resolve it and set the ActiveCell to the first visual cell in that row.
+
+.Note:
+[NOTE]
+====
+The ActiveItem feature only affects the root level ColumnLayout. If a cell in a child ColumnLayout is activated, then the ActiveItem will be set to null.
+====

@@ -1,0 +1,97 @@
+﻿////
+
+|metadata|
+{
+    "name": "xammenu-adding-icons-to-xammenuitems",
+    "controlName": ["xamMenu"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "af333886-97f2-4101-abfa-7cf5fad8bc9d",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.3902432Z"
+}
+|metadata|
+////
+
+= Adding Icons to XamMenuItems
+
+You can display icons next to each menu item in xamMenu or xamContextMenu, giving your end users a visual indication of what the menu item will do. Each XamMenuItem object exposes an link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.xammenuitem~icon.html[Icon] property that you can use to set an image.
+
+The following code shows you how to add icons for items in xamMenu.
+
+*In XAML:*
+
+----
+<ig:XamMenu x:Name="xamMenu1" Height="25" MenuOrientation="Horizontal">
+   <!-- TODO: Add menu items-->
+   <ig:XamMenuItem Header="Shop">
+       <ig:XamMenuItem.Icon>
+           <Image Source="Images/Check24.png" />
+       </ig:XamMenuItem.Icon>
+   </ig:XamMenuItem>
+   <ig:XamMenuItem Header="Checkout">
+       <ig:XamMenuItem.Icon>
+           <Image Source="Images/ShoppingCart24.png" />
+       </ig:XamMenuItem.Icon>
+   </ig:XamMenuItem>
+</ig:XamMenu>
+----
+
+*In Visual Basic:*
+
+----
+' Create menu
+Dim menu1 As New XamMenu()
+Me.LayoutRoot.Children.Add(menu1)
+menu1.Height = 25
+' Create Shop menu item
+Dim item As New XamMenuItem()
+item.Header = "Shop"
+Dim image As New Image()
+image.Source = New BitmapImage(New Uri("Images/ShoppingCart24.png", UriKind.Relative))
+item.Icon = image
+menu1.Items.Add(item)
+' Create CheckOut menu item
+item = New XamMenuItem()
+item.Header = "CheckOut"
+image = New Image()
+image.Source = New BitmapImage(New Uri("Images/Check24.png", UriKind.Relative))
+item.Icon = image
+menu1.Items.Add(item)
+----
+
+*In C#:*
+
+----
+// Create menu
+XamMenu menu1 = new XamMenu();
+this.LayoutRoot.Children.Add(menu1);
+menu1.Height = 25;
+// Create Shop menu item
+XamMenuItem item = new XamMenuItem();
+item.Header = "Shop";
+Image image = new Image { Source = new BitmapImage(new Uri("Images/ShoppingCart24.png", UriKind.Relative)) };
+item.Icon = image;
+menu1.Items.Add(item);
+// Create CheckOut menu item
+item  = new XamMenuItem();
+item.Header = "CheckOut";
+image = new Image { Source = new BitmapImage(new Uri("Images/Check24.png", UriKind.Relative)) };
+item.Icon = image;
+menu1.Items.Add(item);
+----
+
+image::images/SL_xamMenu_Adding_Icons_01.png[]
+
+== Related Topics
+
+link:xammenu-binding-to-data.html[Binding to Data]
+
+link:xammenu-layout-settings.html[Layout Settings]
+
+link:xammenu-navigating-pages-using-xammenu.html[Navigating Pages Using xamMenu]
+
+link:xammenu-adding-and-removing-items.html[Adding and Removing Items]
+
+link:xammenu-adding-separators-between-xammenuitems.html[Adding Separators between XamMenuItems]
+
+link:xammenu-adding-check-boxes-to-xammenuitems.html[Adding Check Boxes to XamMenuItems]

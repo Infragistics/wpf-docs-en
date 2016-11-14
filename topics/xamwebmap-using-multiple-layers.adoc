@@ -1,0 +1,211 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-using-multiple-layers",
+    "controlName": ["xamMap"],
+    "tags": ["Application Scenarios","Data Presentation","How Do I"],
+    "guid": "{1D9C66CA-B4C2-4791-B2F0-45D9DE133ACC}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.2872371Z"
+}
+|metadata|
+////
+
+= Using Multiple Layers
+
+== Before You Begin
+
+Adding multiple layers to xamMap™ allows for a map with multiple display surfaces, such as a map with states, cities, and roads. Each link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer.html[MapLayer] object may bind to a Shapefile or to a geo-imagery data source (*note* : at most one layer in the collection may bind to a geo-imagery data source). When these layers are combined, they stack based on the order in which they are added to the Layers collection, with the last layer added as the top-most layer.
+
+If you want layers to display at a certain window scale, you can set the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer~visiblefromscale.html[VisibleFromScale] property. The link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap.html[XamMap] control displays the layer if the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~windowscale.html[WindowScale] is increased equal to or greater than the value of the VisibleFromScale property.
+
+== What You Will Accomplish
+
+You will learn how to create a map with two layers: one for the world's countries and one for the United States. The map will show the United States at a certain zoom level so when users zoom in close enough, they can see the details of each state.
+
+image::images/XamMap_Using_Multiple_Layers_01.png[]
+
+== Follow these Steps
+
+The following set of instructions assumes that you have already set up your {PlatformName} project for the xamMap control.
+
+[start=1]
+. Add two Shapefiles to the  pick:[wpf="Shapefiles"]  pick:[sl="ClientBin"]  folder of your {PlatformName} project.
+[start=2]
+. Add a xamMap control to the XAML main page. For information on how to set up your Microsoft® {PlatformName}™ application to display xamMap, please refer to link:xamwebmap-display-map-using-shapefiles.html[Binding Shapefiles] section.
+
+*In XAML:*
+
+----
+<igMap:XamMap x:Name="xamMap" >
+        <!-- TODO: Add MapLayers with Shapefiles -->
+</igMap:XamMap>
+----
+
+[start=3]
+. In the code behind, add an event handler for the xamMap control's link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~windowrectchanged_ev.html[WindowRectChanged] event. This event fires when the map window is changed (e.g. when the map's pan or zoom changes).
+
+*In Visual Basic:*
+
+----
+Public Sub New()
+        InitializeComponent()
+        AddHandler xamMap.WindowRectChanged, AddressOf xamMap_WindowRectChanged
+End Sub
+----
+
+*In C#:*
+
+----
+public MainPage()
+{
+       InitializeComponent();
+       xamMap.WindowRectChanged += new MapWindowRectChangedEventHandler(xamMap_WindowRectChanged);
+}
+----
+
+[start=4]
+. Add two MapLayer objects to display the information from the Shapefiles. Since we only want the states layer to be visible at a certain scale, set link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer~visiblefromscale.html[VisibleFromScale] property to 2 on that layer.
+
+*In XAML:*
+
+----
+        <igMap:XamMap.Layers>
+                <igMap:MapLayer x:Name="worldLayer">
+                        <!-- TODO: Add ShapeFileReader object to read the world Shapefile -->
+                </igMap:MapLayer>
+                <igMap:MapLayer x:Name="statesLayer" VisibleFromScale="2">
+                        <!-- TODO: Add ShapeFileReader object to read the states Shapefile -->
+                </igMap:MapLayer>
+        </igMap:XamMap.Layers>
+----
+
+*In Visual Basic:*
+
+----
+Dim worldLayer As New MapLayer()
+worldLayer.LayerName = "worldLayer"
+xamMap.Layers.Add(worldLayer)
+Dim statesLayer As New MapLayer()
+statesLayer.LayerName = "statesLayer"
+statesLayer.VisibleFromScale = 2
+xamMap.Layers.Add(statesLayer)
+----
+
+*In C#:*
+
+----
+MapLayer worldLayer = new MapLayer();
+worldLayer.LayerName = "worldLayer";
+xamMap.Layers.Add(worldLayer);
+MapLayer statesLayer = new MapLayer();
+statesLayer.LayerName = "statesLayer";
+statesLayer.VisibleFromScale = 2;
+xamMap.Layers.Add(statesLayer);
+----
+
+[start=5]
+. Add two ShapeFileReader objects to read information from the Shapefiles and perform the desired data mappings.
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+<!-- Shape file reader for world Shapefile -->
+<igMap:MapLayer.Reader>
+   <igMap:ShapeFileReader Uri="/../../Shapefiles/world" DataMapping="Caption=CNTRY_NAME" />
+</igMap:MapLayer.Reader>
+<!-- Shape file reader for states Shapefile -->
+<igMap:MapLayer.Reader>
+   <igMap:ShapeFileReader Uri="/../../Shapefiles/usa_st" />
+</igMap:MapLayer.Reader>
+----
+
+endif::wpf[]
+
+ifdef::wpf[]
+
+*In Visual Basic:*
+
+----
+Dim reader As New ShapeFileReader()
+reader.Uri = "/../../Shapefiles/world"
+Dim converter As New DataMapping.Converter()
+reader.DataMapping = TryCast(converter.ConvertFromString("Caption=CNTRY_NAME"), DataMapping)
+worldLayer.Reader = reader
+reader = New ShapeFileReader()
+reader.Uri = "/../../Shapefiles/usa_st"
+converter = New DataMapping.Converter()
+reader.DataMapping = TryCast(converter.ConvertFromString("Caption=STATE_ABBR"), DataMapping)
+statesLayer.Reader = reader
+----
+
+endif::wpf[]
+
+ifdef::wpf[]
+
+*In C#:*
+
+----
+ShapeFileReader reader = new ShapeFileReader();
+reader.Uri = "/../../Shapefiles/world";
+DataMapping.Converter converter = new DataMapping.Converter();
+reader.DataMapping = converter.ConvertFromString("Caption=CNTRY_NAME") as DataMapping;
+worldLayer.Reader = reader;
+reader = new ShapeFileReader();
+reader.Uri = "/../../Shapefiles/usa_st";
+converter = new DataMapping.Converter();
+reader.DataMapping = converter.ConvertFromString("Caption=STATE_ABBR") as DataMapping;
+statesLayer.Reader = reader;
+----
+
+endif::wpf[]
+
+[start=6]
+. Add code to the WindowRectChanged event handler to prevent the caption of the United States from showing when the United States layer is displayed.
+
+*In Visual Basic:*
+
+----
+Private Sub xamMap_WindowRectChanged(ByVal sender As Object, ByVal e As Infragistics.Controls.Maps.MapWindowRectChangedEventArgs)
+        Dim map As xamMap = DirectCast(sender, xamMap)
+        If Math.Round(map.ScaleToZoom(e.WindowScale)) = 3 Then
+            Dim layer As MapLayer = DirectCast(map.Layers.FindName("worldLayer").ElementAt(0), MapLayer)
+            Dim elements As IEnumerable(Of MapElement) = TryCast(layer.Elements.FindElement("Caption", "UNITED STATES"), IEnumerable(Of MapElement))
+            If elements.Count() > 0 Then
+                Dim element As MapElement = TryCast(elements.ElementAt(0), MapElement)
+                element.Caption = Nothing
+            End If
+        End If
+End Sub
+----
+
+*In C#:*
+
+----
+private void xamMap_WindowRectChanged(object sender, Infragistics.Controls.Maps.MapWindowRectChangedEventArgs e)
+{
+            xamMap map = (XamMap)sender;
+            if (Math.Round(map.ScaleToZoom(e.WindowScale)) == 3)
+            {
+                MapLayer layer = (MapLayer)map.Layers.FindName("worldLayer").ElementAt(0);
+                IEnumerable<MapElement> elements = layer.Elements.FindElement("Caption", "UNITED STATES") as IEnumerable<MapElement>;
+                if (elements.Count<MapElement>() > 0)
+                {
+                    MapElement element = elements.ElementAt<MapElement>(0) as MapElement;
+                    element.Caption = null;
+                }
+            }
+}
+----
+
+[start=7]
+. Run the application. The xamMap control will display shape of the world and when you zoom in three times or more on the United States, the individual states will be displayed as well.
+
+image::images/XamMap_Using_Multiple_Layers_01.png[]
+
+== Related Topics
+
+link:xamwebmap-display-map-using-shapefiles.html[Binding Shapefiles]

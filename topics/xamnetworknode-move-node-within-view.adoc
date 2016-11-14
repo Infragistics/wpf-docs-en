@@ -1,0 +1,143 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamnetworknode-move-node-within-view",
+    "controlName": ["xamNetworkNode"],
+    "tags": ["Navigation"],
+    "guid": "fe3eb24a-f1be-4dda-b2c3-93dc9b5f0777",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.5182505Z"
+}
+|metadata|
+////
+
+= Move Node Within View
+
+== Topic Overview
+
+== Purpose
+
+The purpose of this document is to describe how to navigate with mouse and keyboard for moving the NetworkNode within the view portal.
+
+== In this topic
+
+The following sections of navigation the xamNetworkNode control within view portal are:
+
+[cols="a,a"]
+|====
+|*Ctrl key + [The plus sign]*
+|*- Zoom In*
+
+|*Ctrl key + [The minus sign]*
+|*- Zoom Out*
+
+|*Mouse wheel*
+|*- Zoom In / Out*
+
+|*Arrow keys (up, down, left, right)*
+|*- Pan*
+
+|*Mouse click and move NetworkNode*
+|*- Pan*
+
+|*Use WindowRect method (in code)*
+|*- Move NetworkNode in view*
+
+|====
+
+== Required background
+
+The table below lists the prerequisites for this topic.
+
+[options="header", cols="a,a"]
+|====
+|Background type|Content
+
+|Concepts
+|You need to be familiar with the following concepts: 
+
+* Set focus to the control by clicking on the background view of the control (by default control is not in focus). 
+
+* Ensure the Pan and Zoom properties are not disabled (by default Pan and Zoom are enabled). 
+
+|Topics
+|You need to first read the following topics: 
+
+link:xamnetworknode-getting-started-with-xamnetworknode.html[Getting Started with xamNetworkNode]
+
+|====
+
+Pan and Zoom settings, as shown here are optional. They are enabled by default.
+
+*In XAML:*
+
+----
+<ig:XamNetworkNode.NavigationSettings>
+   <ig:NavigationSettings AllowPan="True" AllowZoom="True" />
+</ig:XamNetworkNode.NavigationSettings>
+----
+
+*In C#:*
+
+----
+xnn.NavigationSettings.AllowPan = true;
+xnn.NavigationSettings.AllowZoom = true;
+----
+
+*In Visual Basic:*
+
+----
+xnn.NavigationSettings.AllowPan = True
+xnn.NavigationSettings.AllowZoom = True
+----
+
+== Moving NetworkNode within view
+
+The xamNetworkNode control supports mouse and keyboard navigation to zoom and pan the control within the view. Programmatic navigation is possible by calling the WindowsRect method of the control. Keyboard navigation commands with the associated key combinations are defined in the sections below.
+
+== Navigation Section
+
+[options="header", cols="a,a"]
+|====
+|Command|Action
+
+|Hold down the *Ctrl key* and press the plus [+] sign on the keyboard
+|The view port will zoom in on the NetworkNode.
+
+|Hold down the *Ctrl key* and press the minus [-] sign on the keyboard
+|The view port will zoom out on the NetworkNode
+
+|Use the *Mouse wheel* to scroll
+|The view port will zoom in and out on the NetworkNode
+
+|Use the *Arrow keys* on the keyboard
+|The view port will move the NetworkNode to corresponding direction in the view.
+
+|Point the *Mouse* to the background of the NetworkNode (not on any specific node) then press the *Left Mouse button* and move the mouse
+|The view port will pan the NetworkNode in view
+
+|====
+
+To programmatically navigate the NetworkNode, you can use the *WindowRect* method. The zoom location is based on the coordinates passed parameters to the method. For example the code example below demonstrates how to zoom in on a node. The parameters for the method are the X coordinate, Y coordinate, Width, and Height of the node. Only the X coordinate is modified here to move the NetworkNode along the X axis.
+
+*Note:* If the only Width and Height values are manipulated the view port will also zoom against the control.
+
+*In C#:*
+
+[source,csharp]
+----
+xnn.WindowRect = new Rect(xnn.WindowRect.X + 100, xnn.WindowRect.Y, xnn.WindowRect.Width, xnn.WindowRect.Height);
+----
+
+*In VB:*
+
+[source,vb]
+----
+xnn.WindowRect = New Rect(xnn.WindowRect.X + 100, xnn.WindowRect.Y, xnn.WindowRect.Width, xnn.WindowRect.Height)
+----
+
+== Related Topics
+
+* link:xamnetworknode-getting-started-with-xamnetworknode.html[Getting Started with xamNetworkNode]
+* link:xamnetworknode-using-xamnetworknode.html[Using xamNetworkNode]

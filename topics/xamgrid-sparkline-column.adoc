@@ -1,0 +1,256 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-sparkline-column",
+    "controlName": ["xamGrid"],
+    "tags": ["Charting","Grids","How Do I","Layouts"],
+    "guid": "00672021-d5fd-4cfc-ac48-d77d21a6e7a6",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.6042003Z"
+}
+|metadata|
+////
+
+= Sparkline Column
+
+=== Purpose
+
+This topic introduces the Sparkline column type of the  _xamGrid_™ control and demonstrates its use.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|_Topic_|_Purpose_
+
+| link:xamgrid-define-column-layout.html[Define Column Layout]
+|This topic explains how to define and configure columns with the _xamGrid_ control.
+
+|====
+
+=== In this topic
+
+* <<_Ref319936439,Introduction>>
+* <<_Ref319936463,Configuring a Sparkline Column – Conceptual Overview>>
+
+** <<_Ref320113737,Configuring a Sparkline column summary>>
+** <<_Ref320001215,Property settings>>
+
+* <<_Ref319936488,Configuring a Sparkline Column – Code Example>>
+
+** <<_Ref320001149,Description>>
+** <<_Ref320001161,Property settings>>
+** <<_Ref320001172,Preview>>
+** <<_Ref320001184,Code>>
+
+* <<_Ref319936499,Related Content>>
+
+** <<Topics,Topics>>
+
+[[_Ref319936439]]
+== Introduction
+
+[[_Ref320001030]]
+
+=== Sparkline column summary
+
+The Sparkline column type allows the display of a Sparkline chart in a grid cell by inserting the  _xamSparkline_™ control. The  _xamSparkline_   is a light-weight charting control capable of displaying data markers for the highest and lowest values, first/last/negative values and markers for all data points. For more information see the link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview] topic.
+
+In order to create a sparkline column in the xamGrid control, you need to add the column to the grid using the `<ig:SparklineColumn>` tag. The column must have the Key property or the link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~itemssourcepath.html[ItemsSourcePath] property set. If the link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~itemssourcepath.html[ItemsSourcePath] property is set, the data for the sparkline column is retrieved from that property. If it is not set, then the data for the sparkline column will be retrieved from the Key property. For more information on defining columns, see the link:xamgrid-define-column-layout.html[Define Column Layout] topic.
+
+=== Requirements summary chart
+
+The following table summarizes the requirements for adding the Sparkline Column to the xamGrid control.
+
+[options="header", cols="a,a"]
+|====
+|Requirement|Description
+
+|Reference to the {ApiPlatform}Controls.Charts.XamSparkline.v{ProductVersion}
+|{ProductName} assembly containing the Sparkline control.
+
+|Reference to the {ApiPlatform}Controls.Grids.SparklineColumn.v{ProductVersion}
+|{ProductName} assembly containing the SparklineColumn.
+
+|Reference to the {ApiPlatform}DataVisualization.v{ProductVersion}
+|{ProductName} Data Visualization assembly.
+
+|====
+
+[[_Ref319936463]]
+== Configuring a Sparkline Column – Conceptual Overview
+
+[[_Ref320113737]]
+
+=== Configuring a Sparkline column summary
+
+To configure the Sparkline column, you need to set the data source of the column to a key from the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~itemssource.html[ItemsSource] property in the  _xamGrid_  . For more information on binding the xamGrid control to data, see the link:xamgrid-data-binding.html[Data Binding] topic. Every column in the grid must contain a unique Key from the data source.
+
+To determine which values will be used as the Sparkline data points, you need specify a value from the data source to be used as the data points. This is done by setting the link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~valuememberpath.html[ValueMemberPath] property to the desired value.
+
+To display a label on the X axis, you need to specify a value from the data source to be used as label. This is done by setting the link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~labelmemberpath.html[LabelMemberPath] property to the desired value.
+
+The link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~itemssourcepath.html[ItemsSourcePath] property allows you to set the data source for the Sparkline. The main advantage to use this property instead of the Key property for the column, is that you can bind more than one Sparkline to the same property.
+
+[[_Ref320001215]]
+
+=== Property settings
+
+The following table maps the desired configuration/behaviors to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set a unique identifier for the column
+|Key
+|The column’s `Key` value. This value must be unique.
+
+|Set the data source
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~itemssourcepath.html[ItemsSourcePath]
+|A key from the `ItemsSource`.
+
+|Identify the numeric property from the underlying data as the Sparkline data points
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~valuememberpath.html[ValueMemberPath]
+|A key from the `ItemsSource`. It should be a non-null value, but can be empty.
+
+|Display the label on the X axis (when the horizontal axis is visible)
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~labelmemberpath.html[LabelMemberPath]
+|A key from the `ItemsSource`
+
+|====
+
+.Note
+[NOTE]
+====
+To style the chart and set additional properties, create a Style to be applied to the Sparkline control. For more information on Sparkline chart properties, refer to the link:xamsparkline-xamsparkline-property-reference.html[xamSparkline Property Reference] topic.
+====
+
+[[_Ref319936488]]
+== Configuring a Sparkline Column – Code Example
+
+[[_Ref320001149]]
+
+=== Description
+
+The code below demonstrates how to configure a Sparkline column in a xamGrid that visualizes orders on per-company bases.
+
+[[_Ref320001161]]
+
+=== Property settings
+
+In the example, the Sparkline column is configured with the following settings:
+
+[options="header", cols="a,a"]
+|====
+|Property|Value
+
+|Key
+|Orders
+
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~itemssourcepath.html[ItemsSourcePath]
+|Orders
+
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~valuememberpath.html[ValueMemberPath]
+|Quantity
+
+| link:{ApiPlatform}controls.grids.sparklinecolumn.v{ProductVersion}~infragistics.controls.grids.sparklinecolumn~labelmemberpath.html[LabelMemberPath]
+|Freight
+
+|====
+
+[[_Ref320001172]]
+
+=== Preview
+
+Following is a preview of the Sparkline column as generated by the code in this example.
+
+image::images/Sparkline_Column_1.png[]
+
+[[_Ref320001184]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGrid x:Name="dataGrid" AutoGenerateColumns=" ColumnWidth="*">
+   <ig:XamGrid.Columns>
+      <ig:TextColumn Key="Company">
+         <ig:TextColumn.HeaderTemplate>
+            <DataTemplate>
+               <TextBlock Text="{Binding Path=XWG_Customers_Company, Source={StaticResource Strings}}" />
+            </DataTemplate>
+         </ig:TextColumn.HeaderTemplate>
+      </ig:TextColumn>
+      <ig:TextColumn Key="ContactName">
+         <ig:TextColumn.HeaderTemplate>
+            <DataTemplate>
+               <TextBlock Text="{Binding Path=XWG_Customers_ContactName, Source={StaticResource Strings}}" />
+            </DataTemplate>
+         </ig:TextColumn.HeaderTemplate>
+      </ig:TextColumn>
+      <ig:TextColumn Key="Country">
+         <ig:TextColumn.HeaderTemplate>
+            <DataTemplate>
+               <TextBlock Text="{Binding Path=XWG_Customers_Country, Source={StaticResource Strings}}" />
+            </DataTemplate>
+         </ig:TextColumn.HeaderTemplate>
+      </ig:TextColumn>
+      <ig:SparklineColumn Key="Orders" ItemsSourcePath="Orders" LabelMemberPath="Freight" ValueMemberPath="Quantity" >
+         <ig:SparklineColumn.HeaderTemplate>
+            <DataTemplate>
+               <TextBlock Text="{Binding Path=XWG_OrderDetails_Quantity, Source={StaticResource Strings}}" />
+            </DataTemplate>
+         </ig:SparklineColumn.HeaderTemplate>
+      </ig:SparklineColumn>
+   </ig:XamGrid.Columns>
+</ig:XamGrid>
+----
+
+*In C#:*
+
+[source,c#]
+----
+SparklineColumn Sparkline_Column = new SparklineColumn();
+Sparkline_Column.Key = "Orders";
+Sparkline_Column.LabelMemberPath = "Freight";
+Sparkline_Column.ValueMemberPath = "Quantity";
+Sparkline_Column.ItemsSourcePath = "Orders";
+this.dataGrid.Columns.Add(Sparkline_Column);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim Sparkline_Column As SparklineColumn = New SparklineColumn
+Sparkline_Column.Key = "Orders"
+Sparkline_Column.LabelMemberPath = "Freight"
+Sparkline_Column.ValueMemberPath = "Quantity"
+Sparkline_Column.ItemsSourcePath = "Orders"
+Me.dataGrid.Columns.Add(Sparkline_Column)
+----
+
+[[_Ref319936499]]
+== Related Content
+
+===  Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgrid-columns.html[Columns]
+|This section explains the types of Columns available in the _xamGrid_ control.
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+|====

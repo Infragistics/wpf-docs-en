@@ -1,0 +1,263 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-zoomlevel",
+    "tags": ["How Do I","Layouts"],
+    "controlName": ["IG Excel Engine"],
+    "guid": "e2e86f70-9b89-4490-8c70-363432c79bcf",
+    "buildFlags": [],
+    "createdOn": "2014-05-29T08:03:13.2663758Z"
+}
+|metadata|
+////
+
+= Setting the Worksheet Zoom Level (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to programmatically set the zoom level on a worksheet.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+|In this section you will find information that will help you to better understand the object model and the functionalities of the Infragistics Excel Engine.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+*  *<<_Ref389548430,Introduction>>*
+*  *<<_Ref389548450,Zoom Level Configuration Summary>>* 
+*  *<<_Ref389488250,Setting the Zoom Level>>* 
+*  *<<_Ref391563491,Increasing and Decreasing the Zoom Level>>* 
+*  *<<_Ref391563483,Setting the Zoom Level To 100%>>* 
+*  *<<_Ref391563475,Setting the Zoom Level to Selection>>* 
+*  *<<_Ref389548467,Related Content>>* 
+
+[[_Ref389548430]]
+== Introduction
+
+=== Zooming summary
+
+The worksheet allows you to control the magnification (zooming) level. The link:{ApiPlatform}controls.grids.xamspreadsheet.v{ProductVersion}~infragistics.controls.grids.xamspreadsheet.html[ _xamSpreadsheet_  ] control tries to scale the view content’s presentation (text, images, shapes …) consistently, however the cell borders are not scaled.
+
+[[_Ref389548450]]
+== Zoom Level Configuration Summary
+
+=== Headers configuration summary chart
+
+The following table explains briefly the configurable aspects of the worksheet’s zooming.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Property/Command
+
+|<<_Ref389488250,Setting the Zoom Level>>
+|Sets the worksheet’s zoom level at a specific value.
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetdisplayoptions~magnificationinnormalview.html[MagnificationInNormalView]
+
+|<<_Ref391563491,Increasing and Decreasing the Zoom Level>>
+|Increase or decrease zoom level by 10%.
+|
+* `ZoomIn` 
+
+* `ZoomOut` 
+
+|<<_Ref391563483,Setting the Zoom Level To 100%>>
+|Sets the zoom level at exactly 100%.
+|`ZoomTo100`
+
+|<<_Ref391563475,Setting the Zoom Level to Selection>>
+|Sets the zoom level where all selection fits in the view.
+|`ZoomToSelection`
+
+|====
+
+[[_Ref389488250]]
+== Setting the Zoom Level
+
+[[_Hlk368069110]]
+
+=== Overview
+
+You can change the zoom for each worksheet independently using the `MagnificationInNormalView` property on the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~displayoptions.html[DisplayOptions] object. This property takes a value between 10 and 400.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Change zoom level
+|`MagnificationInNormalView`
+|To an `int` type value between 10 and 400.
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The following code snippet demonstrates how to set the zoom level to 150%.
+
+*In C#:*
+
+[source,csharp]
+----
+this.spreadsheet1.Workbook.Worksheets[0].DisplayOptions.MagnificationInNormalView = 150;
+----
+
+[[_Ref391563491]]
+== Increasing and Decreasing the Zoom Level
+
+=== Overview
+
+You can increase or decrease the worksheet’s zoom level using commands. The `ZoomIn` command increases the magnification level by 10% and the `ZoomOut` command decreases the magnification level by 10%.
+
+=== Property settings
+
+The following table maps the desired behavior to the command that manages it.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this command:
+
+|Increase zoom level
+|`ZoomIn`
+
+|Decrease zoom level
+|`ZoomOut`
+
+|====
+
+=== Example
+
+The following code snippet demonstrates how to create two buttons for increase and decrease zoom level.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Zoom In"
+    ig:Commanding.CommandTarget="{Binding ElementName=xamSpreadsheet1}">
+    <ig:Commanding.Command>
+        <igPrim:SpreadsheetCommandSource 
+            EventName="Click" CommandType="ZoomIn" />
+    </ig:Commanding.Command>
+</Button>
+<Button Content="Zoom Out"
+    ig:Commanding.CommandTarget="{Binding ElementName=xamSpreadsheet1}">
+    <ig:Commanding.Command>
+        <igPrim:SpreadsheetCommandSource 
+            EventName="Click" CommandType="ZoomOut" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref391563483]]
+== Setting the Zoom Level To 100%
+
+=== Overview
+
+You can set the zoom level to 100% using the `ZoomTo100` command.
+
+=== Property settings
+
+The following table maps the desired behavior to the command that manages it.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this command:
+
+|Set zoom level to 100%
+|`ZoomTo100`
+
+|====
+
+=== Example
+
+The following code snippet demonstrates how to create a button for setting the zoom level to 100%.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Zoom To 100%"
+    ig:Commanding.CommandTarget="{Binding ElementName=xamSpreadsheet1}">
+    <ig:Commanding.Command>
+        <igPrim:SpreadsheetCommandSource 
+            EventName="Click" CommandType="ZoomTo100" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref391563475]]
+== Setting the Zoom Level to Selection
+
+=== Overview
+
+You can set the zoom level of the worksheet to a level where all selected cells are visible at once by using the `ZoomToSelection` command.
+
+=== Property settings
+
+The following table maps the desired behavior to the command that manages it.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this command:
+
+|Set zoom to selection level
+|`ZoomToSelection`
+
+|====
+
+=== Example
+
+The following code snippet demonstrates how to create a button for setting the zoom level to selection.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Zoom To Selection"
+    ig:Commanding.CommandTarget="{Binding ElementName=xamSpreadsheet1}">
+    <ig:Commanding.Command>
+        <igPrim:SpreadsheetCommandSource 
+            EventName="Click" CommandType="ZoomToSelection" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref389548467]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-configuringgridlines.html[Configuring the Gridlines (Infragistics Excel Engine)]
+|This topic explains how to show or hide the gridlines and set their color.
+
+| link:igexcelengine-configuringheaders.html[Configuring the Headers (Infragistics Excel Engine)]
+|This topic explains how to show or hide the column and row headers.
+
+| link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+|This topic explains how to prevent the user from editing the cell values in a worksheet.
+
+|====

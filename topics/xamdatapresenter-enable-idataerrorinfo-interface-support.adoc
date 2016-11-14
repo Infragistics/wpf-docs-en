@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-enable-idataerrorinfo-interface-support",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{5E867605-9532-4410-A21E-9D6DBEEFDD2A}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1789889Z"
+}
+|metadata|
+////
+
+= Enable Data Error Information Support
+
+You can enable support for the `INotifyDataErrorInfo` or `IDataErrorInfo` interface found in the .NET Framework by setting a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~supportdataerrorinfo.html[SupportDataErrorInfo] property to a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.supportdataerrorinfo.html[SupportDataErrorInfo] enumeration value. When you enable support for the `INotifyDataErrorInfo` or `IDataErrorInfo` interface on a `FieldLayoutSettings` object using the `CellsOnly` or `RecordsAndCells` enumeration value, you are enabling support for the `INotifyDataErrorInfo` or `IDataErrorInfo` interface on all fields in that field layout. However, you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~supportdataerrorinfo.html[SupportDataErrorInfo] property exposed by a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] property to False if you do not want a specific field to display errors. When you disable support for errors on a field, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter~hasdataerror.html[HasDataError] property exposed by all link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] objects and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] objects in that field will return False even if the data item contains an error for that field.
+
+The following example code demonstrates how to enable `INotifyDataErrorInfo` or `IDataErrorInfo` interface support.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings SupportDataErrorInfo="RecordsAndCells" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Me.xamDataPresenter1.FieldLayoutSettings.SupportDataErrorInfo = _
+    SupportDataErrorInfo.RecordsAndCells
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+this.xamDataPresenter1.FieldLayoutSettings.SupportDataErrorInfo =
+    SupportDataErrorInfo.RecordsAndCells;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-validate-data-as-your-end-users-edit-a-cell.html[Validate Data as Your End Users Edit a Cell]
+
+link:xamdatapresenter-styling-data-errors.html[Styling Data Errors]
+
+link:xamdatapresenter-validating-edited-cell-data-in-xamdatapresenter.html[Validating Edited Cell Data in xamDataPresenter]

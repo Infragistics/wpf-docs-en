@@ -1,0 +1,324 @@
+﻿////
+|metadata|
+{
+    "name": "xamcurrencyinput-using",
+    "controlName": ["xamInputs"],
+    "tags": ["Editing"],
+    "guid": "b76499e3-f40d-46dc-bf7b-3c11c96e01f5",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.9632234Z"
+}
+|metadata|
+////
+
+= Using xamCurrencyInput
+
+== Purpose
+
+This topic demonstrates how to add a xamCurrencyInput™ control to your application and use some of its more notable properties.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:xamcurrencyinput-about.html[About xamCurrencyInput]
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+
+== xamCurrencyInput Configuration Overview
+
+== Control configuration chart
+
+The table below lists some of the configurable behaviors of the xamCurrencyInput control.
+
+[cols="a,a,a"]
+|====
+|*Configurable behavior*
+|*Configuration details*
+|*Configuration properties*
+
+|<<adding,Adding xamCurrencyInput to an application>>
+|Steps needed to add a xamCurrencyInput control to an application.
+|none
+
+|<<modifying,Modifying the xamCurrencyInput>>
+|Configure some of the main properties of the control.
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~trimfractionalzeros.html[TrimFractionalZeros] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+
+|====
+
+[[adding]]
+== Adding xamCurrencyInput to an application
+
+[start=1]
+. *Add the Infragistics namespace.*
+
+.. *Add required references*
++
+In order to add a xamCurrencyInput control to your application you must add the following assemblies to your project:
+
+*** {ApiPlatform}Controls.Editors.XamMaskedInput.v{ProductVersion}.dll
+*** {ApiPlatform}v{ProductVersion}.dll
+
+.. *Add the Infragistics namespace*
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Editors
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Editors;
+----
+
+[start=2]
+. *Add a xamCurrencyInput control.*
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamCurrencyInput/>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim input As XamCurrencyInput = New XamCurrencyInput()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamCurrencyInput currencyInput = new XamCurrencyInput();
+----
+
+[[modifying]]
+== Modifying the xamCurrencyInput
+
+The table below maps the desired configurations to property settings. The properties are directly accessed from the xamCurrencyInput control.
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And set it to…*
+
+|<<SetMask,Set a mask>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|A string of your choosing
+
+|<<InvalidValueBehavior,Display error message when invalid value is entered>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|DisplayErrorMessage
+
+|<<ClipMode,Let the user copy only the actual value to the clipboard>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+|Raw
+
+|<<NullText,Display a specific string when the value is null>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+|A string of your choosing
+
+|<<PromptChar,Display different prompt character than underscore>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+|A character of your choosing
+
+|<<SpinButtons,Display buttons for incrementing/decrementing the value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+|Always/Focused/MouseOver
+
+|<<SpinIncrement,Change the increment value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+|A numeric value of your choosing
+
+|<<TrimFractionalZeros,Set the input to delete fractional zeros that are in the end of the value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~trimfractionalzeros.html[TrimFractionalZeros]
+|True
+
+|<<IsUndoEnabled,Enable/disable undo/redo operations>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+|True/False
+
+|====
+
+== Modifying the xamCurrencyInput details
+
+[[SetMask]]
+[start=1]
+. *Set a Mask.*
++
+The most important part of setting up an input control is configuring the Mask property. Set a mask that suits your needs by:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamCurrencyInput Mask="[Your Mask]" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+currencyInput.Mask = "[Your Mask]"
+----
++
+*In C#:*
++
+[source,csharp]
+----
+currencyInput.Mask = "[Your Mask]";
+----
++
+For more information on how to create a mask, please refer to the link:xaminputs-masks.html[Masks].
+[[InvalidValueBehavior]]
+
+[start=2]
+. *Display error message when invalid value is entered.*
++
+There are several options for how the xamCurrencyInput control behaves when invalid value is entered by the user. If you set the InvalidValueBehavior property to DisplayErrorMessage, when the user enters an invalid value and tries to leave the control, an error message containing details on the error is displayed.
+
+[[ClipMode]]
+[start=3]
+. *Let the user copy only the actual value to the clipboard.*
++
+By setting the ClipMode property to Raw, when the user copies the input’s contents to the clipboard, no prompt characters and mask literals are copied, only the actual number that the control contains.
+
+[[NullText]]
+[start=4]
+. *Display a specific string when the value is null.*
++
+When no value is entered in the control or when it is bound to a null value, you can set a string that is displayed. You can do this by setting the NullText property to the desired string. In this way you can guide the user on what to enter or to explicitly indicate that no value has been entered.
+
+[[PromptChar]]
+[start=5]
+. *Display different prompt character than underscore.*
++
+The default prompt character used in the xamCurrencyInput is underscore, but you can change this behavior by setting the PromptChar property to the desired character.
+
+[[SpinButtons]]
+[start=6]
+. *Display buttons for incrementing/decrementing the value.*
++
+If you want to display buttons for incrementing or decrementing the value of the xamCurrencyInput control you need to set the SpinButtonDisplayMode to Always, Focused, or MouseOver.
+
+[[SpinIncrement]]
+[start=7]
+. *Change the increment value.*
++
+If you don’t specify the SpinIncrement property the default increment/decrement value used when the SpinButtons are clicked will be 1. However you may want it to be something else and you can do this by setting the desired value as the SpinIncrement.
+
+[[SetMask]]
+[[TrimFractionalZeros]]
+[start=8]
+. *Set the input to delete fractional zeros that are in the end of the value.*
++
+If you don’t want zeros in the end of the fractional part of the xamCurrencyInput’s value to be displayed you can set the TrimFractionalZeros property to True.
+[[IsUndoEnabled]]
+[start=9]
+. *Enable/disable undo/redo operations.*
++
+By default, the xamInputs support undo/redo operations triggered by CTRL+Z and CTRL + Y keys combinations. If you want to disable this functionality, you can set the IsUndoEnabled property to False.
++
+.Note
+[NOTE]
+====
+Disabling the `IsUndoEnabled` property clears the undo/redo stack. If you disable undo/redo and then re-enable it, the commands won’t work because the undo/redo history is cleared.
+====
+
+== Modifying the xamCurrencyInput example
+
+The images below demonstrate a xamCurrencyInput control in edit and display mode as a result of the following settings:
+
+[cols="a,a"]
+|====
+|*Property*
+|*Setting*
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|€ nnn,nn
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|DisplayErrorMessage
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+|Raw
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+|NetProfit
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+|$$*$$
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+|Always
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+|10
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~trimfractionalzeros.html[TrimFractionalZeros]
+|True
+
+|====
+
+[cols="a,a"]
+|====
+|In edit mode:
+|In display mode:
+
+|image::images/xamInputs_xamCurrencyInput_Using_2.png[] 
+|image::images/xamInputs_xamCurrencyInput_Using_1.png[] 
+
+|====
+
+=== Modifying the xamCurrencyInput property reference
+
+For detailed information about these properties, refer to their listing in the property reference section:
+
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinbuttondisplaymode.html[SpinButtonDisplayMode]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~spinincrement.html[SpinIncrement]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~trimfractionalzeros.html[TrimFractionalZeros]
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+* link:xaminputs-using-xaminput-controls-in-xamgrid-cells-for-data-editing.html[Using xamInput Controls in xamGrid Cells for Data Editing]

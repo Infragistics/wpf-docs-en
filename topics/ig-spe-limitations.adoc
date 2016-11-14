@@ -1,0 +1,88 @@
+﻿////
+
+|metadata|
+{
+    "name": "ig-spe-limitations",
+    "controlName": ["IG Syntax Parsing Engine"],
+    "tags": [],
+    "guid": "23094e42-a539-491c-b2f6-b74095116f48",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.1911023Z"
+}
+|metadata|
+////
+
+= Limitations (Syntax Parsing Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the Syntax Parsing Engine’s limitations.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-overview.html[Syntax Parsing Engine Overview]
+|This topic provides an overview of the Syntax Parsing Engine.
+
+| link:ig-spe-grammar-overview.html[Grammar Overview]
+|This topic provides an overview of the Syntax Parsing Engine’s Grammar.
+
+| link:ig-spe-lexical-analysis-overview.html[Lexical Analysis Overview]
+|This topic explains the lexical analysis performed by the Syntax Parsing Engine.
+
+| link:ig-spe-syntax-analysis-overview.html[Syntax Analysis Overview]
+|This topic explains the syntax analysis performed by the Syntax Parsing Engine.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+*  *<<_Ref352339983,Symbol Limit>>*
+*  *<<_Ref352339986,Production Limit>>* 
+*  *<<_Ref352339990,Lexer State Path Limit>>* 
+*  *<<_Ref352339993,Related Content>>* 
+
+[[_Ref352339983]]
+== Symbol Limit
+
+=== Summary
+
+Symbols must be assigned a unique integer ID in the parser for performance reasons. IDs are currently stored as 16-bit integers, allowing for 65,536 IDs; however, some IDs are reserved for current or future use. Therefore, the combined total of Terminal and Non-Terminal Symbols allowed is 65,500.
+
+[[_Ref352339986]]
+== Production Limit
+
+Productions have a unique 16-bit integer ID assigned to save space. The maximum number of productions allowed by expanding the syntax rule trees of all Non-Terminal Symbols instances defined in a Grammar is 65,536.
+
+[[_Ref352339990]]
+== Lexer State Path Limit
+
+The Lexing performed by the Syntax Parsing Engine involves using Lexer states that form a stack as matched tokens enter and exit various states. Each possible stack configuration is assigned an 8-bit integer ID for performance reasons. Therefore, the maximum number of Lexer state stack configurations allowed is 256.
+
+[[_Ref352339993]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-restrictions.html[Restrictions]
+|This topic explains the restrictions placed on grammar definitions.
+
+| link:ig-spe-ambiguities.html[Ambiguities]
+|This topic describes the ambiguities that may occur while a document is parsing and how to handle them.
+
+|====

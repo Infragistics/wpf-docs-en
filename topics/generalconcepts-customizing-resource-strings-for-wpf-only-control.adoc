@@ -1,0 +1,76 @@
+﻿////
+
+|metadata|
+{
+    "name": "generalconcepts-customizing-resource-strings-for-wpf-only-control",
+    "controlName": [],
+    "tags": [],
+    "guid": "ca48624b-4fe9-42d0-8c7a-00b26180553c",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:15:59.3307775Z"
+}
+|metadata|
+////
+
+= Customizing Resource Strings for WPF Only Controls
+
+This topic explains how to customize resource strings for WPF-only controls.
+
+You can customize any string value that an {ProductName} control displays to your end users. Customizable strings include items such as dialog box captions, text in dialog boxes, warning messages, alerts, and so on. The primary use for customizing resource strings is for localization purposes.
+
+To customize assembly resource strings, you can use the Customizer property of an assembly's Resources class. This property returns an instance of the ResourceCustomizer class that is specific to the assembly you are customizing. You can think of the ResourceCustomizer as a dictionary of resource names and their corresponding string values. By changing the value associated with a specific resource name, you can customize any message displayed by the controls/components in an assembly.
+
+The ResourceCustomizer class provides the following methods that you can use to customize the resource string values:
+
+* SetCustomizedString - Sets the value for the named resource.
+* GetCustomizedString - Returns the customized text that has been set for a named resource, or null if there is no customization for the named resource.
+* ResetCustomizedString - Resets the customized string for the named resource to its default (built-in) text.
+* ResetAllCustomizedStrings - Resets all resource strings to their default (built-in) text.
+
+Resource string customization is a run-time feature that is not local to any particular instance of a control. Any change that you make to a resource string affects all controls in that particular assembly. For example, if you have two windows in your application with a xamDataGrid control in each window and you modify a resource string in the Infragistics.Wpf.DataPresenter assembly. Both instances of xamDataGrid will display the customized resource string.
+
+If you write code to customize the resource strings, you will need to place that code in a procedure that is executed every time your application runs, preferably before the interface is displayed to the end user.
+
+The following example code demonstrates how to customize a resource string. In order to keep the example code simple, only two resource strings are modified. However, you can apply the code in a similar fashion to modify resource strings in other {ProductName} assemblies.
+
+*In Visual Basic:*
+
+----
+...
+Infragistics.Windows.DataPresenter.Resources.Customizer.SetCustomizedString("GroupByArea_Prompt1", " Customized Group By Area Prompt ")
+Infragistics.Windows.DockManager.Resources.Customizer.SetCustomizedString("PaneNavigatorActiveFilesLabel", "Customized Active Files")
+...
+----
+
+*In C#:*
+
+----
+...
+Infragistics.Windows.DataPresenter.Resources.Customizer.SetCustomizedString("GroupByArea_Prompt1", "Customized Group By Area Prompt");
+Infragistics.Windows.DockManager.Resources.Customizer.SetCustomizedString("PaneNavigatorActiveFilesLabel", "Customized Active Files");
+...
+----
+
+== Related Topics
+
+link:resource-strings-wpf-resource-strings.html[WPF Resource Strings]
+
+link:resource-strings-comboeditor-resource-strings.html[ComboEditor Resource Strings]
+
+link:resource-strings-datapresenter-resource-strings.html[DataPresenter Resource Strings]
+
+link:resource-strings-datapresenter-resource-strings.html[DataPresenter Resource Strings]
+
+link:resource-strings-dockmanager-resource-strings.html[DockManager Resource Strings]
+
+link:resource-strings-editors-resource-strings.html[Editors Resource Strings]
+
+link:resource-strings-outlookbar-resource-strings.html[OutlookBar Resource Strings]
+
+link:resource-strings-reporting-resource-strings.html[Reporting Resource Strings]
+
+link:resource-strings-ribbon-resource-strings.html[Ribbon Resource Strings]
+
+link:resource-strings-schedule-resource-strings.html[Schedule Resource Strings]
+
+link:resource-strings-tilescontrol-resource-strings.html[TilesControl Resource Strings]

@@ -1,0 +1,185 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-legend-and-legend-items",
+    "controlName": ["xamTimeline"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{6B22CDE4-3866-4090-A1E7-8E38C32EAF0D}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1353981Z"
+}
+|metadata|
+////
+
+= Styling Legend and Legend Items
+
+The link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.timelinelegend.html[Legend] object displays information about the time series in xamTimeline™. A link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.legenditem.html[LegendItem] object displays the title of a series along with the event point that represents the event inside the legend.
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeline] control. The following xaml code shows how to style the legend and its legend items. Also it will change the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventpoint.html[EventPoint] object's style to display a rectangle to mark events. Since the event point is changed, the legend item's style for corresponding event series is also changed to match.
+
+[start=1]
+. Add the following tags to user control’s resource dictionary.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Style for EventPoint object -->
+        <Style x:Key="rscEventPointStyle" TargetType="ig:EventPoint">
+            <Setter Property="Width" Value="12" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:EventPoint">
+                        <Grid>
+                            <!-- Uses a rectangle to mark points -->
+                            <Rectangle Fill="{TemplateBinding Fill}" 
+                                       Stroke="{TemplateBinding Stroke}" 
+                                       StrokeThickness="1" 
+                                       Width="{TemplateBinding Width}" 
+                                       Height="{TemplateBinding Width}" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Style for Legend object -->
+        <Style x:Key="rscLegendStyle" TargetType="ig:Legend">
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="IsTabStop" Value="/>
+            <Setter Property="TitleStyle">
+                <Setter.Value>
+                    <Style TargetType="ig:Title">
+                        <Setter Property="Margin" Value="0,5,0,10"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:Legend">
+                        <Border Background="BlanchedAlmond"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0"
+                                Padding="2" Margin="10,10,10,0" 
+                                Height="200" Width="150">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <ig:Title Grid.Row="0"
+                                      Content="{TemplateBinding Title}"
+                                      Style="{TemplateBinding TitleStyle}"/>
+                                <ScrollViewer Grid.Row="1"
+                                        VerticalScrollBarVisibility="Auto"
+                                        BorderThickness="0"
+                                        Padding="0" IsTabStop=">
+                                    <StackPanel Grid.Column="1" x:Name="LegendItemsArea" Margin="10,0,10,10" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Style for LegendItem objects -->
+        <Style x:Key="rscLegendItemSpanStyle" TargetType="ig:LegendItem">
+            <Setter Property="IsTabStop" Value="/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:LegendItem">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <!-- Displays legend item as a Border to represent span event -->
+                            <Border Width="22" Height="10" CornerRadius="5" 
+                                    Background="{TemplateBinding Fill}"
+                                    BorderBrush="{TemplateBinding Stroke}"
+                                    BorderThickness="1" Margin="6,4,6,6" >
+                            </Border>
+                            <ig:Title Content="{TemplateBinding Content}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="rscLegendItemRectStyle" TargetType="ig:LegendItem">
+            <Setter Property="IsTabStop" Value="/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:LegendItem">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                            <!-- Displays legend item as a rectangle -->
+                            <Rectangle Width="12" Height="12" Margin="12,2,12,6"
+                                     Fill="{TemplateBinding Fill}" 
+                                     Stroke="{TemplateBinding Stroke}" 
+                                     StrokeThickness="1.5" />
+                            <ig:Title Content="{TemplateBinding Content}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+----
+
+[start=2]
+. Set styles for the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control's link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.timelinelegend.html[Legend], link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.legenditem.html[LegendItem] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventpoint.html[EventPoint] series
+
+*In XAML:*
+
+----
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="580" Margin="15"
+                             LegendStyle="{StaticResource rscLegendStyle}">
+            <!-- TODO: Add your Axis properties ... -->
+            <!-- Set Data in Timeline Series -->
+            <ig:XamTimeline.Series>
+                <!-- Historic Event Series with custom style for EventPoint and Legend Item -->
+                <ig:NumericTimeSeries Title="Historic Events" Fill="White" Position="BottomOrRight"
+                                        EventPointStyle="{StaticResource rscEventPointStyle}" 
+                                        LegendItemStyle="{StaticResource rscLegendItemRectStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- Persian Empire Event Series with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="Persian Empire" Fill="Magenta" Position="BottomOrRight"  
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- Mayan Empire Event Series with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="Mayan Empire" Fill="Yellow" Position="BottomOrRight"  
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- Roman Empire Event Series with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="Roman Empire" Fill="Red" Position="TopOrLeft" 
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- Egypt Empire with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="Egypt Empire" Fill="Lime" Position="TopOrLeft"  
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- Spanish Empire Event Series with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="Spanish Empire" Fill="Coral" Position="TopOrLeft"  
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+                <!-- French Empire Event Series with custom style for Legend Item -->
+                <ig:NumericTimeSeries Title="French Empire" Fill="Aqua" Position="TopOrLeft"  
+                                        LegendItemStyle="{StaticResource rscLegendItemSpanStyle}">
+                    <!-- TODO: Add your Numeric Time Entries ... -->
+                </ig:NumericTimeSeries>
+            </ig:XamTimeline.Series>
+          </ig:XamTimeline>
+----
+
+image::images/XamTimeline_Style_Legend_and_LegendItems_01.png[]
+
+Related Topics
+
+link:xamtimeline-style-time-series.html[Styling Time Series]
+
+link:xamtimeline-style-xamwebtimeline.html[Styling xamTimeline]

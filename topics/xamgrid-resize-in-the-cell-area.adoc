@@ -1,0 +1,66 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-resize-in-the-cell-area",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Layouts"],
+    "guid": "{1A356826-8876-4B67-ABE4-E5C96F7265CE}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.841165Z"
+}
+|metadata|
+////
+
+= Resize Cells in the Cell Area
+
+When using the xamGrid™ control, you can enable cell resizing. This feature allows you to not only resize on the header, but also resize on each cell.
+
+This is a useful feature if your end user is unable to read the data contained within a cell, they can simply resize it to their desired width.
+
+When your end user resizes a cell, the entire column will also be resized.
+
+ifdef::win-rt[]
+Note that, this resizing is not possible when the user interacts with touch.
+endif::win-rt[]
+
+To enable cell resizing, you can set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings.html[ColumnResizingSettings]object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings~allowcellarearesizing.html[AllowCellAreaResizing] property to True.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="MyGrid">
+   <ig:XamGrid.ColumnResizingSettings>
+      <ig:ColumnResizingSettings AllowColumnResizing="Indicator" 
+            AllowCellAreaResizing="True"/>
+   </ig:XamGrid.ColumnResizingSettings>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+Me.MyGrid.ColumnResizingSettings.AllowCellAreaResizing = True
+----
+
+*In C#:*
+
+----
+this.MyGrid.ColumnResizingSettings.AllowCellAreaResizing = true;
+----
+
+== *Related Topics*
+
+link:xamgrid-column-resizing.html[Column Resizing]
+
+link:xamgrid-multi-column-resizing.html[Multi-Column Resizing]
+
+link:xamgrid-auto-size-columns-using-mouse-clicks.html[Auto Size Columns Using Mouse Clicks]
+
+link:xamgrid-set-columns-maximum-and-minimum-widths.html[Set Column's Maximum and Minimum Widths]
+
+link:xamgrid-disable-resizing-of-certain-columns.html[Disable Resizing of Certain Columns]
+
+link:xamgrid-column-resizing-events.html[Column Resizing Events]
+
+pick:[win-rt=" link:xamgrid-touch-support.html[Touch Support]"]

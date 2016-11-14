@@ -1,0 +1,475 @@
+﻿////
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-adding-text",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "dbf0277b-0fc9-48bb-8883-43425dd3b2c0",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.4953427Z"
+}
+|metadata|
+////
+
+= Adding Text (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to create text using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from a developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref364783180,Introduction to Text Content>>
+* <<_Ref364783183,Paragraph Node>>
+* <<_Ref364783187,Run Node>>
+* <<_Ref364783192,Text Node>>
+* <<_Ref364783197,Examples>>
+* <<_Ref364783202,Related Content>>
+
+[[_Ref364783180]]
+== Introduction to Text Content
+
+=== Text content summary
+
+The  _xamRichTextEditor_   control supports text content in the document that can be styled differently according to your needs. The text nodes are responsible for holding one chunk of text; however, they do not provide any styling abilities. To style the text nodes add them in a run node instance. The run node is capable of styling all its child text nodes according the provided settings and styles. Run nodes are added in paragraph nodes.
+
+You cannot add text nodes or run nodes directly in the body of the document. You can only add paragraphs and tables in the body and paragraphs may contain only run nodes and hyperlink nodes. The following diagram illustrates the allowed structure when defining text content:
+
+
+```
+DocumentRootNode
+   DocumentBodyNode
+      ParagraphNode
+         RunNode
+            TextNode
+         HyperlinkNode
+            RunNode
+               TextNode
+      TableNode
+         TableRowNode
+            TableCellNode
+               ParagraphNode
+               TableNode
+```
+
+=== API Links
+
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode_members.html[DocumentRootNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentbodynode_members.html[DocumentBodyNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.runnode_members.html[RunNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.textnode_members.html[TextNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.hyperlinknode_members.html[HyperlinkNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablenode_members.html[TableNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablerownode_members.html[TableRowNode]
+* link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablecellnode_members.html[TableCellNode]
+
+[[_Ref364783183]]
+== Paragraph Node
+
+=== Overview
+
+The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]s are added in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of the `DocumentBodyNode` or `TableCellNode` and are used to represent a paragraph of the document’s text content. The paragraphs can be customized using their paragraph setting and/or using style.
+
+=== Key properties
+
+The following table maps the key configuration to its respective property settings.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this property/collection:
+
+|Set paragraph’s settings like alignments, indentations, spacing…
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode~settings.html[Settings]
+
+|Set a custom style located in 
+
+link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles]
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode~styleid.html[StyleId]
+
+|Add run nodes
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes]
+
+|====
+
+.Note
+[NOTE]
+====
+You can also use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphsettings.html[RichTextDocument.ApplyParagraphSettings] method to apply specific paragraph settings over the document span provided as argument or the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method to apply specific style over the document span provided as argument.
+====
+
+[[_Ref364783187]]
+== Run Node
+
+=== Overview
+
+Add the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.runnode_members.html[RunNode]s in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of a `ParagraphNode` or `HyperlinkNode` to represent one or more chunks of text content with the same settings and style applied. The run nodes can be customized using their character settings and/or using a style.
+
+=== Key properties
+
+The following table maps the key configuration to its respective property settings.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this property/collection:
+
+|Set settings like bold, italic, font family, font size, colors, shading…
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode~settings.html[Settings]
+
+|Set a custom style located in 
+
+link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles]
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode~styleid.html[StyleId]
+
+|Add text nodes
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes]
+
+|====
+
+.Note
+[NOTE]
+====
+You can also use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphsettings.html[RichTextDocument.ApplyParagraphSettings] method to apply specific paragraph settings over the document span provided as argument or the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method to apply specific style over the document span provided as argument.
+====
+
+[[_Ref364783192]]
+== Text Node
+
+=== Overview
+
+Add the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.textnode_members.html[TextNode]s in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of a `RunNode` and use them to represent a chunk of text content.
+
+=== Key properties
+
+The following table maps the key configuration to its respective property settings.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this property:
+
+|Set or obtain the text content
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.textnode~text.html[Text]
+
+|====
+
+.Note
+[NOTE]
+====
+You can also use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphsettings.html[RichTextDocument.ApplyParagraphSettings] method to apply specific paragraph settings over the document span provided as argument or the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method to apply specific style over the document span provided as argument.
+====
+
+[[_Ref364783197]]
+== Examples
+
+=== Plain text
+
+The code snippets below demonstrates two approaches for creating plain text content :
+
+*In C#:*
+
+[source,csharp]
+----
+TextNode tn = new TextNode();
+tn.Text = "Plain text";
+RunNode rn = new RunNode();
+rn.ChildNodes.Add(tn);
+ParagraphNode pn = new ParagraphNode();
+pn.ChildNodes.Add(rn);
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+ParagraphNode pn = new ParagraphNode();
+pn.SetText("Plain text");
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim tn As New TextNode()
+tn.Text = "Plain text"
+Dim rn As New RunNode()
+rn.ChildNodes.Add(tn)
+Dim pn As New ParagraphNode()
+pn.ChildNodes.Add(rn)
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+Dim pn As New ParagraphNode()
+pn.SetText("Plain text")
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+----
+
+=== Font and styling
+
+The code snippet below demonstrates how to create text content with different font family, size and styling:
+
+*In C#:*
+
+[source,csharp]
+----
+CharacterSettings cs = new CharacterSettings()
+{
+   Bold = true,
+   Italic = true,
+   FontSize = new Extent(24, ExtentUnitType.Points),
+   FontSettings = new FontSettings() { Ascii = "Consolas" }
+};
+TextNode tn = new TextNode();
+tn.Text = "Styled text";
+RunNode rn = new RunNode();
+rn.Settings = cs;
+rn.ChildNodes.Add(tn);
+ParagraphNode pn = new ParagraphNode();
+pn.ChildNodes.Add(rn);
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim cs As New CharacterSettings() With { _
+      Key .Bold = True, _
+      Key .Italic = True, _
+      Key .FontSize = New Extent(24, ExtentUnitType.Points), _
+      Key .FontSettings = New FontSettings() With { _
+            Key .Ascii = "Consolas" _
+      } _
+}
+Dim tn As New TextNode()
+tn.Text = "Styled text"
+Dim rn As New RunNode()
+rn.Settings = cs
+rn.ChildNodes.Add(tn)
+Dim pn As New ParagraphNode()
+pn.ChildNodes.Add(rn)
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+----
+
+=== Foreground and highlight
+
+The code snippet below demonstrates how to create text content with different foreground and highlight color:
+
+*In C#:*
+
+[source,csharp]
+----
+CharacterSettings cs = new CharacterSettings()
+{
+    Color = new ColorInfo(Colors.Red),
+    HighlightColorc = HighlightColor.Blue
+};
+TextNode tn = new TextNode();
+tn.Text = "Colored text";
+RunNode rn = new RunNode();
+rn.Settings = cs;
+rn.ChildNodes.Add(tn);
+ParagraphNode pn = new ParagraphNode();
+pn.ChildNodes.Add(rn);
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim cs As New CharacterSettings() With { _
+      Key .Color = New ColorInfo(Colors.Red), _
+      Key .HighlightColorc = HighlightColor.Blue _
+}
+Dim tn As New TextNode()
+tn.Text = "Colored text"
+Dim rn As New RunNode()
+rn.Settings = cs
+rn.ChildNodes.Add(tn)
+Dim pn As New ParagraphNode()
+pn.ChildNodes.Add(rn)
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+----
+
+=== Subscript and superscript
+
+The code snippet below demonstrates how to create subscript and superscript text content:
+
+*In C#:*
+
+[source,csharp]
+----
+CharacterSettings superscriptCharacterSettings = new CharacterSettings()
+{
+    VerticalAlignment = RunVerticalAlignment.Superscript,
+    FontSize = new Extent(10, ExtentUnitType.Points),
+};
+CharacterSettings subscriptCharacterSettings = new CharacterSettings()
+{
+    VerticalAlignment = RunVerticalAlignment.Subscript,
+    FontSize = new Extent(10, ExtentUnitType.Points),
+};
+ParagraphNode pn = new ParagraphNode();
+pn.ChildNodes.Add(rn);
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+RunNode rn = new RunNode();
+rn.SetText("Normal text");
+pn.ChildNodes.Add(rn);
+rn = new RunNode();
+rn.SetText("Subscripted text");
+rn.Settings = subscriptCharacterSettings;
+pn.ChildNodes.Add(rn);
+rn = new RunNode();
+rn.SetText("Superscripted text");
+rn.Settings = superscriptCharacterSettings;
+pn.ChildNodes.Add(rn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim superscriptCharacterSettings As New CharacterSettings() With { _
+      Key .VerticalAlignment = RunVerticalAlignment.Superscript, _
+      Key .FontSize = New Extent(10, ExtentUnitType.Points) _
+}
+Dim subscriptCharacterSettings As New CharacterSettings() With { _
+      Key .VerticalAlignment = RunVerticalAlignment.Subscript, _
+      Key .FontSize = New Extent(10, ExtentUnitType.Points) _
+}
+Dim pn As New ParagraphNode()
+pn.ChildNodes.Add(rn)
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+Dim rn As New RunNode()
+rn.SetText("Normal text")
+pn.ChildNodes.Add(rn)
+rn = New RunNode()
+rn.SetText("Subscripted text")
+rn.Settings = subscriptCharacterSettings
+pn.ChildNodes.Add(rn)
+rn = New RunNode()
+rn.SetText("Superscripted text")
+rn.Settings = superscriptCharacterSettings
+pn.ChildNodes.Add(rn)
+----
+
+ifdef::sl[]
+Note:
+endif::sl[]
+
+ifdef::sl[]
+.Note
+[NOTE]
+====
+Although Silverlight properly maintains the subscript and superscript status , the text with these settings will not be properly vertically aligned.
+====
+endif::sl[]
+
+=== Drop cap
+
+The code snippet below demonstrates how to create a drop cap:
+
+*In C#:*
+
+[source,csharp]
+----
+// create paragraph for the drop cap
+ParagraphNode pn = new ParagraphNode();
+pn.Settings = new ParagraphSettings();
+pn.Settings.Frame = new TextFrameSettings();
+pn.Settings.Frame.DropCap = TextFrameDropCap.Drop; // enable drop cap
+pn.Settings.Frame.DropCapLines = 3; // amount of lines spanned by the drop cap
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+RunNode rn = new RunNode();
+rn.Settings = new CharacterSettings();
+rn.Settings.FontSize = new Extent(48, ExtentUnitType.Points); // font size
+rn.SetText("O");
+pn.ChildNodes.Add(rn);
+// create paragraph for the rest of the content
+pn = new ParagraphNode();
+pn.SetText("nce upon a time…");
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create paragraph for the drop cap
+Dim pn As New ParagraphNode()
+pn.Settings = New ParagraphSettings()
+pn.Settings.Frame = New TextFrameSettings()
+' enable drop cap
+pn.Settings.Frame.DropCap = TextFrameDropCap.Drop
+' amount of lines spanned by the drop cap
+pn.Settings.Frame.DropCapLines = 3
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+Dim rn As New RunNode()
+rn.Settings = New CharacterSettings()
+' font size
+rn.Settings.FontSize = New Extent(48, ExtentUnitType.Points)
+rn.SetText("O")
+pn.ChildNodes.Add(rn)
+' create paragraph for the rest of the content
+pn = New ParagraphNode()
+pn.SetText("nce upon a time…")
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+----
+
+[[_Ref364783202]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-adding-hyperlinks.html[Adding Hyperlinks]
+|This topic provides information on how to create hyperlinks using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-lists.html[Adding Lists]
+|This topic provides information on how to create lists using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-images.html[Adding Images]
+|This topic provides information on how to create images using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-tables.html[Adding Tables]
+|This topic provides information on how to use the _xamRichTextEditor_ to create tables from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-text-in-code[Defining Text in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-text-in-code[Defining Text in Code]"] 
+|This sample demonstrates the creation of text with different styles.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-drop-cap-in-code[Defining Drop Cap in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-drop-cap-in-code[Defining Drop Cap in Code]"] 
+|This sample demonstrates adding of drop cap in code.
+
+|====

@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-reporting-show-a-print-preview",
+    "controlName": ["IG WPF Reporting"],
+    "tags": ["Reporting"],
+    "guid": "{18C1CF1A-017F-4A27-B098-3304FD2A3511}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.9157363Z"
+}
+|metadata|
+////
+
+= Show a Print Preview
+
+You can use the xamReportPreview™ control to display a print preview of a report to your end users. There are four steps required to display a print preview:
+
+[start=1]
+. link:wpf-reporting-getting-started-with-wpf-reporting.html[Add WPF Reporting to Your Page and Create a Report].
+[start=2]
+. Pass the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object to the Window that is hosting the xamReportPreview control.
+
+This topic does not discuss the implementation details on passing a Report object to a Window that is hosting the xamReportPreview control.
+[start=3]
+. Call xamReportPreview's link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.xamreportpreview~generatepreview.html[GeneratePreview] method and pass in a Report object as a parameter.
+
+The two Boolean parameters determine if your end users will see a print dialog and a progress bar when you generate a preview.
+
+The following example code demonstrates how to show a print preview. The example code assumes you already have a Report object name report1 and a xamReportPreview control named xamReportPreview1.
+
+*In Visual Basic:*
+
+----
+'A print dialog will not be shown to the end user; however, a progress bar will be shown to the end user.
+xamReportPreview1.GeneratePreview(report1, False, True)
+----
+
+*In C#:*
+
+----
+//A print dialog will not be shown to the end user; however, a progress bar will be shown to the end user.
+xamReportPreview1.GeneratePreview(report1, false, true);
+----
+
+== Related Topics
+
+link:wpf-reporting-understanding-wpf-reporting.html[About WPF Reporting]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-align-content-to-the-top-of-a-page.html[Align Content to the Top of a Page]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]

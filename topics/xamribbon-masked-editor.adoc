@@ -1,0 +1,42 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-masked-editor",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Editing","How Do I"],
+    "guid": "{7C85595C-D3F4-406C-9EFC-8E0D3A7CE849}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1791889Z"
+}
+|metadata|
+////
+
+= Masked Editor
+
+
+
+If you need a text editor that can constrain user input, then the MaskedEditor tool is the right tool for you. The MaskedEditor tool derives from the Infragistics.Windows.Editors.XamMaskedEditor class; therefore, you get all the functionality that xamMaskedEditor provides.
+
+The MaskedEditor tool also implements the `IRibbonTool` interface, which adds cloning and binding functionality to facilitate advanced xamRibbon™ features. If you aren't creating your own custom xamRibbon tool, you don't need to worry about the IRibbonTool interface.
+
+The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool.html[MaskedEditorTool] class exposes several extra properties that go a long way towards easily managing a masked text editor on xamRibbon. MaskedEditorTool exposes several 'Has' and 'Is' properties to help confirm if a property has been set or if the masked text editor is in a certain state. A few of the standard properties that help set up a MaskedEditor tool (or any tool) on xamRibbon include:
+
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~caption.html[Caption] - This text will always be visible next to the MaskedEditor tool regardless of the current SizingMode property value.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~id.html[Id] - An identification string that xamRibbon uses to associate tools when they're located in different locations (i.e. a Ribbon Group and the Quick Access Toolbar simultaneously). The Id isn't required, but it can help you link:xamribbon-access-a-tool-by-its-id.html[access a tool] at run time.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~keytip.html[KeyTip] - Each tool has a link:xamribbon-key-tips.html[Key Tip] (similar to main menu mnemonics) associated with it. If you don't provide one explicitly, xamRibbon will internally choose one for you.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~largeimage.html[LargeImage] - Usually a 32 x 32 pixel image. You'll see this image when a tool's SizingMode is set to ImageAndTextLarge.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~sizingmode.html[SizingMode] - This property is read-only and returns how the tool is currently sized on its associated Ribbon group. If you want to link:xamribbon-resize-a-tool.html[set the size of a tool], you can set the RibbonGroup's link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~minimumsizeproperty.html[MinimumSize] and/or link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~maximumsizeproperty.html[MaximumSize] attached properties.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.maskededitortool~smallimage.html[SmallImage] - Usually a 16 x 16 pixel image. You'll see this image when a tool's SizingMode is set to ImageAndTextNormal or ImageOnly.
+
+Since xamRibbon tools all derive from and implement the same objects, the functionality for each of them is very similar. The following topics apply to all xamRibbon tools.
+
+== Related Topics
+
+link:xamribbon-access-a-tool-by-its-id.html[Access a Tool by Its ID]
+
+link:xamribbon-add-tools-to-a-buttongroup.html[Add Tools to a ButtonGroup]
+
+link:xamribbon-add-tools-to-a-ribbon-group.html[Add Tools to a Ribbon Group]
+
+link:xamribbon-resize-a-tool.html[Resize a Tool]

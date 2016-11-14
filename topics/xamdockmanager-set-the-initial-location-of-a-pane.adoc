@@ -1,0 +1,91 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdockmanager-set-the-initial-location-of-a-pane",
+    "controlName": ["xamDockManager"],
+    "tags": ["How Do I"],
+    "guid": "{BD27AFB5-FFDB-4D4A-A7DB-C7480BC9DB1B}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.5250581Z"
+}
+|metadata|
+////
+
+= Set the Initial Location of a Pane
+
+The xamDockManager™ control docks all root-level split panes in its link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~panes.html[Panes collection] to the left by default. This means that all your content will be docked to the left when the application starts. However, you can set xamDockManager's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~initiallocationproperty.html[InitialLocation] attached property to dock a root-level split pane on a specific side of your application or to float a root-level split pane when your application starts.
+
+The InitialLocation attached property will not have any effect once xamDockManager adds the split pane to its Panes collection. You must set the InitialLocation attached property either in XAML or before you add a dynamically-instantiated split pane to xamDockManager's Panes collection.
+
+The following code demonstrates how to set the initial location of a pane.
+
+*In XAML:*
+
+----
+<igDock:XamDockManager Name="xamDockManager1">
+    <igDock:XamDockManager.Panes>
+        <igDock:SplitPane igDock:XamDockManager.InitialLocation="DockedRight">
+            <igDock:ContentPane Header="Pane 1">
+                <!--TODO: Add content here-->
+            </igDock:ContentPane>
+        </igDock:SplitPane>
+    </igDock:XamDockManager.Panes>
+</igDock:XamDockManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DockManager
+...
+Dim splitPane1 As New SplitPane() 
+'You must set the InitialLocation attached property before you add the split pane to the Panes collection. 
+XamDockManager.SetInitialLocation(splitPane1, InitialPaneLocation.DockedRight) 
+Me.xamDockManager1.Panes.Add(splitPane1) 
+Dim contentPane1 As New ContentPane() 
+contentPane1.Header = "Pane 1" 
+splitPane1.Panes.Add(contentPane1)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DockManager;
+...
+SplitPane splitPane1 = new SplitPane();
+//You must set the InitialLocation attached property before you add the split pane to the Panes collection.
+XamDockManager.SetInitialLocation(splitPane1, InitialPaneLocation.DockedRight);
+this.xamDockManager1.Panes.Add(splitPane1);
+ContentPane contentPane1 = new ContentPane();
+contentPane1.Header = "Pane 1";
+splitPane1.Panes.Add(contentPane1);
+...
+----
+
+== Related Topics
+
+link:xamdockmanager-about-opening-and-closing-panes.html[About Opening and Closing Panes]
+
+link:xamdockmanager-add-content-to-a-contentpane.html[Add Content to a ContentPane]
+
+link:xamdockmanager-add-panes-to-the-documentcontenthost-object.html[Add Panes to the DocumentContentHost Object]
+
+link:xamdockmanager-add-panes-to-xamdockmanager.html[Add Panes to xamDockManager]
+
+link:xamdockmanager-creating-a-tabbed-mdi-application.html[Creating a Tabbed MDI Application]
+
+link:xamdockmanager-pin-and-unpin-a-pane.html[Pin and Unpin a Pane]
+
+link:xamdockmanager-prevent-end-users-from-resizing-floating-panes.html[Prevent End Users From Resizing Floating Panes]
+
+link:xamdockmanager-set-the-location-of-a-floating-pane.html[Set the Location of a Floating Pane]
+
+link:xamdockmanager-set-the-size-of-a-floating-pane.html[Set the Size of a Floating Pane]
+
+link:xamdockmanager-show-the-pane-navigator-programmatically.html[Show the Pane Navigator Programmatically]
+
+link:xamdockmanager-end-user-settings.html[End User Settings]
+
+link:xamdockmanager-styling-xamdockmanager.html[Styling xamDockManager]

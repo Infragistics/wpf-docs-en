@@ -1,0 +1,72 @@
+﻿////
+|metadata|
+{
+    "name": "xampivotgrid-us-connecting-to-an-adomd-net-datasource",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Data Binding","Data Presentation","How Do I"],
+    "guid": "6b773e2e-b89a-4413-961d-64d0d780b0bd",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.0902822Z"
+}
+|metadata|
+////
+
+= Connecting to an ADOMD.NET DataSource
+
+Using an Adomd.net data source differs slightly from using any of the other data sources in the xamPivotGrid™ control. As a matter of fact the only thing you need to do differently is to supply an AdomdConnectionSettings object with the proper string to an AdomdDataSource.
+
+The following code shows the difference between connecting to an Analysis server with an Xmla data source and an Adomd data source.
+
+== Connecting with an Xmla Data
+
+*In XAML:*
+[source,xaml]
+----
+<igOlap:XmlaDataSource x:Key="DataSource" 
+    ServerUri="http://server/olap/msmdpump.dll" 
+    Database="Adventure Works DW Standard Edition"
+    Cube="Adventure Works"
+    Filters="[Sales Territory].[Sales Territory Country]"
+    Columns="[Date].[Calendar]"
+    Rows="[Geography].[City]"
+    Measures="Reseller Sales Amount">
+</igOlap:XmlaDataSource>
+----
+
+== Connecting with an Adomd.net
+
+*In XAML:*
+[source,xaml]
+----
+<igOlap:AdomdDataSource x:Key="DataSource"  
+    Database="Adventure Works DW Standard Edition"
+    Cube="Adventure Works"
+    Filters="[Sales Territory].[Sales Territory Country]"
+    Columns="[Date].[Calendar]"
+    Rows="[Geography].[City]"
+    Measures="Reseller Sales Amount">
+    
+    <igOlap:AdomdDataSource.ConnectionSettings>
+        <igOlap:AdomdConnectionSettings
+            ConnectionString="Provider=MSOLAP.4;
+                Persist Security Info=True;
+                Data Source=http://srv/olap/msmdpump.dll;
+                MDX Compatibility=1;
+                Safety Options=2;
+                MDX Missing Member Mode=Error" />
+    </igOlap:AdomdDataSource.ConnectionSettings>
+
+</igOlap:AdomdDataSource>
+----
+
+.Note
+[NOTE]
+====
+The above connection string is the one you would use in the MS Adomd.net API to connect to data.
+====
+
+=== Related Topics
+
+link:xampivotgrid-us-excel-spreadsheet-as-a-datasource.html[Excel Spreadsheet as a DataSource]
+
+link:xampivotgrid-us-filtering.html[Filtering]

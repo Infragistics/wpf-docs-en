@@ -1,0 +1,92 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-add-a-ribbon-group-to-a-ribbon-tab",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Getting Started","Grouping","How Do I","Navigation","Selection"],
+    "guid": "{C771B6E6-7284-4279-9925-001A2E679852}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1081747Z"
+}
+|metadata|
+////
+
+= Add a Ribbon Group to a Ribbon Tab
+
+
+
+You can use Ribbon Tabs to organize and present a high-level overview of application tasks to the end user. Within each tab, you can use a Ribbon Group to categorize tools into subsets of functionally related tasks.
+
+The following example code demonstrates how to add two Ribbon Groups to a Ribbon Tab.
+
+*In XAML:*
+
+----
+...
+<igRibbon:XamRibbon Name="xamRibbon1">
+        <igRibbon:XamRibbon.Tabs>
+                <igRibbon:RibbonTabItem Header="Home">
+                        <igRibbon:RibbonGroup 
+                                Caption="Data" 
+                                Id="grpData">                      
+                        <!--TODO:Add Tools here-->
+                        </igRibbon:RibbonGroup>
+                        <igRibbon:RibbonGroup 
+                                Caption="Styles" 
+                                Id="grpStyles">
+                        <!--TODO:Add Tools here-->
+                        </igRibbon:RibbonGroup>
+                </igRibbon:RibbonTabItem>
+        </igRibbon:XamRibbon.Tabs>
+</igRibbon:XamRibbon>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim group As RibbonGroup 
+Dim tab As New RibbonTabItem() 
+tab.Header = "Home" 
+Me.xamRibbon1.Tabs.Add(tab) 
+group = New RibbonGroup() 
+group.Caption = "Data" 
+group.Id = "grpData" 
+tab.RibbonGroups.Add(group) 
+group = New RibbonGroup() 
+group.Caption = "Styles" 
+group.Id = "grpStyles" 
+tab.RibbonGroups.Add(group) 
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+RibbonGroup group;
+RibbonTabItem tab = new RibbonTabItem();
+tab.Header = "Home";
+this.xamRibbon1.Tabs.Add(tab);
+group = new RibbonGroup();
+group.Caption = "Data";
+group.Id = "grpData";
+tab.RibbonGroups.Add(group);
+group = new RibbonGroup();
+group.Caption = "Styles";
+group.Id = "grpStyles";
+tab.RibbonGroups.Add(group);
+...
+----
+
+== Related Topics
+
+link:xamribbon-adding-xamribbon-to-your-application-.html[Adding xamRibbon to Your Application]
+
+link:xamribbon-about-group-resizing.html[About Ribbon Group Resizing]
+
+link:xamribbon-using-the-dialog-box-launcher-to-display-a-dialog-box.html[Using the Dialog Box Launcher to Display a Dialog Box]

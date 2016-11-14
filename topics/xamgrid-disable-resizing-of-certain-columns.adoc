@@ -1,0 +1,66 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-disable-resizing-of-certain-columns",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Grids","How Do I","Layouts"],
+    "guid": "{BF6F968A-127E-426A-BF2D-E2922825D6C0}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.8471657Z"
+}
+|metadata|
+////
+
+= Disable Resizing of Certain Columns
+
+You can disable resizing of certain columns on the xamGrid™ control, even though you have column resizing enabled on your entire xamGrid. For example, if you have a sorted column, you may not want your end users to resize this column.
+
+To achieve this, you can set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~isresizable.html[IsResizable] property to False, as demonstrated in the following code snippet.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="MyGrid" AutoGenerateColumns=">
+   <ig:XamGrid.ColumnResizingSettings>
+      <ig:ColumnResizingSettings AllowColumnResizing="Indicator" />
+   </ig:XamGrid.ColumnResizingSettings>
+   <ig:XamGrid.Columns>
+      <ig:TextColumn Key="ProductID"/>
+      <ig:TextColumn Key="ProductName" IsResizable="/>
+      ...
+   </ig:XamGrid.Columns>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+...
+Dim ColumnNotResizable As Column = Me.MyGrid.Columns.DataColumns("ProductName")
+ColumnNotResizable.IsResizable = False        
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+Column ColumnNotResizable = this.MyGrid.Columns.DataColumns["ProductName"];
+ColumnNotResizable.IsResizable = false;
+----
+
+== *Related Topics*
+
+link:xamgrid-column-resizing.html[Column Resizing]
+
+link:xamgrid-multi-column-resizing.html[Multi-Column Resizing]
+
+link:xamgrid-resize-in-the-cell-area.html[Resize Cells in the Cell Area]
+
+link:xamgrid-auto-size-columns-using-mouse-clicks.html[Auto Size Columns Using Mouse Clicks]
+
+link:xamgrid-set-columns-maximum-and-minimum-widths.html[Set Column's Maximum and Minimum Widths]
+
+link:xamgrid-column-resizing-events.html[Column Resizing Events]

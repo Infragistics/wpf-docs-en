@@ -1,0 +1,22 @@
+﻿////
+|metadata|
+{
+    "name": "generalconcepts-signed-andunsigned-assemblies",
+    "controlName": [],
+    "tags": [],
+    "guid": "a752a0ee-af23-42f1-8ebf-e391781eea0c",
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-02-06T21:31:51.6565699Z"
+}
+|metadata|
+////
+
+= Signed and Unsigned Assemblies
+
+The installer for the {ProductName} Full product installs unsigned assemblies into the bin folder and into the Global Assembly Cache (GAC). In addition, a zipped file containing the signed assemblies is also available in the following folder: {InstallPath}\Bin - Signed.
+
+The following is a list of the usage scenarios and limitations for the signed assemblies:
+
+* If you are achieving link:http://www.wipro.com/microsoft/certification/[Microsoft® Windows® Vista™ Certification], you will need to use signed assemblies.
+* If you are deploying a XAML Browser Application (XBAP), you should use the signed assemblies.
+* If you are using the signed assemblies and you deploy them to an environment that cannot connect to the Internet, when you run the application for the first time within the current Windows session, it will take a long time to start (from a few seconds to possibly two or more minutes, depending on the number of signed assemblies being loaded). This is due to the fact that when the operating system loads each signed assembly, it attempts to verify that the certificate with which the assembly was signed has not been revoked. When there is no internet connection, this attempt is still made and does not return until the attempt has timed out.

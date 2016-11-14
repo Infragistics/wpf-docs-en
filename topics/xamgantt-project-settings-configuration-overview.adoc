@@ -1,0 +1,160 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-project-settings-configuration-overview",
+    "controlName": ["xamGantt"],
+    "tags": ["API","Data Presentation","How Do I","Scheduling"],
+    "guid": "8a75ae86-67ec-4cdd-bfea-818d31d55abc",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.3251652Z"
+}
+|metadata|
+////
+
+= Project Settings Configuration Overview
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of the  _xamGantt™_   link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings_members.html[ProjectSettings] class and its configurable aspects.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-xamgantt-overview.html[xamGantt Overview]
+|This topic describes basic conceptual information about _xamGantt_, project, tasks and other _xamGantt_ elements.
+
+| link:xamgantt-xamgantt-in-detail.html[xamGantt in Detail]
+|This group of topics describes the _xamGantt_ control in details.
+
+| link:xamgantt-project-configuration-overview.html[Project Configuration Overview]
+|This topic gives an overview of the _xamGantt_ Project class and its configurable aspects.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334894028, Introduction >>
+* <<_Ref334823701, Project Settings Configuration Properties Summary >>
+* <<_Ref334823713, Related Content >>
+
+[[_Ref334894028]]
+== Introduction
+
+=== ProjectSettings class summary
+
+The `ProjectSettings` class provides settings that affect various aspects of the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project].
+
+These configurable aspects include:
+
+* the scheduling engine’s behavior (for example, `AlwaysHonorTaskConstraintDates`, `ShouldCalculateAfterEachEdit` properties)
+* how entered durations are converted to the actual time (for example, `DaysPerMonth`, `MinutesPerDay`, `MinutesPerWeek` properties)
+* critical path calculation (for example, `CriticalSlackLimit`, `ShouldCalculateMultipleCriticalPaths` properties)
+* the project’s visual representation of its information (for example, `DateStringFormat` property).
+
+Most of the `ProjectSettings`’s properties match those exposed in Microsoft Project 2010.
+
+[[_Ref334823701]]
+== Project Settings Configuration Properties Summary
+
+=== Project settings configuration properties summary chart
+
+The following table lists some of the main configurable aspects of the xamGantt `ProjectSettings`.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|Configuring the tasks constraint dates priority over the tasks dependencies
+|Returns or sets a Boolean value indicating whether the tasks constraint dates have a higher priority than the tasks relationships.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~alwayshonortaskconstraintdates.html[AlwaysHonorTaskConstraintDates]
+
+|Configuring whether new resources are allowed to be added to the project
+|Returns or sets a Boolean value indicating whether a new link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectresource_members.html[ProjectResource] should be added to the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~resourceitems.html[ResourceItems] when entering an unrecognized name into the task resources.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~autoaddnewresources.html[AutoAddNewResources]
+
+|Configuring the critical slack limit in days
+|Returns or sets the number of days of slack under which a task is considered critical when calculating the project critical path.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~criticalslacklimit.html[CriticalSlackLimit]
+
+|Configuring the dates format
+|Returns or sets a `DateTime` string format used to indicate how dates render within the control.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~datestringformat.html[DateStringFormat]
+
+|Configuring the number of days per month
+|Returns or sets a value indicating the number of days used when calculating a month unit (for example, when a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectduration_members.html[ProjectDuration] has a Format of Months.)
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~dayspermonth.html[DaysPerMonth]
+
+|Configuring the duration format
+|Returns or sets the task’s duration format.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~durationformat.html[DurationFormat]
+
+|Configuring the first day of week
+|Returns or sets the day used as the first day of the week.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~firstdayofweek.html[FirstDayOfWeek]
+
+|Configuring if the project root task is visible in the _xamGantt_ control user interface
+|Returns or sets a value of type Boolean indicating if the project displays its link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~roottask.html[RootTask]. 
+
+By default, the project root task is not visible.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~isroottaskvisible.html[IsRootTaskVisible]
+
+|Configuring the minutes per day
+|Returns or sets a value indicating the number of minutes used when calculating a day unit (for example when a `ProjectDuration` has a Format of Days.)
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~minutesperday.html[MinutesPerDay]
+
+|Configuring the minutes per week
+|Returns or sets a value indicating the number of minutes used when calculating a week unit (for example when a `ProjectDuration` has a Format of Weeks.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~minutesperweek.html[MinutesPerWeek]
+
+|Configuring if the newly created tasks are manually scheduled by default.
+|Returns or sets a value of type Boolean indicating whether newly created tasks are manually scheduled. 
+
+By default, the newly created tasks are manually scheduled.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~newtasksaremanual.html[NewTasksAreManual]
+
+|Configuring if the project is recalculated on every change to the tasks
+|Returns or sets a Boolean value indicating whether the scheduling engine recalculates after each project change. 
+
+By default, the project recalculates on every task change.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~shouldcalculateaftereachedit.html[ShouldCalculateAfterEachEdit]
+
+|Configuring the calculation of multiple critical paths
+|Returns or sets a Boolean value indicating if the scheduling engine calculates a critical path for each independent network of tasks.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~shouldcalculatemultiplecriticalpaths.html[ShouldCalculateMultipleCriticalPaths]
+
+|Configuring if the manual tasks are updated on changes in their predecessors or successors
+|Returns or sets a Boolean value indicating if the start, finish, and duration of the manually scheduled tasks should be updated when predecessors or successors change. 
+
+By default, the manual tasks are updated.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~shouldupdatemanualtaskswheneditinglinks.html[ShouldUpdateManualTasksWhenEditingLinks]
+
+|====
+
+[[_Ref334823713]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-showing-the-project-summary-task.html[Showing the Project Summary Task]
+|This topic explains how to display the project’s summary task using the _xamGantt_ control.
+
+| link:xamgantt-configuring-critical-slack-limit.html[Configuring Critical Slack Limit]
+|This topic explains how to configure the critical slack limit for a project task using the _xamGantt_ control.
+
+|====

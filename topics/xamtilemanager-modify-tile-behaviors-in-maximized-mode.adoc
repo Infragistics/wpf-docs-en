@@ -1,0 +1,117 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-modify-tile-behaviors-in-maximized-mode",
+    "controlName": ["xamTileManager"],
+    "tags": ["How Do I"],
+    "guid": "531f4c39-aa33-44f3-a332-f505c18556f0",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.7003731Z"
+}
+|metadata|
+////
+
+= Modify Tile Behaviors in Maximized Mode
+
+The xamTileManager™ exposes a link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~maximizedmodesettings.html[MaximizedModeSettings] property that allows you to modify the behavior of tiles in the maximized, minimized and minimized-expanded states. The link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings.html[MaximizedModeSettings] object exposes the following properties:
+
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~allowtiledragging.html[AllowTileDragging] - If you disable tile dragging, your end users will not be able to drag a minimized tile to the maximized tile area (or vice-versa) to change its state.
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~horizontaltileareaalignment.html[HorizontalTileAreaAlignment]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~intertileareaspacing.html[InterTileAreaSpacing]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~intertilespacingxmaximized.html[InterTileSpacingXMaximized]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~intertilespacingxminimized.html[InterTileSpacingXMinimized]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~intertilespacingymaximized.html[InterTileSpacingYMaximized]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~intertilespacingyminimized.html[InterTileSpacingYMinimized]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~maximizedtileconstraints.html[MaximizedTileConstraints]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~maximizedtilelayoutorder.html[MaximizedTileLayoutOrder]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~maximizedtilelocation.html[MaximizedTileLocation]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedexpandedtileconstraints.html[MinimizedExpandedTileConstraints]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedtileconstraints.html[MinimizedTileConstraints]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedtileexpandbuttonvisibility.html[MinimizedTileExpandButtonVisibility]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedtileexpansionmode.html[MinimizedTileExpansionMode]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~repositionanimation.html[RepositionAnimation]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~resizeanimation.html[ResizeAnimation]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~shouldanimate.html[ShouldAnimate]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~showallminimizedtiles.html[ShowAllMinimizedTiles]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~showtileareasplitter.html[ShowTileAreaSplitter]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~verticaltileareaalignment.html[VerticalTileAreaAlignment]
+
+The xamTileManager does not automatically initialize the MaximizedModeSettings property. If you want to set any properties exposed by the MaximizedModeSettings property in code, you must set xamTileManager's MaximizedModeSettings property to an instance of a MaximizedModeSettings object.
+
+The following example code demonstrates how to modify tile behaviors in maximized, minimized and minimized-expanded mode.
+
+*In XAML:*
+
+----
+<ig:XamTileManager Name="xamTileManager1">
+    <ig:XamTileManager.MaximizedModeSettings>
+        <ig:MaximizedModeSettings
+            MinimizedTileExpansionMode="AllowOne" 
+            VerticalTileAreaAlignment="Top" 
+            ShowAllMinimizedTiles="True" />
+    </ig:XamTileManager.MaximizedModeSettings >
+    <!--Add Tiles here-->
+</ig:XamTileManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Layouts
+...
+If Me.xamTileManager1.MaximizedModeSettings Is Nothing Then
+    Me.xamTileManager1.MaximizedModeSettings =
+        New MaximizedModeSettings()
+End If
+Me.xamTileManager1.MaximizedModeSettings.MinimizedTileExpansionMode = _
+    MinimizedTileExpansionMode.AllowOne
+Me.xamTileManager1.MaximizedModeSettings.VerticalTileAreaAlignment = _
+    VerticalAlignment.Top
+Me.xamTileManager1.MaximizedModeSettings.ShowAllMinimizedTiles = True
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Layouts;
+...
+if (this.xamTileManager1.MaximizedModeSettings == null)
+{
+    this.xamTileManager1.MaximizedModeSettings =
+        new MaximizedModeSettings();
+}
+this.xamTileManager1.MaximizedModeSettings.MinimizedTileExpansionMode =
+    MinimizedTileExpansionMode.AllowOne;
+this.xamTileManager1.MaximizedModeSettings.VerticalTileAreaAlignment =
+    VerticalAlignment.Top;
+this.xamTileManager1.MaximizedModeSettings.ShowAllMinimizedTiles = true;
+...
+----
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

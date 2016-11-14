@@ -1,0 +1,335 @@
+﻿////
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-adding-hyperlinks",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "8bf872a6-12fc-4514-b1c1-7d71b8c72cdb",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.502306Z"
+}
+|metadata|
+////
+
+= Adding Hyperlinks (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to create hyperlinks using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from the developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref364347146,Introduction>>
+* <<_Ref364347151,Adding Hyperlinks Summary>>
+** <<_Ref364346966,By Invoking the InsertHyperlink Method>>
+** <<_Ref364694639,By Invoking the MakeHyperlink Method Providing a Document Span>>
+** <<_Ref364347130,By Creating a HyperlinkNode Instance>>
+
+* <<_Ref364347236,Managing Hyperlink Click Event>>
+* <<_Ref364347167,Related Content>>
+
+[[_Ref364347146]]
+== Introduction
+
+=== Hyperlinks summary
+
+The  _xamRichTextEditor_   supports internal hyperlinks within the document navigating the user to a website. Hyperlinks are rendered with a different style so they can easily be distinguished from the text amongst the other rich content.
+
+You can use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.hyperlinknode~trackhistory.html[TrackHistory] property to enable a link to be rendered in a different color when it is once visited.
+
+The user may visit a hyperlink by clicking on it while holding the control key pressed. This will trigger a link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~hyperlinkexecuting_ev.html[HyperlinkExecuting] event, which can be used to inspect and/or modify the URI address or cancel the hyperlink opening.
+
+[[_Ref364347151]]
+== Adding Hyperlinks Summary
+
+=== Adding Hyperlinks summary chart
+
+There are three ways for adding a hyperlink in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] using code. Further details are available after the table.
+
+[options="header", cols="a,a"]
+|====
+|Adding Hyperlinks|Details
+
+|<<_Ref364346966,By Invoking the InsertHyperlink Method>>
+|This method creates hyperlink by inserting new text in the document content.
+
+|<<_Ref364694639,By Invoking the MakeHyperlink Method>>
+|This method creates hyperlink using existing document content.
+
+|<<_Ref364347130,By Creating a HyperlinkNode Instance>>
+|This method involves the creation of objects in the document body’s node hierarchy.
+
+|====
+
+[[_Ref364346966]]
+== By Invoking the InsertHyperlink Method
+
+=== Overview
+
+By invoking the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~inserthyperlink.html[InsertHyperlink] method, you can insert a hyperlink at any offset of the document.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a"]
+|====
+|In order to create a hyper link:|And set the following properties:
+
+|Invoke the `InsertHyperlink` method
+|
+* `documentOffset` 
+
+* `targetUri` 
+
+* `error` 
+
+* `displayText (optional)` 
+
+* `tooltip (optional)` 
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The code snippet below demonstrates how to create a hyperlink using the `InserHyperlink` method:
+
+*In C#:*
+
+[source,csharp]
+----
+string error = null;
+this.xamRichTextEditor1.Document.InsertHyperlink(0,
+    "http://www.infragistics.com/", out error, "Infragistics",
+    "Link to the Infragistics website.");
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim [error] As String = Nothing
+Me.xamRichTextEditor1.Document.InsertHyperlink(0, _
+    "http://www.infragistics.com/", _
+        [error], _
+        "Infragistics", _
+        "Link to the Infragistics website.")
+----
+
+[[_Ref364694639]]
+[[_Ref364347130]]
+== By Invoking the MakeHyperlink Method
+
+=== Overview
+
+By invoking the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~makehyperlink.html[MakeHyperlink] method, you can insert a hyperlink using an existing document span by providing the document span which will be used. This case uses the content of the document as display text, the target URI and the tooltip will be provided as arguments to the method.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a"]
+|====
+|In order to create a hyper link:|And set the following properties:
+
+|Invoke the `MakeHyperlink` method
+|
+* `document span` 
+
+* `targetUri` 
+
+* `error` 
+
+* `tooltip (optional)` 
+
+|====
+
+=== Example
+
+The code snippet below demonstrates how to create a hyperlink by invoking the `MakeHyperlink` method using the current active view selection as link content:
+
+*In C#:*
+
+[source,csharp]
+----
+string error = null;
+this.xamRichTextEditor1.Document.MaketHyperlink(
+    this.xamRichTextEditor1.ActiveDocumentView.Selection.DocumentSpan,
+    "http://www.example.com/", out error, "Example.com"
+);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim [error] As String = Nothing
+Me.xamRichTextEditor1.Document.MaketHyperlink( _
+    Me.xamRichTextEditor1.ActiveDocumentView.Selection.DocumentSpan, _
+    "http://www.example.com/", [error], "Example.com")
+----
+
+== By Creating a HyperlinkNode Instance
+
+=== Overview
+
+You can also create a hyperlink by creating a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.hyperlinknode_members.html[HyperlinkNode] instance.
+
+=== Example
+
+The code snippet below demonstrates how to create a hyperlink and add it in the a new paragraph at the end of the document’s content:
+
+*In C#:*
+
+[source,csharp]
+----
+var hNode = new HyperlinkNode();
+hNode.Tooltip = "Link to the Infragistics website.";
+hNode.Uri = "http://www.infragistics.com/";
+hNode.SetText("Infragistics");
+hNode.TrackHistory = true;
+var pNode = new ParagraphNode();
+pNode.ChildNodes.Add(hNode);
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pNode);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim hNode = New HyperlinkNode()
+hNode.Tooltip = "Link to the Infragistics website."
+hNode.Uri = "http://www.infragistics.com/"
+hNode.SetText("Infragistics")
+hNode.TrackHistory = True
+Dim pNode = New ParagraphNode()
+pNode.ChildNodes.Add(hNode)
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pNode)
+----
+
+.Note
+[NOTE]
+====
+Using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.hyperlinknode~settext.html[SetText] method of the `HyperlinkNode` for creating link content is also setting the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.runnode~styleid.html[StyleId] property to a value "Hyperlink" and will apply the default hyperlink style to this hyperlink. If you do not use this method and still want to apply a style you will have to manually set the hyperlink style using the `StyleId` property.
+====
+
+.Note
+[NOTE]
+====
+The "Hyperlink" style is not initially available in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles] collection and if you want to use it you will have to add it from the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~availablestyles.html[RichTextDocument.AvailableStyles] collection:
+====
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor.Document.RootNode.Styles.Add(
+    this.xamRichTextEditor.Document.AvailableStyles["Hyperlink"].Clone()
+    as CharacterStyle);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor.Document.RootNode.Styles.Add(_
+    TryCast(Me.xamRichTextEditor.Document.AvailableStyles("Hyperlink").Clone(), _
+    CharacterStyle))
+----
+
+To avoid this you can use the `InsertHyperlink` or `MakeHyperlink` methods.
+
+
+[[_Ref364347236]]
+== Managing Hyperlink Click Event
+
+=== Overview
+
+When the user clicks a link while holding the control key, the `HyperlinkExecuting` event is fired. You can perform the follwoing operation in the event handler using the provided argument of type link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.hyperlinkexecutingeventargs.html[HyperlinkExecutingEventArgs]:
+
+=== Example
+
+The following table maps the desired operation to its respective property:
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property on the HyperlinkExecutingEventArgs argument:|And:
+
+|Cancel the `HyperlinkExecuting` event
+| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.hyperlinkexecutingeventargs~cancel.html[Cancel]
+|Set it to true
+
+|Obtain or change the URI which will be opened
+| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.hyperlinkexecutingeventargs~uri.html[Uri]
+|Read the current or set a new value
+
+ifdef::wpf[]
+|Obtain or change the working directory used in conjunction with a relative file set in the Uri property
+| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.hyperlinkexecutingeventargs~workingdirectory.html[WorkingDirectory]
+|Read the current or set a new value
+endif::wpf[]
+
+|====
+
+[[_Ref364347167]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-adding-text.html[Adding Text]
+|This topic provides information on how to create text using the _xamRichTextEditor_ from a developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-lists.html[Adding Lists]
+|This topic provides information on how to create lists using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-images.html[Adding Images]
+|This topic provides information on how to create images using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-tables.html[Adding Tables]
+|This topic provides information on how to use the _xamRichTextEditor_ to create tables from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-hyperlinks[Defining Hyperlinks in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-hyperlinks[Defining Hyperlinks in Code]"] 
+|This sample demonstrates adding of hyperlinks in code.
+
+|====

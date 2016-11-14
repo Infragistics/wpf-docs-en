@@ -1,0 +1,270 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-tasks-configuration-overview",
+    "controlName": ["xamGantt"],
+    "tags": ["Data Presentation","Getting Started","How Do I","Scheduling"],
+    "guid": "a0f79f72-6081-4fcc-9d84-313d4200207b",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.463173Z"
+}
+|metadata|
+////
+
+= Tasks Configuration Overview
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of the  _xamGantt™_   link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask_members.html[ProjectTask] class and its configurable aspects.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-xamgantt-overview.html[xamGantt Overview]
+|This topic describes basic conceptual information about _xamGantt_, project, tasks and other _xamGantt_ elements.
+
+| link:xamgantt-xamgantt-in-detail.html[xamGantt in Detail]
+|This group of topics describes the _xamGantt_ control in details.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334894028, Introduction >>
+* <<_Ref334823701, Project Task Configuration Properties Summary >>
+* <<_Ref335667557, Project Task Calculated and Read-Only Properties Summary >>
+* <<_Ref335667642, Project Task Methods Summary >>
+* <<_Ref335667648, Related Content >>
+
+[[_Ref334894028]]
+== Introduction
+
+=== ProjectTask class summary
+
+The `ProjectTask` object represents a single task in a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project] in the  _xamGantt_   control.
+
+Every project has one root task, and that is the summary project task. All tasks associated with the project are descendants of that task.
+
+[[_Ref334823701]]
+== Project Task Configuration Properties Summary
+
+=== Project task configuration properties summary chart
+
+The following table lists some of the main configurable aspects of the  _xamGantt_   `ProjectTask`.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|Configuring a task’s constraint
+|Returns or sets the date (UTC) and type of a task constraint.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~constraintdate.html[ConstraintDate] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~constrainttype.html[ConstraintType]
+
+|Configuring a task’s deadline
+|Returns or sets a deadline date for completing a task in Coordinated Universal Time (UTC).
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~deadline.html[Deadline]
+
+|Configuring a task’s duration and duration format
+|Returns or sets task duration and duration format.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~duration.html[Duration] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~durationformat.html[DurationFormat]
+
+|Configuring a task’s finish date
+|Returns or sets the finish date in Coordinated Universal Time (UTC).
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~finish.html[Finish]
+
+|Configuring if a task is active or inactive
+|Returns or sets a task’s state (active/inactive).
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~isactive.html[IsActive]
+
+|Configuring a taskbar visibility
+|Returns or sets a Boolean value indicating if a task bar is visible in the _xamGantt_ chart section.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~isbarhidden.html[IsBarHidden]
+
+|Configuring a task’s mode (automatically/manually scheduled)
+|Returns or sets a Boolean value indicating whether task scheduling occurs manually or automatically.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~ismanual.html[IsManual]
+
+|Configuring a milestone
+|Returns or sets a Boolean value indicating if a task represents a major event in the project and should be marked as a milestone.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~ismilestone.html[IsMilestone]
+
+|Configuring task’s duration, start and finish dates based on specified number of units and unit type
+|Returns or sets duration, start and finish dates. 
+
+Displays the `ManualStart` and `ManualFinish` values in _xamGantt_ grid section’s Start and Finish columns. *Example:* 
+
+[start=1] 
+
+. Setting a task’s duration of 5 days using the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectduration_members.html[ProjectDuration] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectduration~fromformatunits.html[FromFormatUnits] method: 
+
+`ManualDuration = ProjectDuration.FromFormatUnits(5, ProjectDurationFormat.Days)` 
+
+[start=2] 
+
+. Setting a free formatted text in the Finish date column for a manually scheduled task using the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.manualdatetime~_ctor.html[ManualDateTime] constructor: 
+
+`ManualFinish = new ManualDateTime(“Not Defined Yet”)`
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~manualduration.html[ManualDuration] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~manualfinish.html[ManualFinish] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~manualstart.html[ManualStart]
+
+|Configuring a task’s progress
+|Returns or sets a value between 0 and 100, inclusively, representing the percentage of the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~manualduration.html[ManualDuration] completed.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~percentcomplete.html[PercentComplete]
+
+|Configuring a task’s predecessors
+|Use the `Add` method to set task predecessors in the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~predecessors.html[Predecessors] collection; or set/get a string representing the predecessors by ID via the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~predecessorsidtext.html[PredecessorsIdText].
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~predecessors.html[Predecessors] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~predecessorsidtext.html[PredecessorsIdText]
+
+|Configuring a task’s resources
+|Use the `Add` method to set task resources in the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~resources.html[Resources] collection; or set/get a string representing the resources via the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~resourcestext.html[ResourcesText].
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~resources.html[Resources] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~resourcestext.html[ResourcesText]
+
+|Configuring the scheduled duration, start and finish for a task
+|Returns or sets the total span of a task’s active working time; scheduled start and scheduled finish dates expressed in Coordinated Universal Time (UTC).
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~scheduledduration.html[ScheduledDuration] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~scheduledfinish.html[ScheduledFinish] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~scheduledstart.html[ScheduledStart]
+
+|Configuring a task’s start date
+|Returns or sets task start date in Coordinated Universal Time (UTC).
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~start.html[Start]
+
+|Configuring a task’s successors
+|Use the `Add` method to set task successors in the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~successors.html[Successors] collection; or set/get a string representing the successors by ID via the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~successorsidtext.html[SuccessorsIdText].
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~successors.html[Successors] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~successorsidtext.html[SuccessorsIdText]
+
+|Configuring a task’s name
+|Returns or sets the name of the task.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~taskname.html[TaskName]
+
+|Configuring the collection of child tasks
+|Returns the collection of child tasks.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~tasks.html[Tasks]
+
+|====
+
+[[_Ref335667557]]
+[[_Ref335654344]]
+[[_Ref335654257]]
+== Project Task Calculated and Read-Only Properties Summary
+
+=== Project task calculated properties summary chart
+
+The following table lists some of the main calculated properties of the  _xamGantt_   `ProjectTask`.
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~earlyfinish.html[EarlyFinish]
+|Returns the earliest calculated date that a task could finish based on its predecessors and constraints.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~earlystart.html[EarlyStart]
+|Returns the earliest calculated date that a task could start based on its predecessors and constraints.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~finishslack.html[FinishSlack]
+|Returns task’s calculated duration between the task’s `EarlyFinish` and `LateFinish` dates.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~freeslack.html[FreeSlack]
+|Returns the calculated amount of delay time a task can incur without delaying any successors or affecting the project's finish date.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~id.html[Id]
+|Returns the task’s assigned calculated identifier number.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~index.html[Index]
+|Returns the task’s current index within the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~tasks.html[Tasks] of the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~parent.html[Parent].
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~iscritical.html[IsCritical]
+|Returns a Boolean value indicating if the task is on the project’s critical path.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~issummary.html[IsSummary]
+|Returns a Boolean value indicating if the task is a summary task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~latefinish.html[LateFinish]
+|Returns the calculated latest date that a task could finish without delaying the project finish.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~latestart.html[LateStart]
+|Returns the calculated latest date that a task could begin based on the predecessors, successors and constraints without delaying the project.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~project.html[Project]
+|Returns the associated project containing the task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~totalslack.html[TotalSlack]
+|Returns the calculated total amount of delay time that a task can incur without delaying the project.
+
+|====
+
+[[_Ref335667642]]
+== Project Task Methods Summary
+
+=== Project task methods summary chart
+
+The following table lists some of the main methods of the  _xamGantt_   `ProjectTask`.
+
+[options="header", cols="a,a"]
+|====
+|Method|Description
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~delete.html[Delete]
+|Deletes the task along with all of its subtasks.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~getlocal.html[GetLocal]
+|Obtains the task dates, in local time, based on the specified `TimeZoneToken`.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~indent.html[Indent]
+|Removes the task from its current parent and make it a child of the previous sibling task.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~outdent.html[Outdent]
+|Removes the task from its current parent and make it a sibling of the parent.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~respectlinks.html[RespectLinks]
+|Forces the scheduling engine to update the Start and Finish dates of a manual task respecting its dependencies, constraint, and deadline.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~setlocal.html[SetLocal]
+|Sets the task dates, in local time, based on the specified `TimeZoneToken`.
+
+|====
+
+[[_Ref335667648]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-configuring-tasks-manual-automatic.html[Configuring Tasks as Manual/Automatic]
+|This topic explains how to configure a task to either manual or automatic scheduling using the _xamGantt_ control.
+
+| link:xamgantt-configuring-tasks-active-inactive.html[Configuring Tasks as Active/Inactive]
+|This topic explains how to configure a task as either active or inactive using the _xamGantt_ control.
+
+| link:xamgantt-configuring-deadlines.html[Configuring Deadlines]
+|This topic explains how to configure task deadlines using the _xamGantt_ control.
+
+| link:xamgantt-configuring-milestones.html[Configuring Milestones]
+|This topic explains how to create a milestone using the _xamGantt_ control.
+
+| link:xamgantt-configuring-task-progress.html[Configuring Task Progress]
+|This topic explains how to set task progress using the _xamGantt_ control.
+
+| link:xamgantt-configuring-task-duration-duration-format.html[Configuring the Task Duration and Duration Format]
+|This topic explains how you can set task duration and task duration unit using _xamGantt_ control.
+
+| link:xamgantt-configuring-task-dependencies.html[Configuring Tasks Dependencies]
+|This topic explains how to configure tasks dependencies using the _xamGantt_ control.
+
+| link:xamgantt-configuring-task-constraint.html[Configuring Tasks Constraints]
+|This topic explains how to configure tasks constraints using the _xamGantt_ control.
+
+|====

@@ -1,0 +1,80 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcarouselpanel-modifying-the-opacity-effect-of-items-on-xamcarouselpanels-path",
+    "controlName": ["xamCarouselPanel"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{1014C323-B363-4AC1-9D9E-BE2DC5FFA694}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.0807693Z"
+}
+|metadata|
+////
+
+= Modifying the Opacity Effect of Items on xamCarouselPanel's Path
+
+The OpacityEffect can change the opacity of items making them lighter or darker, providing a fading effect. When used properly, this effect could give foreground items the effect of being closer and background items the effect of being further away. The OpacityEffect is created as an link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.opacityeffectstopcollection.html[OpacityEffectStopCollection]*.* This collection contains several link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~opacityeffectstops.html[OpacityEffectStops] with Offsets and Values. The value can be specified as a decimal percentage from 0 to 1. The Offset depends on the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~opacityeffectstopdirection.html[OpacityEffectStopDirection] which can be set to one of three values:
+
+* Vertical
+* Horizontal
+* UseItemPath
+
+.Note
+[NOTE]
+====
+This topic assumes you have completed the tasks in link:xamcarouselpanel-getting-started-with-xamcarouselpanel.html[Adding xamCarouselPanel to Your Page].
+====
+
+Follow these steps to create an opacity effect for items in the xamCarouselPanel™ control.
+
+[start=1]
+. Create the xamCarouselPanel link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamcarousellistbox~viewsettings.html[ViewSettings] which is of type link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings]. Set the OpacityEffectStopDirection property to UseItemPath and set the UseOpacity property to True. This ensures that your Opacity settings will be used along the path.
+
+*In XAML:*
+
+----
+<igWindows:XamCarouselPanel.ViewSettings>
+    <igWindows:CarouselViewSettings OpacityEffectStopDirection="UseItemPath" 
+          UseOpacity="True">
+            ...
+    </igWindows:CarouselViewSettings>
+</igWindows:XamCarouselPanel.ViewSettings>
+----
+
+[start=2]
+. Define the OpacityEffectStops and OpacityEffectStopCollection objects inside the CarouselViewSettings object.
+
+*In XAML:*
+
+----
+<igWindows:CarouselViewSettings.OpacityEffectStops>
+    <igWindows:OpacityEffectStopCollection>
+            ...
+    </igWindows:OpacityEffectStopCollection>
+</igWindows:CarouselViewSettings.OpacityEffectStops>
+----
+
+[start=3]
+. Define the OpacityEffectStops object. Create three OpacityEffectStops. The Offsets will start at the beginning of the path and follow to the end, starting at a zero opacity, going to 1, and back to zero.
+
+*In XAML:*
+
+----
+<igWindows:OpacityEffectStop Offset="0" Value="0" />
+<igWindows:OpacityEffectStop Offset=".5" Value="1" />
+<igWindows:OpacityEffectStop Offset="1" Value="0" />
+----
+
+[start=4]
+. Build and run the project. You will see the farthest items are still slightly visible. This is because the items on the path do not necessarily start right at 0 opacity nor do they end right at 1 opacity; items come into view after the beginning of the path, therefore you never see them at exactly 0 opacity.
+
+image::images/xamCarousel_Modifying_the_Opacity_Effect_of_Items_on_a_Path_01.png[modifying the opacity effect of items on xamcarousel's path]
+
+== Related Topics
+
+link:xamcarousel-overview-of-path-effects.html[Overview of Path Effects]
+
+link:xamcarouselpanel-modifying-the-scale-of-elements-on-xamcarouselpanels-path.html[Modifying the Scale of Elements on xamCarouselPanel's Path]
+
+link:xamcarouselpanel-modifying-the-skew-effect-of-items-on-xamcarouselpanels-path.html[Modifying the Skew Effect of Items on xamCarouselPanel's Path]

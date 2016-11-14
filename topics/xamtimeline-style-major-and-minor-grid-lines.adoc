@@ -1,0 +1,72 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-major-and-minor-grid-lines",
+    "controlName": ["xamTimeline"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{EB35B464-736D-4BEE-B140-6B0598E9826E}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1203999Z"
+}
+|metadata|
+////
+
+= Styling Major and Minor Grid Lines
+
+The xamTimeline™ control's major and minor gridlines are vertical lines that mark the spacing between values on the timeline. To customize the look of the gridlines, you must set a style for them.
+
+The following xaml code shows how to change the color, size, and intervals of the major and minor grid lines using styles in link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Styles for Axis -->
+        <Style x:Key="rscMajorGridLineStyle" TargetType="ig:Mark">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Fill" Value="Gray"/>
+            <Setter Property="Stroke" Value="Gray"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Unit" Value="500"/>
+        </Style>
+        <Style x:Key="rscMinorGridLineStyle" TargetType="ig:Mark">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Fill" Value="Silver"/>
+            <Setter Property="Stroke" Value="Silver"/>
+            <Setter Property="StrokeThickness" Value="1"/>
+            <Setter Property="Unit" Value="100"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="480" Margin="25">
+            <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3000" Maximum="2300" 
+                                      AutoRange=" Unit="500" 
+                                      ShowLabels="True" 
+                                      ShowMajorGridLines="True" 
+                                      ShowMinorGridLines="True" 
+                                      MajorGridLineStyle="{StaticResource rscMajorGridLineStyle}"
+                                      MinorGridLineStyle="{StaticResource rscMinorGridLineStyle}"
+                                      />
+            </ig:XamTimeline.Axis>
+            <!-- TODO: Add Numeric/Date Series ... -->
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Style_Grid_Lines_01.png[]
+
+== Related Topics
+
+link:xamtimeline-style-the-axis.html[Styling Axis]
+
+link:xamtimeline-style-the-axis-pane.html[Styling Axis Pane]
+
+link:xamtimeline-style-the-axis-label.html[Styling Axis Label]
+
+link:xamtimeline-style-axis-thumb.html[Styling Axis Thumb]
+
+link:xamtimeline-style-major-and-minor-tick-marks.html[Styling Major and Minor Tick Marks]

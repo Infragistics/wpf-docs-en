@@ -1,0 +1,157 @@
+﻿////
+|metadata|
+{
+    "name": "xampropertygrid-property-item-generators",
+    "tags": ["How Do I"],
+    "controlName": ["xamPropertyGrid"],
+    "guid": "97cf9fc5-4ae5-4633-b11f-d3552f02ea03",
+    "buildFlags": [],
+    "createdOn": "2014-08-28T10:55:08.3786453Z"
+}
+|metadata|
+////
+
+= Property Item Generators (xamPropertyGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how the control discovers properties on the selected object(s), generates the list of property items and how the process can be configured and customized.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-features-overview.html[Features Overview (xamPropertyGrid)]
+|This topic explains the features supported by the control from developer perspective.
+
+| link:xampropertygrid-visual-elements.html[Visual Elements (xamPropertyGrid)]
+|This topic provides an overview of the visual elements of the control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref395713897, Property Generation Introduction >>
+* <<_Ref395713903, Configuring Property Generator Filter >>
+* <<_Ref395713913, Configuring Property Generator Options >>
+* <<_Ref395713921, Related Content >>
+
+[[_Ref395713897]]
+== Property Generation Introduction
+
+=== Property generation summary
+
+The link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid_members.html[_xamPropertyGrid_] control has an extensible architecture for discovering properties on the selected object(s). This architecture is based on the concept of property generators. The following built-in property generators are supplied with the control:
+
+* link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.typedescriptorpropertygenerator_members.html[TypeDescriptorPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/ms171819.aspx[TypeDescriptor] to discover the properties exposed by the selected object(s). The `TypeDescriptor` approach will typically discover more properties on the selected object(s) since Attached properties as well as custom properties provided by link:http://msdn.microsoft.com/en-us/library/system.componentmodel.customtypedescriptor(v=vs.110).aspx[CustomTypeDescriptor] implementations are discoverable and therefore included in the generated list of property items.
+* link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.reflectionpropertygenerator_members.html[ReflectionPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/f7ykdhsy(v=vs.110).aspx[Reflection] to discover the properties of the selected object(s) and can only discover the properties that are explicitly defined on the selected objects(s) type(s).
+
+.Note
+[NOTE]
+====
+The required property generator is specified by setting the control’s link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~propertygenerator.html[PropertyGenerator] property. If this property is not set, a `TypeDescriptor` property generator will be used by default.
+====
+
+=== Configuring property generation
+
+The property generators can be configured using the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~propertygenerationoptions.html[PropertyGenerationOptions] property which allows you to include attached and/or read-only properties.
+
+You can also use filters to customize the properties discovered by the property generators using the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase~generatedpropertyfilter.html[GeneratedPropertyFilter] property which is shown in the code snippets below.
+
+=== Custom property generators
+
+If you need custom property generation that "tweaks" the output of the default generators you can derive your own class from one of the built-in property generators and override the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase~generateproperties.html[GenerateProperties] method to modify the property list returned from the built-in generators.
+
+If you need to completely take over the property generator process to implement custom property discovery logic, you can create your own property generator extending from the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase_members.html[PropertyGeneratorBase] class and override the `GenerateProperties` method.
+
+[[_Ref395713903]]
+== Configuring Property Generator Filter
+
+[[_Hlk368069110]]
+
+=== Overview
+
+The following code example demonstrates how to set the reflection property generator and set its filter to show only properties which contains the words "Brush" or "Color" in their names.
+
+[[_Hlk337817761]]
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+[source,xaml]
+----
+<ig:XamPropertyGrid … >
+  …
+  <ig:XamPropertyGrid.PropertyGenerator>
+    <ig:ReflectionPropertyGenerator>
+      <ig:ReflectionPropertyGenerator.GeneratedPropertyFilter>
+        <ig:PropertyGridConditionGroup LogicalOperator="Or">
+          <ig:PropertyGridComparisonCondition Operator="Contains" Value="Brush" />
+          <ig:PropertyGridComparisonCondition Operator="Contains" Value="Color" />
+        </ig:PropertyGridConditionGroup>
+      </ig:ReflectionPropertyGenerator.GeneratedPropertyFilter>
+    </ig:ReflectionPropertyGenerator>
+  </ig:XamPropertyGrid.PropertyGenerator>
+  …
+</ig:XamPropertyGrid>
+----
+
+[[_Ref395713913]]
+== Configuring Property Generator Options
+
+=== Overview
+
+The following code example demonstrates how to set the type descriptor property generator and how to configure its options to not include attached properties but to include read-only properties.
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+[source,xaml]
+----
+<ig:XamPropertyGrid … >
+  …
+  <ig:XamPropertyGrid.PropertyGenerator>
+    <ig:TypeDescriptorPropertyGenerator />
+  </ig:XamPropertyGrid.PropertyGenerator>
+  <ig:XamPropertyGrid.PropertyGenerationOptions>
+    <ig:PropertyGenerationOptions
+      IncludeAttachedProperties="False" />
+      IncludeReadOnlyProperties="True" />
+  </ig:XamPropertyGrid.PropertyGenerationOptions>
+  …
+</ig:XamPropertyGrid>
+----
+
+[[_Ref395713921]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-work-expandable-properties.html[Expandable Properties Support (xamPropertyGrid)]
+|This topic explains how the control identifies and displays expandable properties.
+
+| link:xampropertygrid-resetting-property-value.html[Resetting Property Value (xamPropertyGrid)]
+|This topic explains how to define default property value and how to customize the options menu.
+
+| link:xampropertygrid-commands.html[Working with Commands (xamPropertyGrid)]
+|This topic explains how to perform different operations with the control using commands.
+
+|====

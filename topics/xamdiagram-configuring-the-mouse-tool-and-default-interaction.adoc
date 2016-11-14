@@ -1,0 +1,181 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdiagram-configuring-the-mouse-tool-and-default-interaction",
+    "tags": ["Application Scenarios","Charting","How Do I"],
+    "controlName": ["xamDiagram"],
+    "guid": "9b5eca33-04f0-4063-879d-3e8e0004b7ee",  
+    "buildFlags": [],
+    "createdOn": "2014-06-16T09:39:29.1021527Z"
+}
+|metadata|
+////
+
+= Configuring the Mouse Tool and Default Drag Interaction (xamDiagram)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to configure the mouse interaction and tool for the  _xamDiagram_™ surface.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-general-overview.html[General Overview ( _xamDiagram_ )]
+|This topic provides a conceptual overview of the _xamDiagram_ control and its main features and capabilities.
+
+| link:xamdiagram-adding-to-a-page.html[Adding _xamDiagram_ to a Page]
+|This topic explains how to add the _xamDiagram_ control to a WPF application.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref386477912, Introduction >>
+
+** <<_Ref390187797,Mouse interaction and tools summary>>
+** <<_MouseInteractionAndToolsSummaryChart,Mouse interaction and tools summary chart>>
+
+* <<_Ref386478000, Configuring the Mouse Interaction >>
+
+** <<_Ref386478019,Overview>>
+** <<_PropertySettings,Property settings>>
+
+* <<_Ref386478097, Related Content >>
+
+** <<_Ref386478106,Topics>>
+** <<_Ref386478113,Samples>>
+
+[[_Ref386477912]]
+== Introduction
+
+[[_Ref390187797]]
+
+=== Mouse interaction and tools summary
+
+The  _xamDiagram_   provides two properties – link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[Tool] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~defaultdraginteraction.html[DefaultDragInteraction] for configuring the various ways in which the mouse interacts with the  _xamDiagram_  . The link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[Tool] setting determines what happens when performing a click and drag on the  _xamDiagram_   surface. The following tools are available:
+
+* Pointer  _(default)_  
+* Connector
+
+The Pointer tool allows a number of interactions controlled by the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~defaultdraginteraction.html[DefaultDragInteraction] setting. The supported interactions are:
+
+* None
+* Zoom
+* Pan
+* Select  _(default)_  
+
+The Connector tool allows drawing a connection by dragging the mouse over the diagram surface.
+
+.Note:
+[NOTE]
+====
+In order to control when to display connection points for a node, use the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectionpointsdisplaymode.html[ConnectionPointsDisplayMode] property. For details on using this property, refer to link:xamdiagram-configuring-the-connection-points-of-diagram-nodes.html[Configuring the Connection Points of Diagram Nodes].
+====
+
+[[_MouseInteractionAndToolsSummaryChart]]
+
+=== Mouse interaction and tools summary chart
+
+The following table maps the desired mouse interaction to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Configure the mouse tool
+| link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[Tool]
+|One of the members of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[DiagramTool] enumeration
+
+|Configure the interaction for the pointer tool
+| link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~defaultdraginteraction.html[DefaultDragInteraction]
+|One of the members of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramdraginteraction.html[DiagramDragInteraction] enumeration
+
+|====
+
+[[_Ref386478000]]
+== Configuring the Mouse Interaction
+
+[[_Ref386478019]]
+
+=== Overview
+
+To set the desired mouse interaction, specify the corresponding enum values as the values of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[Tool] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~defaultdraginteraction.html[DefaultDragInteraction] properties.
+
+[[_PropertySettings]]
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to do the following when dragging:|Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramtool.html[Tool] to:|Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~defaultdraginteraction.html[DefaultDragInteraction] to:
+
+|Nothing
+|_“Pointer”_
+|_“None”_
+
+|Zoom in
+|_“Pointer”_
+|_“Zoom”_
+
+|Pan
+|_“Pointer”_
+|_“_ _Pan_ _”_
+
+|Perform a rectangular select
+|_“Pointer”_
+|_“_ _Select_ _”_
+
+|Draw a connection
+|_“_ _Connector_ _”_
+|Not Applicable
+
+|====
+
+[[_Configuring_a_Custom]]
+[[_Ref386478097]]
+== Related Content
+
+[[_Ref386478106]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-configuring-the-connection-points-of-diagram-nodes.html[Configuring the Connection Points of Diagram Nodes ( _xamDiagram_ )]
+|This topic explains how to configure the connection points of diagram nodes in the _xamDiagram_ control; only necessary when using custom nodes or needing to customize the pre-set connection points of the standard nodes.
+
+| link:xamdiagram-binding-to-nodes-and-connections-data-with-keys.html[Binding to Nodes and Connections Data with Keys ( _xamDiagram_ )]
+|This topic explains how to configure the connection points of diagram nodes in the _xamDiagram_ control; only necessary when using custom nodes or needing to customize the pre-set connection points of the standard nodes.
+
+|====
+
+[[_Ref386478113]]
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/diagram/binding-nodes-and-connections-with-keys[Binding Nodes and Connections with Keys]
+|The following sample demonstrates how to bind the _xamDiagram_ to data where input data objects represent nodes and connections. Each of the node objects has a property of type object that represents a unique identifier and each of the connection objects has two properties holding the identifiers of the two node objects representing its start and end nodes.
+
+|====

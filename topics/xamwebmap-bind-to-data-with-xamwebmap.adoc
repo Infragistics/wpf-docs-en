@@ -1,0 +1,91 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-bind-to-data-with-xamwebmap",
+    "controlName": ["xamMap"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "{29BB02BC-3DF2-42CA-A2D1-DA63DFF1C1BC}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.2002706Z"
+}
+|metadata|
+////
+
+= Binding Xml Data
+
+If you have data that you wish to bind to xamMap™ control, you can do so by setting the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer~datasource.html[DataSource] property on the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer.html[MapLayer] object. Further, you can set data mappings on the layer to specify the bindings between the layer's properties and the data source's fields.
+
+For example, consider a World Map using a Shapefile with data only for the country's names; you may want to associate additional information for each country using your own data source. Your data source may contain information for each country such as: population, birth rate, and oil production.
+
+The way to associate the data from your data source with the appropriate link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapelement.html[MapElement] object is to use the MapLayer object's Name property as the key for each Map Element. To do this, the data source must have a field that matches a field from the Shapefile, such as Country Name, which you can bind to the Name property. This way, the field acts like a primary key column used to retrieve values for the Map Elements.
+
+Continuing with the example from above, if you want to associate the birth rate information from your data source to countries in the map, map the MapLayer object's Name property to your data source's Country Name field. Then, use the Name property when data mapping the Country Name column in the ShapeFile to associate any values mapped from the data source to the appropriate country from the ShapeFile.
+
+The following code shows you how to bind to a data source and display birth rate information in the tooltip for each element. The code-behind uses an XML file for the BirthRate data. In addition, a custom class is used to hold the data. Click the following links to access the files: link:resources-countrydata.html[CountryData] and link:resources-countrydatamodel.html[CountryDataModel].
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+<igMap:XamMap x:Name="map1">
+   <igMap:XamMap.Layers>
+      <!-- Bind Name property to CountryName column in data source. Since Name is used as a key, 
+                the mapping of BirthRate to Value assigns BirthRate information to the appropriate Value property of each Map Element. 
+                Tooltip will show BirthRate for each country using Value property.  -->
+      <igMap:MapLayer x:Name="worldLayer" DataMapping="Name=CountryName; Value=BirthRate" ToolTip="Birth Rate: {Value}">
+         <igMap:MapLayer.Reader>
+            <!-- Use Name property to distinguish the value for a certain element. Here the Name property is used with the CNTRY_NAME column -->
+            <igMap:ShapeFileReader Uri="/../../Shapefiles/world" DataMapping="Name, Caption=CNTRY_NAME" />
+         </igMap:MapLayer.Reader>
+      </igMap:MapLayer>
+   </igMap:XamMap.Layers>
+   <igMap:MapNavigationPane igMap:XamDock.Edge="InsideRight" Margin="0,150,0,0" />
+</igMap:XamMap>
+----
+
+endif::wpf[]
+
+*In Visual Basic:*
+
+----
+Public Sub New()
+        InitializeComponent()
+        Dim xmlFile As System.Xml.Linq.XDocument = System.Xml.Linq.XDocument.Load("countryData.xml")
+        Dim result = From el In xmlFile.Descendants("Table") _
+            Where el.Element("BirthRate") IsNot Nothing _
+            Select New CountryRecordItem With {.CountryCode = el.Element("CountryCode"), _
+                                               .CountryName = el.Element("CountryName"), _
+                                               .BirthRate = el.Element("BirthRate")}
+        Me.map1.Layers(0).DataSource = result.ToList()
+        Me.map1.Layers(0).DataBind()
+End Sub
+----
+
+*In C#:*
+
+----
+public MapUserControl()
+{
+        InitializeComponent();
+        System.Xml.Linq.XDocument xmlFile = System.Xml.Linq.XDocument.Load("countryData.xml");
+        var result =
+                from el in xmlFile.Descendants("Table")
+                where el.Element("BirthRate") != null
+                select new CountryRecordItem
+                {
+                        CountryCode = (string)el.Element("CountryCode"),
+                        CountryName = (string)el.Element("CountryName"),
+                        BirthRate = (Double)el.Element("BirthRate"),
+                };
+        this.map1.Layers[0].DataSource = result.ToList<CountryRecordItem>();
+        this.map1.Layers[0].DataBind();
+}
+----
+
+image::images/SL_DV_XamMap_Set_Custom_Format_String_01.png[]
+
+== Related Topics
+
+link:xamwebmap-display-map-using-shapefiles.html[Binding Shapefiles]

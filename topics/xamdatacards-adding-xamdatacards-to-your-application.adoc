@@ -1,0 +1,110 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatacards-adding-xamdatacards-to-your-application",
+    "controlName": ["xamDataCards"],
+    "tags": ["How Do I"],
+    "guid": "{AA112668-5C0F-46C5-957F-793B5B45E5EC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5918715Z"
+}
+|metadata|
+////
+
+= Adding xamDataCards to Your Application
+
+== Before You Begin
+
+You can add xamDataCards™ to your application using the same pattern as any control found in Microsoft® Windows® Presentation Foundation. This pattern involves using a layout container and adding the control to the Children collection of the layout container.
+
+== What You Will Accomplish
+
+You will add a xamDataCards control to your application. When you run the finished project, you should see a xamDataCards control in your Window that looks similar to the screen shot below.
+
+image::images/xamDataCards_Adding_xamDataCards_to_Your_Application_01.png[]
+
+== Follow these Steps
+
+[start=1]
+. Create a WPF project.
+[start=2]
+. In the Solution Explorer, add the following references:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}Editors.v{ProductVersion}.dll
+** {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+
+[start=3]
+. Place using/Imports directives in your code-behind or add an XML namespace definition for xamDataCards.
+
+*In XAML:*
+
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+----
+
+[start=4]
+. Name the default Grid layout panel in the Window so that you can reference it in the code-behind.
+
+*In XAML:*
+
+----
+<Grid Name="LayoutRoot">
+</Grid>
+----
+
+[start=5]
+. Add an instance of the xamDataCards control to the default Grid layout panel. If you are doing this in procedural code, you can handle the Window's Loaded event and place the code in the event handler.
+
+*In XAML:*
+
+----
+<igDP:XamDataCards BindToSampleData="True">
+</igDP:XamDataCards>
+----
+
+*In Visual Basic:*
+
+----
+Dim xamDataCards1 As XamDataCards
+Private Sub Window_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    xamDataCards1 = New XamDataCards With {.BindToSampleData = True}
+    Me.LayoutRoot.Children.Add(xamDataCards1)
+End Sub
+----
+
+*In C#:*
+
+----
+private XamDataCards xamDataCards1;
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+    xamDataCards1 = new XamDataCards
+    {
+        BindToSampleData = true
+    };
+    this.LayoutRoot.Children.Add(xamDataCards1);
+}
+----
+
+[start=6]
+. Run the project.
+
+== Related Topics
+
+link:xamdatacards-about-xamdatacards.html[About xamDataCards]
+
+link:xamdatacards-using-xamdatacards.html[Using xamDataCards]

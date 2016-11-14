@@ -1,0 +1,67 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamorgchart-highlight-methods",
+    "controlName": ["xamOrgChart"],
+    "tags": ["How Do I"],
+    "guid": "a331fc7e-9079-4944-a7c2-743b76c17165",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.6952692Z"
+}
+|metadata|
+////
+
+= Highlight Methods
+
+The link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode.html[OrgChartNode] objects have the following methods facilitating the traversal of nodes:
+
+* link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode~highlight.html[fromNode.Highlight(OrgChartNode toNode)] – returns a collection of OrgChartNode objects that represent the path between the source and destination node. This method can be also called on the xamOrgChart™ control – link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.xamorgchart~highlight.html[orgChart.Highlight(OrgChartNode fromNode, OrgChartNode toNode)]. 
+
+.Note:
+[NOTE]
+====
+The returned collection includes the source and destination nodes.
+====
+
+* link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode~highlightchildren.html[fromNode.HighlightChildren(int levels)] – returns a collection of OrgChartNode objects that represent all child nodes relative to the source node. In (int levels), levels is the number of the hierarchy’s levels below the source node. 
+
+.Note:
+[NOTE]
+====
+The returned collection does not include the source node.
+====
+
+* link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode~highlightparents.html[fromNode.HighlightParents(int levels)] – returns a collection of OrgChartNode objects that represent all parent nodes relative to the source node. In (int levels), levels is the number of the hierarchy’s levels above the source node. 
+
+.Note:
+[NOTE]
+====
+The returned collection does not include the source node.
+====
+
+.Note:
+[NOTE]
+====
+The collections that the Highlight methods return do not have a hierarchical structure – the hierarchy is flattened.
+====
+
+== Code Example
+
+The code below converts the OrgChart’s hierarchy to a flat collection of OrgChartNode objects:
+
+*In Visual Basic:*
+
+----
+Dim flatHierarchy As IEnumerable(Of OrgChartNode) = orgChart.RootNode.HighlightChildren(orgChart.ActualDepth)
+----
+
+*In C#:*
+
+----
+IEnumerable<OrgChartNode> flatHierarchy = orgChart.RootNode.HighlightChildren(orgChart.ActualDepth);
+----
+
+== *Related Topics*
+
+link:xamorgchart-using-xamorgchart.html[Using xamOrgChart]

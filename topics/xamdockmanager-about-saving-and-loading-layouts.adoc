@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdockmanager-about-saving-and-loading-layouts",
+    "controlName": ["xamDockManager"],
+    "tags": ["Layouts"],
+    "guid": "{1F3AF59A-6BFB-4DAE-BDC6-B6090BD97BB4}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.4810493Z"
+}
+|metadata|
+////
+
+= About Saving and Loading Layouts
+
+The xamDockManager™ control allows your end user to customize your application's layout. Your end users will expect you to save and load their modified layout so they don't have to modify the layout every time they start your application; for this purpose, xamDockManager exposes the overloaded link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~savelayout.html[SaveLayout] and link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~loadlayout.html[LoadLayout] methods.
+
+== Saving Layouts
+
+By default, xamDockManager saves information for all the content panes in your layout. If you do not want to save a specific content pane, you can set the content pane's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.contentpane~saveinlayout.html[SaveInLayout] property to False. Each content pane that you want to save must have a unique name. If you attempt to save a content pane that does not have a unique name, xamDockManager will throw an exception. You do not have to name split panes or tab group panes; however, naming them allows xamDockManager to add content panes to existing split panes and tab group panes instead of replacing the existing ones with new instances when you load a layout.
+
+In addition to setting a content pane's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.contentpane.html[Name] property, you can also set its link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.contentpane~serializationid.html[SerializationId] property to a meaningful string value that you want to associate with the content pane. Since xamDockManager serializes the SerializationId property when you save a layout, you can also access this value when you load the layout.
+
+When you save xamDockManager's layout, xamDockManager serializes the following information to XML:
+
+* Size and location of floating split panes
+* Last docked position of content panes
+* Width and height of split panes docked within xamDockManager
+* Whether a content pane was closed
+* The selected pane in a tab group pane
+* Order of the panes in the unpinned tab areas
+* Orientation of the splitter bars within split panes
+* Relative size of panes within a split pane
+* Serialization ID of a content pane
+
+For more information on saving a layout, see link:xamdockmanager-save-an-end-users-docking-layout.html[Save an End User's Docking Layout].
+
+== Loading Layouts
+
+When you load a layout, xamDockManager performs the following steps to recreate its layout:
+
+[start=1]
+. The xamDockManager control removes any content pane from its current layout that it also finds in the layout file. If a content pane exists in the current layout, but it does not exist in the layout file, it will remain in its current position.
+[start=2]
+. The xamDockManager control recreates split panes and tab group panes based on the information in the layout file. If you name a split pane or a tab group pane in the default layout, and xamDockManager finds a split pane or tab group pane with the same name in the layout file, xamDockManager will reuse the split pane or tab group pane instead of recreating it. For example, assume that your end user has a layout file that contains a split pane with two vertically oriented content panes named "Pane A" and "Pane B". In a new version of your application, you decide to add a new content pane, named "Pane C", to the previously mentioned split pane so that you have three vertically oriented content panes in a single split pane. When your end user loads the layout file that contains information on "Pane A" and "Pane B", xamDockManager's default behavior is to leave "Pane C" in its current location and recreate a new split pane for "Pane A" and "Pane B". The layout will now have one split pane with two vertically oriented panes, "Pane A" and "Pane B", and a separate split pane for "Pane C". If you named the split pane in a previous version of your application, both the layout file and the default layout of your application would have the named split pane. Therefore, xamDockManager will reuse the split pane instead of recreating a split pane for "Pane A" and "Pane B". The layout will now have all three panes vertically oriented in a single split pane.
+[start=3]
+. If xamDockManager discovers a content pane in the layout file that is not found among the content panes in step one, xamDockManager fires the link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~initializepanecontent_ev.html[InitializePaneContent] event. You can handle this event and check the missing content pane's SerializationId property to figure out what content you need to create and add to the missing content pane. If you do not add content during this event, xamDockManager will not add the missing content pane to its layout. For example, if you create a text-editing application that has the tabbed editing feature found in Microsoft® Visual Studio®, you will have to create tabbed documents dynamically whenever your end user opens a document. If your end user opens a couple documents, saves the layout, and then closes the application, the next time they start the application and load the layout, there will be a discrepancy between the default layout of your application and the end user's layout file. The layout file will have information on the document tabs while your default layout will not have these tabs; therefore, xamDockManager will raise the InitializePaneContent event once per document tab.
+
+For more information on loading a layout, see link:xamdockmanager-load-an-end-users-docking-layout.html[Load an End User's Docking Layout].
+
+== Related Topics
+
+link:xamdockmanager-load-an-end-users-docking-layout.html[Load an End User's Docking Layout]
+
+link:xamdockmanager-save-an-end-users-docking-layout.html[Save an End User's Docking Layout]
+
+link:xamdockmanager-using-xamdockmanager.html[Using xamDockManager]

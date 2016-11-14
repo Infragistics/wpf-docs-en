@@ -1,0 +1,27 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-wrapping-the-data",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Presentation","Editing","Tips and Tricks"],
+    "guid": "{1B5B9C07-4A70-4454-A40E-C56B3E11EAF0}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5828697Z"
+}
+|metadata|
+////
+
+= Wrapping the Data
+
+Once data has been link:xamdata-supplying-data.html[supplied to the xamDataGrid™, xamDataCards™, xamDataCarousel™, or xamDataPresenter™ control], a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager.html[RecordManager] is created internally to manage and synchronize the root data from the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~datasource.html[DataSource]. It is exposed by link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase]'s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordmanager.html[RecordManager] property. The RecordManager automatically creates link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] objects for each item in the DataSource as they are requested. By default, this is done lazily but setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordloadmode.html[RecordLoadMode] to PreloadRecords will cause all of the DataRecords to be created up front.
+
+The RecordManager exposes collections for returning these DataRecords in their original unsorted order, in their current sort order and grouped if applicable.
+
+The DataPresenterBase's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~viewablerecords.html[ViewableRecords] collection will also return DataRecords but strips out any DataRecords whose link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.record~visibility.html[Visibility] property is set to Collapsed. This collection also contains special records that are not in the RecordManager's collections (e.g., add records).
+
+.Note
+[NOTE]
+====
+DataRecords are not UIElements™ but rather lightweight objects that wrap the data items. They are represented in the UI by corresponding link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordpresenter.html[DataRecordPresenter] elements. DataRecordPresenter elements are virtualized so that they are created only to represent the DataRecords that are currently in view. In some cases, additional DataRecordPresenter elements are cached to optimize scrolling performance. For more information, see link:xamdata-performance-optimizations-overview.html[Performance Optimizations Overview].
+====

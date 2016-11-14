@@ -1,0 +1,64 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-perform-an-auto-sizing-operation",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts","Tips and Tricks"],
+    "guid": "{65ACB04F-93E9-4252-A5E7-A1E4D1104E9B}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2820095Z"
+}
+|metadata|
+////
+
+= Perform an Auto-Sizing Operation
+
+The DataPresenter controls allow your end users to double click a field's resizing indicator to resize the field to fit its contents. You can also replicate this same functionality by handling an event and calling a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~performautosize.html[PerformAutoSize] method or by executing the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~autosizefield.html[AutoSizeField] command exposed by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands.html[DataPresenterCommands] class.
+
+The parameter-less version of the PerformAutoSize method will take the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizeoptions.html[AutoSizeOptions] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizescope.html[AutoSizeScope] properties into account. Therefore, if you disable auto-sizing on a field, calling the parameter-less version of the PerformAutoSize method will not affect the field. However, the PerformAutoSize method has an overload that allows you to pass in AutoSizeOptions and AutoSizeScope enum values to auto-size a field regardless of the field's auto-sizing settings.
+
+The AutoSizeField command requires you to pass in a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object as a parameter. If the field does not allow auto-sizing, the AutoSizeField command will not execute.
+
+The following example code demonstrates how to perform an auto-sizing operation. The example code uses the active Cell object's Field property to call the PerformAutoSize method and to execute the AutoSizeField command.
+
+*In XAML:*
+
+----
+<Button 
+    Content="Auto-size the current field" 
+    Command="{x:Static igDP:DataPresenterCommands.AutoSizeField}" 
+    CommandTarget="{Binding ElementName=xamDataPresenter1}" 
+    CommandParameter="{Binding ElementName=xamDataPresenter1, Path=ActiveCell.Field}" />
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+If Me.xamDataPresenter1.ActiveCell IsNot Nothing Then
+    'Executing the command:
+    'Me.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.AutoSizeField, Me.xamDataPresenter1.ActiveCell.Field)
+    Me.xamDataPresenter1.ActiveCell.Field.PerformAutoSize()
+End If
+----
+
+*In C#:*
+
+----
+if(this.xamDataPresenter1.ActiveCell != null)
+{
+    //Executing the command:
+    //this.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.AutoSizeField, this.xamDataPresenter1.ActiveCell.Field);
+    this.xamDataPresenter1.ActiveCell.Field.PerformAutoSize();
+}
+----
+
+== Related Topics
+
+link:xamdatapresenter-set-a-fields-width.html[Set a Field's Width]
+
+link:xamdatapresenter-automatically-fit-fields.html[Automatically Fit Fields]
+
+link:xamdatapresenter-modify-field-sizing-behaviors.html[Modify Field-Sizing Behaviors]

@@ -1,0 +1,264 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-exporting-data-to-word",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Exporting","Grids","How Do I"],
+    "guid": "372bdabc-58c0-4e3c-b158-7cfcc0d24300",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3810293Z"
+}
+|metadata|
+////
+
+= Exporting Data to Word Using the xamDataPresenter
+
+This topic explains how to implement data export to Word using the xamDataPresenter™ control.
+
+== Introduction
+
+The DataPresenter controls can export data in Microsoft® Word® format using the DataPresenterWordWriter class. The link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter.html[DataPresenterWordWriter] class encapsulates all the work of creating a Word document containing tables representing the values/layout of a specified DataPresenterBase.
+
+The DataPresenterWordWriter class is not a visual element; therefore, you cannot add it to your window's visual tree. However, if you want to instantiate a DataPresenterWordWriter object in XAML, you can add it to your window's resource dictionary.
+
+.Note
+[NOTE]
+====
+Due to the flexibility in styling the DataPresenter control, the DataPresenterWordWriter object does not export a DataPresenter control's styles to Word. However, you can format the resulting document by accessing the Infragistics' Word Engine objects directly or by applying formats before exporting.
+====
+
+== Requirements
+
+To add be able to export data, you need the following references added to your project (in the Solution Explorer):
+
+* {ApiPlatform}v{ProductVersion}.dll
+* {ApiPlatform}Editors.v{ProductVersion}.dll
+* {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+* {ApiPlatform}DataPresenter.WordWriter.v{ProductVersion}.dll
+
+== Overview
+
+Conceptual overview of the export procedure:
+
+[start=1]
+. Adding the grid
+[start=2]
+. Adding the Export button
+[start=3]
+. Adding the xamDataPresenter control
+[start=4]
+. Adding using/Imports directives to the code-behind
+[start=5]
+. (Conditional) Adding an event handler for the Button’s Click event
+[start=6]
+. Instantiating a DataPresenterWordWriter object
+[start=7]
+. Calling the export method
+[start=8]
+. (Optional) Verify your implementation
+
+== Steps
+
+[start=1]
+. *Add the grid.*
++
+Add a Grid panel with two RowDefinition objects to your window.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition />
+    </Grid.RowDefinitions>
+    <!--TODO: Add a Button control-->
+    <!--TODO: Add a xamDataPresenter control-->
+</Grid>
+----
+
+[start=2]
+. *Add the Export button.*
++
+Add a Button control to the first row in the Grid panel.
++
+--
+** Set its Content property to "Export DataPresenter".
+** Attach an event handler to its Click event.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<Button Content="Export DataPresenter" Click="Button_Click" />
+----
+
+[start=3]
+. *Add the xamDataPresenter control.*
++
+Add a xamDataPresenter™ control to the second row in the Grid panel.
++
+--
+** Set its Name property to xamDataPresenter1.
+** Set its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+</igDP:XamDataPresenter>
+----
+
+[start=4]
+. *Add using/Imports directives to the code-behind.*
++
+Open the code-behind and place using/Imports directives in your code-behind so you don't have to type out a member's fully qualified name. If you want to add an instance of a DataPresenterWordWriter object to your window's resource dictionary instead of instantiating it in code, you will need to add an XML namespace declaration.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igWordWriter="http://infragistics.com/WordWriter"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+imports Infragistics.Windows.DataPresenter.WordWriter
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.DataPresenter.WordWriter;
+----
+
+[start=5]
+. (Conditional) *Add an event handler for the Button’s Click event.*
++
+If a method stub has not been created for you, you will need to add an event handler for the Button control's Click event.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+    'TODO: Instantiate a DataPresenterWordWriter object
+    'TODO: Call the DataPresenterWordWriter object's Export method
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    //TODO: Instantiate a DataPresenterWordWriter object
+    //TODO: Call the DataPresenterWordWriter object's Export method
+}
+----
+
+[start=6]
+. *Instantiate a DataPresenterWordWriter object.*
++
+If you are instantiating it in XAML, you can add it to your window's resource dictionary.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Window.Resources>
+    <igWordWriter:DataPresenterWordWriter x:Key="wordWriter1" />
+</Window.Resources>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim writer As New DataPresenterWordWriter()
+' If you added the DataPresenterWordWriter object to your
+' window's resource dictionary, use these lines of code:
+' Dim writer As DataPresenterWordWriter = _
+'     DirectCast(Me.Resources("wordWriter1"), DataPresenterWordWriter)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DataPresenterWordWriter writer = new DataPresenterWordWriter();
+// If you added the DataPresenterWordWriter object to your
+// window's resource dictionary, use these lines of code:
+// DataPresenterWordWriter writer =
+//     (DataPresenterWordWriter)this.Resources["wordWriter1"];
+----
+
+[start=7]
+. *Call the export method.*
++
+You can choose between two methods – link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~export.html[Export] and link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously.
++
+--
+* to export the data synchronously:
++
+Call the DataPresenterWordWriter object's Export method:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+writer.Export(Me.xamDataPresenter1, "xamDataPresenter1.docx")
+----
++
+*In C#:*
++
+[source,csharp]
+----
+writer.Export(this.xamDataPresenter1, "xamDataPresenter1.docx");
+----
+* to export the data asynchronously:
++
+Call the DataPresenterWordWriter object's ExportAsync to export the data asynchronously:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+writer.ExportAsync(Me.xamDataPresenter1, "xamDataPresenter1.docx")
+----
++
+*In C#:*
++
+[source,csharp]
+----
+writer.ExportAsync(this.xamDataPresenter1, "xamDataPresenter1.docx");
+----
+--
++
+.Notes on asynchronous export:
+[NOTE]
+====
+. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportinterval.html[AsyncExportInterval] property.
+. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportended_ev.html[ExportEnded] event.
+====
+
+[start=8]
+. (Optional) *Verify your implementation.*
++
+Run your project and then click the Export button. This will export the xamDataPresenter control to Word.
+
+== Related Topics
+
+link:xamdatapresenter-applying-formats-when-exporting-data.html[Applying Formats When Exporting Data]
+
+link:xamdatapresenter-exclude-settings.html[Exclude... Settings for the DataPresenter When Exporting]
+
+link:xamdatapresenter-exporting-to-word-events.html[Managing the Export Through Handling Export Events]

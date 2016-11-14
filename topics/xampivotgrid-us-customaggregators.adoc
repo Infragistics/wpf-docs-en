@@ -1,0 +1,322 @@
+﻿////
+|metadata|
+{
+    "name": "xampivotgrid-us-customaggregators",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Calculations","Grids","How Do I"],
+    "guid": "2720962a-4f32-4cbe-817c-13a2bd640193",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.046318Z"
+}
+|metadata|
+////
+
+= Creating and Configuring Custom Aggregators (xamPivotGrid)
+
+This topic explains what custom aggregators are and demonstrates, with code examples, how to create and use them.
+
+The topic is organized as follows:
+
+* <<Introduction,Introduction>>
+* <<Creating_a_Custom_Aggregator,Creating a Custom Aggregator>>
+
+** <<Steps,Steps>>
+** <<Code_Example,Code Example>>
+
+* <<Using_the_Aggregator,Using the Aggregator>>
+* <<Related_Topics,Related Topics>>
+
+[[Introduction]]
+== Introduction
+
+An aggregator is an algorithm or a function that evaluates the underlying data and provides a value for each cell in the PivotGrid based on the slice of all dimensions and filters that are applied. Most of the data that is displayed is aggregated in some way. The default set of predefined aggregators in the link:{ApiPlatform}olap.flatdata.v{ProductVersion}~infragistics.olap.flatdata.flatdatamodelprovider_members.html[FlatDataModelProvider] are Sum, Min, Max, Average, and Count. While these aggregators are quite useful, they might not be appropriate for any scenario. For this reason, the XamPivotGrid™ provides a way to create a custom aggregator.
+
+[[Creating_a_Custom_Aggregator]]
+== Creating a Custom Aggregator
+
+[[Steps]]
+== Steps
+
+[start=1]
+. Implement the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregator_members.html[IAggregator] interface.
++
+The first step in building your own custom aggregator is to implement the IAggregator interface.
++
+*In C#:*
++
+[source,csharp]
+----
+public interface IAggregator
+{
+    string Identity { get; }
+    IAggregationResult Evaluate(IAggregationResult, 
+                                IAggregateable, 
+                                IEnumerable);
+    IAggregationResult Evaluate(IAggregationResult, 
+                                IEnumerable);
+}
+----
++
+The link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregator~evaluate.html[Evaluate] method is where the actual computation takes place. It is called for every cell of the grid with the related to the cell items source. The item source is passed as the last parameter in the method. The implementation of link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregateable_members.html[IAggregateable] interface is responsible to extract right value from each item found in the cell’s items source. The first parameter is always `null`.
++
+The returned type link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregationresult_members.html[IAggregationResult] has two properties – `Value` and `Cache`. The `Value` property is used to store the result that should be displayed in the PivotGrid’s cell – the actual result. The `Cache` property is provided for storage of auxiliary information that might be needed in case a more sophisticated logic is used. See the example further down in the article.
++
+The `IAggregateable` parameter of the `Evaluate` method holds an instance of an aggregator. This could be used either for recursive logics where you need to access the aggregator’s instance or for compounding of several aggregators.
++
+.Note
+[NOTE]
+====
+The following items are not supported in the 20{ProductVersion} release and reserved for future use:
+
+* `Identity` property – currently it does nothing, so you do not need to change it.
+* `IAggregationResult` IAggregator.Evaluate(IAggregationResult, IEnumerable)
+====
+
+[start=2]
+. Extract the aggregated values.
+.. Implement `IAggregateable` interface.
++
+The purpose of `IAggregateable` implementor is to extract the values that are aggregated by the aggregator. It is simple interface which consists in one property and one method:
++
+*In C#:*
++
+[source,csharp]
+----
+public interface IAggregateable
+{
+    IAggregator Aggregator { get; set; }
+    object GetValue(object instance);
+}
+----
+.. Provide the `IAggregateable` implementor’s instance to the `FlatDataModelProvider`.
++
+The `FlatDataModelProvider` operates with instances which implement `IAggregateable` interface and use the aggregator found in `IAggregateable.Aggregator` property to evaluate the different aggregation conditions.
+
+[[Code_Example]]
+== Code Example
+
+To illustrate more clearly the implementation of custom aggregators the following code shows how to create an aggregator that will show the most frequently appearing piece of data behind each cell.
+
+[start=1]
+. Create a Cache object.
++
+The following class will be used as Cache object in the Result. It will find the most frequently appearing item in a given set of data.
++
+*In C#:*
++
+[source,csharp]
+----
+public class TopCountCache<T>
+{
+    private IDictionary<T, int> _itemsCache = 
+        new Dictionary<T, int>();
+    public T TopItem
+    {
+        get
+        {
+            int maxValue = 
+                this._itemsCache.Max(kvp => kvp.Value);
+            return this._itemsCache
+                .Where(kvp => kvp.Value == maxValue).First().Key;
+        }
+    }
+    public void AddCount(T item)
+    {
+        var value = item as ValueType;
+        if (value == null && item == null)
+        {
+            return;
+        }
+        if (!this._itemsCache.ContainsKey(item))
+        {
+            this._itemsCache.Add(item, 1);
+        }
+        else
+        {
+            this._itemsCache[item]++;
+        }
+    }
+}
+----
++
+As you can see, you have an _itemsCache dictionary holding all items and the number of times they occur in the dictionary. There is also a TopItem property which returns the most frequently occurring one. We add an item to the collection with the AddCount method – if the item is already there, we increase the count; otherwise we just add the item. Note that the class uses generic types. All implementation in this topic uses generic types so the end result will be versatile for whatever needs you might have.
+
+[start=2]
+. Create the result class.
++
+*In C#:*
++
+[source,csharp]
+----
+public class TopCountResult<T> : 
+        IAggregationResult<T, TopCountCache<T>>
+{
+    private readonly TopCountCache<T> _cache;
+    public TopCountResult()
+    {
+        this._cache = new TopCountCache<T>();
+    }
+    public TopCountCache<T> Cache
+    {
+        get
+        {
+            return this._cache;
+        }
+    }
+    public T Value
+    {
+        get
+        {
+            return this.Cache.TopItem;
+        }
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
+    object IAggregationResult.Value
+    {
+        get
+        {
+            return this.Value;
+        }
+    }
+    object IAggregationResult.Cache
+    {
+        get
+        {
+            return this.Cache;
+        }
+    }
+}
+----
++
+What this class does is basically create the cache and extract the top item that has been calculated by the cache itself. This will be the class that the XamPivotGrid will use to provide value for each cell.
+
+[start=3]
+. Implement the aggregator.
++
+*In C#:*
++
+[source,csharp]
+----
+public class TopCountAggregator<T> : 
+    IAggregator<T, TopCountCache<T>>
+{
+    public string Identity
+    {
+        get;
+        set;
+    }
+    public IAggregationResult<T, TopCountCache<T>> 
+        Evaluate(IAggregationResult<T, TopCountCache<T>> oldResult, 
+            IAggregateable aggregateable, 
+            IEnumerable items)
+    {
+        var result = new TopCountResult<T>();
+        foreach (var item in items)
+        {
+            var value = (T)aggregateable.GetValue(item);
+            result.Cache.AddCount(value);
+        }
+        return result;
+    }
+    public IAggregationResult 
+        Evaluate(IAggregationResult oldResult, 
+            IAggregateable aggregateable, 
+            IEnumerable items)
+    {
+        return this.Evaluate((oldResult as TopCountResult<T>), 
+            aggregateable, items);
+    }
+    public IAggregationResult<T, TopCountCache<T>> 
+        Evaluate(IAggregationResult<T, TopCountCache<T>> oldResult, 
+            T value)
+    {
+        throw new NotImplementedException();
+    }
+    public IAggregationResult 
+        Evaluate(IAggregationResult oldResult, object value)
+    {
+        throw new NotImplementedException();
+    }
+}
+----
+
+The most important part of this class from step 3 is the following:
+
+*In C#:*
+[source,csharp]
+----
+public IAggregationResult<T, TopCountCache<T>> 
+    Evaluate(IAggregationResult<T, TopCountCache<T>> oldResult, 
+        IAggregateable aggregateable, 
+        IEnumerable items)
+{
+    var result = new TopCountResult<T>();
+    foreach (var item in items)
+    {
+        var value = (T)aggregateable.GetValue(item);
+        result.Cache.AddCount(value);
+    }
+    return result;
+}
+----
+
+The collection of items comes from the raw data that correspond to the query for each particular cell. So what the logic of the evaluate method will be is to first create new cache for each cell, then go through each element in the items collection and return the best result according to the logic of the cache.
+
+After completing all three steps, you have a full implementation of an aggregator that will aggregate and show the most frequently occurring element in the data behind each cell in the XamPivotGrid. It works with generic types and you need to select the type we want to work with before we actually use the aggregator. To do this, you need to create a new class that inherits our aggregator and provides a type for the generic, like this:
+
+*In C#:*
+[source,csharp]
+----
+public class TopCountOfStringAggregator : TopCountAggregator<string>
+{
+}
+----
+
+[[Using_the_Aggregator]]
+== Using the Aggregator
+
+An aggregator can be assigned to a specific dimension. It could be done in XAML or in code behind. The following code shows how to create a measure for the City property of the data that will use the aggregator to show which city is most common for the data under each cell.
+
+*In XAML:*
+[source,xaml]
+----
+<igOlap:DimensionMetadata
+    SourcePropertyName="City" 
+    DisplayName="City"
+    DimensionType="Measure">
+    
+    <igOlap:DimensionMetadata.Aggregator>
+        <local:TopCountOfStringAggregator/>
+    </igOlap:DimensionMetadata.Aggregator>
+    
+</igOlap:DimensionMetadata>
+----
+
+The local namespace is where the aggregator is defined. This snippet goes in the CubeMetadata content area, which in turn is located in the CubeSettings of the FlatDataSource.
+
+The same code in code behind would look like this:
+
+*In C#:*
+[source,csharp]
+----
+DimensionMetadata topCityMeasuteMetadata = new DimensionMetadata
+{
+    SourcePropertyName = "City",
+    DisplayName = "City",
+    DimensionType = DimensionType.Measure,
+    Aggregator = new TopCountOfStringAggregator()
+};
+
+flatDataSource.CubesSettings[0]
+    .DimensionSettings.Add(topCityMeasuteMetadata);
+----
+
+Now when you run your application the XamPivotGrid would show the most popular city for each cell.
+
+[[Related_Topics]]
+== Related Topics
+
+link:xampivotgrid-using-xampivotgrid.html[Using XamPivotGrid]

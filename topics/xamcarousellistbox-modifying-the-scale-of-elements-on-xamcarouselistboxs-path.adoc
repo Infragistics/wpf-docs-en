@@ -1,0 +1,76 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcarousellistbox-modifying-the-scale-of-elements-on-xamcarouselistboxs-path",
+    "controlName": ["xamCarouselListBox"],
+    "tags": ["Data Presentation","Editing"],
+    "guid": "{734F02D9-AC1D-4C1E-B049-F02C2B2E8F02}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.0467625Z"
+}
+|metadata|
+////
+
+= Modifying the Scale of Elements on xamCarouselListBox's Path
+
+The xamCarouselListBox™ control allows you to scale items by a percentage based on their position on the path. Scaling gives Records a 3D effect. The ScalingEffect is similar to other Path effects in that you define a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.scalingeffectstopcollection.html[ScalingEffectStopCollection] that contains link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~scalingeffectstops.html[ScalingEffectsStops], each of which specify an offset and a value to apply at that offset. The value is a decimal percentage that can go from 0 to 10.
+
+Enable scaling by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~usescaling.html[UseScaling] property to True off the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings] object. Off this same object, set the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~scalingeffectstopdirection.html[ScalingEffectStopDirection] property to UseItemPath, Horizontal, or Vertical.
+
+.Note
+[NOTE]
+====
+This topic assumes you have completed the tasks in link:xamcarousellistbox-getting-started-with-xamcarousellistbox.html[Adding xamCarouselListBox to Your Application].
+====
+
+[start=1]
+. Define the ViewSettings object.
+
+*In XAML:*
+
+----
+<igWindows:XamCarouselListBox.ViewSettings>
+        ...        
+</igWindows:XamCarouselListBox.ViewSettings>
+----
+
+[start=2]
+. Specify the CarouselViewSettings object and set the UseScaling property to True and the ScalingEffectStopDirection property to UseItemPath.
+
+*In XAML:*
+
+----
+<igWindows:CarouselViewSettings ScalingEffectStopDirection="UseItemPath" 
+  UseScaling="True">
+        ...
+</igWindows:CarouselViewSettings>
+----
+
+[start=3]
+. Define the ScalingEffectStops object. This object contains the ScalingEffectStopCollection and the ScalingEffectStops. Create three ScalingEffectStops.
+
+*In XAML:*
+
+----
+<igWindows:CarouselViewSettings.ScalingEffectStops>
+        <igWindows:ScalingEffectStopCollection>
+                <igWindows:ScalingEffectStop Offset="0" Value="2" />
+                <igWindows:ScalingEffectStop Offset=".5" Value="1.1" />
+                <igWindows:ScalingEffectStop Offset="1" Value=".1" />
+        </igWindows:ScalingEffectStopCollection>
+</igWindows:CarouselViewSettings.ScalingEffectStops>
+----
+
+[start=4]
+. Build and run the project. You should see the size of the items in xamCarouselListBox increasing in size as they pass through the path similar to the image below.
+
+image::images/xamCarouselListBox_Modifying_the_Scale_of_Elements_on_xamCarouseListBoxs_Path_01.png[modifying the scale of elements on xamcarousellistbox's path]
+
+== Related Topics
+
+link:xamcarousel-overview-of-path-effects.html[Overview of Path Effects]
+
+link:xamcarousellistbox-modifying-the-opacity-effect-of-items-on-xamcarousellistboxs-path.html[Modifying the Opacity Effect of Items on xamCarouselListBox's Path]
+
+link:xamcarousellistbox-modifying-the-skew-effect-of-items-on-xamcarousellistboxs-path.html[Modifying the Skew Effect of Items on xamCarouselListBox's Path]

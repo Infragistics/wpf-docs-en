@@ -1,0 +1,80 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-accessing-data-grid-view",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "{9993EC3D-7326-4E21-B98D-6647EDAFD6BC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0779687Z"
+}
+|metadata|
+////
+
+= Grid View
+
+Data presentation controls should provide an easy way for you to update changes that you end users make to the data. The xamDataGrid™ control provides several events and settings to modify the data shown in the control including:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordadded_ev.html[RecordAdded]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordsdeleted_ev.html[RecordsDeleted]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordupdated_ev.html[RecordUpdated]
+
+You can use these events to track when end users add, update, or delete data in the xamDataGrid control.
+
+A property that goes along with adding, updating, and deleting link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.record.html[Record]s in xamDataGrid is the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~updatemode.html[UpdateMode] property. This property tells xamDataGrid how to update the data source with end user modifications.
+
+If you want end users to add new Records, you have to enable this functionality by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowaddnew.html[AllowAddNew] property to True. You can position the add new record by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~addnewrecordlocation.html[AddNewRecordLocation] property.
+
+.Note
+[NOTE]
+====
+If a data source does not support the link:http://msdn2.microsoft.com/en-us/library/system.componentmodel.ibindinglist.aspx[IBindingList] interface, the AddNewRecord area won't show in xamDataGrid.
+====
+
+By default, your end user can delete Records from the xamDataGrid by selecting the Record and pressing the Delete key. Your end user can also edit content in Cells.
+
+== Modify the Order of the Add, Filter, and Summary Record
+
+The xamDataPresenter™ and xamDataGrid™ controls display special records when you enable the ability to add new records, filter records, and/or summarize records. If you place all three of these special records in the same location such as the top of the control, xamDataPresenter and xamDataGrid the summary record first, followed by the filter record, which is then followed by the add new record. However, you can customize the order of these special records by creating a SpecialRecordOrder object and setting the SpecialRecordOrder property of a FieldLayoutSettings object.
+
+The SpecialRecordOrder object exposes three properties that correspond to one of the three special records. You can define the order of the special records by setting each property to an integer value. The special record with the lowest value will be first while the special record with the highest value will be last.
+
+The following example code demonstrates how to modify the order of the add record, filter record, and summary record.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings>
+            <igDP:FieldLayoutSettings.SpecialRecordOrder>
+                <igDP:SpecialRecordOrder AddRecord="0" FilterRecord="1" SummaryRecord="2" />
+            </igDP:FieldLayoutSettings.SpecialRecordOrder>
+        </igDP:FieldLayoutSettings>
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Dim recordOrder As New SpecialRecordOrder With {.AddRecord = 0, .FilterRecord = 1, .SummaryRecord = 2}
+Me.xamDataPresenter1.FieldLayoutSettings.SpecialRecordOrder = recordOrder
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+SpecialRecordOrder recordOrder = new SpecialRecordOrder
+{
+    AddRecord = 0,
+    FilterRecord = 1,
+    SummaryRecord = 2
+};
+this.xamDataPresenter1.FieldLayoutSettings.SpecialRecordOrder = recordOrder;
+----

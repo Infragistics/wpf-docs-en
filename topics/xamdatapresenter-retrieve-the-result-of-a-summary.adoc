@@ -1,0 +1,87 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-retrieve-the-result-of-a-summary",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Summaries"],
+    "guid": "{078578C2-4A7F-4832-8CA0-899FDD2299DA}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3130157Z"
+}
+|metadata|
+////
+
+= Retrieve the Result of a Summary
+
+You can retrieve a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summaryresult.html[SummaryResult] object by indexing into a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordcollectionbase~summaryresults.html[SummaryResults collection] off a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordcollection.html[Records collection] in xamDataPresenter™. The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summaryresult~value.html[Value] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summaryresult.html[SummaryResult] object returns the result of the summary. You may need to cast the Value property to the correct data type before using it in your application logic.
+
+The built-in summary calculators will return the following data types:
+
+[options="header", cols="a,a"]
+|====
+|Summary Calculator|Data Type
+
+|Sum
+|Decimal
+
+|Average
+|Decimal
+
+|Count
+|Integer
+
+|Minimum
+|Data Type of the Field
+
+|Maximum
+|Data Type of the Field
+
+|====
+
+The following example code demonstrates how to retrieve the result of a summary.
+
+*In Visual Basic:*
+
+----
+...
+'The code below assumes that you have at least one summary in the root-level field layout.
+Try 
+    Dim val As Object = Me.xamDataPresenter1.Records.SummaryResults(0).Value 
+    Dim summaryValue As Decimal = Convert.ToDecimal(val) 
+    MessageBox.Show(String.Format("First summary value is {0}", summaryValue)) 
+Catch 
+    'fail silently 
+End Try 
+...
+----
+
+*In C#:*
+
+----
+...
+'The code below assumes that you have at least one summary in the root-level field layout.
+try
+{
+    object val = this.xamDataPresenter1.Records.SummaryResults[0].Value;
+    decimal summaryValue = Convert.ToDecimal(val);
+    MessageBox.Show(string.Format("First summary value is {0}", summaryValue));
+}
+catch
+{
+    //fail silently
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-apply-default-summary-formats.html[Apply Default Summary Formats]
+
+link:xamdatapresenter-creating-a-custom-summary-calculator.html[Creating a Custom Summary Calculator]
+
+link:xamdatapresenter-enable-row-summaries.html[Enable Row Summaries]
+
+link:xamdatapresenter-format-the-value-of-a-summary.html[Format the Value of a Summary]
+
+link:xamdatapresenter-programmatically-add-summaries-to-a-field.html[Programmatically Add Summaries to a Field]

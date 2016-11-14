@@ -1,0 +1,93 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-connector-minimum",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "74d506eb-8e96-4399-9c84-52b8fa71c319",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.6893557Z"
+}
+|metadata|
+////
+
+= Minimum Required Settings for Using the xamSchedule Components
+
+For the xamSchedule components to be functional, you need to configure some of their properties to certain required settings.
+
+Following is a list of the required settings, broken down by control, component, and entity type.
+
+== Controls’ Properties
+
+* Views ( link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview.html[XamMonthView], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdayview.html[XamDayView], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduleview.html[XamScheduleView], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamoutlookcalendarview.html[XamOutlookCalendarView] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdatenavigator.html[XamDateNavigator]) properties
+
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase~datamanager.html[DataManager] – must be set to an instance of the XamScheduleDataManager in order to display schedule information
+
+== Components’ Properties
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] properties
+
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~dataconnector.html[DataConnector] – must be set to a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledataconnectorbase.html[ScheduleDataConnectorBase] derived class (e.g. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.wcflistscheduledataconnector.html[WcfListScheduleDataConnector] or link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector.html[ExchangeScheduleDataConnector])
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuserid.html[CurrentUserId] – required for the reminder functionality. Also if link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~calendargroups.html[CalendarGroups] are not specified on the DataManager or View, CurrentUserId will be required because, in such cases, the PrimaryCalendar of the CurrentUser is shown
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~calendargroups.html[CalendarGroups] – This property is optional but when calendar groups are not defined on the DataManager and CalendarGroupsOverride is not populated on the views, then the CurrentUser’s PrimaryCalendar is displayed and therefore the CurrentUserId would be required
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] properties
+
+The ListScheduleDataConnector exposes multiple ItemsSource properties (e.g. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentitemssource.html[AppointmentItemsSource]) that are used to obtain the information from which the schedule entity objects will be created. Also, for each ItemsSource property there is a corresponding PropertyMappings property (e.g. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentpropertymappings.html[AppointmentPropertyMappings]) that is used to define how the information on the data objects from the items source maps to properties on the corresponding schedule entity.
+
+The following is a list of the various ItemsSource properties with information about when/if they are required.
+
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~resourceitemssource.html[ResourceItemsSource] – always required
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~resourcecalendaritemssource.html[ResourceCalendarItemsSource] – required for having multiple calendars associated with a Resource. If this property is not specified, then the connector will create a default ResourceCalendar for each resource and set that as its PrimaryCalendar.
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentitemssource.html[AppointmentItemsSource] – required for using/displaying Appointment activities
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~recurringappointmentitemssource.html[RecurringAppointmentItemsSource] – optional when supporting Appointment recurrences. When specified, this property allows the connector to more efficiently handle recurring-activity-related operations such as providing the list of activities for a certain date range.
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~taskitemssource.html[TasksItemsSource] – required only for using/displaying Task activities
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~journalitemssource.html[JournalItemsSource] – required only for using/displaying Journal activities
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~activitycategoryitemssource.html[ActivityCategoryItemSource] - required for using activity categories
+
+* link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector.html[ExchangeScheduleDataConnector] properties
+
+The ExchangeScheduleDataConnector connects directly to an Exchange Server to manage schedule data for one or more users. The following is the list of the properties that are required for the connection with details on how to be configured:
+
+** link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~serverconnectionsettings.html[ServerConnectionSettings] – must be an instance of the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings.html[ExchangeServerConnectionSettings] class with its link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~url.html[Url] property set to a valid Exchange Server Url
+** link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~users.html[Users]  pick:[wpf="or link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~usedefaultcredentials.html[UseDefaultCredentials]"]  – there must be at least one user in an IEnumerable<ExchangeUser> collection and set on the Users property for the connector; this provides the information about which users’ data to manage.
+
+== Entity Types’ Properties
+
+For each entity type (i.e. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Task], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.journal.html[Journal]), certain properties are required. Some properties are always required; others are required if specific functionality is to be supported. Below is a list of the required properties per entity type; the PropertyMappings for all of them must be specified:
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource] type
+
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~id.html[Id] - always required and must be unique
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment] / link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.journal.html[Journal] / link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Task] type
+
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~id.html[Id] - always required and must be unique to each activity type
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~start.html[Start] - always required
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~end.html[End] – required for Task and Appointment; optional for Journal
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~owningresourceid.html[OwningResourceId] – always required
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~owningcalendarid.html[OwningCalendarId] – required for setting the ResourceCalendarItemsSource
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~istimezoneneutral.html[IsTimeZoneNeutral] – required for supporting floating times for activities (timezone neutral activities)
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderinterval.html[ReminderInterval] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderenabled.html[ReminderEnabled] – required for supporting reminders
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~recurrence.html[Recurrence] – required for supporting recurring activities
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~rootactivityid.html[RootActivityId], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrencestart.html[OriginalOccurrenceStart], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrenceend.html[OriginalOccurrenceEnd], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~isoccurrencedeleted.html[IsOccurrenceDeleted], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~variantproperties.html[VariantProperties], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~recurrenceversion.html[RecurrenceVersion] – required for supporting variances when recurring activities are supported
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~categories.html[Categories] - required for supporting categories
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar] type
+
+** ResourceCalendarPropertyMappings - required for setting the ResourceCalendarItemsSource
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~id.html[Id] – always required and must be unique
+** link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~owningresourceid.html[OwningResourceId] - always required and must be unique
+
+Please see the " link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]" topic for a comprehensive listing of the fields and tips on how they should be defined in the data source.
+
+== Related Topics
+
+link:xamschedule-understanding-data-connector.html[About the Data Connector]
+
+link:xamschedule-understanding-data-manager.html[About the Data Manager]
+
+link:xamschedule-using-connector-list.html[ListScheduleConnector]
+
+link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]

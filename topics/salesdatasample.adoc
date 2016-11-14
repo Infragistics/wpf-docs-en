@@ -1,0 +1,365 @@
+﻿////
+
+|metadata|
+{
+    "name": "salesdatasample",
+    "controlName": [],
+    "tags": ["Sample Data Source"],
+    "guid": "f7ac73ce-94e2-44b0-bf4e-03b1a529a995",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.3990196Z"
+}
+|metadata|
+////
+
+= Sales Data Sample
+
+*In C#:*
+
+[source,csharp]
+----
+using System;
+using System.Collections.ObjectModel;
+namespace Infragistics.Samples.Data.Models
+{
+    class SalesDataSample : ObservableCollection<Sale>
+    {
+        public SalesDataSample()
+        {
+            ObservableCollection<Sale> sales = SalesDataGenerator.GenerateSales(500);
+            foreach (Sale sale in sales)
+            {
+                this.Add(sale);
+            }
+        }
+    }
+    public class Sale
+    {
+        public Sale()
+        {
+            this.Product = new Product();
+            this.Seller = new Seller();
+        }
+        public Product Product { get; set; }
+        public Seller Seller { get; set; }
+        public DateTime Date { get; set; }
+        public double Value { get; set; }
+        public string Quarter { get; set; }
+        public string City
+        {
+            get { return Seller.City; }
+            set { Seller.City = value; }
+        }
+        public int NumberOfUnits { get; set; }
+        public double AmountOfSale
+        {
+            get { return UnitPrice * NumberOfUnits; }
+            set { Product.UnitPrice = value / NumberOfUnits; }
+        }
+        public double UnitPrice
+        {
+            get { return Product.UnitPrice; }
+            set { Product.UnitPrice = value; }
+        }
+    }
+    public class Seller
+    {
+        public string Name { get; set; }
+        public string City { get; set; }
+    }
+    public class Product
+    {
+        public Product() { }
+        public string Name { get; set; }
+        public double UnitPrice { get; set; }
+    }
+    public class SalesDataGenerator
+    {
+        private static String[] _products;
+        private static String[] _sellerNames;
+        private static String[] _cities;
+        private static readonly Random Random = new Random();
+        public static ObservableCollection<Sale> GenerateSales(int numberOfSales)
+        {
+            _products = "Accessories;Bikes;Clothing;Components".Split(';');
+            _sellerNames = "John Smith;Alfredo Fetuchini;Howard Sprouse;Russell Shorter;Nicholas Carmona;Larry Lieb;Carl Costello;Benjamin Dupree;Bryan Culver;Monica Freitag;Lydia Burson;Harold Garvin;Walter Pang;David Haley;Glenn Landeros;Harry Tyler;Stanley Brooker;Antonio Charbonneau;Brandon Mckim;Claudia Kobayashi;Benjamin Meekins;Mark Slater;Kathe Pettel;Elisa Longbottom".Split(';');
+            _cities = "Sofia;London;New York;Berlin;Seattle;Mellvile;Tokyo".Split(';');
+            ObservableCollection<Sale> sales = new ObservableCollection<Sale>();
+            for (double i = 0; i < numberOfSales; i++)
+            {
+                Sale sale = new Sale
+                {
+                    Quarter = "Q " + i,
+                    Value = GetRandomPrice(),
+                    Date = GetRandomDate(),
+                    Product = GerRandomProduct(),
+                    NumberOfUnits = GetRandomNumUnits(),
+                    Seller = GetRandomSeller()
+                };
+                sales.Add(sale);
+            }
+            return sales;
+        }
+        #region Get Random Objects
+        private static Seller GetRandomSeller()
+        {
+            return new Seller
+            {
+                City = GetRandomCity(),
+                Name = GetRandomSellerName()
+            };
+        }
+        private static string GetRandomSellerName()
+        {
+            Random a = new Random(Random.Next());
+            return _sellerNames[a.Next(_sellerNames.Length)];
+        }
+        private static string GetRandomCity()
+        {
+            Random a = new Random(Random.Next());
+            return _cities[a.Next(_cities.Length)];
+        }
+        private static int GetRandomNumUnits()
+        {
+            Random a = new Random(Random.Next());
+            return a.Next(1, 500);
+        }
+        private static Product GerRandomProduct()
+        {
+            return new Product
+            {
+                Name = GetRandomProductName(),
+                UnitPrice = GetRandomPrice()
+            };
+        }
+        private static double GetRandomPrice()
+        {
+            Random a = new Random(Random.Next());
+            return a.NextDouble() * 100;
+        }
+        private static string GetRandomProductName()
+        {
+            Random a = new Random(Random.Next());
+            return _products[a.Next(_products.Length)];
+        }
+        private static DateTime GetRandomDate()
+        {
+            Random a = new Random(Random.Next());
+            int day = a.Next(1, 28);
+            int month = a.Next(1, 12);
+            int year = a.Next(DateTime.Today.Year - 5, DateTime.Today.Year + 1);
+            return new DateTime(year, month, day);
+        }
+        #endregion
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports System.Collections.ObjectModel
+Namespace Infragistics.Samples.Data.Models
+    Public Class SalesDataSample
+        Inherits ObservableCollection(Of Sale)
+        Public Sub New()
+            Dim sales As ObservableCollection(Of Sale) = SalesDataGenerator.GenerateSales(500)
+            For Each sale As Sale In sales
+                Me.Add(sale)
+            Next
+        End Sub
+    End Class
+    Public Class Sale
+        Public Sub New()
+            Me.Product = New Product()
+            Me.Seller = New Seller()
+        End Sub
+        Public Property Product() As Product
+            Get
+                Return m_Product
+            End Get
+            Set(value As Product)
+                m_Product = value
+            End Set
+        End Property
+        Private m_Product As Product
+        Public Property Seller() As Seller
+            Get
+                Return m_Seller
+            End Get
+            Set(value As Seller)
+                m_Seller = value
+            End Set
+        End Property
+        Private m_Seller As Seller
+        Public Property [Date]() As DateTime
+            Get
+                Return m_Date
+            End Get
+            Set(value As DateTime)
+                m_Date = value
+            End Set
+        End Property
+        Private m_Date As DateTime
+        Public Property Value() As Double
+            Get
+                Return m_Value
+            End Get
+            Set(value As Double)
+                m_Value = value
+            End Set
+        End Property
+        Private m_Value As Double
+        Public Property Quarter() As String
+            Get
+                Return m_Quarter
+            End Get
+            Set(value As String)
+                m_Quarter = value
+            End Set
+        End Property
+        Private m_Quarter As String
+        Public Property City() As String
+            Get
+                Return Seller.City
+            End Get
+            Set(value As String)
+                Seller.City = value
+            End Set
+        End Property
+        Public Property NumberOfUnits() As Integer
+            Get
+                Return m_NumberOfUnits
+            End Get
+            Set(value As Integer)
+                m_NumberOfUnits = value
+            End Set
+        End Property
+        Private m_NumberOfUnits As Integer
+        Public Property AmountOfSale() As Double
+            Get
+                Return UnitPrice * NumberOfUnits
+            End Get
+            Set(value As Double)
+                Product.UnitPrice = value / NumberOfUnits
+            End Set
+        End Property
+        Public Property UnitPrice() As Double
+            Get
+                Return Product.UnitPrice
+            End Get
+            Set(value As Double)
+                Product.UnitPrice = value
+            End Set
+        End Property
+    End Class
+    Public Class Seller
+        Public Property Name() As String
+            Get
+                Return m_Name
+            End Get
+            Set(value As String)
+                m_Name = value
+            End Set
+        End Property
+        Private m_Name As String
+        Public Property City() As String
+            Get
+                Return m_City
+            End Get
+            Set(value As String)
+                m_City = value
+            End Set
+        End Property
+        Private m_City As String
+    End Class
+    Public Class Product
+        Public Sub New()
+        End Sub
+        Public Property Name() As String
+            Get
+                Return m_Name
+            End Get
+            Set(value As String)
+                m_Name = value
+            End Set
+        End Property
+        Private m_Name As String
+        Public Property UnitPrice() As Double
+            Get
+                Return m_UnitPrice
+            End Get
+            Set(value As Double)
+                m_UnitPrice = value
+            End Set
+        End Property
+        Private m_UnitPrice As Double
+    End Class
+    Public Class SalesDataGenerator
+        Private Shared _products As [String]()
+        Private Shared _sellerNames As [String]()
+        Private Shared _cities As [String]()
+        Private Shared ReadOnly Random As New Random()
+        Public Shared Function GenerateSales(numberOfSales As Integer) As ObservableCollection(Of Sale)
+            _products = "Accessories;Bikes;Clothing;Components".Split(";"c)
+            _sellerNames = "John Smith;Alfredo Fetuchini;Howard Sprouse;Russell Shorter;Nicholas Carmona;Larry Lieb;Carl Costello;Benjamin Dupree;Bryan Culver;Monica Freitag;Lydia Burson;Harold Garvin;Walter Pang;David Haley;Glenn Landeros;Harry Tyler;Stanley Brooker;Antonio Charbonneau;Brandon Mckim;Claudia Kobayashi;Benjamin Meekins;Mark Slater;Kathe Pettel;Elisa Longbottom".Split(";"c)
+            _cities = "Sofia;London;New York;Berlin;Seattle;Mellvile;Tokyo".Split(";"c)
+            Dim sales As New ObservableCollection(Of Sale)()
+            For i As Double = 0 To numberOfSales - 1
+                Dim sale As New Sale() With { _
+                    .Quarter = "Q " & i, _
+                    .Value = GetRandomPrice(), _
+                    .[Date] = GetRandomDate(), _
+                    .Product = GerRandomProduct(), _
+                    .NumberOfUnits = GetRandomNumUnits(), _
+                    .Seller = GetRandomSeller() _
+                }
+                sales.Add(sale)
+            Next
+            Return sales
+        End Function
+#Region "Get Random Objects"
+        Private Shared Function GetRandomSeller() As Seller
+            Return New Seller() With { _
+                .City = GetRandomCity(), _
+                .Name = GetRandomSellerName() _
+            }
+        End Function
+        Private Shared Function GetRandomSellerName() As String
+            Dim a As New Random(Random.[Next]())
+            Return _sellerNames(a.[Next](_sellerNames.Length))
+        End Function
+        Private Shared Function GetRandomCity() As String
+            Dim a As New Random(Random.[Next]())
+            Return _cities(a.[Next](_cities.Length))
+        End Function
+        Private Shared Function GetRandomNumUnits() As Integer
+            Dim a As New Random(Random.[Next]())
+            Return a.[Next](1, 500)
+        End Function
+        Private Shared Function GerRandomProduct() As Product
+            Return New Product() With { _
+                .Name = GetRandomProductName(), _
+                .UnitPrice = GetRandomPrice() _
+            }
+        End Function
+        Private Shared Function GetRandomPrice() As Double
+            Dim a As New Random(Random.[Next]())
+            Return a.NextDouble() * 100
+        End Function
+        Private Shared Function GetRandomProductName() As String
+            Dim a As New Random(Random.[Next]())
+            Return _products(a.[Next](_products.Length))
+        End Function
+        Private Shared Function GetRandomDate() As DateTime
+            Dim a As New Random(Random.[Next]())
+            Dim day As Integer = a.[Next](1, 28)
+            Dim month As Integer = a.[Next](1, 12)
+            Dim year As Integer = a.[Next](DateTime.Today.Year - 5, DateTime.Today.Year + 1)
+            Return New DateTime(year, month, day)
+        End Function
+#End Region
+    End Class
+End Namespace
+----

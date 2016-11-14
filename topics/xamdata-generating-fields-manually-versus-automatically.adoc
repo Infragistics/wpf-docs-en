@@ -1,0 +1,48 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-generating-fields-manually-versus-automatically",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "{0EAFC6A6-7427-47C0-B7DC-808A8E65EFC8}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5148561Z"
+}
+|metadata|
+////
+
+= Generating Fields Manually Versus Automatically
+
+The DataPresenter controls provide two ways to define link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]s:
+
+* Automatic
+* Manual
+
+With either option you can still define `UnboundField`s. You can also work with the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] to control the Fields shown, and the order in which you want to show them. For more information, see link:xamdata-terms-fields.html[Fields].
+
+== Automatic
+
+In the case that you leave link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] equal to True, the control scans the bound data source and generates the appropriate Fields for each public property in the data source. Fields are automatically included in a Field collection as they are created.
+
+== Manual
+
+In the case that you set AutoGenerateFields equal to False, you have to define the Fields and the FieldLayouts that contain the Fields. The following XAML shows how to set this property for the xamDataGrid. It would be similar for the xamDataCarousel, and xamDataPresenter.
+
+*In XAML:*
+
+----
+...
+<igDP:XamDataGrid.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings AutoGenerateFields="False" />
+</igDP:XamDataGrid.FieldLayoutSettings>
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout]
+
+link:xamdatapresenter-manually-assigning-a-field-layout-to-xamdatapresenter.html[Manually Assigning a Field Layout to xamDataPresenter]
+
+link:xamdatapresenter-add-unbound-fields-to-a-datapresenter-control.html[Configuring Unbound Field]

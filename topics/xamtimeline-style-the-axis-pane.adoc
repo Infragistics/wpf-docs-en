@@ -1,0 +1,55 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-the-axis-pane",
+    "controlName": ["xamTimeline"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{D98F2F9B-4E91-4BD1-B68F-485F6EE507C7}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.0983935Z"
+}
+|metadata|
+////
+
+= Styling Axis Pane
+The Axis Pane is the main line that runs through the event points in a time series. You can customize this line using styles. The following xaml code shows you how to change the color and thickness of the Axis pane.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Styles for Axis -->
+        <Style x:Key="rscAxisPaneStyle" TargetType="ig:Mark">
+            <Setter Property="Height" Value="4"/>
+            <Setter Property="Stroke" Value="Red"/>
+            <Setter Property="Fill" Value="Red"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="480" Margin="25">
+            <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3200" Maximum="2600" 
+                                      AutoRange=" Unit="400" 
+                                      PaneStyle="{StaticResource rscAxisPaneStyle}"/>
+            </ig:XamTimeline.Axis>
+            <!-- TODO: Add Numeric/Date Series ... -->
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Style_Axis_Pane_01.png[]
+
+== Related Topics
+
+link:xamtimeline-style-the-axis.html[Styling Axis]
+
+link:xamtimeline-style-the-axis-label.html[Styling Axis Label]
+
+link:xamtimeline-style-axis-thumb.html[Styling Axis Thumb]
+
+link:xamtimeline-style-major-and-minor-grid-lines.html[Styling Major and Minor Grid Lines]
+
+link:xamtimeline-style-major-and-minor-tick-marks.html[Styling Major and Minor Tick Marks]

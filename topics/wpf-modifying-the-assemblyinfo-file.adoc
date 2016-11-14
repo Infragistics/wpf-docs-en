@@ -1,0 +1,61 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-modifying-the-assemblyinfo-file",
+    "controlName": [],
+    "tags": ["Styling"],
+    "guid": "{AE8144C7-5BE1-4E93-B38C-5449A6D0F507}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:33:32.0620401Z"
+}
+|metadata|
+////
+
+= Modifying the AssemblyInfo File
+
+This topic is fifth in a multi-part walkthrough that continues from link:wpf-creating-the-assemblyresourcesetloader-class.html[Creating the AssemblyResourceSetLoader Class]. You will learn how to modify the AssemblyInfo file so the assembly knows which class to call whenever the ThemePack is referenced.
+
+[start=1]
+. Find the AssemblyInfo file under the Properties folder in the Solution Explorer. Double click the file to open it in the editor.
+[start=2]
+. Before you start writing any code, you should place using/Imports directives at the top of the AssemblyInfo file so you don't need to always type out a member's fully qualified name.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Themes
+Imports MyThemePack.MyThemePack.ResourceSets.OrangePeel
+Imports System.Windows.Markup
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Themes;
+using MyThemePack.ResourceSets.OrangePeel;
+using System.Windows.Markup;
+----
+
+[start=3]
+. Add the following three lines of code to the file. The first line tells the AssemblyResourceSetLoader what derived class registers and loads the resource sets for the assembly. The second line assigns a recommended prefix to associate the XML namespace when writing elements in a XAML file. The third line specifies a mapping in an assembly between an XML namespace and a CLR namespace.
+
+*In Visual Basic:*
+
+----
+...
+<Assembly: AssemblyResourceSetLoader(GetType(ThemesOrangePeelAssemblyResourceSetLoader))>
+<Assembly: XmlnsPrefix("http://infragistics.com/Themes/OrangePeel", "igThemeOrangePeel")>
+<Assembly: XmlnsDefinition("http://infragistics.com/Themes/OrangePeel", "MyThemePack_VB.MyThemePack.ResourceSets.OrangePeel")>
+...
+----
+
+*In C#:*
+
+----
+...
+[assembly: AssemblyResourceSetLoader(typeof(ThemesOrangePeelAssemblyResourceSetLoader))]
+[assembly: XmlnsPrefix("http://infragistics.com/Themes/OrangePeel", "igThemeOrangePeel")]
+[assembly: XmlnsDefinition("http://infragistics.com/Themes/OrangePeel", "MyThemePack.ResourceSets.OrangePeel")] 
+...
+----

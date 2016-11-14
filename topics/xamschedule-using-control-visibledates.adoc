@@ -1,0 +1,37 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-control-visibledates",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "9062e1af-26b6-4da1-9c91-3d2eb0accfab",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.8553649Z"
+}
+|metadata|
+////
+
+= Displaying Dates
+
+The xamSchedule view controls expose a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase~visibledates.html[VisibleDates] collection which represents the dates displayed by the control. By default this collection is empty and is initialized by the control based on the current date. For example, the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview.html[xamMonthView] initializes VisibleDates to include all the dates for the weeks that represent the month containing the current date. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduleview.html[XamScheduleView] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdayview.html[xamDayView] will initialize this collection based on the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~weekdisplaymode.html[WeekDisplayMode] property. When set to link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.weekdisplaymode.html[None], which is the default, VisibleDates is populated with the current date. When set to link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.weekdisplaymode.html[Week], VisibleDates is set to the days of the week that contain the current date. When set to link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.weekdisplaymode.html[WorkWeek], the collection includes the days of the week including the current date, excluding days marked as non-working days. The days considered working days are based on the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~workinghourssource.html[WorkingHoursSource] property.
+
+The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase~selectedtimerange.html[SelectedTimeRange] defines an optional selected date/time range. By default this property is null. If not set it is initialized by the control. XamDayView and xamScheduleView select the first working hour timeslot within the current date while xamMonthView selects the current date.
+
+When the SelectedTimeRange is changed to a date outside the VisibleDates collection, the collection is updated to contain that date.
+
+The control follows a model similar to Outlook. For example consider a scenario where the VisibleDates contains 4/13/2010 and 4/14/2010. If the user navigates to 4/12/2010, the VisibleDates are updated to contain 4/12/2010 and 4/13/2010. If the user has a complex selection such as 4/15, 4/17 and 4/19 and navigates to 4/14, the selection becomes 4/14, 4/15 and 4/17. If the user has that same complex selection and selects a date far beyond the current visible dates (e.g. 5/30) the dates change to those adjacent to the new selection (e.g. 5/28, 5/29 and 5/30).
+
+*Note:* If the VisibleDates are changed to not include the SelectedTimeRange, the SelectedTimeRange is updated to be within the visible dates.
+
+== Related Topics
+
+link:xamschedule-using-control-selactivities.html[The Selected Activities Collection]
+
+link:xamschedule-using-control-calendargrouping.html[Calendar Grouping]
+
+link:xamschedule-using-control-confday.html[Configuring xamDayView]
+
+link:xamschedule-using-control-confschedule.html[Configuring xamScheduleView]
+
+link:xamschedule-using-control-confmonth.html[Configuring xamMonthView]

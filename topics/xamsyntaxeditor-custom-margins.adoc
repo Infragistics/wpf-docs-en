@@ -1,0 +1,130 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-custom-margins",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["How Do I","Layouts"],
+    "guid": "43579925-9b22-4ece-8c81-0b9dc1f83712",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.4583989Z"
+}
+|metadata|
+////
+
+= Custom Margins (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to create your own margins.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref331672218, Create a Custom Margin >>
+** <<_Ref331672225,Introduction>>
+** <<_Ref331672233,Steps>>
+
+* <<_Ref331672247, Related Content >>
+** <<_Ref331672254,Topics>>
+** <<_Ref331672261,Samples>>
+
+[[_Ref331672218]]
+== Create a Custom Margin
+
+[[_Ref331672225]]
+
+=== Introduction
+
+The link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor.html[ _xamSyntaxEditor_  ]™ supports placing margins in any of the four locations along the edges of the text editing area. To be able to position a margin in any of the four locations (top, bottom, left or right) the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase.html[MarginBase] class implements the link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning_members.html[ISupportPositioning] interface. You will most likely use left and right positioned margins to display information related to the text rows and top or bottom positioned margins to display information related to the text columns.
+
+The  _xamSyntaxEditor_   is responsible for arranging all margins at the appropriate locations. The  _xamSyntaxEditor_   also ensures that all margins have presenters by invoking the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~createpresenter.html[CreatePresenter] method and passing the associated link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase] as an argument. The `DocumentViewBase` provides the presenter with the needed context to access the view and the control information (for example, access to visible lines, events for different user interactions, etc…).
+
+[[_Ref331672233]]
+
+=== Steps
+
+The following steps demonstrate how to create a custom margin.
+
+=== 1. Create a Margin class
+
+Create your custom margin class by extending from the `MarginBase` class.
+
+=== 2. Set Margin Location
+
+Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~location.html[Location] property of `MarginBase` to position your margin at the desired location.
+
+=== 3. Set Margin Arrangement
+
+Override the link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning~after.html[After] and link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning~before.html[Before] members of the `ISupportPositioning` interface to position your margin along the other margins at this location.
+
+=== 4. Provide a Unique Margin Key
+
+Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~key.html[Key] property of `MarginBase` to give your margin a unique key so that other margins can position themselves relative to your margin.
+
+=== 5. Provide a Presenter for your Margin
+
+Override the `CreatePresenter` method of `MarginBase` to provide the presenter for your margin. The presenter can be any class extending from link:http://msdn.microsoft.com/en-us/library/system.windows.frameworkelement.aspx[FrameworkElement].
+
+=== 6. Add logic to your Presenter to render your margin’s content
+
+Custom margin presenters typically override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[DocumentViewBase.LayoutChanged] event to trigger the rendering of the custom margin’s content.
+
+=== 7. Add the Margin in the xamSyntaxEditor
+
+Add your margin in the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~custommargins.html[CustomMargins] collection of the  _xamSyntaxEditor_  .
+
+[[_Ref331672247]]
+== Related Content
+
+[[_Ref331672254]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-line-number-margin.html[Line Number Margin]
+|This topic describes the use and configuration of the _xamSyntaxEditor_ control’s built-in Line Number Margin.
+
+| link:xamsyntaxeditor-ruler-margin.html[Ruler Margin]
+|This topic explains how to configure the ruler margin feature.
+
+|====
+
+[[_Ref331672261]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/custom-margins[Custom Margins]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/custom-margins[Custom Margins]"] 
+|This sample demonstrates how to add and remove custom margins in all four sides of the _xamSyntaxEditor_ .
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/custom-bookmarks-margin[Custom Bookmarks Margin]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/custom-bookmarks-margin[Custom Bookmarks Margin]"] 
+|This sample demonstrates how to create a custom margin which creates space for bookmarking functionality.
+
+|====

@@ -1,0 +1,161 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-import-export-html",
+    "controlName": ["Exporting","Getting Started","How Do I"],
+    "tags": [],
+    "guid": "475b4601-4a0b-44ff-85d3-30b53c06fea5",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5753097Z"
+}
+|metadata|
+////
+
+= Import/Export HTML (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to use the  _xamRichTextEditor_™ control for importing and exporting HTML data.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-binding-to-data.html[Binding xamRichTextEditor to Data]
+|This topic explains how to use document adapters for binding the _xamRichTextEditor_ control to various data sources.
+
+| link:xamrichtexteditor-managing-serialization-providers.html[Serialization Providers Overview]
+|This topic explains the _xamRichTextEditor_ control’s serialization providers.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref381276558,Import/Export HTML Configuration Summary>>
+* <<_Ref381276559,Import HTML Content>>
+* <<_Ref381276560,Export HTML Content>>
+* <<_Ref381276577,Related Content>>
+
+[[_Ref381276558]]
+== Import/Export HTML Configuration Summary
+
+=== Import/Export configuration summary chart
+
+The following table briefly explains the configurable aspects of the  _xamRichTextEditor_   control and maps them to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Methods
+
+|<<_Ref381276559,Import HTML Content>>
+|Import HTML content from a stream.
+| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.htmlserializationproviderextensions~loadfromhtml.html[LoadFromHtml]
+
+|<<_Ref381276560,Export HTML Content>>
+|Export HTML content to a stream.
+| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.htmlserializationproviderextensions~savetohtml.html[SaveToHtml]
+
+|====
+
+.Note
+[NOTE]
+====
+You must first include the HTML serialization provider assembly in your project prior to being able to use it:
+
+*{ApiPlatform}Documents.RichTextDocument.Html.v{ProductVersion}*
+====
+
+[[_Ref381276559]]
+== Import HTML Content
+
+=== Overview
+
+Use the `LoadFromHtml` extension method of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] to import HTML content in the  _xamRichTextEditor_   control from a stream.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Import HTML content
+|`LoadFromHtml`
+|
+* The stream object containing the HTML format content pick:[wpf="or a string with the file path for loading the content in HTML format"] 
+
+* Content loading options object of type link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmlloadoptions_members.html[HtmlLoadOptions], which is not required 
+
+|====
+
+[[_Ref381276560]]
+== Export HTML Content
+
+=== Overview
+
+Use the `SaveToHtml` extension method of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] to export  _xamRichTextEditor’s_   content to a stream in HTML format.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Export content in HTML format
+|`SaveToHtml`
+|
+* The stream object into which to export the content in HTML format pick:[wpf="or a string containing the file path for saving the content in HTML format"] 
+
+* Content saving options object of type link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmlsaveoptions_members.html[HtmlSaveOptions], which is not required 
+
+|====
+
+[[_Ref381276577]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-import-export-text.html[Import/Export Plain Text]
+|This topic explains how to import and export of plain text data using the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-managing-import-export-rtf.html[Import/Export RTF]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting RTF data.
+
+| link:xamrichtexteditor-managing-import-export-docx.html[Import/Export DOCX]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting DOCX formatted data.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/import-content[Import Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/import-content[Import Content]"] 
+|This sample demonstrates the export of content in different formats.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/export-content[Export Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/export-content[Export Content]"] 
+|This sample demonstrates the import of content in different formats.
+
+|====

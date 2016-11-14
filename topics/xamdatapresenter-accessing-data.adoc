@@ -1,0 +1,40 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-accessing-data",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "{C01A2A42-36FC-4849-86E6-6E0213782580}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0749681Z"
+}
+|metadata|
+////
+
+= Binding xamDataPresenter to Data
+
+Data binding plays a pivotal role in every data presentation control, including xamDataPresenter™, xamDataGrid™, xamDataCarousel™, and xamDataCards™. The xamDataCards control can only display flat data while the other controls can display hierarchical data in addition to flat data.
+
+By default, when you data bind any of the controls mentioned above, they create a FieldLayout for each unique Type of object in your data source. Each publically exposed property by your data item will have a corresponding Field in the FieldLayout. If a publically exposed property returns an object that implements the IEnumerable interface and the control supports hierarchical data, it will display an expansion indicator so that your end user can drill down into the hierarchy.
+
+== Requirements for Data Binding
+
+Just like any data bound control in Microsoft® Windows® Presentation Foundation, there are some requirements you must meet in order to bind your data to the data presentation controls.
+
+* The object must implement the IEnumerable interface (e.g., ObservableCollection<T>, ArrayList, DataView etc.).
+* If you are using an object that derives from the DataSourceProvider class (e.g., XmlDataProvider, ObjectDataProvider, or your own custom data provider), the Data property of the data provider must return an object that implements the IEnumerable interface.
+
+* link:xamdatapresenter-bind-a-datapresenter-control-to-an-xmldataprovider.html[Bind a DataPresenter Control to an XmlDataProvider]
+* link:xamdatapresenter-bind-a-datapresenter-control-to-a-collection.html[Bind a DataPresenter Control to a Collection]
+* link:xamdatapresenter-binding-a-datapresenter-control-to-a-dataset.html[Binding a DataPresenter Control to a DataSet]
+* link:xamdatapresenter-binding-field-fieldlayout-to-mvvm.html[Binding Field, FieldSettings, FieldLayout and FieldLayoutSettings to MVVM Properties]
+* link:xamdatapresenter-binding-cell-settings-data-item-properties.html[Binding Cell Settings to Data Item Properties]
+* link:xamdatapresenter-about-data-items-and-data-records.html[About Data Items and Data Records]
+* link:xamdatapresenter-add-items-manually-to-a-datapresenter-control.html[Add Items Manually to a DataPresenter Control]
+* link:xamdata-displaying-hierarchical-data.html[Displaying Hierarchical Data]
+* link:xamdatapresenter-displaying-an-image-in-a-field.html[Displaying an Image in a Field]
+* link:xamdatapresenter-iterate-through-the-records-collection.html[Iterate through the Records Collection]
+* link:xamdatapresenter-displaying-a-complex-property.html[Displaying a Complex Property]
+* link:xamdatapresenter-displaying-a-complex-property-xaml.html[Displaying a Complex Property (XAML)]
+* link:xamdatapresenter-asynchronouspagingdatasource.html[Asynchronous Paging Data Source (xamDataPresenter)]

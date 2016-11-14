@@ -1,0 +1,306 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-beziercurvebuilder",
+    "controlName": [],
+    "tags": ["Data Binding"],
+    "guid": "3e4c7048-12e4-43a6-9c80-6714105c8e48",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.2870134Z"
+}
+|metadata|
+////
+
+= Bezier Curve Builder
+
+The BezierCurveBuilder provides methods for creating Bezier curves that pass through specified points. This object is used in a topic for creating custom series in xamDataChart control.
+
+*In Visual Basic:*
+
+----
+Namespace Infragistics.Samples.Common
+    Public Class BezierCurveBuilder
+        ''' <summary>
+        ''' Returns PathFigure representing a Bézier curve that passes through specified points
+        ''' </summary>
+        Public Shared Function GetBezierSegments(points As PointCollection, tension As Double, Optional isClosed As Boolean = False) As PathFigure
+            Dim ret As New PathFigure()
+            ret.Segments.Clear()
+            ret.IsClosed = False
+            If isClosed Then
+                Dim first As Point = points(0)
+                Dim last As Point = points(points.Count - 1)
+                If first.X <> last.X OrElse first.Y <> last.Y Then
+                    points.Add(first)
+                End If
+            End If
+            Dim bzPoints = GetBezierPoints(points, tension)
+            ' First point is the starting point.
+            ret.StartPoint = bzPoints(0)
+            For i As Integer = 1 To bzPoints.Count - 1 Step 3
+                    ' B1 control point.
+                    ' B2 control point.
+                    ' P2 start / end point.
+                ret.Segments.Add(New BezierSegment() With { _
+                    .Point1 = bzPoints(i), _
+                    .Point2 = bzPoints(i + 1), _
+                    .Point3 = bzPoints(i + 2) _
+                })
+            Next
+            Return ret
+        End Function
+        #Region "Bezier Methods"
+        ' some of the logic for calculating is based an article on:
+        ' http://www.codeproject.com/KB/silverlight/MapBezier.aspx
+        ''' <summary>
+        ''' Returns points of a Bézier curve passing through specified points
+        ''' </summary>
+        ''' <param name="points"></param>
+        ''' <param name="tension"></param>
+        ''' <returns></returns>
+        Public Shared Function GetBezierPoints(points As PointCollection, tension As Double) As PointCollection
+            Dim ret As New PointCollection()
+            For i As Integer = 0 To points.Count - 1
+                ' for first point append as is.
+                If i = 0 Then
+                    ret.Add(points(0))
+                    Continue For
+                End If
+                ' for each point except first and last get B1, B2. next point. 
+                ' Last point do not have a next point.
+                ret.Add(GetBezierControlPoint1(points, i - 1, tension))
+                ret.Add(GetBezierControlPoint2(points, i - 1, tension))
+                ret.Add(points(i))
+            Next
+            Return ret
+        End Function
+        ''' <summary>
+        ''' Returns first control point of a Bézier curve.
+        ''' </summary>
+        ''' <param name="points">Points on the curve.</param>
+        ''' <param name="i">Point no to calculate control point for.</param>
+        ''' <param name="tension">Tension</param>
+        ''' <returns></returns>
+        ''' <remarks>Formula: B1i = Pi + Pi' / 3</remarks>
+        Public Shared Function GetBezierControlPoint1(points As PointCollection, i As Integer, tension As Double) As Point
+            Dim drv = GetBezierDerivative(points, i, tension)
+            Return New Point(points(i).X + drv.X / 3, points(i).Y + drv.Y / 3)
+        End Function
+        ''' <summary>
+        ''' Returns second control point of a Bézier curve.
+        ''' </summary>
+        ''' <param name="points">Points on the curve.</param>
+        ''' <param name="i">Point no to calculate control point for.</param>
+        ''' <param name="tension">Tension</param>
+        ''' <returns></returns>
+        ''' <remarks>Formula: B2i = P[i + 1] - P'[i + 1] / 3</remarks>
+        Public Shared Function GetBezierControlPoint2(points As PointCollection, i As Integer, tension As Double) As Point
+            Dim drv = GetBezierDerivative(points, i + 1, tension)
+            Return New Point(points(i + 1).X - drv.X / 3, points(i + 1).Y - drv.Y / 3)
+        End Function
+        ''' <summary>
+        ''' Returns scaled derivative of a point in a point collection.
+        ''' </summary>
+        ''' <param name="points">Points on the curve.</param>
+        ''' <param name="i">Point no to calculate control point for.</param>
+        ''' <param name="tension">Tension</param>        
+        ''' <returns></returns>
+        Public Shared Function GetBezierDerivative(points As PointCollection, i As Integer, tension As Double) As Point
+            If points.Count < 2 Then
+                Throw New System.ArgumentOutOfRangeException("points", "PointCollection must contain at least two points.")
+            End If
+            Dim x As Double, y As Double
+            If i = 0 Then
+                ' First point.
+                x = (points(1).X - points(0).X) / tension
+                y = (points(1).Y - points(0).Y) / tension
+                Return New Point(x, y)
+            End If
+            If i Is points.Count - 1 Then
+                ' Last point.
+                x = (points(i).X - points(i - 1).X) / tension
+                y = (points(i).Y - points(i - 1).Y) / tension
+                Return New Point(x, y)
+            End If
+            x = (points(i + 1).X - points(i - 1).X) / tension
+            y = (points(i + 1).Y - points(i - 1).Y) / tension
+            Return New Point(x, y)
+        End Function
+        #End Region
+        ''' <summary>
+        ''' Returns string representing Path.Data for a Bézier curve.
+        ''' This is intended for inspecting curves in Blend. Not used in the code.
+        ''' </summary>
+        ''' <returns>Path.Data that can be used in XAML.</returns>
+        Public Shared Function GetBezierPathDataString(points As PointCollection, tension As Double) As String
+            Dim bzPoints = GetBezierPoints(points, tension)
+            Dim sbRet As New System.Text.StringBuilder()
+            ' M 0,0 C 1.66, 1.66 6.66,11.66 10,10 
+            For i As Integer = 0 To bzPoints.Count - 1
+                If i = 0 Then
+                    sbRet.AppendFormat("M {0},{1} ", bzPoints(i).X, bzPoints(i).Y)
+                    Continue For
+                End If
+                If i Mod 3 = 1 Then
+                    sbRet.Append("C ")
+                End If
+                sbRet.AppendFormat("{0},{1} ", bzPoints(i).X, bzPoints(i).Y)
+            Next
+            Return sbRet.ToString()
+        End Function
+    End Class
+End Namespace
+----
+
+*In C#:*
+
+----
+namespace Infragistics.Samples.Common
+{
+    public class BezierCurveBuilder
+    {
+        /// <summary>
+        /// Returns PathFigure representing a Bézier curve that passes through specified points
+        /// </summary>
+        public static PathFigure GetBezierSegments(PointCollection points, double tension, bool isClosed = false)
+        {
+            PathFigure ret = new PathFigure();
+            ret.Segments.Clear();
+            ret.IsClosed = false;
+            if (isClosed)
+            {
+                Point first = points[0];
+                Point last = points[points.Count - 1];
+                if (first.X != last.X || first.Y != last.Y)
+                {
+                    points.Add(first);
+                }
+            }
+            var bzPoints = GetBezierPoints(points, tension);
+            // First point is the starting point.
+            ret.StartPoint = bzPoints[0];
+            for (int i = 1; i < bzPoints.Count; i += 3)
+            {
+                ret.Segments.Add(new BezierSegment
+                {
+                    Point1 = bzPoints[i],       // B1 control point.
+                    Point2 = bzPoints[i + 1],   // B2 control point.
+                    Point3 = bzPoints[i + 2]    // P2 start / end point.
+                });
+            }
+            return ret;
+        }
+        #region Bezier Methods
+        // some of the logic for calculating is based an article on:
+        // http://www.codeproject.com/KB/silverlight/MapBezier.aspx
+        /// <summary>
+        /// Returns points of a Bézier curve passing through specified points
+        /// </summary>
+        /// <param name="points"></param>
+        /// <param name="tension"></param>
+        /// <returns></returns>
+        public static PointCollection GetBezierPoints(PointCollection points, double tension)
+        {
+            PointCollection ret = new PointCollection();
+            for (int i = 0; i < points.Count; i++)
+            {
+                // for first point append as is.
+                if (i == 0)
+                {
+                    ret.Add(points[0]);
+                    continue;
+                }
+                // for each point except first and last get B1, B2. next point. 
+                // Last point do not have a next point.
+                ret.Add(GetBezierControlPoint1(points, i - 1, tension));
+                ret.Add(GetBezierControlPoint2(points, i - 1, tension));
+                ret.Add(points[i]);
+            }
+            return ret;
+        }
+        /// <summary>
+        /// Returns first control point of a Bézier curve.
+        /// </summary>
+        /// <param name="points">Points on the curve.</param>
+        /// <param name="i">Point no to calculate control point for.</param>
+        /// <param name="tension">Tension</param>
+        /// <returns></returns>
+        /// <remarks>Formula: B1i = Pi + Pi' / 3</remarks>
+        public static Point GetBezierControlPoint1(PointCollection points, int i, double tension)
+        {
+            var drv = GetBezierDerivative(points, i, tension);
+            return new Point(points[i].X + drv.X / 3, points[i].Y + drv.Y / 3);
+        }
+        /// <summary>
+        /// Returns second control point of a Bézier curve.
+        /// </summary>
+        /// <param name="points">Points on the curve.</param>
+        /// <param name="i">Point no to calculate control point for.</param>
+        /// <param name="tension">Tension</param>
+        /// <returns></returns>
+        /// <remarks>Formula: B2i = P[i + 1] - P'[i + 1] / 3</remarks>
+        public static Point GetBezierControlPoint2(PointCollection points, int i, double tension)
+        {
+            var drv = GetBezierDerivative(points, i + 1, tension);
+            return new Point(points[i + 1].X - drv.X / 3, points[i + 1].Y - drv.Y / 3);
+        }
+        /// <summary>
+        /// Returns scaled derivative of a point in a point collection.
+        /// </summary>
+        /// <param name="points">Points on the curve.</param>
+        /// <param name="i">Point no to calculate control point for.</param>
+        /// <param name="tension">Tension</param>        
+        /// <returns></returns>
+        public static Point GetBezierDerivative(PointCollection points, int i, double tension)
+        {
+            if (points.Count < 2)
+                throw new System.ArgumentOutOfRangeException("points", "PointCollection must contain at least two points.");
+            double x, y;
+            if (i == 0)
+            {
+                // First point.
+                x = (points[1].X - points[0].X) / tension;
+                y = (points[1].Y - points[0].Y) / tension;
+                return new Point(x, y);
+            }
+            if (i == points.Count - 1)
+            {
+                // Last point.
+                x = (points[i].X - points[i - 1].X) / tension;
+                y = (points[i].Y - points[i - 1].Y) / tension;
+                return new Point(x, y);
+            }
+            x = (points[i + 1].X - points[i - 1].X) / tension;
+            y = (points[i + 1].Y - points[i - 1].Y) / tension;
+            return new Point(x, y);
+        }
+        #endregion
+        /// <summary>
+        /// Returns string representing Path.Data for a Bézier curve.
+        /// This is intended for inspecting curves in Blend. Not used in the code.
+        /// </summary>
+        /// <returns>Path.Data that can be used in XAML.</returns>
+        public static string GetBezierPathDataString(PointCollection points, double tension)
+        {
+            var bzPoints = GetBezierPoints(points, tension);
+            System.Text.StringBuilder sbRet = new System.Text.StringBuilder();
+            // M 0,0 C 1.66, 1.66 6.66,11.66 10,10 
+            for (int i = 0; i < bzPoints.Count; i++)
+            {
+                if (i == 0)
+                {
+                    sbRet.AppendFormat("M {0},{1} ", bzPoints[i].X, bzPoints[i].Y);
+                    continue;
+                }
+                if (i % 3 == 1)
+                {
+                    sbRet.Append("C ");
+                }
+                sbRet.AppendFormat("{0},{1} ", bzPoints[i].X, bzPoints[i].Y);
+            }
+            return sbRet.ToString();
+        }
+    }   
+}
+----

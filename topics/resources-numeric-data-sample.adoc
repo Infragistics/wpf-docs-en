@@ -1,0 +1,225 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-numeric-data-sample",
+    "controlName": [],
+    "tags": ["Sample Data Source"],
+    "guid": "f91e52f9-363e-490c-bb07-cac63db143b7",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.2750123Z"
+}
+|metadata|
+////
+
+= Numeric Data Sample
+
+== Introduction
+
+The NumericDataSample object provides sample data for the Infragistics Math Calculators.
+
+== Implementation in Visual Basic
+
+*In Visual Basic:*
+
+ifdef::wpf[]
+----
+Imports System.Collections.ObjectModel
+Namespace Infragistics.Samples.Models.Series
+    Public Class NumericDataSample
+        Inherits NumericDataCollection
+        Public Sub New()
+            Me.Add(New NumericDataPoint() With { _
+                .X = 1, _
+                .Y = 1 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 2, _
+                .Y = 2 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 3, _
+                .Y = 6 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 4, _
+                .Y = 8 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 5, _
+                .Y = 2 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 6, _
+                .Y = 6 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 7, _
+                .Y = 4 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 8, _
+                .Y = 2 _
+            })
+            Me.Add(New NumericDataPoint() With { _
+                .X = 9, _
+                .Y = 1 _
+            })
+            Dim index As Integer = 0
+            For Each dataPoint As NumericDataPoint In Items
+                dataPoint.Index = System.Math.Max(System.Threading.Interlocked.Increment(index),index - 1)
+            Next
+        End Sub
+    End Class
+    Public Class NumericDataCollection
+        Inherits ObservableCollection(Of NumericDataPoint)
+    End Class
+    Public Class NumericDataPoint
+        Inherits ObservableModel
+        #Region "Properties"
+        Private _y As Double
+        Public Property Y() As Double
+            Get
+                Return _y
+            End Get
+            Set
+                If _y = value Then
+                    Return
+                End If
+                _y = value
+                OnPropertyChanged("Y")
+            End Set
+        End Property
+        Private _x As Double
+        Public Property X() As Double
+            Get
+                Return _x
+            End Get
+            Set
+                If _x = value Then
+                    Return
+                End If
+                _x = value
+                OnPropertyChanged("X")
+            End Set
+        End Property
+        #End Region
+        Public Shadows Function ToString() As String
+            Return [String].Format("Index {0}, X {1}, Y {2}", Index, X, Y)
+        End Function
+    End Class
+    Public MustInherit Class ObservableModel
+        Implements INotifyPropertyChanged
+        Protected Sub New()
+        End Sub
+        #Region "INotifyPropertyChanged"
+        Public Event PropertyChanged As PropertyChangedEventHandler
+        Protected Sub OnPropertyChanged(propertyName As String)
+            Dim handler As PropertyChangedEventHandler = Me.PropertyChanged
+            RaiseEvent handler(Me, New PropertyChangedEventArgs(propertyName))
+        End Sub
+        Public Sub OnAsyncPropertyChanged(propertyName As String)
+            If PropertyChanged IsNot Nothing Then
+                Deployment.Current.Dispatcher.BeginInvoke(Function() 
+                RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+End Function)
+            End If
+        End Sub
+        #End Region
+    End Class
+End Namespace
+----
+endif::wpf[]
+
+== Implementation in C#
+
+*In C#:*
+
+ifdef::wpf[]
+----
+using System;
+using System.Collections.ObjectModel;
+namespace Infragistics.Samples.Models.Series
+{
+    public class NumericDataSample : NumericDataCollection
+    {
+        public NumericDataSample()
+        {
+            this.Add(new NumericDataPoint { X = 1, Y = 1 });
+            this.Add(new NumericDataPoint { X = 2, Y = 2 });
+            this.Add(new NumericDataPoint { X = 3, Y = 6 });
+            this.Add(new NumericDataPoint { X = 4, Y = 8 });
+            this.Add(new NumericDataPoint { X = 5, Y = 2 });
+            this.Add(new NumericDataPoint { X = 6, Y = 6 });
+            this.Add(new NumericDataPoint { X = 7, Y = 4 });
+            this.Add(new NumericDataPoint { X = 8, Y = 2 });
+            this.Add(new NumericDataPoint { X = 9, Y = 1 });
+            int index = 0;
+            foreach (NumericDataPoint dataPoint in Items)
+            {
+                dataPoint.Index = index++;
+            }
+        }
+    }
+    public class NumericDataCollection : ObservableCollection<NumericDataPoint>
+    {
+    }
+    public class NumericDataPoint : ObservableModel
+    {
+        #region Properties
+        private double _y;
+        public double Y
+        {
+            get { return _y; }
+            set
+            {
+                if (_y == value) return;
+                _y = value;
+                OnPropertyChanged("Y");
+            }
+        }
+        private double _x;
+        public double X
+        {
+            get { return _x; }
+            set
+            {
+                if (_x == value) return;
+                _x = value;
+                OnPropertyChanged("X");
+            }
+        }
+        #endregion
+        public new string ToString()
+        {
+            return String.Format("Index {0}, X {1}, Y {2}", Index, X, Y);
+        }
+    }
+    public abstract class ObservableModel : INotifyPropertyChanged
+    {
+        protected ObservableModel()
+        {
+        }
+        #region INotifyPropertyChanged  
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+                handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void OnAsyncPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                });
+            }
+        }
+        #endregion
+    }
+}
+----
+endif::wpf[]

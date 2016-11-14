@@ -1,0 +1,186 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-drag-and-drop-support",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","How Do I"],
+    "guid": "d0e3d719-01ab-429a-a8cd-e8d80f9646f2",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.4013934Z"
+}
+|metadata|
+////
+
+= Drag and Drop Support (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic will describe how to use drag and drop operations to move text both inside and outside of the  _xamSyntaxEditor™_  .
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref331751691, Introduction >>
+** <<_Ref331751697,Description>>
+** <<_Ref331751708,Dragging selection>>
+** <<_Ref331751715,Dropping selection>>
+
+* <<_Ref331751723, Drag and Drop Configuration Summary >>
+* <<_Ref331751730, Events Summary >>
+* <<_Ref331751736, Related Content >>
+
+[[_Ref331751691]]
+== Introduction
+
+[[_Ref331751697]]
+
+=== Description
+
+The  _xamSyntaxEditor_   supports both internal (within the document) and external (between applications) text selection drag and drop.
+
+.Note
+[NOTE]
+====
+Due to limitations in Silverlight, the  _xamSyntaxEditor_   does not support dragging to a drop target that is external to the control or dropped on from an external source.
+====
+
+[[_Ref331751708]]
+
+=== Dragging selection
+
+When moving the mouse over a text selection, the mouse cursor shows if the selection supports dragging. An arrow mouse pointer means that the selection supports dragging while an I-Beam mouse pointer means that the text selection does not support dragging.
+
+This table shows the mouse cursors and their meaning:
+
+[options="header", cols="a,a"]
+|====
+|Mouse Cursor|Meaning
+
+|image::images/xamSyntaxEditor_DND_1.png[]
+|You cannot drag the selected text.
+
+|image::images/xamSyntaxEditor_DND_0.png[]
+|You can drag the selected text.
+
+|====
+
+[[_Ref331751715]]
+
+=== Dropping selection
+
+When dragging a selection, the mouse pointer shows whether it is possible to drop the selection at the current mouse position. The default drag operation will move the text selection to the new place; however, if the user presses the CTRL key, a “+” sign appears in the mouse cursor indicating that the drag operation will copy the text selection leaving the current text selection intact.
+
+This table shows the mouse cursors and their meaning:
+
+[options="header", cols="a,a"]
+|====
+|Mouse Cursor|Meaning
+
+|image::images/xamSyntaxEditor_DND_2.png[]
+|You cannot drop the selected text.
+
+|image::images/xamSyntaxEditor_DND_3.png[]
+|You can move the selected text selection here.
+
+|image::images/xamSyntaxEditor_DND_4.png[]
+|You can copy the text selection here.
+
+|====
+
+[[_Ref331751723]]
+== Drag and Drop Configuration Summary
+
+=== Drag and drop configuration summary chart
+
+The following table lists the properties used to restrict dragging or dropping operations.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable Aspect|Details|Properties
+
+|Allow dragging
+|Toggles dragging selected text on and off.
+|
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~allowdrag.html[AllowDrag] 
+
+|Allow dropping
+|Toggles dropping selected text on and off.
+|
+* link:http://msdn.microsoft.com/en-us/library/system.windows.uielement.allowdrop.aspx[AllowDrop] 
+
+|====
+
+[[_Ref331751730]]
+== Events Summary
+
+=== Events summary chart
+
+The following table lists the events fired by the  _xamSyntaxEditor_   during the drag and drop operations.
+
+[options="header", cols="a,a,a"]
+|====
+|Event|Event Handler Argument and Properties|Description
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~selectiondragging_ev.html[SelectionDragging]
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondraggingeventargs_members.html[SelectionDraggingEventArgs] 
+
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondraggingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondraggingeventargs~dataobject.html[DataObject] 
+
+|This event fires when the drag operation begins. The event handler argument exposes: 
+
+* `Cancel` property to cancel the dragging operation 
+
+* `DataObject` property, which exposes methods for changing the data to be dragged 
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~selectiondropping_ev.html[SelectionDropping]
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondroppingeventargs_members.html[SelectionDroppingEventArgs] 
+
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondroppingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.selectiondroppingeventargs~dataobject.html[DataObject] 
+
+|This event fires when the user releases the mouse button over a valid drop location. The event handler argument exposes: 
+
+* `Cancel` property to cancel the dropping operation 
+
+* `DataObject` property, which exposes methods for changing the data to be dropped 
+
+|====
+
+[[_Ref331751736]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-events-and-commands.html[Events and Commands]
+|This topic lists the events and supported commands available to you, while building your _xamSyntaxEditor_ applications.
+
+|====

@@ -1,0 +1,362 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-support-named-tables-in-an-excel-spreadsheet",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["How Do I"],
+    "guid": "41c32678-fdf9-4e1a-8c36-360e7da504de",
+    "buildFlags": [],
+    "createdOn": "2012-03-29T07:26:31.1673449Z"
+}
+|metadata|
+////
+
+= Supporting Named Tables in a Worksheet (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes table support in Infragistics Excel Engine.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Introduction, Introduction >>
+
+* <<_Main_Features, Main Features >>
+
+** <<_Features_overview,Features overview>>
+
+** <<_Accessing_tables,Accessing tables>>
+
+** <<_Creating_tables,Creating tables>>
+
+** <<_Table_Styles,Table styles>>
+
+** <<_Table_Columns,Table columns>>
+
+* <<_Related_Content, Related Content >>
+
+[[_Introduction]]
+== Introduction
+
+=== Introduction to the Named Tables
+
+New classes are added to Excel Library to represent the newly supported structures. A collection of tables is exposed off the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet_members.html[Worksheet] class and collection of custom and standard table styles is exposed off the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook_members.html[Workbook] class.
+
+A table in Microsoft Excel® is a named rectangular region of cells which contain related data organized into columns. A table also contains built in functionality which allows you to manage and analyze that data. In addition to its data, a table can also contain a row of headers and a row of totals for each column of data.
+
+[[_Main_Features]]
+== Main Features
+
+[[_Features_overview]]
+
+=== Features overview
+
+The following table summarizes the main features of the table support of Excel Library. Additional details are available after the summary table.
+
+[options="header", cols="a,a"]
+|====
+|Feature|Description
+
+|Accessing tables
+|Tables are represented by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable_members.html[WorksheetTable] class and are accessed primarily through the `Worksheet` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~tables.html[Tables] collection.
+
+|Creating tables
+|Tables can be created in one of the following ways. 
+
+* Using one of the *Add overloads* on the `Worksheet.Tables` collection, which makes a `string` indicating the table region and a `Boolean` indicating whether the table has headers. 
+
+* Calling one of the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetregion~formatastable.html[FormatAsTable] overloads on an existing link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetregion_members.html[WorksheetRegion] instance. 
+
+|Table styles
+|Each table has an associated style which provides default format settings for cells in many different areas of the table. This style is represented by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle_members.html[WorksheetTableStyle] class and is exposed on a table through the `WorksheetTable` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~style.html[Style] property.
+
+|Table columns
+|Each column of the table is represented by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablecolumn_members.html[WorksheetTableColumn] class and the columns within each table are exposed by the read only `WorksheetTable` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~columns.html[Columns] collection.
+
+|Filtering columns
+|Columns in a table can be filtered by calling one of the `Apply…Filter` methods, defined on the `WorksheetTableColumn` class. 
+
+For more information, refer to the link:igexcelengine-filtering-tables.html[Filtering Tables (Infragistics Excel Engine)] topic.
+
+|Sorting columns
+|Columns in a table can be sorted by applying a sort condition to the `WorksheetTableColumn` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablecolumn~sortcondition.html[SortCondition] property. 
+
+For more information, refer to the link:igexcelengine-sorting-tables.html[Sorting Tables (Infragistics Excel Library)] topic.
+
+|====
+
+[[_Accessing_tables]]
+
+=== Accessing tables
+
+Worksheet `Tables` collection allows you to create and remove tables on the worksheet. In addition, you can get a table by name using `Workbook` 's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~gettable.html[GetTable] method or by getting the `WorksheetCell` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~associatedtable.html[AssociatedTable] property of one of the cells within the table. Any tables in the `Worksheet.Tables` collection will be saved with the file when the workbook is saved and will be visible on the worksheet in Microsoft Excel when that file is opened.
+
+[[_Creating_tables]]
+
+=== Creating tables
+
+You can customize the newly created `WorksheetTable` instance. The following behaviors are associated with table creation:
+
+[options="header", cols="a,a"]
+|====
+|Behavior|Description
+
+|Merged cells in region
+|If there are any merged cells within the region of cells to format as a table, they will be removed from the worksheet and the table region will be expanded if necessary to include all individual cells which were in those merged cells.
+
+|Cells in a header row
+|If you specify that the created table has headers, all cells in the header row will have their value converted to a string and their values will be made unique across all columns in the table. This is done by appending number to the 2nd, 3rd … duplicates of a column name. 
+
+.Note: 
+
+[NOTE] 
+
+==== 
+
+Column names are compared case-insensitively to determine equality. 
+
+====
+
+|Cases of a default table style
+|If you create a table using a method overload which does not accept a `WorksheetTableStyle` instance, the `Workbook` 's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~defaulttablestyle.html[DefaultTableStyle] will be used.
+
+|====
+
+=== Region with one row
+If a region with one row is formatted as a table and it has headers, meaning that there are no rows in the data area, the row below the headers will be an insert row. This means the cells in that row will return the table as their `AssociatedTable` value and they will be formatted with all the formatting contained in the table and its associated style. 
+
+Due to the fact that this expands the table to the cells in the row below, one of the following actions will be taken regarding the cells below the header row: 
+
+[options="header", cols="a,a"] 
+
+|==== 
+
+|Case|Description 
+
+|Any value or formula present below the header row 
+
+|If there are any values or formulas in the cells of the row directly below the header row, and in the same column as are contained in the formatted table, the cells for the insert row will be inserted. 
+
+.Note: 
+[NOTE] 
+==== 
+This means cells will be inserted into the worksheet directly below the header row and all cells below them on the remainder of the worksheet will be shifted down by one row. 
+==== 
+
+Cells in columns that do not intersect with the formatted table will not be affected. 
+
+|No value or formula present below the header row 
+
+|If there are no values or formulas in the cells of the row directly below the header row, no cells will be inserted and the insert row will simply occupy the existing cells that are below the header row. 
+
+|====
+
+[[_Table_Styles]]
+
+=== Table styles
+
+Each table has an associated style. This style is represented by the `WorksheetTableStyle` class and is exposed on a table through the `WorksheetTable.Style` property. The styles are exposed off the `Workbook` class through three properties:
+
+[options="header", cols="a,a"]
+|====
+|Style|Description
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~standardtablestyles.html[StandardTableStyles]
+|This is a collection of 60 preset table styles which are not saved with the workbook. All table styles in this collection are read-only and trying to set any properties on the style itself or any sub-objects of the style will cause an exception to be thrown. 
+
+You can customize these styles by duplicating them with the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~clone.html[Clone] method and then adding the cloned instance to the `CustomTableStyles` collection.
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~customtablestyles.html[CustomTableStyles]
+|This is a collection of user defined table styles which are saved with the workbook. This collection is read/write and all table styles in this collection can be modified. 
+
+.Note: 
+[NOTE] 
+==== 
+The names of styles in this collection must all be case-insensitively unique. 
+====
+
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~defaulttablestyle.html[DefaultTableStyle]
+|This is the style to apply to newly created tables when the style is not specified by you. It will always return a non-null `WorksheetTableStyle` instance. If this is not set by you or loaded from the file, it will default to the _TableStyleMedium2_ style from the `StandardTableStyles` collection. 
+
+.Note: 
+[NOTE] 
+==== 
+If the `DefaultTableStyle` is changed after one or more tables are created, those existing tables will not be affected. This property only affects newly created tables. 
+==== 
+
+If this property is set to one of the custom table styles and that table style is removed from the workbook, the `DefaultTableStyle` will revert back to the _TableStyleMedium2_ style.
+
+|====
+
+The table styles define many properties which allow you to control the appearance of tables at an area level (not an individual cell level).
+
+There are 13 areas which can have a format applied with the table style. These are all optional formats, but when they are set, they are applied as differential formats. This means that only the formats values which are not default are seen in the cells. They are not directly applied to the cells though.
+
+The cells maintain their own format and when set to non-default values, each format property of a cell will override the area formats from the table style. The following is a list of the 13 areas which can have a format applied, as defined by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestylearea.html[WorksheetTableStyleArea] enumeration. They are exposed by the `WorksheetTableStyle` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~areaformats.html[AreaFormats] collection and are listed here in order of precedence:
+
+[options="header", cols="a,a"]
+|====
+|Area Format|Description
+
+|WholeTable
+|The format applied to the entire table.
+
+|ColumnStripe
+|The format applied to the odd numbered column stripes in the table.
+
+|AlternateColumnStripe
+|The format applied to the even numbered column stripes in the table.
+
+|RowStripe
+|The format applied to the odd numbered row stripes in the table.
+
+|AlternateRowStripe
+|The format applied to the even numbered row stripes in the table.
+
+|LastColumn
+|The format applied to the last column in the table.
+
+|FirstColumn
+|The format applied to the first column in the table.
+
+|HeaderRow
+|The format applied to the header row in the table.
+
+|TotalRow
+|The format applied to the total row in the table.
+
+|FirstHeaderCell
+|The format applied to the first header cell in the table.
+
+|LastHeaderCell
+|The format applied to the last header cell in the table.
+
+|FirstTotalCell
+|The format applied to the first total cell in the table.
+
+|LastTotalCell
+|The format applied to the last total cell in the table.
+
+|====
+
+There is a similar `AreaFormats` collection on the `WorksheetTable` class which exposes formats for a different set of areas.
+
+.Note:
+[NOTE]
+====
+The Area formats on the table function differently from the area formats on the table style. While formats on the table style serve as defaults for cells in particular areas, the area formats on the table are actually applied to the currently visible cells in the table when they are not set (cells in hidden or filtered rows will not get the format applied to them). This is not different from selecting the cells in the formatted area and setting the appropriate format properties on them directly. What is different is that formats in the `AreaFormats` collection on the table will be automatically applied to new cells in the table when the table is resized to be larger.
+====
+
+In addition to area formats, the table styles define how many columns each column stripe spans and how many rows each row stripe spans. These settings are exposed through the following properties:
+
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~columnstripewidth.html[ColumnStripeWidth]
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~alternatecolumnstripewidth.html[AlternateColumnStripeWidth]
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~rowstripeheight.html[RowStripeHeight]
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle~alternaterowstripeheight.html[AlternateRowStripeHeight]
+
+If a table style is a custom table style which is later removed from the `CustomTableStyles` collection, the table will have its style set back to the current `Workbook.DefaultTableStyle`.
+
+[[_Table_Columns]]
+
+=== Table columns
+
+Each column of the table is represented by the `WorksheetTableColumn` class and the columns within each table are exposed by the read-only `WorksheetTable.Columns` collection. The table column only represents the portion of the column which exists in the table. By contrast, the entire column of a worksheet is represented by the `WorksheetColumn` class and exposed by the `Worksheet.Columns` collection.
+
+Table columns allow for various settings, which are listed in the table below:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+|`AreaFormats`
+|When area formats are set, they are applied to the currently visible cells in that area and to any new cells added.This collection exposes only three areas which can be customized: 
+
+* `DataArea` 
+
+* `HeaderCell` 
+
+* `TotalCell` 
+
+|`ColumnFormula`
+|A read-only property which exposes the formula applied to the data cells in the column. If this property is non-null and the table is resized to be larger, the new cells in the column will have this formula applied. The property is read-only because there are options which need to be supplied when it is set. 
+
+There is method link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablecolumn~setcolumnformula.html[SetColumnFormula], which allows you to modify it. `SetColumnFormula` has a Boolean parameter which allows you to decide whether to apply the new column formula to all cells in the column or only the cells with null values or formulas which match the previous column formula, if any. 
+
+.Note: 
+[NOTE] 
+==== 
+To clear a formula, use `SetColumnFormula` and pass `null` for the new formula. 
+====
+
+|`Filter`
+|This is the filter applied to the column, which is described in link:igexcelengine-filtering-tables.html[Filtering Tables (Infragistics Excel Engine)] topic.
+
+|`Name`
+|The name of the column, which is a case-insensitively unique name among the other columns in the same table. 
+
+.Note: 
+[NOTE] 
+==== 
+If the table has a header row visible, this property is linked to the value of the column’s header cell. Modifying one will change the other as well. 
+====
+
+|`SortCondition`
+|This is the sort condition used to sort the cells in the column, which is described in the link:igexcelengine-sorting-tables.html[Sorting Tables (Infragistics Excel Library)] topic.
+
+|`TotalFormula`
+|This is a formula to apply to the total cell. 
+
+.Note: 
+[NOTE] 
+==== 
+When the totals row is visible in the owning table, this property is linked to the formula of the column’s total cell. Modifying one will change the other as well. 
+==== 
+
+When the totals row is not visible, this property determines what the formula will be the next time it is made visible.
+
+|`TotalLabel`
+|Similar to the `TotalFormula`, but the property represents a string not a formula. Only one label can be set, setting the one clears the other.
+
+|====
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-using-the-infragistics-excel-engine.html[Using the Infragistics Excel Engine]
+|This section is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by the Infragistics Excel Engine.
+
+| link:igexcelengine-filtering-tables.html[Filtering Tables (Infragistics Excel Engine)]
+|This topic describes how to filter columns in exported tables. Columns in a table can be filtered by applying a filter condition to the `WorksheetTableColumn.Filter` property.
+
+| link:igexcelengine-sorting-tables.html[Sorting Tables (Infragistics Excel Engine)]
+|This topic describes how to sort columns in exported tables. Columns in a table can be sorted by applying a sort condition to the `WorksheetTableColumn.SortCondition` property.
+
+| link:igexcelengine-retrieving-the-cell-text-as-displayed-in-excel-get-cell-text.html[Retrieving the Cell Text as Displayed in Excel (Infragistics Excel Engine)]
+|This topic describes how to determine the text that would be displayed in Microsoft Excel® cell given the cell’s value, format string, column width, and worksheet options. You can determine the cell text using the `WorksheetCell.GetText` method.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/infragistics-excel/named-tables[Named Tables]
+|This sample demonstrates way of working with Named Tables in Excel. You can format worksheet regions as tables, you can specify a name for each table and get table by name, and you can specify a style to apply to a table. You can get and set sort conditions and filters for each column of a table. You can specify different options - table style, column sort directions, column filters, and save the Excel file to see the applied settings
+
+|====

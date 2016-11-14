@@ -1,0 +1,56 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-exclude-datapresenter-settings-when-exporting",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Exporting"],
+    "guid": "{DFB7AB91-C702-427C-BE14-B3AF37C0D604}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1909913Z"
+}
+|metadata|
+////
+
+= Exclude DataPresenter Settings when Exporting
+
+When you export a DataPresenter control to Microsoft® Excel®, the resulting file is based on how your end users interact with the DataPresenter control before exporting. For example, if your end user sorts a field, the exporter will export the records using their current sort order. However, you can exclude a DataPresenter control's settings by passing in an link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.exportoptions.html[ExportOptions] object to the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter.html[DataPresenterExcelExporter] object's link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~export.html[Export] method.
+
+The ExportOptions object exposes several properties that allow you to manipulate aspects of the exporting process. For example, if your end users sort records and you do not want the worksheet's rows to be sorted, you can set the ExportOptions object's link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.exportoptions~excludesortorder.html[ExcludeSortOrder] property to True and pass it into the Export method.
+
+The following example code demonstrates how to exclude a DataPresenter control's sort order when exporting to Excel.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter.ExcelExporter
+Imports Infragistics.Documents.Excel
+...
+Dim exporter As New DataPresenterExcelExporter()
+Dim options As New ExportOptions With {.ExcludeSortOrder = True}
+exporter.Export(Me.xamDataPresenter1, "xamDataPresenter1.xls", WorkbookFormat.Excel97To2003, options)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter.ExcelExporter;
+using Infragistics.Documents.Excel;
+...
+DataPresenterExcelExporter exporter = new DataPresenterExcelExporter();
+ExportOptions options = new ExportOptions
+{
+    ExcludeSortOrder = true
+};
+exporter.Export(this.xamDataPresenter1, "xamDataPresenter1.xls", WorkbookFormat.Excel97To2003, options);
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-export-a-datapresenter-control-to-excel.html[Export a DataPresenter Control to Excel]
+
+link:xamdatapresenter-apply-formats-for-exporting.html[Apply Formats for Exporting]
+
+link:xamdatapresenter-handle-exporting-events.html[Handle Exporting Events]

@@ -1,0 +1,23 @@
+﻿////
+|metadata|
+{
+    "name": "xamcomboeditor-working-with-the-isalwaysineditmode-property-and-the-editors",
+    "tags": ["How Do I"],
+    "controlName": ["xamComboEditor"],
+    "guid": "0a09c6dc-a850-47e2-a10e-d41c5da7395f",
+    "buildFlags": [],
+    "createdOn": "2015-09-24T13:16:27.3651937Z"
+}
+|metadata|
+////
+
+= Working with the IsAlwaysInEditMode Property and the Editors (xamComboEditor)
+
+The {ProductName} editor's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~isalwaysineditmode.html[IsAlwaysInEditMode] property defaults to True; however, the IsAlwaysInEditMode property is ignored when the editor is embedded in another control (i.e., ValuePresenter for a xamDataGrid™, xamDataCarousel™, xamDataPresenter™). Therefore, when the control is loaded, the editor enters edit mode and remains in edit mode even when it loses focus.
+
+When the IsAlwaysInEditMode property is set to False, or the editor is hosted inside another control, it enters edit mode when it receives focus and exits edit mode when it loses focus. The exception to this rule is when an editor contains an invalid value and the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~invalidvaluebehavior.html[InvalidValueBehavior] property is set to RetainValue. In this case, the editor remains in edit mode since the editor can not have an invalid value while not in edit mode. In addition, when the IsAlwaysInEditMode is set to False, the following four events are raised:
+
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~editmodestarting_ev.html[EditModeStarting]
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~editmodestarted_ev.html[EditModeStarted]
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~editmodeending_ev.html[EditModeEnding]
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~editmodeended_ev.html[EditModeEnded]

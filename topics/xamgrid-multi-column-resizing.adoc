@@ -1,0 +1,69 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-multi-column-resizing",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","Layouts"],
+    "guid": "{3B6EA0F1-CD63-4469-B5D8-70AEB0514184}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.8351643Z"
+}
+|metadata|
+////
+
+= Multi-Column Resizing
+
+The xamGrid™ control allows your end user to resize more than one column at once. To do this you must select multiple columns and then resize one of the selected columns. All the selected columns will then resize to the same width.
+
+You must enable selection to use multi-column resizing. For more information, see the link:xamgrid-selection.html[Selection] topic.
+
+To enable this, you can set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings.html[ColumnResizingSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings~allowmultiplecolumnresize.html[AllowMultipleColumnResize] property to True.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="MyGrid">
+    <ig:XamGrid.ColumnResizingSettings>
+        <ig:ColumnResizingSettings AllowColumnResizing="Indicator" 
+                                   AllowMultipleColumnResize="True"/>
+    </ig:XamGrid.ColumnResizingSettings>
+   <!-- Enable Column Selection -->
+   <ig:XamGrid.SelectionSettings>
+       <ig:SelectionSettings CellSelection="Multiple" 
+                             ColumnSelection="Multiple" RowSelection="Multiple"/>
+   </ig:XamGrid.SelectionSettings>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+Me.MyGrid.ColumnResizingSettings.AllowMultipleColumnResize = True
+' Enable Column Selection
+Me.MyGrid.SelectionSettings.ColumnSelection = SelectionType.Multiple
+----
+
+*In C#:*
+
+----
+this.MyGrid.ColumnResizingSettings.AllowMultipleColumnResize = true;
+// Enable Column Selection
+this.MyGrid.SelectionSettings.ColumnSelection = SelectionType.Multiple;
+----
+
+== *Related Topics*
+
+link:xamgrid-column-resizing.html[Column Resizing]
+
+link:xamgrid-resize-in-the-cell-area.html[Resize Cells in the Cell Area]
+
+link:xamgrid-auto-size-columns-using-mouse-clicks.html[Auto Size Columns Using Mouse Clicks]
+
+link:xamgrid-set-columns-maximum-and-minimum-widths.html[Set Column's Maximum and Minimum Widths]
+
+link:xamgrid-disable-resizing-of-certain-columns.html[Disable Resizing of Certain Columns]
+
+link:xamgrid-column-resizing-events.html[Column Resizing Events]
+
+pick:[win-rt=" link:bb45cdbe-7149-49bc-a63a-1a77676c6986[Touch Support]"]

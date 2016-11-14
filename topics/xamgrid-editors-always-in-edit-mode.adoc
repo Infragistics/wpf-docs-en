@@ -1,0 +1,122 @@
+﻿////
+|metadata|
+{
+    "name": "xamgrid-editors-always-in-edit-mode",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Getting Started","Grids","Selection"],
+    "guid": "c773dcc6-43e5-45f0-b869-6eeac9ed7e32",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.4101968Z"
+}
+|metadata|
+////
+
+= xamGrid Editors Always in Edit Mode
+
+In some cases, users may need fields in the xamGrid control that are always in edit mode so no additional keystrokes or interactions are required to change their content.
+
+The always in edit mode feature provides quick editing for three column types in the xamGrid control:
+
+ifdef::sl,wpf[]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.datecolumn.html[DateColumn]
+
+endif::sl,wpf[]
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.comboboxcolumn.html[ComboBoxColumn] ( link:xamgrid-comboboxcolumn-column.html[ComboBoxColumn Column])
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.checkboxcolumn.html[CheckBoxColumn]
+
+ifdef::sl,wpf[]
+* link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn.html[MultiColumnComboColumn]
+
+endif::sl,wpf[]
+
+* link:{ApiPlatform}controls.grids.datetimecolumn.v{ProductVersion}~infragistics.controls.grids.datetimecolumn.html[DateTimeColumn]
+
+In order to have editors always in the edit mode, set the CustomDisplayEditableColumn property’s EditorDisplayBehavior to “Always”.
+
+The table below explains the property and lists its settings.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Type|Description|Possible Values
+
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.customdisplayeditablecolumn~editordisplaybehavior.html[ _EditorDisplayBehavior_ ]
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editordisplaybehaviors.html[EditorDisplayBehaviors]
+|This property defines the behavior and display of the editor in the editable columns.
+|Default 
+
+Always 
+
+EditMode
+
+|====
+
+[options="header", cols="a,a,a"]
+|====
+|Property|Value|Description
+
+|EditorDisplayBehavior
+|Default
+|The default behavior. 
+
+* *If the xamGrid editing feature is not enabled:* The editor is not enabled. 
+
+*If the xamGrid editing feature is enabled:*
+
+The editor behavior is defined by the xamGrid editing settings. 
+
+|Always
+|The editor is always in edit mode, accessible and visible regardless if the xamGrid editing feature is enabled or not.
+
+|EditMode
+|
+* *If the xamGrid editing feature is not enabled:* 
+
+The editor is hidden and its content is displayed as a Text Block. 
+
+*If the xamGrid editing feature is enabled:*
+
+The editor is hidden and its content is displayed as a Text Block. The editor will appear in edit mode after a keystroke or user interaction depending on the xamGrid editing settings you have specified. 
+
+|====
+
+== Code Example
+
+=== Example description
+
+The code below demonstrates how to configure an editor to be always in edit mode:
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="dataGrid" AutoGenerateColumns=">
+    <ig:XamGrid.Columns>
+        <ig:DateTimeColumn Key="dateColumn" EditorDisplayBehavior="Always"/>
+        <!-- Add more columns here -->
+    </ig:XamGrid.Columns>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+TryCast(dataGrid.Columns.DataColumns("dateColumn"),CustomDisplayEditableColumn).EditorDisplayBehavior=EditorDisplayBehaviors.Always
+----
+
+*In C#:*
+
+----
+(dataGrid.Columns.DataColumns["dateColumn"] as CustomDisplayEditableColumn).EditorDisplayBehavior=EditorDisplayBehaviors.Always;
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:xamgrid-editing-data.html[Editing Data]
+* link:xamgrid-columns.html[Columns]
+
+ifdef::win-rt[]
+* link:xamgrid-touch-support.html[Touch Support]
+
+endif::win-rt[]

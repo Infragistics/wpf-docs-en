@@ -1,0 +1,362 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-events-and-commands",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Commands","Editing","Events"],
+    "guid": "32a964e1-a195-4c82-824e-d535d3be6938",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3823929Z"
+}
+|metadata|
+////
+
+= Events and Commands (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic lists the events and supported commands available to you, while building your  _xamSyntaxEditor™_   applications.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref329012372, Introduction >>
+* <<_Ref329012540, Events >>
+** <<_Ref329012562,XamSyntaxEditor Events>>
+** <<_Ref329012576,DocumentViewBase Events>>
+** <<_Ref329012594,EditorDocumentView Events>>
+** <<_Ref329012639,TextDocument Events>>
+
+* <<_Ref329012650, Commands >>
+** <<_Ref329012663,Clipboard Commands>>
+** <<_Ref329012674,Undo / Redo Commands>>
+** <<_Ref329012685,Splitting Commands>>
+
+* <<_Ref329012695, Related Content >>
+
+[[_Introduction]]
+[[_Ref329012372]]
+== Introduction
+
+=== Introduction to the Events and Commands
+
+This topic lists the available  _xamSyntaxEditor’s_   events and supported commands.
+
+.Note
+[NOTE]
+====
+Look at the following two topics for more information about commands:
+
+* link:xamsyntaxeditor-clipboard-support.html[Clipboard Support]
+* link:xamsyntaxeditor-undo-redo.html[Undo / Redo]
+
+====
+
+[[_Events]]
+[[_Ref329012540]]
+== Events
+
+=== Events summary chart
+
+[options="header", cols="a,a"]
+|====
+|Event Groups|Details
+
+|<<_Ref329012562,XamSyntaxEditor Events>>
+|The x _amSyntaxEditor_ is the main class providing text editing and syntax highlighting.
+
+|<<_Ref329012576,DocumentViewBase Events>>
+|This is the abstract base class for the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview_members.html[EditorDocumentView] class.
+
+|<<_Ref329012594,EditorDocumentView Events>>
+|Use this class to represent the editable areas of the _xamSyntaxEditor_ (only one or two areas are supported).
+
+|<<_Ref329012639,TextDocument Events>>
+|This class represents the document and exposes methods for its manipulation.
+
+|====
+
+[[_XamSyntaxEditor_Events]]
+[[_Ref329012562]]
+== XamSyntaxEditor Events
+
+=== Overview
+
+The following table lists the events available in the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor_members.html[XamSyntaxEditor] class.
+
+=== Events
+
+[options="header", cols="a,a"]
+|====
+|Event|Description
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~activedocumentviewchanged_ev.html[ActiveDocumentViewChanged]
+|Raised whenever the `ActiveDocumentView` changes.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~documentchanged_ev.html[DocumentChanged]
+|Raised whenever the `TextDocument` assigned to the _xamSyntaxEditor_ control changes.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~selectionchanged_ev.html[SelectionChanged]
+|Raised whenever the range or position of the selected text in the active view changes.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~splitstatuschanged_ev.html[SplitStatusChanged]
+|Raised whenever the number of views changes (for example adding or removing a split.).
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~viewloaded_ev.html[ViewLoaded]
+|Raised whenever a new `DocumentViewBase` loads because of a splitting.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~viewunloaded_ev.html[ViewUnloaded]
+|Raised whenever a `DocumentViewBase` is removed because of removing a split.
+
+|====
+
+[[_DocumentViewBase_Events]]
+[[_Ref329012576]]
+== DocumentViewBase Events
+
+=== Overview
+
+The following table lists the event available in the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase] class.
+
+=== Events
+
+[options="header", cols="a,a"]
+|====
+|Event|Description
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[LayoutChanged]
+|Raised whenever the view’s set of visible lines changes in anyway. The argument supplied to this event exposes properties that let you enumerate through the lists of lines that were deleted, added or translated (i.e., moved) during the last layout pass. You will most likely add handlers for this event in your link:xamsyntaxeditor-custom-margins.html[custom margins] so that you can adjust your content appropriately, should modification occur to the set of visible lines.
+
+|====
+
+[[_EditorDocumentView_Events]]
+[[_Ref329012594]]
+== EditorDocumentView Events
+
+=== Overview
+
+The following table lists the events available in the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview_members.html[EditorDocumentView] class.
+
+=== Events
+
+[options="header", cols="a,a"]
+|====
+|Event|Description
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview~activated_ev.html[Activated]
+|Raised whenever the view becomes the active view (that is to say, when the view receives focus).
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview~deactivated_ev.html[Deactivated]
+|Raised whenever a view loses the focus to the other view in a split.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview~selectionchanged_ev.html[SelectionChanged]
+|Raised when the range or position of selected text in the view changes.
+
+|====
+
+[[_TextDocument_Events]]
+[[_Ref329012639]]
+== TextDocument Events
+
+=== Overview
+
+The following table lists the events available in the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument] class.
+
+=== Events
+
+[options="header", cols="a,a"]
+|====
+|Event|Details
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~propertychanged_ev.html[PropertyChanged]
+|Raised whenever a property has been changed on the `TextDocument`, for example - link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~currentsnapshot.html[CurrentSnapshot], link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~syntaxtree.html[Syntaxtree] etc.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~textchanging_ev.html[TextChanging]
+|Raised before applying any changes to the document. This event may be canceled if its link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textchangingeventargs~cancancel.html[CanCancel] property returns true (which it does unless the source of the change is an undo or redo operation). It exposes before and after link:xamsyntaxeditor-working-with-snapshots.html[snapshots] along with a list of the changes.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~textchanged_ev.html[TextChanged]
+|Raised after applying changes to the document. It exposes the before and after snapshots as well as the list of changes.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~textloaded_ev.html[TextLoaded]
+|Raised whenever the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~load.html[Load] or link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~initializetext.html[InitializeText] methods are invoked. Changing the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~language.html[Language] of a TextDocument that contains text will also raise this event.
+
+|====
+
+[[_Commands]]
+[[_Ref329012650]]
+== Commands
+
+=== Commands summary chart
+
+[options="header", cols="a,a"]
+|====
+|Commands|Details
+
+|<<_Ref329012663,Clipboard Commands>>
+|All available Clipboard support commands
+
+|<<_Ref329012674,Undo / Redo Commands>>
+|All available Undo / Redo commands.
+
+|<<_Ref329012685,Splitting Commands>>
+|All available Splitting commands.
+
+|====
+
+[[_Clipboard_Commands]]
+[[_Ref329012663]]
+== Clipboard Commands
+
+=== Overview
+
+The following table lists the commands available for the clipboard support.
+
+=== Commands
+
+[options="header", cols="a,a"]
+|====
+|Command|Details
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[Cut]
+|Perform a Clipboard Cut operation.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[Copy]
+|Perform a Clipboard Copy operation.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[Paste]
+|Perform a Clipboard Paste operation.
+
+|====
+
+.Note
+[NOTE]
+====
+More information about the Clipboard commands is available in the link:xamsyntaxeditor-clipboard-support.html[Clipboard Support] topic.
+====
+
+[[_Undo_/_Redo]]
+[[_Ref329012674]]
+== Undo / Redo Commands
+
+=== Overview
+
+The following table lists all of the available Undo / Redo commands.
+
+=== Commands
+
+[options="header", cols="a,a"]
+|====
+|Command|Details
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[Undo]
+|Perform an Undo operation.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[Redo]
+|Perform a Redo operation.
+
+|====
+
+.Note
+[NOTE]
+====
+More information about the Undo / Redo commands is available in the link:xamsyntaxeditor-undo-redo.html[Undo / Redo] topic.
+====
+
+[[_Splitting_Commands]]
+[[_Ref329012685]]
+== Splitting Commands
+
+=== Overview
+
+The following table lists the commands available for the  _xamSyntaxEditor’s_   Splitting support.
+
+=== Commands
+
+[options="header", cols="a,a"]
+|====
+|Command|Details
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[SplitAreaVertically]
+|Vertically splits the _xamSyntaxEditor_ into two views.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[SplitAreaHorizontally]
+|Horizontally splits the _xamSyntaxEditor_ into two views.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[RemoveSplitFromEditArea]
+|Removes the top or left view from the _xamSyntaxEditor_ .
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[AllowEditAreaVerticalSplits]
+|Only allows vertical splitting.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[AllowEditAreaHorizontalSplits]
+|Only allows horizontal splitting.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[AllowEditAreaVerticalAndHorizontalSplits]
+|Allow both horizontal and vertical splitting.
+
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditorcommandtype.html[DontAllowEditAreaSplitting]
+|Disallow all splitting.
+
+|====
+
+.Note
+[NOTE]
+====
+More information about the splitting commands is available in the link:xamsyntaxeditor-splitting.html[Splitting] topic.
+====
+
+[[_Related_Content]]
+[[_Ref329012695]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-clipboard-support.html[Clipboard Support]
+|This topic explains the supported clipboard operations provided by the _xamSyntaxEditor_ control.
+
+| link:xamsyntaxeditor-splitting.html[Splitting]
+|This topic will help you understand the document splitting capability of the _xamSyntaxEditor_ and how to customize it.
+
+| link:xamsyntaxeditor-undo-redo.html[Undo / Redo]
+|This topic explains the _xamSyntaxEditor_ control's Undo and Redo operations.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/commanding[Commanding]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/commanding[Commanding]"] 
+|This sample demonstrates which _xamSyntaxEditor_ commands are available when using the Infragistics' Commanding Framework.
+
+|====

@@ -1,0 +1,189 @@
+﻿////
+
+|metadata|
+{
+    "name": "external-sorting-filtering-grouping-summaries-overview-xamdatagrid",
+    "controlName": ["xamDataGrid"],
+    "tags": ["Calculations","Filtering","Grids","Grouping","Sorting"],
+    "guid": "fbf93767-afe9-4760-9b77-5c932e2b1ea3",  
+    "buildFlags": [],
+    "createdOn": "2012-09-12T11:48:33.2286081Z"
+}
+|metadata|
+////
+
+= External Sorting Filtering Grouping Summaries Overview (xamDataGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatagrid_members.html[XamDataGrid] feature for External Sorting, Filtering, Grouping and Summaries.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:wpf-about-the-data-presenter-family.html[About the Data Presenter Family]
+|The Data Presenter Family is the grouping for the {ProductName} data-driven controls.
+
+| link:xamdatagrid-understanding-xamdatagrid.html[About xamDataGrid]
+|The xamDataGrid™ control uses the GridView and arranges data in columns and rows.
+
+| link:xamdatagrid-using-xamdatagrid.html[Using xamDataGrid]
+|This section is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by xamDataGrid control.
+
+| link:xamdatagrid-sorting.html[Sorting]
+|This serves as a starting point with links to specific topics about the sort functionality using the xamDataGrid control.
+
+| link:xamdatagrid-grouping.html[Grouping]
+|This serves as a starting point with links to specific topics about the grouping functionality using the xamDataGrid control.
+
+|====
+
+== Introduction
+
+=== Introduction to the xamDataGrid external sorting, filtering, grouping and summaries
+
+XamDataGrid feature for external sorting, filtering, grouping and summaries allows you to offload those operations to an external source. By default, sorting, filtering, grouping and summary calculations are performed internally by the data presenter. Although the internal processing allows data presenter to integrate tightly those operations with its’ own object model and UI, there are advantages for performing those operations externally.
+
+[options="header", cols="a,a"]
+|====
+|Cases|Description
+
+|Avoiding performance impact in terms of memory allocation
+|The internal process of sorting, filtering, grouping and summary calculations requires the data presenter to allocate `DataRecord` objects for all of the data items that are part of the operation. 
+
+This can have an adverse performance impact in terms of memory allocation as well as initial CPU time taken by the process of allocation of the data record objects. 
+
+One advantage of performing the operations externally is better performance.
+
+|Using native XamDataGrid UI with external data source
+|With external process the data source inherits ICollectionView, any sorting, filtering and grouping operations performed on the view can be reflected in the UI of the data presenter. 
+
+Any changes made to sort, filter or grouping criteria through the data presenter UI will be reflected in the underlying link:http://msdn.microsoft.com/en-us/library/ms644316[ICollectionView] as well.
+
+|Bound `ICollectionView` instance to other View control
+|You can bind the same `ICollectionView` instance to other view controls. This will reflect the sorting, filtering and grouping criteria applied via data presenter UI.
+
+|Data Presenter will synchronize its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~sortedfields.html[SortedFields] when link:http://msdn.microsoft.com/en-us/library/system.componentmodel.icollectionview.sortdescriptions[SortDescriptions] and/or link:http://msdn.microsoft.com/en-us/library/system.componentmodel.icollectionview.groupdescriptions[GroupDescriptions] are modified externally
+|When the `SortDescription` and `GroupDescriptions` of `ICollectionView` are modified externally, the data presenter will be notified of the changes and synchronize its `SortedFields` collection to reflect the changes. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Only the root field’s layout support external processing and not child field layouts, as there are multiple collection views for a child field layout. 
+
+====
+
+|Performing operations remotely
+|It is possible to perform sorting, filtering, grouping and summary calculations on a server. The function of the data presenter will be to show the results only, and its UI will be used for generating the commands for sorting, filtering, grouping and summaries on the server.
+
+|====
+
+== Main Features Summary
+
+=== Main features summary chart
+
+The following table summarizes the main features of the xamDataGrid external sorting, filtering, grouping and summaries.
+
+[options="header", cols="a,a"]
+|====
+|Feature|Description
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~sortevaluationmode.html[SortEvaluationMode]
+|`SortEvaluationMode` property on link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings_members.html[FieldLayoutSettings]. This enumeration has the following options: 
+
+* _Default_ 
+
+* _Auto_ 
+
+* _Manual_ 
+
+* _UseCollectinView_ 
+
+To use external sorting, you should set the _UseCollectionView_ option. You can find further information about external sorting in the following topic: link:xamdatagrid-external-sorting.html[External Sorting]
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~filterevaluationmode.html[FilterEvaluationMode]
+|`FilterEvaluationMode` property on FieldLayoutSettings. This enumeration has the following options: 
+
+* _Default_ 
+
+* _Auto_ 
+
+* _Manual_ 
+
+* _UseCollectinView_ 
+
+To use external filtering, you should set the _UseCollectionView_ option. You can find further information about external filtering the following topic: link:xamdatagrid-external-filtering.html[External Filtering]
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~groupbyevaluationmode.html[GroupByEvaluationMode]
+|`GroupByEvaluationMode` property on FieldLayoutSettings. This enumeration has the following options: 
+
+* _Default_ 
+
+* _Auto_ 
+
+* _UseCollectinView_ 
+
+To use external grouping, you should set the _UseCollectionView_ option. You can find further information about external grouping in the following topic: link:xamdatagrid-external-grouping.html[External Grouping]
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~summaryevaluationmode.html[SummaryEvaluationMode]
+|`SummaryEvaluationMode` property on FieldLayoutSettings. This enumeration has the following options: 
+
+* _Default_ 
+
+* _Auto_ 
+
+* _Manual_ 
+
+* _UseLINQ_ 
+
+To use external aggregation, you should set the _UseLINQ_ option. You can find further information in the following topic: link:xamdatagrid-external-summary-calculations.html[External Summary Calculations]
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~querysummaryresult_ev.html[QuerySummaryResult]
+|`QuerySummaryResult` event on link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase_members.html[DataPresenterBase]. This event will be raised when the data presenter is about to calculate a summary result. 
+
+You can find further information in the following topic: link:xamdatagrid-external-summary-calculations.html[External Summary Calculations]
+
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.querysummaryresulteventargs_members.html[QuerySummaryResultEventArgs]
+|`QuerySummaryResultEventArgs` class exposes the following properties and methods: 
+
+* _Summary_ 
+
+* _SetSummaryValue_ 
+
+You can find further information in the following topic: link:xamdatagrid-external-summary-calculations.html[External Summary Calculations]
+
+|====
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-external-sorting.html[External Sorting]
+|This topic explains the external process of sorting the records in _XamDataGrid_ control.
+
+| link:xamdatagrid-external-filtering.html[External Filtering]
+|This topic explains the external process of Filtering the records in _XamDataGrid_ control.
+
+| link:xamdatagrid-external-grouping.html[External Grouping]
+|This topic explains how to use external grouping with _XamDataGrid._
+
+| link:xamdatagrid-external-summary-calculations.html[External Summary Calculations]
+|This topic explains the external summary calculation feature of _xamDataGrid_ .
+
+|====

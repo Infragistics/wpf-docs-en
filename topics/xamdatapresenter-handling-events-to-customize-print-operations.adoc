@@ -1,0 +1,381 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-handling-events-to-customize-print-operations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Events","Printing"],
+    "guid": "{8A478093-9270-431D-9677-FEE63F8E9A6F}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2239979Z"
+}
+|metadata|
+////
+
+= Handling Events to Customize Print Operations
+
+== Before You Begin
+
+The WPF Reporting engine prints/exports the DataPresenter control's state exactly as-is when you invoke the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~print.html[Print] or link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~export.html[Export] method of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object. The resulting printout or exported file is based on how your end users interact with the DataPresenter control before printing or exporting.
+
+Fortunately, the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection.html[EmbeddedVisualReportSection] object exposes paging-related events that you can handle to retrieve a reference to a copy of the DataPresenter control that the WPF Reporting engine is printing/exporting. You can use this reference to set the DataPresenter control's properties or to attach event handlers to events exposed by the DataPresenter control. In particular, you can handle the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized event] or the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event to set field/field layout properties or record properties, respectively. Since the reference to the DataPresenter control is a copy, setting properties on the copy will not modify the DataPresenter control on the user interface.
+
+== What You Will Accomplish
+
+You will handle a pair of events off the EmbeddedVisualReportSection object to get a reference to the copy of the xamDataGrid control that the WPF Reporting engine is going to print/export. Once you have a reference to the DataPresenter control in the event handlers, you will add an event handler to the DataPresenter control's InitializeRecord event so you can hide every even-numbered record. Finally, you will remove the event handlers for DataPresenter control's InitializeRecord event, as well as the pair of events for the EmbeddedVisualReportSection object.
+
+The example code also refers to the xamDataGrid control when creating an EmbeddedVisualReportSection object; however, you can replace that with the xamDataPresenter control or the xamDataCarousel control. The example code does not demonstrate or explain link:xamdata-displaying-hierarchical-data.html[binding xamDataGrid to hierarchical data], link:xamdatagrid-getting-started-with-xamdatagrid.html[Adding xamDataGrid to Your Page], or the individual steps for link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page] using the xamDataGrid control.
+
+== Follow these Steps
+
+[start=1]
+. Open the code-behind and place using/Imports directives in your code-behind so you don't have to type out a member's fully qualified name.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.Reporting
+Imports Infragistics.Windows.Reporting.Events
+Imports Infragistics.Windows.DataPresenter
+Imports Infragistics.Windows.DataPresenter.Events
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.Reporting;
+using Infragistics.Windows.Reporting.Events;
+using Infragistics.Windows.DataPresenter;
+using Infragistics.Windows.DataPresenter.Events;
+----
+
+[start=2]
+. Create a report using a xamDataGrid control.
++
+The example code assumes your using a xamDataGrid control is named xamDataGrid1.
++
+.Note
+[NOTE]
+====
+With the exception of the event handlers (e.g., link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection~paginationstarting_ev.html[PaginationStarting], link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection~paginationended_ev.html[PaginationEnded], InitializeRecord), you can add the example code inside an event handler such as a Button control's click event.
+====
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    Dim report1 As New Report()
+    Dim section1 As New EmbeddedVisualReportSection(Me.xamDataGrid1)
+    report1.Sections.Add(section1)
+    'TODO: Attach event handlers to section1
+    'TODO: Print or export the report
+    'TODO: Remove event handlers from section1
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    Report report1 = new Report();
+    EmbeddedVisualReportSection section1 = new EmbeddedVisualReportSection(this.xamDataGrid1);
+    report1.Sections.Add(section1);
+    //TODO: Attach event handlers to section1
+    //TODO: Print or export the report
+    //TODO: Remove event handlers from section1
+}
+----
+
+[start=3]
+. Attach an event handler to the EmbeddedVisualReportSection object's PaginationStarting event.
++
+The EmbeddedVisualReportSection object raises the PaginationStarting event when you invoke the Report object's Print or Export method.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+AddHandler section1.PaginationStarting, New EventHandler(Of EmbeddedVisualPaginationEventArgs)(AddressOf section1_PaginationStarting)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+section1.PaginationStarting += new EventHandler<EmbeddedVisualPaginationEventArgs>(section1_PaginationStarting);
+----
+
+[start=4]
+. Attach an event handler to the EmbeddedVisualReportSection object's PaginationEnded event.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+AddHandler section1.PaginationEnded, New EventHandler(Of EmbeddedVisualPaginationEventArgs)(AddressOf section1_PaginationEnded)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+section1.PaginationEnded += new EventHandler<EmbeddedVisualPaginationEventArgs>(section1_PaginationEnded);
+----
+
+[start=5]
+. Print the report.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+report1.Print()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+report1.Print();
+----
+
+[start=6]
+. Remove the event handler for the PaginationStarting event from the EmbeddedVisualReportSection object.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+RemoveHandler section1.PaginationStarting, AddressOf section1_PaginationStarting
+----
++
+*In C#:*
++
+[source,csharp]
+----
+section1.PaginationStarting -= section1_PaginationStarting;
+----
+
+[start=7]
+. Remove the event handler for the PaginationEnded event from the EmbeddedVisualReportSection object.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+RemoveHandler section1.PaginationEnded, AddressOf section1_PaginationEnded
+----
++
+*In C#:*
++
+[source,csharp]
+----
+section1.PaginationEnded -= section1_PaginationEnded;
+----
+
+[start=8]
+. Locate the PaginationStarting event handler.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub section1_PaginationStarting(ByVal sender As Object, ByVal e As EmbeddedVisualPaginationEventArgs)
+    'TODO: TryCast e.VisualPaginator to a DataPresenterBase class
+    'TODO: Attach events to the xamDataGrid control
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void section1_PaginationStarting(object sender, EmbeddedVisualPaginationEventArgs e)
+{
+    //TODO: Try to cast e.VisualPaginator to a DataPresenterBase class
+    //TODO: Attach events to the xamDataGrid control
+}
+----
+
+[start=9]
+. Try to cast the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.events.embeddedvisualpaginationeventargs.html[EmbeddedVisualPaginationEventArgs] object's link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.events.embeddedvisualpaginationeventargs~visualpaginator.html[VisualPaginator] property to a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataBasePresenter] class.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim presenter As DataPresenterBase = TryCast(e.VisualPaginator, DataPresenterBase)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DataPresenterBase presenter = e.VisualPaginator as DataPresenterBase;
+----
+
+[start=10]
+. If the cast was successful, attach an event handler to the DataPresenterBase object's InitializeRecord event.
++
+You can also attach event handlers to other events exposed by the DataPresenterBase class.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+If presenter IsNot Nothing
+    AddHandler presenter.InitializeRecord, New EventHandler(Of InitializeRecordEventArgs)(AddressOf presenter_InitializeRecord)
+    'Note: You can also attach event handlers to other events exposed by the DataPresenterBase class.
+End If
+----
++
+*In C#:*
++
+[source,csharp]
+----
+if(presenter != null)
+{
+    presenter.InitializeRecord += new EventHandler<InitializeRecordEventArgs>(presenter_InitializeRecord);    
+    //Note: You can also attach event handlers to other events exposed by the DataPresenterBase class.
+}
+----
+
+[start=11]
+. Locate the PaginationEnded event handler.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub section1_PaginationEnded(ByVal sender As Object, ByVal e As EmbeddedVisualPaginationEventArgs)
+    'TODO: Try to cast e.VisualPaginator to a DataPresenterBase class
+    'TODO: If the cast is successful, remove event handlers from the DataPresenterBase object.
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void section1_PaginationEnded(object sender, EmbeddedVisualPaginationEventArgs e)
+{
+    //TODO: Try to cast e.VisualPaginator to a DataPresenterBase class.
+    //TODO: If the cast is successful, remove event handlers from the DataPresenterBase object.
+}
+----
+
+[start=12]
+. Try to cast the EmbeddedVisualPaginationEventArgs object's VisualPaginator property to a DataPresenterBase class.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim presenter As DataPresenterBase = TryCast(e.VisualPaginator, DataPresenterBase)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DataPresenterBase presenter = e.VisualPaginator as DataPresenterBase;
+----
+
+[start=13]
+. If the cast was successful, remove the event handler from the DataPresenterBase object's InitializeRecord event.
++
+If you have registered for any other events exposed by the DataPresenterBase class, remove the event handlers from those events as well.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+If presenter IsNot Nothing
+    RemoveHandler presenter.InitializeRecord, AddressOf presenter_InitializeRecord
+    'Make sure you remove event handlers from the events exposed by the DataPresenterBase class
+End If
+----
++
+*In C#:*
++
+[source,csharp]
+----
+if (presenter != null)
+{
+    presenter.InitializeRecord -= presenter_InitializeRecord;
+    //Make sure you remove event handlers from the events exposed by the DataPresenterBase class    
+}
+----
+
+[start=14]
+. Locate the InitializeRecord event handler.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub presenter_InitializeRecord(ByVal sender As Object, ByVal e As InitializeRecordEventArgs)
+    'TODO: Expand records whose index % 2 is 0
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void presenter_InitializeRecord(object sender, InitializeRecordEventArgs e)
+{
+    //TODO: Expand records whose index % 2 is 0
+}
+----
+
+[start=15]
+. If the record is an even-numbered record, hide it by setting its Visibility property to Collapsed.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+If e.Record.Index Mod 2 = 0 Then 
+    e.Record.Visibility = Visibility.Collapsed
+End If
+----
++
+*In C#:*
++
+[source,csharp]
+----
+if (e.Record.Index % 2 == 0)
+{
+    e.Record.Visibility = Visibility.Collapsed;
+}
+----
+
+[start=16]
+. Run your project.
++
+When you print the xamDataGrid control, the WPF Reporting engine will only print the odd-numbered records.
+
+== Related Topics
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-printing.html[Exclude DataPresenter Settings When Printing]
+
+link:xamdatapresenter-fit-all-fields-on-a-single-page.html[Fit All Fields on a Single Page]
+
+link:xamdatapresenter-print-all-records-in-a-hierarchy.html[Print All Records in a Hierarchy]
+
+link:xamdatapresenter-repeat-field-headers-on-all-pages.html[Repeat Field Headers on All Pages]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]

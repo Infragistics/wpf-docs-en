@@ -1,0 +1,384 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-other-events-and-events-arguments",
+    "controlName": ["xamGantt"],
+    "tags": ["Events","How Do I"],
+    "guid": "b2ca08d9-d19a-4c60-93ed-418d40a2ff25",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.2901631Z"
+}
+|metadata|
+////
+
+= Other Events and Events Arguments
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes some of the available events triggered by common user interactions in the  _xamGantt_™ control.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-binding-arbitrary-tasks-collection-listbackedproject.html[Binding to Arbitrary Tasks Collection Using ListBackedProject]
+|This topic describes how the _xamGantt_ control is bound to an arbitrary tasks collection via ListBackedProject.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334532469,  _XamGantt_   Configuration Events Summary >>
+* <<_Ref334532474, Code Example: Canceling Milestones Dragging >>
+* <<_Ref334739223, Project Configuration Events Summary >>
+* <<_Ref334532485, Code Example: Confirming Task Deletion >>
+* <<_Ref334739239, Related Content >>
+
+** <<_Ref334395486,Topics>>
+** <<_Ref334395491,Samples>>
+
+[[_Ref334532469]]
+[[_Ref334390343]]
+[[_Ref334395476]]
+== _XamGantt_  Configuration Events Summary
+
+=== XamGantt configuration events summary chart
+
+The following table lists some of the events invoked while manipulating the  _xamGantt_   control user interface.
+
+These events have the suffix “ing” or “ed” appended to them, reflecting the order in which they occur.
+
+The (-ing) events are cancelable and are invoked before the (-ed) events.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this event:|The event argument exposes the following information:
+
+|Handle the value change in a grid cell
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~cellchanging_ev.html[CellChanging]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangingeventargs~cell.html[Cell] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangingeventargs~columndefinition.html[ColumnDefinition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangingeventargs~newvalue.html[NewValue] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~cellchanged_ev.html[CellChanged]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangedeventargs~cell.html[Cell] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangedeventargs~columndefinition.html[ColumnDefinition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcellchangedeventargs~oldvalue.html[OldValue] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task] 
+
+|Handle the change in column visibility
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~columnvisibilitychanging_ev.html[ColumnVisibilityChanging]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcolumnvisibilitychangingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcolumnvisibilitychangingeventargs~columndefinition.html[ColumnDefinition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcolumnvisibilitychangingeventargs~newvisibility.html[NewVisibility] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~columnvisibilitychanged_ev.html[ColumnVisibilityChanged]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcolumnvisibilitychangedeventargs~columndefinition.html[ColumnDefinition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridcolumnvisibilitychangedeventargs~oldvisibility.html[OldVisibility] 
+
+|Handle taskbars dragging
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskbardragcompleted_ev.html[TaskBarDragCompleted]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragcompletedeventargs~cancelled.html[Cancelled] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragcompletedeventargs~dragoperation.html[DragOperation] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragcompletedeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskbardragging_ev.html[TaskBarDragging]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardraggingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardraggingeventargs~dragoperation.html[DragOperation] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardraggingeventargs~dropdatetime.html[DropDateTime] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardraggingeventargs~newdatetime.html[NewDateTime] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardraggingeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskbardragstarting_ev.html[TaskBarDragStarting]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragstartingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragstartingeventargs~dragoperation.html[DragOperation] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.gantttaskbardragstartingeventargs~task.html[Task] 
+
+|====
+
+[[_Ref334532474]]
+== Code Example: Canceling Milestones Dragging
+
+=== Description
+
+The code snippet demonstrates how to disable milestones dragging.
+
+The  _link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt_members.html[XamGantt]_  link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~taskbardragging_ev.html[TaskBarDragging] event is handled in order to check if a task is a milestone and if it is – cancel its dragging.
+
+[[_Ref334532479]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:ListBackedProject x:Name="dataProvider" TaskItemsSource="{Binding Tasks}">
+    <ig:ListBackedProject.TaskPropertyMappings>
+        <!-- Add Project Task Property Mappings Here -->
+    </ig:ListBackedProject.TaskPropertyMappings>
+</ig:ListBackedProject>
+<ig:XamGantt x:Name="gantt" 
+             Project="{Binding ElementName=dataProvider}"
+             TaskBarDragging="gantt_TaskBarDragging"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+private void gantt_TaskBarDragging(object sender, GanttTaskBarDraggingEventArgs e)
+{
+    // If a task is a milestone, prevent dragging
+    if (e.Task.IsMilestone)
+    {
+        e.Cancel = true;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Private Sub gantt_TaskBarDragging(sender As Object, e As GanttTaskBarDraggingEventArgs)
+    ' If a task is a milestone, prevent dragging
+    If e.Task.IsMilestone Then
+        e.Cancel = True
+    End If
+End Sub
+----
+
+[[_Ref334739223]]
+== Project Configuration Events Summary
+
+=== Project configuration events summary chart
+
+The following table lists some of link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project] class events that are invoked while manipulating the project and project tasks.
+
+These events have the suffix “ing” or “ed” appended to them, reflecting the order in which they occur.
+
+The (-ing) events are cancelable and are invoked before the (-ed) events. Both events handlers expose information about the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask_members.html[ProjectTask] associated with the event.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this event:|The event argument exposes the following information:
+
+|Handle summary task collapsing
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskcollapsing_ev.html[TaskCollapsing]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskcollapsingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskcollapsed_ev.html[TaskCollapsed]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task]
+
+|Handle task deleting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskdeleting_ev.html[TaskDeleting]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskdeletingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskdeleted_ev.html[TaskDeleted]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task]
+
+|Handle summary task expanding
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskexpanding_ev.html[TaskExpanding]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskexpandingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskexpanded_ev.html[TaskExpanded]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task]
+
+|Handle task indenting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskindenting_ev.html[TaskIndenting]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskindentingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskindented_ev.html[TaskIndented]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task]
+
+|Handle task inserting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskinserting_ev.html[TaskInserting]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskinsertingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskinsertingeventargs~relativeposition.html[RelativePosition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskinsertingeventargs~relativetask.html[RelativeTask] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskinserted_ev.html[TaskInserted]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskinsertedeventargs~relativeposition.html[RelativePosition] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskinsertedeventargs~relativetask.html[RelativeTask] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task] 
+
+|Handle task outdenting
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskoutdenting_ev.html[TaskOutdenting]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskoutdentingeventargs~cancel.html[Cancel] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.cancellableprojecttaskeventargs~task.html[Task] 
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskoutdented_ev.html[TaskOutdented]
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskeventargs~task.html[Task]
+
+|====
+
+[[_Ref334532485]]
+== Code Example: Confirming Task Deletion
+
+=== Description
+
+The code snippet demonstrates how deleting a task may be confirmed or canceled depending on the user actions.
+
+After a right mouse click on a task in the  _xamGantt_   grid area, a context menu appears with the Delete option. If a user chooses to delete the selected task, a message box displays with two button options – OK and Cancel. If a user clicks the Cancel button, the deleting event is omitted. If the user clicks the OK button, the task is deleted.
+
+.Note
+[NOTE]
+====
+Multiple tasks can be deleted in one single operation and the code in the example executes for every deleted task.
+====
+
+[[_Ref334395481]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:ListBackedProject x:Name="dataProvider" 
+                      TaskItemsSource="{Binding Tasks}"
+                      TaskDeleting="dataProvider_TaskDeleting">
+    <ig:ListBackedProject.TaskPropertyMappings>
+        <!-- Add Project Task Property Mappings Here -->    
+    </ig:ListBackedProject.TaskPropertyMappings>
+</ig:ListBackedProject>
+<ig:XamGantt x:Name="gantt" 
+             Project="{Binding ElementName=dataProvider}" />
+----
+
+*In C#:*
+
+[source,csharp]
+----
+using Infragistics.Controls.Schedules;
+private void dataProvider_TaskDeleting(object sender, ProjectTaskDeletingEventArgs e)
+{
+string msg = String.Format("Are you sure you want to delete {0} task?", e.Task.TaskName);
+MessageBoxResult result = MessageBox.Show(msg, "Confirmation", MessageBoxButton.OKCancel);
+    if (result == MessageBoxResult.Cancel)
+    {
+        // Cancel task deletion
+        e.Cancel = true;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports Infragistics.Controls.Schedules
+Private Sub dataProvider_TaskDeleting(sender As System.Object, e As ProjectTaskDeletingEventArgs)
+  Dim msg As String = [String].Format("Are you sure you want to delete {0} task?", e.Task.TaskName)
+Dim result As MessageBoxResult = MessageBox.Show(msg, "Confirmation", MessageBoxButton.OKCancel)
+    If result = MessageBoxResult.Cancel Then
+        ' Cancel task deletion
+        e.Cancel = True
+    End If
+End Sub
+----
+
+[[_Ref334739239]]
+== Related Content
+
+[[_Ref334395486]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-setting-and-retrieving-the-active-element.html[Setting and Retrieving the Active Element]
+|This topic describes the properties and events used to set or retrieve the currently active cell, column or row in the _xamGantt_ control.
+
+| link:xamgantt-other-events-and-events-arguments.html[Other Events and Event Arguments]
+|This topic describes some of the available events triggered by common user interactions in the _xamGantt_ control.
+
+|====
+
+[[_Ref334395491]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/events[Events]"] pick:[wpf=" link:{SamplesURL}/gantt/events[Events]"] 
+|This sample demonstrates some of the important events in the _xamGantt_ control.
+
+|====

@@ -1,0 +1,128 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-manager-daysettings",
+    "controlName": ["xamSchedule"],
+    "tags": ["Data Presentation","How Do I","Scheduling"],
+    "guid": "cb7282fd-f079-4452-a266-4644767e218e",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.7713293Z"
+}
+|metadata|
+////
+
+= Day Settings
+
+XamSchedule provides the capability of specifying settings regarding which days of week are work days and what the working hours are for those days. You are also able to override work week and work hour settings for specific days. The properties for specifying these settings are exposed by the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] via its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~settings.html[Settings] property. Further, these settings may be provided for individual resources so different link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[resources] (users) can have different work days and working hours.
+
+By default, Monday through Friday are considered to be working days and the working hours are from 9am-5pm. You can change the default working days and default working hours, via the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~workdays.html[WorkDays] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~workinghours.html[WorkingHours] properties of the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings.html[ScheduleSettings] class (exposed via the xamScheduleDataManager.Settings property). This corresponds to the options offered in Outlook where one chooses which days are work days and specifies 1 set of working hours for those days. Note: unlike Outlook, the architecture for xamSchedule allows multiple dis-contiguous ranges to be specified for working hours.
+
+ScheduleSettings exposes a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~daysofweek.html[DaysOfWeek] property of type link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledaysofweek.html[ScheduleDaysOfWeek] object which exposes seven properties of type link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledayofweek.html[ScheduleDayOfWeek] – one for each day of the week. ScheduleDayOfWeek exposes a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettings.html[DaySettings] object via its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledayofweek~daysettings.html[DaySettings] property. The DaySettings class exposes link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettings~isworkday.html[IsWorkDay] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettings~workinghours.html[WorkingHours] properties. This lets you define different working hours for different work days.
+
+*Note:* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource] also exposes a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~daysofweek.html[DaysOfWeek] property to allow specific resources to override the values set on ScheduleSettings.
+
+The example below shows how the developer can set custom DaySettings for every Friday:
+
+*In XAML:*
+
+----
+<ig:XamScheduleDataManager>
+  <ig:XamScheduleDataManager.Settings>
+    <ig:ScheduleSettings>
+      <ig:ScheduleSettings.DaysOfWeek>
+        <ig:ScheduleDaysOfWeek>
+          <ig:ScheduleDaysOfWeek.Friday>
+            <ig:ScheduleDayOfWeek>
+              <ig:ScheduleDayOfWeek.DaySettings>
+                <ig:DaySettings IsWorkday="True">
+                  <ig:DaySettings.WorkingHours>
+                    <ig:WorkingHoursCollection>
+                      <ig:TimeRange Start="08:00" End="12:00" />
+                      <ig:TimeRange Start="16:00" End="20:00" />
+                    </ig:WorkingHoursCollection>
+                  </ig:DaySettings.WorkingHours>
+                </ig:DaySettings>
+              </ig:ScheduleDayOfWeek.DaySettings>
+            </ig:ScheduleDayOfWeek>
+          </ig:ScheduleDaysOfWeek.Friday>
+        </ig:ScheduleDaysOfWeek>
+      </ig:ScheduleSettings.DaysOfWeek>
+    </ig:ScheduleSettings>
+  </ig:XamScheduleDataManager.Settings>
+</ig:XamScheduleDataManager>
+----
+
+*In Visual Basic:*
+
+----
+Dim range1 As New TimeRange() With { _
+    Key .Start = New TimeSpan(8, 0, 0), _
+    Key .[End] = New TimeSpan(12, 0, 0) _
+}
+Dim range2 As New TimeRange() With { _
+    Key .Start = New TimeSpan(13, 0, 0), _
+    Key .[End] = New TimeSpan(17, 0, 0) _
+}
+If dataManager.Settings.DaysOfWeek Is Nothing Then
+    dataManager.Settings.DaysOfWeek = _
+        New ScheduleDaysOfWeek()
+End If
+If dataManager.Settings.DaysOfWeek.Friday Is Nothing Then
+    dataManager.Settings.DaysOfWeek.Friday = _
+        New ScheduleDayOfWeek()
+End If
+If dataManager.Settings.DaysOfWeek.Friday.DaySettings Is Nothing Then
+    dataManager.Settings.DaysOfWeek.Friday.DaySettings = _
+        New DaySettings()
+End If
+dataManager.Settings.DaysOfWeek.Friday.DaySettings. _
+    IsWorkday = True
+dataManager.Settings.DaysOfWeek.Friday.DaySettings. _
+    WorkingHours.Add(range1)
+dataManager.Settings.DaysOfWeek.Friday.DaySettings. _
+    WorkingHours.Add(range2)
+----
+
+*In C#:*
+
+----
+TimeRange range1 = new TimeRange()
+{
+    Start = new TimeSpan(8, 0, 0),
+    End = new TimeSpan(12, 0, 0)
+};
+TimeRange range2 = new TimeRange()
+{
+    Start = new TimeSpan(13, 0, 0),
+    End = new TimeSpan(17, 0, 0)
+};
+if (dataManager.Settings.DaysOfWeek == null)
+    dataManager.Settings.DaysOfWeek = new ScheduleDaysOfWeek();
+if (dataManager.Settings.DaysOfWeek.Friday == null)
+    dataManager.Settings.DaysOfWeek.Friday =
+        new ScheduleDayOfWeek();
+if (dataManager.Settings.DaysOfWeek.Friday.DaySettings == null)
+    dataManager.Settings.DaysOfWeek.Friday.DaySettings =
+        new DaySettings();
+dataManager.Settings.DaysOfWeek.Friday.DaySettings.
+    IsWorkday = true;
+dataManager.Settings.DaysOfWeek.Friday.DaySettings.
+    WorkingHours.Add(range1);
+dataManager.Settings.DaysOfWeek.Friday.DaySettings.
+    WorkingHours.Add(range2);
+----
+
+In addition, developers can override these settings for a specific date (or for a series of dates defined by a recurrence pattern) by defining a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettingsoverride.html[DaySettingsOverride] object. This can be done for the entire xamScheduleDataManager (i.e. the default for all resources) using the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~daysettingsoverrides.html[DaySettingsOverrides] collection on the ScheduleSettings class. This can be also overridden on a specific Resource using its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~daysettingsoverrides.html[DaySettingsOverrides] property.
+
+*Note:* If the IsWorkDay property resolves to false the WorkingHoursCollection is ignored. This allows defining specific days as working days with a set of working hours but marking a specific Date as not being a working day in which case the control will not honor the working hours specified at the more general level.
+
+== Related Topics
+
+link:xamschedule-using-manager.html[The Data Manager]
+
+link:xamschedule-using-manager-logical-day.html[Logical Day and Timeslots]
+
+link:xamschedule-using-manager-working-hours.html[Working Hours]
+
+link:xamschedule-understanding-views.html[About the xamSchedule views]

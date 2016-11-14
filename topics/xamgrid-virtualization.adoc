@@ -1,0 +1,35 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-virtualization",
+    "controlName": ["xamGrid"],
+    "tags": ["Data Binding","Grids","Virtualization"],
+    "guid": "{3565BE3D-48CE-45DB-B42B-48E80F44D0B8}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.9001985Z"
+}
+|metadata|
+////
+
+= Virtualization
+
+The xamGrid™ control virtualizes UIElements for rows and cells to reduce memory usage and increase performance. To the end users, cells and rows appear as if they are always there; however, the visual elements are only created when they are in view. This process is essential for performance when your data set is large and it is infeasible to display the entire set of rows and cells in the control.
+
+*Reusing Elements*
+
+The xamGrid control initially creates twice the amount of rows and cells that are in view and reuses them when your end users scroll vertically or horizontally. Only cells of the same column type can be reused. For example, cells of a link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.textcolumn.html[TextColumn] object are recycled across text columns only and cells of a link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.checkboxcolumn.html[CheckboxColumn] object are recycled across checkbox columns.
+
+*Disabling Virtualization*
+
+Virtualization is always on when you set the Height and Width properties of xamGrid or its containing element. If xamGrid does not have a width set, that is, if the control does not have a width and its parent container allows its width to be infinite then xamGrid will not virtualize cells during horizontal scrolling. An example is if xamGrid was inside a horizontal Stack Panel or a Scroll Viewer. Similarly, if the control has no height, such as when it is in a vertical Stack Panel or Scroll Viewer with no height, xamGrid will not virtualize cells and rows during vertical scrolling.
+
+*Effects of Virtualization*
+
+Since virtualization only creates UIElements that are in view, a row or cell may not have a content control attached to it. Therefore, you should avoid accessing properties of a cell or row's content control; instead, use styles for customization.
+
+*Related Topics*
+
+link:xamgrid-control-the-virtualization-process.html[Control the Virtualization Process]
+
+link:xamgrid-improving-horizontal-scrolling-using-cellcontrolgenerationmode.html[Improving Horizontal Scrolling Using CellControlGenerationMode Property]

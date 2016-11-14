@@ -1,0 +1,111 @@
+﻿////
+|metadata|
+{
+    "name": "xammaskededitor-using-xammaskededitor-as-a-field-in-xamdatagrid",
+    "controlName": ["xamMaskedEditor"],
+    "tags": ["Grids","How Do I"],
+    "guid": "{3779CC76-40C8-41D3-9F45-22AD81C5E4B9}",
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.2029781Z"
+}
+|metadata|
+////
+
+= Using xamMaskedEditor as a Field in xamDataGrid
+
+An important feature of the xamMaskedEditor™ control is its ability to be embedded in a xamDataGrid™ link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]. This feature allows your end user to take advantage of the editor's full potential while modifying a cell's value. The xamMaskedEditor is also more visually appealing as it formats values with a mask.
+
+Follow these steps to display xamMaskedEditor in a Field of xamDataGrid.
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window or Page project.
+
+[start=2]
+. Place the following namespace declarations inside the opening Page or Window tag. These declarations allow you to reference xamDataGrid, xamMaskedEditor, and to define types (i.e. Int32, Boolean).
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+xmlns:igEditors="http://infragistics.com/Editors"
+xmlns:sys="clr-namespace:System;assembly=mscorlib"
+----
+
+[start=3]
+. Create a resource section defining an XmlDataProvider. The XmlDataProvider references the link:resources-employees.html[Employees] XML file. Place the following XAML inside the Grid Panel.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid.Resources>
+    <XmlDataProvider Source="../Data/Employees.xml" 
+        x:Key="EmployeeData" XPath="/employees" />
+</Grid.Resources>
+----
+
+[start=4]
+. Create an instance of XamDataGrid, name it, and set the DataSource property to the XmlDataProvider created in the previous step.
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataGrid x:Name="XamDataGrid1" 
+    DataSource="{Binding Source={StaticResource EmployeeData}, XPath=employee}">
+    ...      
+</igDP:XamDataGrid>
+----
+
+[start=5]
+. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] property off the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object to False. Place the following XAML between the tags created in the previous step.
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<igDP:XamDataGrid.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings AutoGenerateFields="False" />
+</igDP:XamDataGrid.FieldLayoutSettings>
+...
+----
+
+[start=6]
+. When defining a custom editor for a Field, you may need to set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] property to specify a style for that editor. Doing this allows you to also set properties on the editor such as a mask. The XAML below sets a Style that targets an instance of XamMaskedEditor and sets it to the EditorStyle. Use a setter to set the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammaskededitor~mask.html[Mask] property off the editor.
++
+In the example below, the Mask accepts input in the format of a social security number. Place this code below the code in the previous step.
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<igDP:XamDataGrid.FieldLayouts>
+    <igDP:FieldLayout>
+        <igDP:FieldLayout.Fields>
+            <igDP:Field Name="name" Label="Employee's Name" />
+            <igDP:Field Name="department" Label="Department" />
+            <igDP:UnboundField Name="Social" Label="Social Security Number">
+                <igDP:Field.Settings>
+                    <igDP:FieldSettings 
+                        EditAsType="{x:Type sys:String}">
+                        <igDP:FieldSettings.EditorStyle>
+                            <Style TargetType="{x:Type igEditors:XamMaskedEditor}">
+                                <Setter Property="Mask" Value="###-##-####" />
+                            </Style>
+                        </igDP:FieldSettings.EditorStyle>
+                    </igDP:FieldSettings>
+                </igDP:Field.Settings>
+            </igDP:UnboundField>
+        </igDP:FieldLayout.Fields>
+    </igDP:FieldLayout>
+</igDP:XamDataGrid.FieldLayouts>
+...
+----
+
+[start=7]
+. Build and run the project. Select a Cell in the Social Security Number Field. You will see that xamMaskedEditor only accepts a nine-digit number and automatically separates the number with hyphens, resembling a social security number.
++
+image::images/xamMaskedEditor_Using_xamMaskedEditor_as_a_Field_in_xamDataGrid_01.png[using xammaskededitor in xamdatagrid field]

@@ -1,0 +1,48 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcomboeditor-bind-xamcomboeditor-to-an-xmldataprovider",
+    "controlName": ["xamComboEditor"],
+    "tags": ["How Do I"],
+    "guid": "{E44B800E-E6D5-46C9-B06E-A71905D2077E}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.0909781Z"
+}
+|metadata|
+////
+
+= Bind xamComboEditor to an XmlDataProvider
+
+You can bind xamComboEditor™ to several different data sources, including an XML file. You can use an XmlDataProvider to expose your XML file to the presentation layer of your application. If you have not created an XmlDataProvider yet, please read and follow the steps on link:creating-an-xmldataprovider.html[creating an XmlDataProvider] before proceeding with the rest of this topic.
+
+The xamComboEditor control does not bind directly to a data source; instead, xamComboEditor uses an instance of a link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider.html[ComboBoxItemsProvider] object to bind to data. You can data bind the ComboBoxItemsProvider object using the same patterns you would use for any Microsoft® Windows® Presentation Foundation ItemsControl. You can set the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider~itemssource.html[ItemsSource] property to a binding expression that references an XmlDataProvider to populate the drop-down list.
+
+The default behavior of an ItemsControl is to display the results of the ToString method of the underlying object. You can override this default behavior either by creating a DataTemplate that determines the visual tree of each item or by setting the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider~displaymemberpath.html[DisplayMemberPath] and link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider~valuepath.html[ValuePath] properties that the ComboBoxItemsProvider object conveniently provide. You can set the DisplayMemberPath property to the name of a property on your business object that you want to display to the end user. You can set the ValuePath property to the name of a property on your business object that you want to store as the underlying value of xamComboEditor. The data type that xamComboEditor is editing must match the data type of the property that you specify as the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valuetype.html[ValueType] property of the xamComboEditor. For example, if you set the ValuePath property of a ComboBoxItemsProvider object to a property that returns an integer, you should also set the ValueType property of xamComboEditor to an integer data type.
+
+The following example code demonstrates how to bind xamComboEditor to an XmlDataProvider.
+
+*In XAML:*
+
+----
+...
+<!--Notice that the ValueType property is set to the same data type as the property specified for the ValuePath property.
+The sys: prefix is mapped to the XML namespace 'clr-namespace:System;assembly=mscorlib'-->
+<igEditors:XamComboEditor ValueType="{x:Type sys:Int32}" VerticalAlignment="Top">
+        <igEditors:XamComboEditor.ItemsProvider>
+                <igEditors:ComboBoxItemsProvider 
+                  ItemsSource="{Binding Source={StaticResource OrderData}, 
+                    XPath=/Orders/Order}" 
+                  DisplayMemberPath="ProductName" ValuePath="Quantity" />
+        </igEditors:XamComboEditor.ItemsProvider>
+</igEditors:XamComboEditor>
+...
+----
+
+== Related Topics
+
+link:wpf-xamcomboeditor-about-xamcomboeditor.html[About xamComboEditor]
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-dataset.html[Bind xamComboEditor to a DataSet]
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-collection.html[Bind xamComboEditor to a Collection]

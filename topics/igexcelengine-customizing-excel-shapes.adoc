@@ -1,0 +1,125 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-customizing-excel-shapes",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","Styling"],
+    "guid": "deec345d-ef68-4aef-afd5-341aaeaada81",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7807093Z"
+}
+|metadata|
+////
+
+= Customizing Shapes (Infragistics Excel Engine)
+
+== Topic Overview
+
+== Purpose
+
+This topic shows you how use the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape.html[WorksheetShape Class] properties to change the shape’s look and feel.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet (Infragistics Excel Engine)]
+
+== Control Configuration Overview
+
+== Control configuration chart
+
+The table below lists the configurable behaviors of the control.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable behavior|Configuration details|Configuration properties
+
+|<<customize,Customize a shape>>
+|Set a shape a Fill, Outline and Text.
+|
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~fill.html[Fill] 
+
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~outline.html[Outline] 
+
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapewithtext~text.html[Text] 
+
+|====
+
+[[customize]]
+== Customize a shape
+
+== Overview
+
+The table below maps the desired behaviors to property settings. The properties are accessed through link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape.html[WorksheetShape] and link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapewithtext.html[WorksheetShapeWithText] classes.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to...|Use this property|And set it to...
+
+|Set fill color
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~fill.html[Fill Property]
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.shapefill.html[ShapeFill Class]
+
+|Set outline color
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~outline.html[Outline Property]
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.shapeoutline.html[ShapeOutline Class]
+
+|Set shape's visibility
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~visible.html[Visible Property]
+|False
+
+|Flip the shape
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~flippedhorizontally.html[FlippedHorizontally Property] 
+
+link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape~flippedvertically.html[FlippedVertically Property]
+|True
+
+|Set text inside a shape
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapewithtext~text.html[Text Property]
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.formattedstring.html[FormattedString Class]
+
+|====
+
+== Code Example: Customize Excel Shape
+
+The code below demonstrates how to change the fill, outline and/or text of a previously initialized shape.
+
+[options="header", cols="a,a"]
+|====
+|Property|Setting
+
+|Fill
+|SteelBlue
+
+|Outline
+|RoyalBlue
+
+|Text
+|"Inside text of a shape"
+
+|====
+
+*In Visual Basic:*
+[source,vb]
+----
+shape.Fill = ShapeFill.FromColor(System.Windows.Media.Colors.SteelBlue)
+shape.Outline = ShapeOutline.FromColor(System.Windows.Media.Colors.RoyalBlue)
+shape.Text = New Infragistics.Documents.Excel.FormattedText("Inside text of a shape")
+----
+
+*In C#:*
+[source,csharp]
+----
+shape.Fill = ShapeFill.FromColor(System.Windows.Media.Colors.SteelBlue);
+shape.Outline = ShapeOutline.FromColor(System.Windows.Media.Colors.RoyalBlue);
+shape.Text = new Infragistics.Documents.Excel.FormattedText("Inside text of a shape");
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet (Infragistics Excel Engine)]
+* link:igexcelengine-grouping-excel-shapes.html[Grouping Excel Shapes (Infragistics Excel Engine)]
+* link:igexcelengine-importing-shapes-from-excel.html[Importing Shapes from Excel (Infragistics Excel Engine)]

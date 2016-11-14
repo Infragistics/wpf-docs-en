@@ -1,0 +1,47 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-cells-cellvaluepresenters-and-cell-virtualization",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Virtualization"],
+    "guid": "{38E3669D-E1D5-495A-9BC1-FFCC85D3420A}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.4948521Z"
+}
+|metadata|
+////
+
+= Cells, CellValuePresenters and Cell Virtualization
+
+Each link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] exposes a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~cells.html[Cells] collection that lazily creates a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] for each link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] in the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout]. "Lazy creation" means that a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] object is not created until it is requested in code or XAML.
+
+.Note
+[NOTE]
+====
+Cells are not UIElements™, but rather lightweight objects that wrap the values in the data source for the associated field. They are represented in the UI by corresponding link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] elements.
+====
+
+CellValuePresenter elements are virtualized so that they are created only to represent the cells that are currently in view (for more information, see link:xamdata-performance-optimizations-overview.html[Performance Optimizations Overview]). However, in the following two cases, CellValuePresenters are created for cells that may not be in view:
+
+* CellValuePresenters are always created for cells whose corresponding Field's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings]' link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~allowcellvirtualization.html[AllowCellVirtualization] property is set to False, as in the following example which turns off cell virtualization for all fields.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldSettings> 
+                <igDP:FieldSettings 
+                  AllowCellVirtualization="False"/> 
+        </igDP:XamDataGrid.FieldSettings> 
+</igDP:XamDataGrid>
+----
+
+* When the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings]'s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~datarecordsizingmode.html[DataRecordSizingMode] property is left to its default value of SizedToContentAndFixed, or set to SizedToContentAndIndividuallySizable (as in the following example XAML). In this case, the cell editor's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~isextentbasedonvalue.html[IsExtentBasedOnValue] method is called to determine if the cell can be virtualized based on the orientation. For more information on cell editors, see link:xamdata-editing-cell-values.html[Editing Cell Values].
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayoutSettings> 
+                <igDP:FieldLayoutSettings 
+                  DataRecordSizingMode="SizedToContentAndIndividuallySizable"/> 
+        </igDP:XamDataGrid.FieldLayoutSettings> 
+</igDP:XamDataGrid>
+----

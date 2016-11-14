@@ -1,0 +1,192 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-display-date-time-series",
+    "controlName": ["xamTimeline"],
+    "tags": ["API","Data Presentation","How Do I"],
+    "guid": "{A4FC47CB-1618-44C0-A50A-37485EC03C04}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.9663963Z"
+}
+|metadata|
+////
+
+= Display Date Time Series
+
+== Before You Begin
+
+You can display DateTime data using the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeline]™ control. The control offers the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries] object to represent a sequential timeline, ordered by dates.
+
+== What You Will Accomplish
+
+You will learn how to display DateTime data using xamTimeline.
+
+image::images/XamTimeline_Display_Date_Time_Series_01.png[]
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ project.
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+** {ApiPlatform}Controls.Timelines.XamTimeline.v{ProductVersion}.dll
+** {ApiPlatform}DataVisualization.v{ProductVersion}.dll
+** {ApiPlatform}v{ProductVersion}.dll
+
+[start=3]
+. Add the following namespace declaration for xamTimeline.
+
+*In XAML:*
+
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Timelines
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Timelines;
+----
+
+[start=4]
+. Add the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control to the page along with the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries] object.
+
+*In XAML:*
+
+----
+<ig:XamTimeline x:Name="xamTimeline"  
+                     Width="1000" Height="580" Margin="15">
+            <ig:XamTimeline.Series>
+                <ig:DateTimeSeries Title="Date Time Series"
+                                     Position="TopOrLeft">
+                    <!-- TODO: Add Date Time Entries  -->
+                </ig:DateTimeSeries>
+            </ig:XamTimeline.Series>
+            <!-- TODO: Set Axis properties -->
+</ig:XamTimeline>
+----
+
+*In Visual Basic:*
+
+----
+Dim Timeline As New XamTimeline()
+Me.LayoutRoot.Children.Add(Timeline)
+Dim dateTimeSeries As New DateTimeSeries()
+'TODO: Add Date Time Entries 
+Timeline.Series.Add(dateTimeSeries)
+----
+
+*In C#:*
+
+----
+var Timeline = new XamTimeline();
+this.LayoutRoot.Children.Add(Timeline);
+var dateTimeSeries = new DateTimeSeries();
+//TODO: Add Date Time Entries 
+Timeline.Series.Add(dateTimeSeries);
+----
+
+[start=5]
+. Add data to the timeline by adding link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeentry.html[DateTimeEntry] objects to the series.
+
+*In XAML:*
+
+----
+<ig:DateTimeSeries.Entries>
+      <ig:DateTimeEntry Time="01/01/1996" Title="Date Time Entry 1" 
+                                            Details="Details Time Entry 1"/>
+      <ig:DateTimeEntry Time="01/01/2000" Title="Date Time Entry 2" 
+                                            Details="Details Time Entry 2"/>
+      <ig:DateTimeEntry Time="01/01/2004" Title="Date Time Entry 3" 
+                                            Details="Details Time Entry 3"/>
+      <ig:DateTimeEntry Time="01/01/2008" Title="Date Time Entry 4" 
+                                            Details="Details Time Entry 4"/>
+      <ig:DateTimeEntry Time="01/01/2012" Title="Date Time Entry 5" 
+                                            Details="Details Time Entry 5"/>
+</ig:DateTimeSeries.Entries>
+----
+
+*In Visual Basic:*
+
+----
+For ind As Integer = 1 To 5
+    Dim entry As New DateTimeEntry()
+    entry.Time = New DateTime(1992 + ind * 4, 1, 1)
+    entry.Title = "Date Time Entry " + ind.ToString()
+    entry.Details = "Details Time Entry " + ind.ToString()
+    dateTimeSeries.Entries.Add(entry)
+Next
+----
+
+*In C#:*
+
+----
+for (int ind = 1; ind <= 5; ind++)
+{
+    var entry = new DateTimeEntry();
+    entry.Time = new DateTime(1992 + ind * 4, 1, 1);
+    entry.Title = "Date Time Entry " + ind.ToString();
+    entry.Details = "Details Time Entry " + ind.ToString();
+    dateTimeSeries.Entries.Add(entry);
+}
+----
+
+[start=6]
+. Create a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis.html[DateTimeAxis] object in xamTimeline to control the range of the timeline. For more information about the xamTimeline control's Axis, see link:xamtimeline-axis.html[Customizing Axis] topic.
+
+** Set Minimum to 01/01/1992.
+** Set Maximum to 12/01/2015.
+** Set AutoRange to False.
+** Set Unit to 2.
+** Set the UnitType property to Years. Unlike the Numeric Time series, a DateTime series can have different unit types. It is important you set the UnitType property so that your timeline displays correctly.
+
+*In XAML:*
+
+----
+<ig:XamTimeline.Axis>
+      <ig:DateTimeAxis  Minimum="01/01/1992" Maximum="12/01/2015"
+                          AutoRange=" UnitType="Years" Unit="2"/>
+</ig:XamTimeline.Axis>
+----
+
+*In Visual Basic:*
+
+----
+Dim axis As New DateTimeAxis()
+axis.Minimum = DateTime.Parse("01/01/1992")
+axis.Maximum = DateTime.Parse("12/01/2015")
+axis.AutoRange = False
+axis.Unit = 2
+axis.UnitType = DateTimeUnitType.Years
+Timeline.Axis = axis
+----
+
+*In C#:*
+
+----
+var axis = new DateTimeAxis();
+axis.Minimum = DateTime.Parse("01/01/1992");
+axis.Maximum = DateTime.Parse("12/01/2015");
+axis.AutoRange = false;
+axis.Unit = 2;
+axis.UnitType = DateTimeUnitType.Years;
+Timeline.Axis = axis;
+----
+
+[start=7]
+. Run the application. The xamTimeline control displays the data. You can move the slider to an event to see the details for that event.
+
+image::images/XamTimeline_Display_Date_Time_Series_01.png[]
+
+== Related Topics
+
+link:xamtimeline-about-date-time-series.html[About Date Time Series]
+
+link:xamtimeline-set-duration-in-date-time-series.html[Set Duration in Date Time Series]

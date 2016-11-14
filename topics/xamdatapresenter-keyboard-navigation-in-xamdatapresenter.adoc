@@ -1,0 +1,509 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-keyboard-navigation-in-xamdatapresenter",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Localization","Navigation"],
+    "guid": "{EA81C72E-44CF-411B-9126-098BF93D7551}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2360003Z"
+}
+|metadata|
+////
+
+= Keyboard Navigation in xamDataPresenter
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes the  _xamDataPresenter_™ control’s built-in keyboard support that provides users the option of navigating link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.record.html[Record]s and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]s with their keyboard. It also allows users to perform clipboard operations using common keyboard shortcuts found in many operating systems.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Keyboard_Support_Summary, Keyboard Support Summary >>
+
+** <<_xamDataGrid_Keyboard_support, _xamDataGrid_    *Keyboard support* >>
+
+** <<_xamDataCarousel_Keyboard_navigation_support, _xamDataCarousel_    *Keyboard navigation support* >>
+
+** <<_xamDataCards_Keyboard_navigation_support, _xamDataCards_    *Keyboard navigation support* >>
+
+* <<_Keyboard_Support_for_Common_Clipboard_Operations_and_Cell_Editing, Keyboard Support for Common Clipboard Operations and Cell Editing >>
+
+* <<_Related_Content, Related Content >>
+
+[[_Keyboard_Support_Summary]]
+== Keyboard Support Summary
+
+=== Keyboard summary chart
+
+The link:xamdatapresenter.html[xamDataPresenter] includes several pre-defined keyboard shortcuts. The following table lists the keyboard support for controls that comprise the `xamDataPresenter`:
+
+[options="header", cols="a,a"]
+|====
+|Control|Details
+
+| link:xamdatagrid.html[xamDataGrid]
+|Provides `xamDataGrid` specific keyboard shortcuts
+
+| link:xamdatacarousel.html[xamDataCarousel]
+|Provides `xamDataCarousel` navigation keyboard shortcuts
+
+| link:xamdatacards.html[xamDataCards]
+|Provides `xamDataCards` navigation keyboard shortcuts
+
+|All `xamDataPresenter` controls
+|Provide common keyboard and cell shortcuts for clipboard editing actions.
+
+|====
+
+[[_xamDataGrid_Keyboard_support]]
+== _xamDataGrid_   Keyboard support
+
+=== Overview
+
+Any given keyboard shortcut combination may perform several different actions depending on the context in which it was used or what the user was doing when using that shortcut. Whether or not the user selected a cell or record, or if the cell is in edit mode are just examples of some of the circumstances that determine the action resulting from a keyboard combination.
+
+The  *Shift*  key allows users to select multiple records or cells depending on the defined selection type. For more information on link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.selectiontype.html[SelectionType], see link:xamdata-changing-field-record-cell-selection-behavior.html[Changing Field, Record, or Cell Selection Behavior].
+
+Selecting a cell while holding the Shift key enables multiple cell selection. If a record is selected, holding the Shift key enables multiple record selections.
+
+=== Cell is selected
+
+The following table describes the actions, which can be executed by keyboard shortcuts when a grid cell is selected.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Move the active cell up.
+|Up Arrow
+
+|Move the active cell down.
+|Down Arrow
+
+|Move the active cell left. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+When the first cell is reached in the current record, pressing the Left arrow key causes the last cell in the previous record to be active. 
+
+====
+|Left Arrow
+
+|Move the active cell right. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+When the last cell is reached in the current record, pressing the Right arrow key causes the first cell in the next record to be active. 
+
+====
+|Right Arrow
+
+|Move the active cell to the next cell and enter edit mode.
+|Tab
+
+|Move the active cell to the previous cell and enter edit mode.
+|Shift + Tab
+
+|Move the active cell to the first cell in the record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+When the active cell is the first cell in the record, pressing Home will move the active cell to the first cell in the first record. 
+
+====
+|Home
+
+|Move the active cell to the last cell in the record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+When the active cell is the last cell in the record, pressing End will move the active cell to the last cell in the last record. 
+
+====
+|End
+
+|Move the active cell to the first cell in the first record.
+|Ctrl + Home
+
+|Move the active cell to the last cell in the last record
+|Ctrl + End
+
+|Move the active cell one page above.
+|PageUp
+
+|Move the active cell one page below.
+|PageDown
+
+|====
+
+=== Record is selected
+
+The following table describes the actions, which can be executed by keyboard shortcuts when a grid record is selected.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Move the active record up.
+|Up Arrow
+
+|Move the active record down.
+|Down Arrow
+
+|Expand record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+xamDataGrid should be configured to allow record expansion. 
+
+====
+|Right Arrow
+
+|Collapse record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+xamDataGrid should be configured to allow record expansion. 
+
+====
+|Left Arrow
+
+|Select next record
+|Tab
+
+|Select previous record
+|Shift + Tab
+
+|Select first overall record.
+|Home
+
+|Select last overall record.
+|End
+
+|Move the active record one page above.
+|PageUp
+
+|Move the active record one page below.
+|PageDown
+
+|====
+
+[[_xamDataCarousel_Keyboard_navigation_support]]
+== xamDataCarousel keyboard navigation support
+
+=== Overview
+
+You can find out what are supported navigation keyboard shortcuts for a `xamDataCaroucel` in the section below.
+
+=== Cell is selected
+
+The following table describes the actions, which can be executed by keyboard shortcuts when a carousel item is selected.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Move the active cell up the available Cells in the current Record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Once the first cell in the Record is reached, it moves to the last cell in the previous Record. 
+
+====
+|Up Arrow
+
+|Move the active cell down the available Cells in the current Record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Once the last cell in the Record is reached, it moves to the first cell in the next Record. 
+
+====
+|Down Arrow
+
+|Moves to the previous record on the path.
+|Left Arrow
+
+|Move to the next record on the path.
+|Right Arrow
+
+|Move to the next record on the path. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+The records will move around the path if more records are available, but are not currently visible. 
+
+====
+|Tab
+
+|Move to the previous record on the path. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+The Records will move around the path if more records are available, but are not currently visible. 
+
+====
+|Shift + Tab
+
+|====
+
+[[_xamDataCards_Keyboard_navigation_support]]
+== _xamDataCards_   Keyboard navigation support
+
+=== Overview
+
+Depending on the user’s selection of either a cell or a data card, one keyboard combination can perform different actions.
+
+=== Cell is selected
+
+The following table describes the keyboard executable actions, which can be by shortcuts when a cell in the data card is selected.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Move the active cell up.
+|Up Arrow
+
+|Move the active cell down.
+|Down Arrow
+
+|Move the active cell on previous data card.
+|Left Arrow
+
+|Move the active cell on next data card.
+|Right Arrow
+
+|Move the active cell to the next data card and enter edit mode.
+|Tab
+
+|Move the active cell to the previous data card and enter edit mode.
+|Shift + Tab
+
+|Select first cell in data card.
+|Home
+
+|Select last cell in data card.
+|End
+
+|Move the active cell one page above.
+|PageUp
+
+|Move the active cell one page below.
+|PageDown
+
+|====
+
+=== Card is selected
+
+The following table describes the executable keyboard shortcuts actions, which are available with the selection of a card.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Move the active card up.
+|Up Arrow
+
+|Move the active card down.
+|Down Arrow
+
+|Move the active card left. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Once the first card in the row is reached, it moves to the last card on previous row. 
+
+====
+|Left Arrow
+
+|Move the active card right. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Once the last card in a row is reached, it moves to the first card on the row below. 
+
+====
+|Right Arrow
+
+|Move to the next card.
+|Tab
+
+|Move to the previous card.
+|Shift + Tab
+
+|Move to the first overall card.
+|Home
+
+|Move to the last overall card.
+|End
+
+|Move the active card one page above.
+|PageUp
+
+|Move the active card one page below.
+|PageDown
+
+|====
+
+[[_Keyboard_Support_for_Common_Clipboard_Operations_and_Cell_Editing]]
+== Keyboard Support for Common Clipboard Operations and Cell Editing Actions
+
+=== Overview
+
+`xamDataPresenter` have built-in support for keyboard shortcuts for the common clipboard actions like cut, copy and paste, for the undo/redo actions, and for cell editing actions.
+
+=== Common operations
+
+The following table describes the keyboard executable shortcut actions with the selection of a grid record.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut(s):
+
+|Cut
+|Ctrl + X, 
+
+Shift + Delete
+
+|Copy
+|Ctrl + C, 
+
+Ctrl + Insert
+
+|Paste
+|Ctrl + V, 
+
+Shift + Insert
+
+|Undo
+|Ctrl + Z
+
+|Redo
+|Ctrl + Y
+
+|Clear Cell Contents
+|Delete
+
+|Delete record. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+This action should only occur with a selected Data record. 
+
+====
+|Delete
+
+|====
+
+=== Cell is selected
+
+The following table describes the executable keyboard shortcuts available actions, with the selection of the cell.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|Start edit mode
+|F2
+
+|====
+
+=== Cell is in edit mode
+
+The following table describes the executable keyboard shortcut actions when the cell is in the edit mode.
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Keyboard shortcut:
+
+|end edit mode and accept changes
+|F2
+
+|End edit mode and commit record
+|Enter
+
+|End edit mode and discard changes
+|Escape
+
+|====
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdata-selection-overview.html[Selection Overview]
+|All {ProductName} controls derived from the DataPresenterBase class have built-in support for selection of cells, records, and fields.
+
+| link:xamdata-using-data-presenter-family-commands.html[Using Data Presenter Family Commands]
+|The {ProductName} controls, derived from the DataPresenterBase class, provide their own set of command binding which you can use to perform certain actions on the controls.
+
+| link:xamdatapresenter-perform-clipboard-operations.html[Perform Clipboard Operations]
+|The DataPresenter control map its clipboard operations to common keyboard shortcuts found in many operating systems.
+
+|====

@@ -1,0 +1,77 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-exclude-datapresenter-settings-when-printing",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Printing"],
+    "guid": "{3142D8F3-F17E-4179-B9F0-AE7A4C06B811}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1939919Z"
+}
+|metadata|
+////
+
+= Exclude DataPresenter Settings When Printing
+
+The WPF Reporting engine prints/exports the DataPresenter control's state exactly as-is when you invoke the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~print.html[Print] or link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~export.html[Export] method of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object. The resulting printout or exported file is based on how your end users interact with the DataPresenter control before printing or exporting. For example, if your end user sorts a field, the WPF Reporting engine will print the records using their current sort order. However, you can exclude certain DataPresenter control settings when you print or export a report.
+
+The DataPresenter controls expose a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~reportview.html[ReportView] property that you can set to an instance of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.tabularreportview.html[TabularReportView] class. The TabularReportView class exposes Boolean properties that start with the word "Exclude" that you can set in order to exclude certain DataPresenter settings from being printed.
+
+Excluding a DataPresenter control's settings when printing a report is a four-step process:
+
+[start=1]
+. Instantiate a TabularReportView object.
+[start=2]
+. Set the TabularReportView object's properties that exclude DataPresenter settings off the TabularReportView object.
+[start=3]
+. Set the DataPresenter control's ReportView property to the TabularReportView object.
+[start=4]
+. Create a report using the DataPresenter control and print it.
+
+The following example code demonstrates how to exclude a xamDataGrid™ control's sort order when printing a report. Even though the example code uses a xamDataGrid control, you can use any of the DataPresenter controls in its place.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Dim reportView1 As New TabularReportView() With { .ExcludeSortOrder=True }
+Me.xamDataGrid1.ReportView = reportView1
+'TODO: Create a report using the xamDataGrid control and print it.
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+TabularReportView reportView1 = new TabularReportView()
+{
+        ExcludeSortOrder = true
+};
+this.xamDataGrid1.ReportView = reportView1;
+//TODO: Create a report using the xamDataGrid control and print it.
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-fit-all-fields-on-a-single-page.html[Fit All Fields on a Single Page]
+
+link:xamdatapresenter-handling-events-to-customize-print-operations.html[Handling Events to Customize Print Operations]
+
+link:xamdatapresenter-print-all-records-in-a-hierarchy.html[Print All Records in a Hierarchy]
+
+link:xamdatapresenter-repeat-field-headers-on-all-pages.html[Repeat Field Headers on All Pages]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]

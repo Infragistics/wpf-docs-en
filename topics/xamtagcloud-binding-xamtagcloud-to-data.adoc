@@ -1,0 +1,149 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtagcloud-binding-xamtagcloud-to-data",
+    "controlName": ["xamTagCloud"],
+    "tags": ["Data Binding","Getting Started","How Do I"],
+    "guid": "{6208D273-914A-4D08-BBBF-E6C7B1C916F4}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.5603701Z"
+}
+|metadata|
+////
+
+= Binding xamTagCloud to Data
+
+== Before You Begin
+
+You can bind the xamTagCloud™ control to any object that implements the IEnumerable interface. However, if you want to enable all of the xamTagCloud control’s functionality, you should add XamTagCloudItem objects to the xamTagCloud Items collection.
+
+The XamTagCloudItem objects contain link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagclouditem~weight.html[Weight] and Content properties which are used to determine the tags in the cloud and the size of the font of each individual tag. However, if you bind xamTagCloud to a different data source, you can set the Weight and Content properties.
+
+The observable collection used in this walkthrough is a collection of Product objects. The link:resources-datautil.html[DataUtil] class is available for you in C# and VB.NET to download and use in your project while working through this sample. However, the DataUtil class is not discussed, as it is beyond the scope of this topic.
+
+== What You Will Accomplish
+
+You will create a xamTagCloud control bound to data and you will specify which properties on the data source to use for providing the content and weight information to the control.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ application.
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+{ApiPlatform}v{ProductVersion}.dll
+
+{ApiPlatform}Controls.Menus.XamTagCloud.v{ProductVersion}.dll
+[start=3]
+. Attach an event handler to the UserControl’s Loaded event.
+
+*In XAML:*
+
+----
+<UserControl Loaded="UserControl_Loaded"
+… >
+   …
+</UserControl>
+----
+
+[start=4]
+. Place using/Imports directives in your code-behind or add the following XML namespace declarations for xamTagCloud and the DataUtil class.
+
+*In XAML:*
+
+----
+xmlns:local="clr-namespace:xamTagCloud2XAML"
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Menus
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Menus;
+----
+
+[start=5]
+. If you are using XAML, add the DataUtil object as a user control resource.
+
+*In XAML:*
+
+----
+<UserControl.Resources>
+   <local:DataUtil x:Key="DataUtil" />
+</UserControl.Resources>
+----
+
+[start=6]
+. Add an instance of the xamDataTree control to the default Grid layout panel named LayoutRoot. If you are doing this in procedural code, you can handle the user control’s Loaded event and place the code in the event handler.
+
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloud~maxscale.html[MaxScale] – 5
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloud~minscale.html[MinScale] - 1
+** Set the ItemsSource property to the Products property of the DataUtil object, which returns the Products collection.
+** Set the link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloud~weightmemberpath.html[WeightMemberPath] property to the ProductID property.
+** Set the DisplayMemberPath property to the ProductName property.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamTagCloud x:Name="myTagCloud" MaxScale="2"  
+             MinScale="1" 
+             ItemsSource="{Binding Source={StaticResource DataUtil},Path=Products}" 
+             WeightMemberPath="ProductID" DisplayMemberPath="ProductName">
+   </ig:XamTagCloud>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Dim myTagCloud As New XamTagCloud()
+myTagCloud.MaxScale = 5
+myTagCloud.MinScale = 1
+myTagCloud.ItemsSource = DataUtil.Products
+myTagCloud.WeightMemberPath = "ProductID"
+myTagCloud.DisplayMemberPath = "ProductName"
+----
+
+*In C#:*
+
+----
+XamTagCloud myTagCloud = new XamTagCloud();
+myTagCloud.MaxScale = 5;
+myTagCloud.MinScale = 1;
+myTagCloud.ItemsSource = DataUtil.Products;
+myTagCloud.WeightMemberPath = "ProductID";
+myTagCloud.DisplayMemberPath = "ProductName";
+----
+
+[start=7]
+. Add the instance of xamTagCloud to the Grid panel’s Children collection.
+
+*Note:* When you initially create a new page, a grid panel is created by default and named LayoutRoot.
+
+*In Visual Basic:*
+
+----
+Me.LayoutRoot.Children.Add(myTagCloud)
+----
+
+*In C#:*
+
+----
+this.LayoutRoot.Children.Add(myTagCloud);
+----
+
+[start=8]
+. Save and run your application.
+
+== *Related Topics*
+
+link:xamtagcloud-adding-xamtagcloud-to-your-page.html[Adding xamTagCloud to Your Page]

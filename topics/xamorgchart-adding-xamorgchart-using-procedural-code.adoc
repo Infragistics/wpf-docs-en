@@ -1,0 +1,215 @@
+﻿////
+|metadata|
+{
+    "name": "xamorgchart-adding-xamorgchart-using-procedural-code",
+    "controlName": ["xamOrgChart"],
+    "tags": ["Getting Started"],
+    "guid": "fcb064f3-a350-4b05-97c5-dc59f9e5c74e",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.663297Z"
+}
+|metadata|
+////
+
+= Adding xamOrgChart Using Procedural Code
+
+This topic explains how to add the xamOrgChart™ using procedural (C#, VB) code. At the end, the full procedural code is provided in a separate section. Before attempting the procedure, make sure you have met the requirements listed in the link:xamorgchart-adding-xamorgchart-to-your-application.html[Adding xamOrgChart to Your Application] topic.
+
+== Overview
+
+Conceptual overview of the adding procedure:
+
+[start=1]
+. <<step_1,Add the xamOrgChart control to your application and bind it to the data model.>>
+
+[start=2]
+. <<step_2,Add Node Layouts to the Org Chart.>>
+
+== Steps
+
+[[step_1]]
+[start=1]
+. Add the xamOrgChart control to your application and bind it to the data model.
+.. Add an event handler to the UserControl’s Loaded event.
++
+*In XAML:*
++
+[source,xaml]
+----
+<UserControl Loaded="UserControl_Loaded">
+----
+.. Place using/Imports in your code behind.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Maps
+Imports UsingXamOrgChart
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Maps;
+using UsingXamOrgChart;
+----
+.. Inside the UserControl_Loaded event handler, create an instance of the xamOrgChart control with a DataContext bound to a link:resources-departmentviewmodel.html[DepartmentViewModel] object and an ItemsSource bound to the Departments property. Add the new instance of xamOrgChart to the Grid panel’s Children collection (note that upon initial creation, a grid panel called “LayoutRoot” is defined by default).
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim data As New DepartmentViewModel()
+
+Dim OrgChart As New XamOrgChart()
+OrgChart.DataContext = data
+OrgChart.ItemsSource = data.Departments
+
+Me.LayoutRoot.Children.Add(OrgChart)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DepartmentViewModel data = new DepartmentViewModel();
+
+XamOrgChart Org Chart = new XamOrgChart();
+OrgChart.DataContext = data;
+OrgChart.ItemsSource = data.Departments;
+
+this.LayoutRoot.Children.Add(OrgChart);
+----
+
+[[step_2]]
+[start=2]
+. Add Node Layouts to the Org Chart.
++
+Create Node Layout instances and add them to the xamOrgChart control’s GlobalNodeLayouts collection.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim departmentNodeLayout As New OrgChartNodeLayout()
+departmentNodeLayout.TargetTypeName = "Department"
+departmentNodeLayout.DisplayMemberPath = "Name"
+departmentNodeLayout.Key = "EmployeePositions"
+
+Dim positionNodeLayout As New OrgChartNodeLayout()
+positionNodeLayout.TargetTypeName = "EmployeePosition"
+positionNodeLayout.DisplayMemberPath = "JobTitle"
+positionNodeLayout.Key = "Employees"
+
+Dim employeeNodeLayout As New OrgChartNodeLayout()
+employeeNodeLayout.TargetTypeName = "Employee"
+employeeNodeLayout.DisplayMemberPath = "FirstName"
+
+OrgChart.GlobalNodeLayouts.Add(departmentNodeLayout)
+OrgChart.GlobalNodeLayouts.Add(positionNodeLayout)
+OrgChart.GlobalNodeLayouts.Add(employeeNodeLayout)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+OrgChartNodeLayout departmentNodeLayout = new OrgChartNodeLayout();
+departmentNodeLayout.TargetTypeName = "Department";
+departmentNodeLayout.DisplayMemberPath = "Name";
+departmentNodeLayout.Key = "EmployeePositions";
+
+OrgChartNodeLayout positionNodeLayout = new OrgChartNodeLayout();
+positionNodeLayout.TargetTypeName = "EmployeePosition";
+positionNodeLayout.DisplayMemberPath = "JobTitle";
+positionNodeLayout.Key = "Employees";
+
+OrgChartNodeLayout employeeNodeLayout = new OrgChartNodeLayout();
+employeeNodeLayout.TargetTypeName = "Employee";
+employeeNodeLayout.DisplayMemberPath = "FirstName";
+
+OrgChart.GlobalNodeLayouts.Add(departmentNodeLayout);
+OrgChart.GlobalNodeLayouts.Add(positionNodeLayout);
+OrgChart.GlobalNodeLayouts.Add(employeeNodeLayout);
+----
+
+== Code Samples: Full Procedural Code
+
+*In Visual Basic:*
+[source,vb]
+----
+Private Sub UserControl_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs)
+   Dim data As New DepartmentViewModel()
+   
+   Dim OrgChart As New XamOrgChart()
+   OrgChart.DataContext = data
+   OrgChart.ItemsSource = data.Departments
+   
+   Me.LayoutRoot.Children.Add(OrgChart)
+   
+   Dim departmentNodeLayout As New OrgChartNodeLayout()
+   departmentNodeLayout.TargetTypeName = "Department"
+   departmentNodeLayout.DisplayMemberPath = "Name"
+   departmentNodeLayout.Key = "EmployeePositions"
+   
+   Dim positionNodeLayout As New OrgChartNodeLayout()
+   positionNodeLayout.TargetTypeName = "EmployeePosition"
+   positionNodeLayout.DisplayMemberPath = "JobTitle"
+   positionNodeLayout.Key = "Employees"
+   
+   Dim employeeNodeLayout As New OrgChartNodeLayout()
+   employeeNodeLayout.TargetTypeName = "Employee"
+   employeeNodeLayout.DisplayMemberPath = "FirstName"
+   
+   OrgChart.GlobalNodeLayouts.Add(departmentNodeLayout)
+   OrgChart.GlobalNodeLayouts.Add(positionNodeLayout)
+   OrgChart.GlobalNodeLayouts.Add(employeeNodeLayout)
+End Sub
+----
+
+*In C#:*
+[source,csharp]
+----
+private void UserControl_Loaded(object sender, RoutedEventArgs e)
+{
+   DepartmentViewModel data = new DepartmentViewModel();
+   
+   XamOrgChart Org Chart = new XamOrgChart();
+   OrgChart.DataContext = data;
+   OrgChart.ItemsSource = data.Departments;
+   
+   this.LayoutRoot.Children.Add(OrgChart);
+   
+   OrgChartNodeLayout departmentNodeLayout = new OrgChartNodeLayout();
+   departmentNodeLayout.TargetTypeName = "Department";
+   departmentNodeLayout.DisplayMemberPath = "Name";
+   departmentNodeLayout.Key = "EmployeePositions";
+   
+   OrgChartNodeLayout positionNodeLayout = new OrgChartNodeLayout();
+   positionNodeLayout.TargetTypeName = "EmployeePosition";
+   positionNodeLayout.DisplayMemberPath = "JobTitle";
+   positionNodeLayout.Key = "Employees";
+   
+   OrgChartNodeLayout employeeNodeLayout = new OrgChartNodeLayout();
+   employeeNodeLayout.TargetTypeName = "Employee";
+   employeeNodeLayout.DisplayMemberPath = "FirstName";
+   
+   OrgChart.GlobalNodeLayouts.Add(departmentNodeLayout);
+   OrgChart.GlobalNodeLayouts.Add(positionNodeLayout);
+   OrgChart.GlobalNodeLayouts.Add(employeeNodeLayout);
+}
+----
+
+== *Related Topics*
+
+link:xamorgchart-adding-xamorgchart-to-your-application.html[Adding xamOrgChart to Your Application]
+
+link:xamorgchart-adding-xamorgchart-using-xaml-code.html[Adding xamOrgChart Using XAML Code]
+
+link:xamorgchart-understanding-xamorgchart.html[Understanding xamOrgChart]
+
+link:xamorgchart-using-xamorgchart.html[Using xamOrgChart]
+
+link:xamorgchart-api-overview.html[API Overview]

@@ -1,0 +1,65 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-enable-clipboard-operations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{C285C874-0310-42C1-95F0-84C700A99685}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1719875Z"
+}
+|metadata|
+////
+
+= Enable Clipboard Operations
+
+You can enable clipboard operations for the DataPresenter controls by setting a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowclipboardoperations.html[AllowClipboardOperations] property to a bitwise combination of AllowClipboardOperations enumeration values. However, the AllowClipboardOperations property value will not affect the clipboard operations of the editors in the field layout. For example, if you enable the copy operation, your end users can enter edit mode and perform other clipboard operations such as cut or paste in the cell's editor.
+
+The clipboard operations work just like their Microsoft® Excel® counterparts. For example, your end users must select a rectangular set of cells before they perform a cut or copy operation. The cells do not have to be adjacent to each other; however, the DataPresenter control will treat them as adjacent cells when adding them to the clipboard. In addition, the behavior of the paste operation changes based on the cells your end users have selected, just as it does in Excel.
+
+* If your end users select adjacent cells and the selected cells' dimensions are multiples of the dimensions of the data in the clipboard, the DataPresenter control will paste the data in tiles. For example, if the data in the clipboard contains a 2 x 1 set of cells and your end users select a 6 x 1 set of cells before pasting the data, the DataPresenter control pastes the data into three 2 x 1 tiles.
+* If your end user's selection does not meet the previous condition, the DataPresenter control will try to paste the data into a rectangular set of cells that match the dimensions in the clipboard. The selected cell closest to the first field and data record will be the top left-most corner of the rectangle. However, if there is not enough space for the rectangle, the DataPresenter control will display a dialog box that offers your end users the option to clip the data or cancel the paste operation.
+
+The DataPresenter controls will not add the selection's corresponding field headers to the clipboard when your end users perform a copy or cut operation. However, you can include field headers in a copy or cut operation by setting a FieldLayoutSettings object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~copyfieldlabelstoclipboard.html[CopyFieldLabelsToClipboard] property to True.
+
+The following example code demonstrates how to enable clipboard operations.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings AllowClipboardOperations="Copy, Paste" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Me.xamDataPresenter1.FieldLayoutSettings.AllowClipboardOperations = AllowClipboardOperations.Copy Or AllowClipboardOperations.Paste;
+...
+----
+
+*In C#:*
+
+----
+In C#:
+using Infragistics.Windows.DataPresenter;
+...
+this.xamDataPresenter1.FieldLayoutSettings.AllowClipboardOperations = AllowClipboardOperations.Copy | AllowClipboardOperations.Paste;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-perform-clipboard-operations.html[Perform Clipboard Operations]
+
+link:xamdatapresenter-handle-clipboard-operation-errors.html[Handle Clipboard Operation Errors]
+
+link:xamdatapresenter-prevent-clipboard-operations-from-modifying-a-field.html[Prevent Clipboard Operations From Modifying a Field]
+
+link:xamdatapresenter-prevent-the-addition-of-specific-formats-to-the-clipboard.html[Prevent the Addition of Specific Formats to the Clipboard]

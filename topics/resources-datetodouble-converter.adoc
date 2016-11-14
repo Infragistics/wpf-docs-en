@@ -1,0 +1,56 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-datetodouble-converter",
+    "controlName": [],
+    "tags": ["Sample Data Source"],
+    "guid": "f0af653f-3027-47d6-b50f-0b7299a1e835",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.3200525Z"
+}
+|metadata|
+////
+
+= DateToDouble Converter
+
+*In Visual Basic:*
+
+----
+Class DateToDoubleConverter
+    Implements IValueConverter
+    Public Function Convert(ByVal value As Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements IValueConverter.Convert
+       Dim temp As DateTime = System.Convert.ToDateTime(parameter) 
+       Return temp.ToOADate() 
+    End Function
+    Public Function ConvertBack(ByVal value As Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As System.Globalization.CultureInfo) As Object Implements IValueConverter.ConvertBack
+        Throw New NotImplementedException()
+    End Function
+End Class
+----
+
+*In C#:*
+
+----
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Data;
+namespace Modifying_a_Date_Time_Axis
+{
+    class DateToDoubleConverter:IValueConverter
+    {
+        #region IValueConverter Members
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            DateTime temp = System.Convert.ToDateTime(parameter);
+            return temp.ToOADate();
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
+}
+----

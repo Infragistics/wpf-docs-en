@@ -1,0 +1,168 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcalculationmanager-overview-of-item-calculator",
+    "controlName": ["xamCalculationManager"],
+    "tags": ["Calculations"],
+    "guid": "889b4aab-2a9a-4db2-b1e6-5156c90cd500",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.5771231Z"
+}
+|metadata|
+////
+
+= Overview of Item Calculator
+
+== ItemCalculator
+
+The link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculator.html[ItemCalculator] component allows you to perform calculations on data bound to the control and exposes a collection of link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.listcalculator~itemcalculations.html[ItemCalculations], which each identify a property on a specified item that can be the source and / or target of a formula. In addition to performing the calculations, the component also exposes the results of the calculations.
+
+The xamCalculationManager™ control can perform calculation using the ItemCalculator values by accessing the link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~referenceid.html[ReferenceId] properties.
+
+== ItemCalculator control properties chart
+
+The table below explains the properties of the ItemCalculator and lists their default settings.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Type|Description|Default Value
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculator~calculations.html[Calculations]
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculationcollection.html[ItemCalculationCollection]
+|Collection of calculations that will be performed on the item.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculator~item.html[Item]
+|Object
+|Specifies the item whose properties will provide the source values for the calculations.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculator~results.html[Results]
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.calculationresultsdictionary.html[CalculationResultsDictionary]
+|Returns a dictionary that contains the results of the item calculations.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~calculationmanager.html[CalculationManager]
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.xamcalculationmanager.html[XamCalculationManager]
+|Specifies the CalculationManager that is used to perform the calculations.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~propertiestoexclude.html[PropertiesToExclude]
+|String
+|List of properties of an item to exclude from calculations being performed on them.
+|Null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~propertiestoinclude.html[PropertiesToInclude]
+|String
+|List of properties of an item to allow calculations to be performed on them.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculationbase~referenceid.html[ReferenceId]
+|String
+|Specifies the id that identifies the calculator to the calculation network.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~valueconverter.html[ValueConverter]
+|IValueConverter
+|Specifies the converter used to convert the value of the source item to the value that is used in the calculation network.
+|null
+
+|====
+
+== ItemCalculation sub-control properties chart
+
+The table below explains the properties of the ItemCalculation and lists their default settings.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Type|Description|Default Value
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculation~targetproperty.html[TargetProperty]
+|String
+|This property is optional. If this property is specified the result of the calculation is set on this property.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculation~treatastype.html[TreatAsType]
+|Type
+|Specifies the target type values of the object. For example if the TargetProperty is of type String but contains string representations of date values, then this property should be set to DateTime.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculation~treatastypename.html[TreatAsTypeName]
+|String
+|If TreatAsType property is set, this property is ignored. Specifies what type to treat the values of the object. For example if the TargetType is of type String but contains string representations of date values, then this property should be set to “datetime”.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculation~treatastyperesolved.html[TreatAsTypeResolved]
+|Type
+|This property is read-only. Specifies what type to treat the values of the object.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculationbase~formula.html[Formula]
+|String
+|Specifies the formula used to calculate a value for the item.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.itemcalculatorbase~referenceid.html[ReferenceId]
+|String
+|Specifies the control id that identifies the item calculation to the calculation network.
+|null
+
+|====
+
+== Code Example: Using Item Calculator
+
+== Example description
+
+The following code snippet uses the ItemCalculator to bind the shipping detail. Formulas are then defined using the ItemCalculation component. The results of the formulas are accessed in two ways:
+
+The first TextBlock binds the Text property of the ItemCalculator’s Results dictionary.
+
+The xamCalculationManager accesses the ItemCalculator’s ReferenceId and performs calculations using the ReferenceId.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot">
+   <Grid.Resources>
+      <ig:XamCalculationManager x:Key="CalcManager">
+      </ig:XamCalculationManager>
+   </Grid.Resources>
+   <ig:ItemCalculatorElement x:Name="itemCalcElement" 
+                             CalculationManager="{StaticResource CalcManager}" 
+                  Item="{Binding Path=CurrentShippingDetail}">
+      <ig:ItemCalculatorElement.Calculator>
+         <ig:ItemCalculator ReferenceId="ShippingDetailCalculator">
+            <ig:ItemCalculator.Calculations>
+               <ig:ItemCalculation TargetProperty="ShipCharge" 
+                             Formula="([Price] * [Quantity])"/>
+               <ig:ItemCalculation ReferenceId="Total"
+                             Formula="([Price] * [Quantity]) + [ShipCharge]"/>
+            </ig:ItemCalculator.Calculations>
+         </ig:ItemCalculator>
+      </ig:ItemCalculatorElement.Calculator>
+   </ig:ItemCalculatorElement>
+   <!-- Note that the following 2 TextBlocks will have the Text properties 
+        set to the same value.
+     The first TextBlock binds its Text property to the calculator's Results
+        dictionary.
+     The second one takes advantage of the ItemCalculator's ReferenceId (which is 
+        optional) to pick up the Total by setting a Formula-->
+   <TextBlock x:Name="Result0" Text="Total From Results”/>
+   <TextBlock x:Name="Result1" 
+              Text="{Binding ElementName=itemCalcElement, 
+                     Path=Calculator.Results[Total].Value}"/>
+   <TextBlock Text="TotalFromReferenceID"/>
+   <TextBlock x:Name="Result2"  
+              ig:XamCalculationManager.CalculationManager="{StaticResource CalcManager}">
+      <ig:XamCalculationManager.ControlSettings>
+         <ig:ControlCalculationSettings Formula="[ShippingDetailCalculator/Total]" />
+      </ig:XamCalculationManager.ControlSettings>
+   </TextBlock>
+</Grid>
+----
+
+== *Related Topics:*
+
+* link:xamcalculationmanager-overview-of-named-references.html[Overview of Named References]
+* link:xamcalculationmanager-overview-of-list-calculator.html[Overview of List Calculator]

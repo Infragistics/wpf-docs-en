@@ -1,0 +1,242 @@
+﻿////
+|metadata|
+{
+    "name": "xamwebmap-display-different-layer-types",
+    "controlName": ["xamMap"],
+    "tags": ["Application Scenarios","Data Presentation","How Do I"],
+    "guid": "{780A471B-6C0A-463B-9B9D-9D86782899E2}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.090235Z"
+}
+|metadata|
+////
+
+= Display Different Layer Types
+
+This section gives you instructions on how to display different layer types of supported geo-imagery in the xamMap™ control.
+
+== Open Street Maps
+
+The link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.maps.openstreetmaptilesource.html[OpenStreetMapTileSource] provides only road view of the geo-imagery from Open Street Maps source.
+
+* Road View
+
+image::images/XamMap_Display_Different_Layer_Types_02.png[]
+
+*In XAML:*
+
+----
+<igMap:XamMap x:Name="webMap" MapProjectionType="SphericalMercator" >
+    <igMap:XamMap.MapTileSource >
+        <igMap:OpenStreetMapTileSource />
+    </igMap:XamMap.MapTileSource> 
+</igMap:XamMap>
+----
+
+*In Visual Basic:*
+
+----
+Dim geoImagery As New Infragistics.Controls.Maps.OpenStreetMapTileSource()
+Dim webMap As Infragistics.Controls.Maps.XamMap = New Infragistics.Controls.Maps.XamMap()
+webMap.MapTileSource = geoImagery
+----
+
+*In C#:*
+
+----
+Infragistics.Controls.Maps.OpenStreetMapTileSource geoImagery = new Infragistics.Controls.Maps.OpenStreetMapTileSource();
+Infragistics.Controls.Maps.XamMap webMap = new Infragistics.Controls.Maps.XamMap();
+webMap.MapTileSource = geoImagery;
+----
+
+== Bing Maps
+
+The link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.maps.bingmapstilesource.html[BingMapsTileSource] provides three map views: Aerial, Aerial with Labels, and Road. The following code sample assumes that you know how to display BingMaps geo-imagery using a web service and token variable was created by providing valid network credentials to access the web service.
+
+=== Bing Maps with Aerial View
+
+image::images/XamMap_Display_Different_Layer_Types_03.png[]
+
+Change the ImageryMetadataRequest object’s MapStyle property to MapStyle.Aerial
+
+*In Visual Basic:*
+
+ifdef::wpf[]
+----
+Public Sub New()
+    InitializeComponent()
+    Dim mapUriRequest As New BingImageryServiceReference.ImageryMetadataRequest()
+    mapUriRequest.Credentials = New BingImageryServiceReference.Credentials()
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY"
+    ' set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.Aerial
+    ' create asynchronous Bing Maps service to handle geo-imagery requests
+    Dim imageryService As New BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService")
+    Dim imageryService As New BingImageryServiceReference.ImageryService()
+    AddHandler imageryService.GetImageryMetadataCompleted, AddressOf imageryService_GetImageryMetadataCompleted
+    imageryService.GetImageryMetadataAsync(mapUriRequest)
+End Sub
+Private Sub imageryService_GetImageryMetadataCompleted(ByVal sender As Object, ByVal e As BingImageryServiceReference.GetImageryMetadataCompletedEventArgs)
+    Dim result As BingImageryServiceReference.ImageryMetadataResult = e.Result.Results(0)
+    Dim source As New Infragistics.Controls.Maps.BingMapsTileSource()
+    source.TilePath = result.ImageUri
+    source.SubDomains = New ObservableCollection(Of String)(result.ImageUriSubdomains)
+    xamMap.MapTileSource = source
+End Sub
+----
+endif::wpf[]
+
+*In C#:*
+
+[source]
+----
+public MainPage()
+{
+    InitializeComponent();
+    BingImageryServiceReference.ImageryMetadataRequest mapUriRequest = new BingImageryServiceReference.ImageryMetadataRequest();
+    mapUriRequest.Credentials = new BingImageryServiceReference.Credentials();
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY";
+    // set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.Aerial;
+    // create asynchronous Bing Maps service to handle geo-imagery requests
+    BingImageryServiceReference.ImageryServiceClient imageryService = new BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService");
+    BingImageryServiceReference.ImageryService imageryService = new BingImageryServiceReference.ImageryService();
+    imageryService.GetImageryMetadataCompleted += imageryService_GetImageryMetadataCompleted;
+    imageryService.GetImageryMetadataAsync(mapUriRequest);
+}
+void imageryService_GetImageryMetadataCompleted(object sender, BingImageryServiceReference.GetImageryMetadataCompletedEventArgs e)
+{
+    BingImageryServiceReference.ImageryMetadataResult result = e.Result.Results[0];
+    xamMap.MapTileSource = newInfragistics.Controls.Maps.BingMapsTileSource()
+    {
+         TilePath = result.ImageUri,
+         SubDomains = new ObservableCollection<string>(result.ImageUriSubdomains)
+    };
+}
+----
+
+=== Bing Maps with Aerial View and Labels
+
+image::images/XamMap_Display_Different_Layer_Types_04.png[]
+
+Change the ImageryMetadataRequest object’s MapStyle property to MapStyle.AerialWithLabels
+
+*In Visual Basic:*
+
+ifdef::wpf[]
+----
+Public Sub New()
+    InitializeComponent()
+    Dim mapUriRequest As New BingImageryServiceReference.ImageryMetadataRequest()
+    mapUriRequest.Credentials = New BingImageryServiceReference.Credentials()
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY"
+    ' set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.AerialWithLabels
+    ' create asynchronous Bing Maps service to handle geo-imagery requests
+    Dim imageryService As New BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService")
+    Dim imageryService As New BingImageryServiceReference.ImageryService()
+    AddHandler imageryService.GetImageryMetadataCompleted, AddressOf imageryService_GetImageryMetadataCompleted
+    imageryService.GetImageryMetadataAsync(mapUriRequest)
+End Sub
+Private Sub imageryService_GetImageryMetadataCompleted(ByVal sender As Object, ByVal e As BingImageryServiceReference.GetImageryMetadataCompletedEventArgs)
+    Dim result As BingImageryServiceReference.ImageryMetadataResult = e.Result.Results(0)
+    Dim source As New Infragistics.Controls.Maps.BingMapsTileSource()
+    source.TilePath = result.ImageUri
+    source.SubDomains = New ObservableCollection(Of String)(result.ImageUriSubdomains)
+    xamMap.MapTileSource = source
+End Sub
+----
+endif::wpf[]
+
+*In C#:*
+
+ifdef::wpf[]
+----
+public MainPage()
+{
+    InitializeComponent();
+    BingImageryServiceReference.ImageryMetadataRequest mapUriRequest = new BingImageryServiceReference.ImageryMetadataRequest();
+    mapUriRequest.Credentials = new BingImageryServiceReference.Credentials();
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY";
+    // set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.AerialWithLabels;
+    // create asynchronous Bing Maps service to handle geo-imagery requests
+    BingImageryServiceReference.ImageryServiceClient imageryService = new BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService");
+    BingImageryServiceReference.ImageryService imageryService = new BingImageryServiceReference.ImageryService();
+    imageryService.GetImageryMetadataCompleted += imageryService_GetImageryMetadataCompleted;
+    imageryService.GetImageryMetadataAsync(mapUriRequest);
+}
+void imageryService_GetImageryMetadataCompleted(object sender, BingImageryServiceReference.GetImageryMetadataCompletedEventArgs e)
+{
+    BingImageryServiceReference.ImageryMetadataResult result = e.Result.Results[0];
+    xamMap.MapTileSource = newInfragistics.Controls.Maps.BingMapsTileSource()
+    {
+         TilePath = result.ImageUri,
+         SubDomains = new ObservableCollection<string>(result.ImageUriSubdomains)
+    };
+}
+----
+endif::wpf[]
+
+=== Bing Maps with Road View
+
+image::images/XamMap_Display_Different_Layer_Types_05.png[]
+
+Change the ImageryMetadataRequest object’s MapStyle property to MapStyle.Road
+
+*In Visual Basic:*
+
+ifdef::wpf[]
+----
+Public Sub New()
+    InitializeComponent()
+    Dim mapUriRequest As New BingImageryServiceReference.ImageryMetadataRequest()
+    mapUriRequest.Credentials = New BingImageryServiceReference.Credentials()
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY"
+    ' set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.Road
+    ' create asynchronous Bing Maps service to handle geo-imagery requests
+    Dim imageryService As New BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService")
+    Dim imageryService As New BingImageryServiceReference.ImageryService()
+    AddHandler imageryService.GetImageryMetadataCompleted, AddressOf imageryService_GetImageryMetadataCompleted
+    imageryService.GetImageryMetadataAsync(mapUriRequest)
+End Sub
+Private Sub imageryService_GetImageryMetadataCompleted(ByVal sender As Object, ByVal e As BingImageryServiceReference.GetImageryMetadataCompletedEventArgs)
+    Dim result As BingImageryServiceReference.ImageryMetadataResult = e.Result.Results(0)
+    Dim source As New Infragistics.Controls.Maps.BingMapsTileSource()
+    source.TilePath = result.ImageUri
+    source.SubDomains = New ObservableCollection(Of String)(result.ImageUriSubdomains)
+    xamMap.MapTileSource = source
+End Sub
+----
+endif::wpf[]
+
+*In C#:*
+
+ifdef::wpf[]
+----
+public MainPage()
+{
+    InitializeComponent();
+    BingImageryServiceReference.ImageryMetadataRequest mapUriRequest = new BingImageryServiceReference.ImageryMetadataRequest();
+    mapUriRequest.Credentials = new BingImageryServiceReference.Credentials();
+    mapUriRequest.Credentials.ApplicationId = "BING_MAPS_SECRET_KEY";
+    // set layer type for geo-imagery source
+    mapUriRequest.Style = BingImageryServiceReference.MapStyle.Road;
+    // create asynchronous Bing Maps service to handle geo-imagery requests
+    BingImageryServiceReference.ImageryServiceClient imageryService = new BingImageryServiceReference.ImageryServiceClient("BasicHttpBinding_IImageryService");
+    BingImageryServiceReference.ImageryService imageryService = new BingImageryServiceReference.ImageryService();
+    imageryService.GetImageryMetadataCompleted += imageryService_GetImageryMetadataCompleted;
+    imageryService.GetImageryMetadataAsync(mapUriRequest);
+}
+void imageryService_GetImageryMetadataCompleted(object sender, BingImageryServiceReference.GetImageryMetadataCompletedEventArgs e)
+{
+    BingImageryServiceReference.ImageryMetadataResult result = e.Result.Results[0];
+    xamMap.MapTileSource = newInfragistics.Controls.Maps.BingMapsTileSource()
+    {
+         TilePath = result.ImageUri,
+         SubDomains = new ObservableCollection<string>(result.ImageUriSubdomains)
+    };
+}
+----
+endif::wpf[]

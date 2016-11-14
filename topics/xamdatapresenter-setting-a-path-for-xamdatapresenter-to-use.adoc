@@ -1,0 +1,45 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-setting-a-path-for-xamdatapresenter-to-use",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts"],
+    "guid": "{5ECF0AE1-2A84-458C-AAE0-B2827786CB4E}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3290189Z"
+}
+|metadata|
+////
+
+= Setting a Path for xamDataPresenter to Use
+
+In link:xamcarousel-creating-a-named-path-on-the-artboard.html[Creating a Named Path on the Artboard], we create a path that we could use to define a custom path for xamCarouselPanel™, xamDataCarousel™, xamDataPresenter's™ Carousel View or xamCarouselListBox™ to use. The purpose of this topic is to show you how to take that path, and apply it to your xamDataPresenter's Carousel View.
+
+.Note
+[NOTE]
+====
+This topic assumes you already have setup your xamDataPresenter. For more information on how to do this, see link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application], and have read link:xamdatapresenter-about-carouselview.html[About CarouselView].
+====
+
+[start=1]
+. First you need to copy your path you created from your Microsoft® Expression® Blend project into your Visual Studio project. The Window1.xaml is the default window for Blend projects so your path should be defined in this file.
+[start=2]
+. Once you have copied your path, paste it into the resource section of your project.
+[start=3]
+. Doing this will cause an error if you compile it right now. This error occurs because the path is in the resource section, and all items in the resource section must have a Key assigned to them. So specify a Key for your path.
+[start=4]
+. You can remove from the path the Fill, Stretch, and Stroke settings that Blend has set, as the xamDataPresenter won't need them. You can also leave them if you would like to see the path that your items follow inside the xamDataPresenter.
+[start=5]
+. Below your XamDataPresenter's CarouselView opening tag, place the following example code. This code creates a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatacarousel~viewsettings.html[ViewSettings], which contains a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings] that has the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~itempath.html[ItemPath] property that you assign your custom path too, by specifying the Key you assigned to the path.
+
+*In XAML:*
+
+----
+<igDP:CarouselView.ViewSettings>
+        <igWindows:CarouselViewSettings ItemPath="{StaticResource myPath}"/>
+</igDP:CarouselView.ViewSettings>
+----
+
+[start=6]
+. If you run the project you will see the xamDataPresenter's Carousel View items follow the path that you have defined.

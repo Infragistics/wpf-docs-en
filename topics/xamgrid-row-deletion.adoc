@@ -1,0 +1,63 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-row-deletion",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Grids"],
+    "guid": "{6BCC1CB5-75C0-472C-8DC0-BB651F2CD7AD}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.9742013Z"
+}
+|metadata|
+////
+
+= Row Deletion
+
+The xamGrid™ control allows row deleting using the keyboard Delete key. Once a row is deleted, the underlying data record is also removed. Set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~deletekeyaction.html[DeleteKeyAction] property to enable/disable this feature.
+
+.Note:
+[NOTE]
+====
+This behavior requires that your data source implements the IList interface.
+====
+
+The property takes the following DeleteKeyAction Enumeration:
+
+* None
+* DeleteSelectedRows - Requires row selection enabled.
+* DeleteRowOfActiveCell - Requires an active cell.
+* DeleteRowsOfSelectedCells - Requires cell selection enabled.
+* DeleteRowsOfSelectedCellsAndRows - Requires cell selection or row selection enabled.
+
+The following code shows you how to enable row deletion.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="xamGrid1" DeleteKeyAction="DeleteRowOfActiveCell"             ItemsSource="{Binding Source={StaticResource DataUtil}, Path=CategoriesAndProducts}" />
+----
+
+*In Visual Basic:*
+
+----
+Me.xamGrid1.DeleteKeyAction = Infragistics.Controls.Grids.DeleteKeyAction.DeleteRowOfActiveCell
+----
+
+*In C#:*
+
+----
+this.xamGrid1.DeleteKeyAction = Infragistics.Controls.Grids.DeleteKeyAction.DeleteRowOfActiveCell;
+----
+
+== Related Topics
+
+link:xamgrid-add-new-row.html[Add New Row]
+
+link:xamgrid-add-row-commands.html[Add Row Commands]
+
+link:xamgrid-auto-expand-data-rows-and-child-bands.html[Auto Expand Data Rows and Child Bands]
+
+link:xamgrid-change-row-hover-type.html[Change Row Hover Type]
+
+link:xamgrid-remove-alternative-row-styling.html[Remove Alternative Row Styling]

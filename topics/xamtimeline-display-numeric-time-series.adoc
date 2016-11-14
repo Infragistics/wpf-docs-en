@@ -1,0 +1,149 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-display-numeric-time-series",
+    "controlName": ["xamTimeline"],
+    "tags": ["API","Data Presentation","How Do I"],
+    "guid": "{B425B6DC-3D04-4C89-9BA4-B6DCC4F14247}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.9733988Z"
+}
+|metadata|
+////
+
+= Display Numeric Time Series
+
+== Before You Begin
+
+You can use the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeline]™ control to display sequential numeric data. For example, if you have data that are not DateTime values such as numbers representing Minute, Hour, or Year, you can use a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeseries.html[NumericTimeSeries] object to visualize this data in a sequential manner.
+
+== What You Will Accomplish
+
+You will learn how to display numeric data in the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control.
+
+image::images/XamTimeline_Display_Numeric_Time_Series_01.png[]
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ project.
+[start=2]
+. In the Solution Explorer, add the following references to {PlatformName} Application project:
+
+** {ApiPlatform}Controls.Timelines.XamTimeline.v{ProductVersion}.dll
+** {ApiPlatform}DataVisualization.v{ProductVersion}.dll
+** {ApiPlatform}v{ProductVersion}.dll
+
+[start=3]
+. Add the following namespace declaration for xamTimeline.
+
+*In XAML:*
+
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Timelines
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Timelines;
+----
+
+[start=4]
+. Add the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control with a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeseries.html[NumericTimeSeries] object
+
+*In XAML:*
+
+----
+<ig:XamTimeline x:Name="xamTimeline">
+    <ig:XamTimeline.Series>
+        <ig:NumericTimeSeries Title="Numeric Time Series">
+            <!--TODO: Add Numeric Time Entries  -->
+        </ig:NumericTimeSeries>
+    </ig:XamTimeline.Series> 
+</ig:XamTimeline>
+----
+
+*In Visual Basic:*
+
+----
+Dim xamTimeline As New XamTimeline()
+Me.LayoutRoot.Children.Add(xamTimeline)
+Dim numTimeSeries As New NumericTimeSeries()
+'TODO: Add Numeric Time Entries 
+xamTimeline.Series.Add(numTimeSeries)
+----
+
+*In C#:*
+
+----
+XamTimeline xamTimeline = new XamTimeline();
+this.LayoutRoot.Children.Add(xamTimeline);
+NumericTimeSeries numTimeSeries = new NumericTimeSeries();
+//TODO: Add Numeric Time Entries 
+xamTimeline.Series.Add(numTimeSeries);
+----
+
+[start=5]
+. Add data to the timeline using link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeentry.html[NumericTimeEntry] objects.
+
+*In XAML:*
+
+----
+<ig:NumericTimeSeries.Entries>
+    <ig:NumericTimeEntry Time="500" Title="Numeric Time Entry 1" 
+                         Details="Details Time Entry 1"/>
+    <ig:NumericTimeEntry Time="1000" Title="Numeric Time Entry 2" 
+                         Details="Details Time Entry 2"/>
+    <ig:NumericTimeEntry Time="1500" Title="Numeric Time Entry 3" 
+                         Details="Details Time Entry 3"/>
+    <ig:NumericTimeEntry Time="2000" Title="Numeric Time Entry 4" 
+                         Details="Details Time Entry 4"/>
+    <ig:NumericTimeEntry Time="2500" Title="Numeric Time Entry 5" 
+                         Details="Details Time Entry 5"/>
+</ig:NumericTimeSeries.Entries>
+----
+
+*In Visual Basic:*
+
+----
+For ind As Integer = 1 To 5
+    Dim numTimeEntry As New NumericTimeEntry()
+    numTimeEntry.Time = ind * 500
+    numTimeEntry.Title = "Numeric Time Entry " + ind.ToString()
+    numTimeEntry.Details = "Details Time Entry " + ind.ToString()
+    numTimeSeries.Entries.Add(numTimeEntry)
+Next
+----
+
+*In C#:*
+
+----
+for (int ind = 1; ind <= 5; ind++)
+{      
+    var entry = new NumericTimeEntry();
+    entry.Time = ind * 500;
+    entry.Title = "Numeric Time Entry " + ind.ToString();
+    entry.Details = "Details Time Entry " + ind.ToString();
+    numTimeSeries.Entries.Add(entry);
+}
+----
+
+[start=6]
+. Run the application. The xamTimeline control displays the data. You can move the slider to an event to see the details for that event.
+
+image::images/XamTimeline_Display_Numeric_Time_Series_01.png[]
+
+== Related Topics
+
+link:xamtimeline-binding-to-data-with-xamtimeline.html[Data Binding]
+
+link:xamtimeline-display-date-time-series.html[Display Date Time Series]
+
+link:xamtimeline-use-multiple-series-with-xamwebtimeline.html[Display Multiple Series]

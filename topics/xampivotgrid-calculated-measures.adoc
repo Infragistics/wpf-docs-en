@@ -1,0 +1,214 @@
+﻿////
+|metadata|
+{
+    "name": "xampivotgrid-calculated-measures",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Calculations","Grids","How Do I","Tips and Tricks"],
+    "guid": "6ca9496c-9e0a-44f1-a889-6af49a7fbb4b",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.2392895Z"
+}
+|metadata|
+////
+
+= Calculated Measures (xamPivotGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic demonstrates, with code examples, how to perform calculations with  _xamPivotGrid_™ members.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampivotgrid-binding-data-to-the-xampivotgrid.html[Binding Data to the xamPivotGrid]
+|This topic explains how to bind the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid] control to data.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref320042779,Calculated Measures Feature Overview>>
+* <<_Ref318894808,Creating Calculated Measures – Conceptual Overview>>
+
+** <<_Ref318978532,Introduction>>
+** <<_Ref318978548,Requirements>>
+
+* <<_Ref318894826,Creating Calculated Measures – Code Example>>
+
+** <<_Ref318978565,Introduction>>
+** <<_Ref318978571,Requirements>>
+** <<_Ref318978577,Overview>>
+** <<_Ref318978582,Steps>>
+
+* <<_Ref318894856,Related Content>>
+
+[[_Ref320042779]]
+== Calculated Measures Feature Overview
+
+=== Calculated Measures feature summary
+
+The Calculated Measures feature offers a way to create a member that can be added to rows or columns, which represent the result of the defined measures. The data that the calculated member represents is cross-joined with the data of other items in the rows or columns to display the calculated result.
+
+The calculated measures give you an option to create your own calculations used for the values that appear in the cells. The calculated measures are added to Measures’ collection.
+
+The _xamPivotGrid_ supports other data sources, but the Calculated Measures feature supports only XMLA data source.
+
+.Note:
+[NOTE]
+====
+The member hierarchy, used in measures calculation, cannot be the same as the members already defined in rows or columns.
+====
+
+[[_Ref318894808]]
+== Creating Calculated Measures – Conceptual Overview
+
+[[_Ref318978532]]
+=== Introduction
+
+The procedure involves creating measures for calculation, and members to display the result from the calculated measures as a separate column.
+
+.Note:
+[NOTE]
+====
+Calculated measures can be implemented in C# or VB; they cannot be implemented in XAML at this time.
+====
+
+The implementation of calculated measures is a two-step process. The first step is to create the measures with the calculated expression, and the second step is to create the members associated with the calculated measures and expression.
+
+By default, all calculated measures are attached to the Measures’ dimension, which can be changed by using the 4th and 5th parameters in the constructor of link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.calculatedmeasureviewmodel_members.html[CalculatedMeasureViewModel].
+
+[[_Ref318978548]]
+
+=== Requirements
+
+An XMLA data source bound to the _xamPivotGrid_.
+
+[[_Ref318894826]]
+== Creating Calculated Measures – Code Example
+
+[[_Ref318978565]]
+
+=== Introduction
+
+The example that follows uses the measures of the _InternetSalesAmount_   column to double its values and display the result in a separate column for _year period 2005 – 2008 which was used as an expression for calculation_. The member that represents the calculated measures is named _Doubled Sales Amount_.
+
+=== Preview
+
+Following is a preview of the final result.
+
+image::images/xamPivotGrid_CalculatedMeasures_01.png[]
+
+[[_Ref318978571]]
+=== Requirements
+
+A  _xamPivotGrid_   bound to an XMLA data source.
+
+[[_Ref318978577]]
+
+=== Overview
+
+Following is a conceptual overview of the process:
+
+*1. Creating the Calculated Measures*
+
+*2. Creating the Calculated Members*
+
+[[_Ref318978582]]
+
+=== Steps
+
+. Create the Calculated Measures.
++
+Create a calculated measure that defines the expression of calculation in the Measures hierarchy. In the example here, the `Internet Sales Amount` in the measures hierarchy is part of the expression, multiplying the `Internet Sales Amount` by 2.
++
+*In C#:*
++
+[source,csharp]
+----
+ICalculatedItemViewModel calcMeasureViewModel = 
+    new CalculatedMeasureViewModel(
+        "Doubled Amount", 
+        "Doubled Sales Amount", 
+        "[Measures].[Internet Sales Amount] * 2");
+this.pivotGrid.DataSource.Measures.Add(calcMeasureViewModel);
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim calcMeasureViewModel As ICalculatedItemViewModel = New CalculatedMeasureViewModel("Doubled Amount", "Doubled Sales Amount", "[Measures].[Internet Sales Amount] * 2")
+Me.pivotGrid.DataSource.Measures.Add(calcMeasureViewModel)
+----
+
+. Create the Calculated Members.
++
+Create a calculated member with the hierarchy to which it is attached.
++
+*In C#:*
++
+[source,csharp]
+----
+IHierarchy dateCalendar = this.pivotGrid.DataSource.Cube.Dimensions["[Date]"].Hierarchies["Calendar"];
+ICalculatedItemViewModel dateCalendarCalcItem = new CalculatedMemberViewModel(
+    dateCalendar, 
+    "2005-2008", 
+    "Period 2005-2008", 
+    "[Date].[Calendar].[Calendar Year].[CY 2008] - [Date].[Calendar].[Calendar Year].[CY 2005]",
+    false);
+this.pivotGrid.DataSource.Rows.Add(dateCalendarCalcItem);
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim dateCalendar As IHierarchy = Me.pivotGrid.DataSource.Cube.Dimensions("[Date]").Hierarchies("Calendar")
+Dim dateCalendarCalcItem As ICalculatedItemViewModel = New CalculatedMemberViewModel(dateCalendar, "2005-2008", "Period 2005-2008", "[Date].[Calendar].[Calendar Year].[CY 2008] - [Date].[Calendar].[Calendar Year].[CY 2005]", True)
+Me.pivotGrid.DataSource.Rows.Add(dateCalendarCalcItem)
+----
++
+.Note:
+[NOTE]
+====
+The hierarchy in the above calculated members is defined for [Date]. [Calendar]. The same hierarchy cannot be defined in the rows or columns. Her are the defined hierarchies for Rows and Columns in this example:
+====
++
+*In XAML:*
++
+[source,xaml]
+----
+<igOlap:XmlaDataSource 
+     x:Key="DataSource" 
+     ServerUri="http://sampledata.infragistics.com/olap/msmdpump.dll" 
+     Database="Adventure Works DW Standard Edition"
+     Cube="Adventure Works"
+     Columns="[Geography].[City]"
+     Rows="[Product].[Product Categories]"
+     Measures="Internet Sales Amount" />
+----
+
+[[_Ref318894856]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampivotgrid-binding-data-to-the-xampivotgrid.html[Binding Data to the xamPivotGrid]
+|This topic explains how to bind the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid] control to data.
+
+|====

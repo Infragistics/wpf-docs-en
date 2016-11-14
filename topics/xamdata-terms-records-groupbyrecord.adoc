@@ -1,0 +1,29 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-records-groupbyrecord",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","Getting Started","Grouping"],
+    "guid": "{62E7BA1D-2739-4EF5-9F4B-BF2FE446C577}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5688669Z"
+}
+|metadata|
+////
+
+= GroupBy Record
+
+GroupBy records are created to contain a child records collection. All of the contained child records inside of a GroupByRecord object are related because the values in their link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord~groupbyfield.html[GroupByField] that have been evaluated (by the GroupBy Evaluator) as a match during a grouping operation. Grouping operations are often initiated when the end user drags a GroupBy Field Label to the GroupBy Area, with the intent of reorganizing the information shown in xamDataGrid™, or xamDataPresenter™ in link:xamdata-terms-presentation-formats-grid-view-format.html[Grid View].
+
+image::images/Terms_Records_Group_By_Record_01.PNG[xamdatagrid showing group by records]
+
+The example data above (from the Northwind database) illustrates how a GroupBy record appears in xamDataGrid, or xamDataPresenter using its Grid View. All of the records grouped together in the screen shot above have a common value ("Accounting Manager") in their Title field.
+
+The figure below takes a look at the make-up of an individual GroupByRecord object as it would be presented. Unlike the link:xamdata-terms-records-data-record.html[Data Record], remember that GroupBy Records serve as containers. Depending on how you have configured the settings on the control, some elements depicted may be hidden or appear in a different location. Consult this diagram to better understand how the parts of a GroupBy record appear when its corresponding GroupBy Record Presenter displays it. For more information, see link:xamdata-terms-presenters.html[Presenters].
+
+image::images/Terms_Records_Group_By_Record_02.PNG[diagram explaining group by record areas]
+
+The Record Content Site is where the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord~description.html[Description] appears, and by default this will contain the common value followed by the number of records which were found to match.
+
+The Nested Content Site is where expandable content is situated using a Record List Control in Grid View. Its contents commonly consist of an Adorner object that will contain the Presenter objects responsible for displaying link:xamdata-terms-fields-field-label.html[Field Label] patterned on the layout defined in the link:xamdata-terms-fields-field-layout.html[Field Layout], and a virtualizing Panel object that will contain the Presenter objects responsible for displaying each matching Data Record.

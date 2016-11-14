@@ -1,0 +1,125 @@
+﻿////
+|metadata|
+{
+    "name": "persistence-handle-savepropertypersistence-and-loadpropertypersistence-events",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["How Do I","Persistence"],
+    "guid": "{6852F27F-CF64-46F0-91C5-374D280EA52D}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5970307Z"
+}
+|metadata|
+////
+
+= Handle SavePropertyPersistence and LoadPropertyPersistence Events
+
+The link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~savepropertypersistence_ev.html[SavePropertyPersistence] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~loadpropertypersistence_ev.html[LoadPropertyPersistence] events are fired for every property that is saved and loaded. You have the opportunity to review each property during these events and perform any custom logic.
+
+The SavePropertyPersistence event argument link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.savepropertypersistenceeventargs.html[SavePropertyPersistenceEventArgs] contains information about the property being saved. You could avoid saving a control’s property if the SavePropertyPersistenceEventArgs object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.savepropertypersistenceeventargs~cancel.html[Cancel] property is set to True.
+
+The LoadPropertyPersistence event argument link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.loadpropertypersistenceeventargs.html[LoadPropertyPersistenceEventArgs] contains information about the property being loaded. You could avoid loading a control’s property if the LoadPropertyPersistenceEventArgs object’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.loadpropertypersistenceeventargs~handled.html[Handled] property is set to True.
+
+The following example will show you how to register and use the events for a link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] object.
+
+You will validate properties and cancel, save or load if the properties don’t meet certain criteria. During the save process you will cancel the saving of control's Width property. During load, you will check the Height property value.
+
+* Add the following code in the page constructor after the InitializeComponent method:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private ps As New PersistenceSettings()
+Public Sub New()
+    InitializeComponent()
+    ' Register events
+    AddHandler ps.Events.SavePropertyPersistence, AddressOf _SavePropertyPersistence
+    AddHandler ps.Events.LoadPropertyPersistence, AddressOf _LoadPropertyPersistence
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+PersistenceSettings ps = new PersistenceSettings();
+public MainPage()
+{
+    InitializeComponent();
+    // Register events
+    ps.Events.SavePropertyPersistence +=
+        new EventHandler<SavePropertyPersistenceEventArgs>(_SavePropertyPersistence);
+    ps.Events.LoadPropertyPersistence +=
+        new EventHandler<LoadPropertyPersistenceEventArgs>(_LoadPropertyPersistence); 
+}
+----
+
+* Add the events handlers:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub _SavePropertyPersistence(ByVal sender As Object, ByVal e As SavePropertyPersistenceEventArgs)
+    ' Identify the Width property  
+    If e.PropertyPath.Equals("Width") Then
+        ' Cancel Width property saving 
+        e.Cancel = True
+    End If
+End Sub
+
+Private Sub _LoadPropertyPersistence(ByVal sender As Object, ByVal e As LoadPropertyPersistenceEventArgs)
+    ' Identify Height property and cancel Load if the height is more then 200
+    If e.PropertyPath.Equals("Width") AndAlso Convert.ToInt32(e.Value) > 200 Then
+        ' This property will not be loaded
+        e.Handled = True
+    End If
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void _SavePropertyPersistence(object sender, SavePropertyPersistenceEventArgs e)
+{
+    // Identify the Width property  
+    if (e.PropertyPath.Equals("Width"))
+    {
+        // Cancel Width property saving 
+        e.Cancel = true;
+    }
+}
+
+private void _LoadPropertyPersistence(object sender, LoadPropertyPersistenceEventArgs e)
+{
+    // Identify Height property and cancel Load if the height is more then 200
+    if (e.PropertyPath.Equals("Width") && Convert.ToInt32(e.Value) > 200)
+    {
+        // This property will not be loaded
+        e.Handled = true;
+    }
+}
+----
+
+*Related Topics*
+
+link:persistence-persistence-settings.html[Persistence Settings]
+
+link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties]
+
+ifdef::sl,win-rt,win-phone[]
+link:3ff664bc-2a4b-459d-8184-4ddca70ed809[Identifier]
+endif::sl,win-rt,win-phone[]
+
+link:persistence-persistence-groups.html[Persistence Groups]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+ifdef::win-phone[]
+link:persistence-using-propertynamepersistenceinfo-typeconverter-property.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::win-phone[]
+
+ifdef::sl,wpf,win-rt[]
+link:persistence-using-typeconverte.html[Using PropertyNamePersistenceInfo TypeConverter Property]
+endif::sl,wpf,win-rt[]

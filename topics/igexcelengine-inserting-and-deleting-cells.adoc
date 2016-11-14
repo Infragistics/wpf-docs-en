@@ -1,0 +1,243 @@
+﻿////
+
+|metadata|
+{
+    "name": "igexcelengine-inserting-and-deleting-cells",
+    "tags": ["Editing","How Do I"],
+    "controlName": ["IG Excel Engine"],
+    "guid": "6bfce37f-6cb0-4f16-b40b-23c19f254340",  
+    "buildFlags": [],
+    "createdOn": "2014-09-09T08:13:03.0432671Z"
+}
+|metadata|
+////
+
+= Inserting and Deleting Cells, Column and Rows (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to manage worksheet’s cells, columns and rows.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+|In this section you will find information that will help you to better understand the object model and the functionalities of the _Infragistics Excel Engine_ .
+
+| link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+|In order to get you up and running as quickly as possible with the _Infragistics Excel Engine_, this topic provides procedural instructions on how to create a workbook.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref397440445,Insert/Delete Cell(s) Summary>>
+* <<_Ref397517302,Insert Cell(s)>>
+* <<_Ref397517312,Delete Cell(s)>>
+* <<_Ref397611617,Insert or Delete Column(s)>>
+* <<_Ref397611637,Insert or Delete Row(s)>>
+* <<_Ref397440478,Related Content>>
+
+[[_Ref397440445]]
+== Insert/Delete Cell(s) Summary
+
+=== Insert/delete cell(s) summary
+
+The  _Infragistics Excel Engine_   supports inserting of new cell(s) and removing of existing cell(s) using methods located in the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet_members.html[Worksheet] class.
+
+=== Insert/delete cell(s) summary chart
+
+The following table explains briefly the available functionality for inserting and deleting worksheet cell(s). Further details are available after the table.
+
+[options="header", cols="a,a,a"]
+|====
+|Operation|Details|Method(s)
+
+|<<_Ref397517302,Insert Cell(s)>>
+|Insert one or more cell(s)
+|
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~insertcells.html[InsertCells] 
+
+|<<_Ref397517312,Delete Cell(s)>>
+|Delete one or more cell(s)
+|
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~deletecells.html[DeleteCells] 
+
+|<<_Ref397611617,Insert or Delete Column(s)>>
+|Insert or delete one or more column(s)
+|
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcolumncollection~insert.html[Insert] 
+
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcolumncollection~remove.html[Remove] 
+
+|<<_Ref397611637,Insert or Delete Row(s)>>
+|Insert or delete one or more row(s)
+|
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetrowcollection~insert.html[Insert] 
+
+* link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetrowcollection~remove.html[Remove] 
+
+|====
+
+[[_Ref397440383]]
+[[_Ref397517302]]
+== Insert Cell(s)
+
+[[_Hlk368069110]]
+
+=== Overview
+
+The  _Infragistics Excel Engine_   supports inserting of one or more new cell(s) by specifying the location at which the insert process should occur. The cell(s) already located at the specified address(es) will be shifted to the right or below. You can specify the address(es) for the new cell(s) using a `string` or a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetregion_members.html[WorksheetRegion].
+
+Here are some examples of specifying addresses using a `string`:
+
+* “C5” - this will insert one single cell at column C, row 5
+* “D8:D10” – this will insert 3 cells in column D, rows 8, 9 and 10
+* “E11:G15” – this will insert a block of cells which stretch from column E to column G and from row 11 to row 15
+
+.Note
+[NOTE]
+====
+You cannot insert or delete cells in a location where it would split merged cells, tables or array formulas or if an insertion would cause cell data to be shifted off the right or bottom of the worksheet. The methods below will throw an `InvalidOperationException` if any of these scenarios are detected.
+====
+
+=== Property settings
+
+The following table maps the desired functionality to the method that invokes it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Insert cell(s)
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~insertcells.html[InsertCells]
+|
+* The address(es) in either `string` or `WorksheetRegion` format 
+
+* Direction in which the existing cells to be shifted (`false` for down, `true` for right) 
+
+|====
+
+[[_Ref397440392]]
+[[_Ref397517312]]
+== Delete Cell(s)
+
+=== Overview
+
+The  _Infragistics Excel Engine_   supports deleting of one or more existing cell(s) by specifying the location at which the deletion process should occur. The “empty” location will be filled with cells from either right or below the deleted cell(s). You can specify the address(es) for the cell(s) to be deleted using `string` or `WorksheetRegion`.
+
+.Note
+[NOTE]
+====
+For example on how to specify address(es) using string see the insert cell(s) operation above.
+====
+
+=== Property settings
+
+The following table maps the desired functionality to the method that invokes it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Delete cell(s)
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~deletecells.html[DeleteCells]
+|
+* The address(es) in either `string` or `WorksheetRegion` format 
+
+* Direction in which the existing cells to be shifted to replace the deleted cell(s) (`false` for up, `true` for left) 
+
+|====
+
+[[_Ref397611617]]
+== Insert or Delete Column(s)
+
+=== Overview
+
+The  _Infragistics Excel Engine_   supports inserting and deleting column(s) using the `Insert` and `Remove` methods of the worksheet’s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~columns.html[Columns] collection.
+
+=== Property settings
+
+The following table maps the desired functionality to the method that invokes it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Insert new column(s)
+|`Insert`
+|
+* Location index (0-based) for inserting new column(s) 
+
+* Number of column(s) to be inserted (if you omit this argument one column will be inserted) 
+
+|Delete existing column(s)
+|`Remove`
+|
+* Location index (0-based) for deleting existing column(s) 
+
+* Number of column(s) to be deleted (if you omit this argument one column will be deleted) 
+
+|====
+
+[[_Ref397611637]]
+== Insert or Delete Row(s)
+
+=== Overview
+
+The  _Infragistics Excel Engine_   supports inserting and deleting row(s) using the `Insert` and `Remove` methods of the worksheet’s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~rows.html[Rows] collection.
+
+=== Property settings
+
+The following table maps the desired functionality to the method that invokes it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Insert new row(s)
+|`Insert`
+|
+* Location index (0-based) for inserting new row(s) 
+
+* Number of row(s) to be inserted (if you omit this argument one row will be inserted) 
+
+|Delete existing row(s)
+|`Remove`
+|
+* Location index (0-based) for deleting existing row(s) 
+
+* Number of row(s) to be deleted (if you omit this argument one row will be deleted) 
+
+|====
+
+[[_Ref397440478]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-accessing-cells-and-cell-regions-by-name.html[Accessing Cells and Cell Regions by Name (Infragistics Excel Engine)]
+|This topic explains how to access Worksheet cells and regions by their names or named references.
+
+| link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+|This topic explains how to merge several Worksheet cells and how to set the format of the merged cells region.
+
+| link:igexcelengine-reference-cells-and-regions.html[Referencing Cells and Regions (Infragistics Excel Engine)]
+|This topic explains how to access a cell and a region by a string reference.
+
+|====

@@ -1,0 +1,347 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-clipboard-support",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","How Do I"],
+    "guid": "ea5d9c5c-52c0-4858-87d0-531948ad18a5",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3563536Z"
+}
+|metadata|
+////
+
+= Clipboard Support (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the supported clipboard operations provided by the  _xamSyntaxEditor™_   control.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref332610425, Introduction to the  _xamSyntaxEditor’s_   Clipboard Support >>
+* <<_Ref332610432, Control Configuration Summary >>
+* <<_Ref332610439, Clipboard Cut >>
+* <<_Ref332610446, Clipboard Copy >>
+* <<_Ref332610457, Clipboard Paste >>
+* <<_Ref324632235, Events Summary >>
+* <<_Ref094327652, ClipboardOperationExecuting Event >>
+* <<_Ref764325452, ClipboardOperationExecuted Event >>
+* <<_Ref332610464, Related Content >>
+
+[[_Ref332610425]]
+== Introduction to the  _xamSyntaxEditor_  ’s Clipboard Support
+
+=== Introduction
+
+The  _xamSyntaxEditor_   control provides Cut, Copy and Paste to clipboard operation to facilitate users editing of document. These operations are available using the link:generalconcepts-about-ig-commanding.html[Infragistics Commanding framework].
+
+.Note
+[NOTE]
+====
+In limited trust XBAP and Silverlight applications, the control uses a private clipboard, which provides full clipboard capability for text within the control, but does not allow clipboard interaction with other elements in the application.
+====
+
+[[_Ref332610432]]
+== Control Configuration Summary
+
+=== Control configuration summary chart
+
+The following table lists the commands available for the clipboard support.
+
+[options="header", cols="a,a,a"]
+|====
+|Operation|Details|Command to invoke
+
+|<<_Ref332610439,Clipboard Cut>>
+|Perform a Cut operation
+|
+* Cut 
+
+|<<_Ref332610446,Clipboard Copy>>
+|Perform a Copy operation
+|
+* Copy 
+
+|<<_Ref332610457,Clipboard Paste>>
+|Perform a Paste operation
+|
+* Paste 
+
+|====
+
+For a complete lists of all  _xamSyntaxEditor_   commands, please refer to the link:xamsyntaxeditor-events-and-commands.html[Events and Commands] topic.
+
+[[_Ref332610439]]
+== Clipboard Cut
+
+=== Overview
+
+The cut clipboard operation captures and removes selected text from a document, while adding the selection to the clipboard.
+
+=== Command settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Instantiate the following command source:|And set the following properties:
+
+|Perform the Cut operation
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource.html[SyntaxEditorCommandSource]
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource~eventname.html[EventName] 
+
+link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource~commandtype.html[CommandType]
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Cut">
+    <ig:Commanding.Command>
+        <igPrim:SyntaxEditorCommandSource EventName="Click" CommandType="Cut" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref332610446]]
+== Clipboard Copy
+
+=== Overview
+
+The copy clipboard operation copies the selected text from the document and adds it to the clipboard.
+
+=== Command settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Instantiate the following command source:|And set the following properties:
+
+|Perform the Copy operation
+|`SyntaxEditorCommandSource`
+|`EventName` 
+
+`CommandType`
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Copy">
+    <ig:Commanding.Command>
+        <igPrim:SyntaxEditorCommandSource EventName="Click" CommandType="Copy" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref332610457]]
+== Clipboard Paste
+
+=== Overview
+
+The paste clipboard operation either inserts the clipboard’s textual content at the  _xamSyntaxEditor’s_   current caret position or inserts and replaces selected text in the document, if applicable.
+
+=== Command settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Instantiate the following command source:|And set the following properties:
+
+|Perform the Paste operation
+|`SyntaxEditorCommandSource`
+|`EventName` 
+
+`CommandType`
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Paste">
+    <ig:Commanding.Command>
+        <igPrim:SyntaxEditorCommandSource EventName="Click" CommandType="Paste" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Ref324632235]]
+== Events Summary
+
+=== Events summary chart
+
+The execution of clipboard operations fires the  _xamSyntaxEditor_   control’s link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~clipboardoperationexecuting_ev.html[ClipboardOperationExecuting] event before making changes to the `TextDocument,` and later fires the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~clipboardoperationexecuted_ev.html[ClipboardOperationExecuted] following a clipboard operation committing changes to the `TextDocument`. Cancelling the `ClipboardOperationExecuting` event prevents the `ClipboardOperationExecuted` event from firing and aborts the current clipboard operation. Regardless of whether triggered by the executing or executed event you can retrieve the requested clipboard operation (Cut, Copy or Paste) along with its contents.
+
+The following table lists the clipboard events, fired by the  _xamSyntaxEditor_   control.
+
+[options="header", cols="a,a,a"]
+|====
+|Event|Details|Event Properties
+
+|<<_Ref094327652,ClipboardOperationExecuting Event>>
+|This event fires immediately before executing a clipboard operation prior to changing the `TextDocument`.
+|
+* Clipboard operation 
+
+* Clipboard content 
+
+* Event can be canceled 
+
+|<<_Ref764325452,ClipboardOperationExecuted Event>>
+|This event fires immediately following executing a clipboard operation after changing the `TextDocument`.
+|
+* Clipboard operation 
+
+* Clipboard content 
+
+|====
+
+[[_Ref094327652]]
+== ClipboardOperationExecuting Event
+
+=== Description
+
+This event fires immediately preceding the execution of a clipboard operation prior to its making changes to the `TextDocument`.
+
+=== Code
+
+The following code snippet shows how to handle a `ClipboardOperationExecuting` event:
+
+*In C#:*
+
+[source,csharp]
+----
+public void editor_COExecuting(object s, ClipboardOperationExecutingEventArgs e)
+{
+    // obtain clipboard operation (Cut, Copy, Paste)
+    ClipboardOperation operation = e.ClipboardOperation;
+    // get the data object in order to operate with the clipboard data
+    SyntaxEditorDataObject dataObject = e.DataObject;
+    string dataAsString =
+        dataObject.GetData(SyntaxEditorDataFormats.Text) as string;
+    // you can change the clipboard data
+    dataObject.SetData(SyntaxEditorDataFormats.Text, "new string");
+    // or cancel the event and the entire clipboard operation
+    e.Cancel = true;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Sub editor_COExecuting(s As Object, e As ClipboardOperationExecutingEventArgs)
+    ' obtain clipboard operation (Cut, Copy, Paste)
+    Dim operation As ClipboardOperation = e.ClipboardOperation
+    ' get the data object in order to operate with the clipboard data
+    Dim dataObject As SyntaxEditorDataObject = e.DataObject
+    Dim dataAsString As String = _
+        TryCast(dataObject.GetData(SyntaxEditorDataFormats.Text), String)
+    ' you can change the clipboard data
+    dataObject.SetData(SyntaxEditorDataFormats.Text, "new string")
+    ' or cancel the event and the entire clipboard operation
+    e.Cancel = True
+End Sub
+----
+
+[[_Ref764325452]]
+== ClipboardOperationExecuted Event
+
+=== Description
+
+This event fires immediately following the execution of a clipboard operation following making changes to the `TextDocument`.
+
+=== Code
+
+The following code snippet shows how to handle a `ClipboardOperationExecuted` event:
+
+*In C#:*
+
+[source,csharp]
+----
+public void editor_COExecuted(object s, ClipboardOperationExecutingEventArgs e)
+{
+    // obtain clipboard operation (Cut, Copy, Paste)
+    ClipboardOperation operation = e.ClipboardOperation;
+    // get the data object in order to operate with the clipboard data
+    SyntaxEditorDataObject dataObject = e.DataObject;
+    string dataAsString =
+        dataObject.GetData(SyntaxEditorDataFormats.Text) as string;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Sub editor_COExecuted(s As Object, e As ClipboardOperationExecutingEventArgs)
+    ' obtain clipboard operation (Cut, Copy, Paste)
+    Dim operation As ClipboardOperation = e.ClipboardOperation
+    ' get the data object in order to operate with the clipboard data
+    Dim dataObject As SyntaxEditorDataObject = e.DataObject
+    Dim dataAsString As String = _
+        TryCast(dataObject.GetData(SyntaxEditorDataFormats.Text), String)
+End Sub
+----
+
+[[_Ref332610464]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-events-and-commands.html[Events and Commands]
+|This topic lists the events and supported commands available to you, while building your _xamSyntaxEditor_ applications.
+
+| link:generalconcepts-about-ig-commanding.html[Infragistics Commanding Framework]
+|This topic provides extensible information as well as samples about the Infragistics Commanding framework.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/clipboard-support[Clipboard Support]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/clipboard-support[Clipboard Support]"] 
+|This sample demonstrates how to invoke commands on the _xamSyntaxEditor_ in order to use the clipboard.
+
+|====

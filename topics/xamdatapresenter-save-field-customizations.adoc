@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-save-field-customizations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Presentation","Editing"],
+    "guid": "{9E935CAC-9D90-4EAD-8645-C4D488E92395}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3220175Z"
+}
+|metadata|
+////
+
+= Save Field Customizations
+
+Your end users can move, sort, and group fields at run time using the xamDataGrid™ control, or the xamDataPresenter™ control. The xamDataCarousel™ control will only allow end users to group fields since it does not display field headers. Fortunately, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class exposes the overloaded link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~savecustomizations.html[SaveCustomizations] method that you can use to save an end user's field customizations.
+
+You can call the SaveCustomizations method without a parameter to retrieve the field customizations as an XML string. This functionality is useful if you want to implement functionality that restores your xamDataGrid's default field layout. Instead of writing your application's default layout to a Stream object, you can store the default field layout as a string when your application starts up. If your end user wants to restore the default layout, you can pass the XML string to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~loadcustomizations.html[LoadCustomizations] method.
+
+When you call the SaveCustomizations method, the XML data will include the following information about the fields:
+
+* Group-By Settings
+* Sort Direction
+* Field Position
+* Field Width
+
+The following example code demonstrates how to save field customizations. The example code uses an instance of a xamDataGrid control, but you can use a xamDataPresenter control or xamDataCarousel control as well.
+
+*In Visual Basic:*
+
+----
+Imports System.IO
+...
+Using fs As New FileStream("xamDataGridLayout1.xml", FileMode.Create, FileAccess.Write) 
+    Me.xamDataGrid1.SaveCustomizations(fs) 
+End Using
+...
+----
+
+*In C#:*
+
+----
+using System.IO;
+...
+using (FileStream fs =
+    new FileStream("xamDataGridLayout1.xml", FileMode.Create, FileAccess.Write))
+{
+    this.xamDataGrid1.SaveCustomizations(fs);
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout]
+
+link:xamdatapresenter-load-field-customizations.html[Load Field Customizations]

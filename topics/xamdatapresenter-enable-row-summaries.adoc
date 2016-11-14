@@ -1,0 +1,82 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-enable-row-summaries",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Summaries"],
+    "guid": "{F2EFF2DC-A479-4699-8C5C-2A3726B67167}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1839899Z"
+}
+|metadata|
+////
+
+= Enable Row Summaries
+
+You can give your end users the ability to select the row summaries for a field in xamDataPresenter™ by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~allowsummaries.html[AllowSummaries] property of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object to True. When you set the AllowSummaries property to True, xamDataPresenter will display a summary button in the field labels. Your end users can click the summary button to display a summary selection dialog box. In the summary selection dialog box, they can select the row summaries they want to see. You can manually add summaries for a field using XAML or procedural code even if you do not set the AllowSummaries property to True.
+
+In addition to the AllowSummaries property of a FieldSettings object, you can also use the following properties to modify summary related behaviors:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~summarydisplayarea.html[SummaryDisplayArea] - This property determines the location where XamDataPresenter displays the summary results.
+
+.Note
+[NOTE]
+====
+You cannot set the SummaryDisplayArea property to TopLevelOnly without specifying a location as well. For example, you can set the SummaryDisplay Area to TopLevelOnly | BottomFixed in C# or TopLevelOnly Or BottomFixed in Visual Basic.
+====
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~summaryuitype.html[SummaryUIType] - This property determines whether an end user can select a single summary or multiple summaries for a field. The default value for this property is MultiSelectForNumericsOnly. If you want to enable summaries for non-numeric fields, you have to set this property to either SingleSelect or MultiSelect.
+
+You can set the summary related properties on xamDataPresenter's FieldSettings property and/or on a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's FieldSettings property. Any summary related property that you explicitly set on a field level will override the corresponding summary related property that you set on the xamDataPresenter control level.
+
+The following example code demonstrates how to enable row summaries.
+
+*In XAML:*
+
+----
+...
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldSettings>
+        <igDP:FieldSettings 
+            AllowSummaries="True" 
+            SummaryUIType="MultiSelect"  
+            SummaryDisplayArea="InGroupByRecords, BottomFixed" />
+    </igDP:XamDataPresenter.FieldSettings>
+</igDP:XamDataPresenter>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Me.xamDataPresenter1.FieldSettings.AllowSummaries = True
+Me.xamDataPresenter1.FieldSettings.SummaryUIType = SummaryUIType.MultiSelect
+Me.xamDataPresenter1.FieldSettings.SummaryDisplayArea = SummaryDisplayAreas.InGroupByRecords Or SummaryDisplayAreas.BottomFixed
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+this.xamDataPresenter1.FieldSettings.AllowSummaries = true;
+this.xamDataPresenter1.FieldSettings.SummaryUIType = SummaryUIType.MultiSelect;
+this.xamDataPresenter1.FieldSettings.SummaryDisplayArea = SummaryDisplayAreas.InGroupByRecords | SummaryDisplayAreas.BottomFixed;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-apply-default-summary-formats.html[Apply Default Summary Formats]
+
+link:xamdatapresenter-creating-a-custom-summary-calculator.html[Creating a Custom Summary Calculator]
+
+link:xamdatapresenter-format-the-value-of-a-summary.html[Format the Value of a Summary]
+
+link:xamdatapresenter-programmatically-add-summaries-to-a-field.html[Programmatically Add Summaries to a Field]
+
+link:xamdatapresenter-retrieve-the-result-of-a-summary.html[Retrieve the Result of a Summary]

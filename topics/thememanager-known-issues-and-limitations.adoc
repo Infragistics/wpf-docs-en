@@ -1,0 +1,121 @@
+﻿////
+|metadata|
+{
+    "name": "thememanager-known-issues-and-limitations",
+    "tags": ["Known Issues"],
+    "controlName": ["IG Theme Manager"],
+    "guid": "f53c50ed-c4ea-494a-b2e4-9010c6d61bc9",
+    "buildFlags": [],
+    "createdOn": "2014-09-12T13:53:38.0746471Z"
+}
+|metadata|
+////
+
+= Known Issues and Limitations
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains _Infragistics ThemeManager_ known issues and limitations.
+
+== Known Issues and Limitations Summary
+
+=== Known issues and limitations summary chart
+
+The following table summarizes the known issues and limitations of _Infragistics ThemeManager_. Detailed explanations of all of the issues and the existing workarounds are provided after the summary table.
+
+==== Legend:
+
+image:images/Yes.png[] – Workaround available
+
+image:images/No.png[] – No known workaround
+
+image:images/Fix.png[] – Fix planned
+
+==== <<_Ref398368489, _Infragistics ThemeManager_ >>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref398569484,The specified control theme is not applied to child windows>>
+|A theme is not applied to a control’s dialogs when it’s set on a control level.
+|image::images/Yes.png[]
+
+|<<_Ref398569493,xamSegmentedDisplay is not supported>>
+|The _xamSegmentedDisplay_ control is not supported by _ThemeManager_.
+|image::images/Yes.png[]
+
+|<<_Ref398632178,Row height visual issue in xamGrid>>
+|A row height is not restored when switching between themes in the _xamGrid_ control.
+|image::images/Fix.png[]
+
+|====
+
+[[_Ref398368489]]
+== _Infragistics ThemeManager_
+
+[[_Ref398569484]]
+=== The specified control theme is not applied to child windows
+
+When you interact with some of the Infragistics controls, additional popup windows are displayed (for example - the Field Chooser window in the _xamDataGrid_ control).
+
+A theme applied to a control level doesn’t style these windows. You must set the specified theme on an application level to have all additional windows styled.
+
+Workaround
+
+.Note
+[NOTE]
+====
+Apply the specified theme on an application level.
+====
+
+==== Related topic:
+
+* link:thememanager-applying-theme-to-application.html[Applying a Theme on an Application Level]
+
+[[_Ref398569493]]
+=== xamSegmentedDisplay is not supported
+
+The _xamSegmentedDisplay_ control is not supported by _ThemeManager_.
+
+Workaround
+
+.Note
+[NOTE]
+====
+Apply a theme using the provided themes’ resource dictionaries or extend specific theme package (IG, Metro, MetroDark, Office2010, Office2013) and add support for the control.
+====
+
+==== Related topics:
+
+* link:designers-guide-using-themes.html[Using Themes]
+* link:thememanager-extending-existing-control-theme.html[Extending an Existing Control Theme]
+
+[[_Ref398632178]]
+=== Row height visual issue in xamGrid
+
+The _xamGrid_ row height is changed and doesn’t restored when switching between themes.
+
+[[_Ref367305775]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:thememanager-overview.html[Features Overview]
+|This topic provides a detailed overview of _Infragistics ThemeManager_ and its main features.
+
+| link:thememanager-working-with-thememanager.html[Working with ThemeManager]
+|The topics in this group explain how to configure different features of _Infragistics ThemeManager_.
+
+| link:thememanager-api-reference.html[API Reference]
+|This topic provides reference information about the key classes related to _Infragistics ThemeManager_.
+
+|====

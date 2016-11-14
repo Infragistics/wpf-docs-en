@@ -1,0 +1,44 @@
+﻿////
+|metadata|
+{
+    "name": "xamgrid-changing-cell-values-in-code-behind",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Grids"],
+    "guid": "{85A0098B-D4B5-4805-911E-B5DEE0C0C458}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.9301736Z"
+}
+|metadata|
+////
+
+= Changing Cell Values in Code Behind
+
+The xamGrid™ control allows editing of its cells through the row's link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.rowbase~data.html[Data] property. The property returns the data item the row is bound to. You should not attempt to edit a cell individually using the cell's link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.cell~value.html[Value] property, as this is read-only. Your data items must implement the INotifyPropertyChanged interface for the changes to be reflected in the row of xamGrid. Further, if you are planning to add and remove data items from your collection, you must implement the INotifyCollectionChanged interface for changes to be reflected.
+
+The following code shows you how to access the data from a row of xamGrid and modify a data field.
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim row As Row = Me.xamGrid1.Rows(0)
+Dim product As Product = TryCast(row.Data, Product)
+product.ProductName = "Ice Cream"
+----
+
+*In C#:*
+[source,csharp]
+----
+Row row = this.xamGrid1.Rows[0];
+Product product = row.Data as Product;
+product.ProductName = "Ice Cream";
+----
+
+== Related Topic
+
+link:xamgrid-editing-data-in-a-template-column.html[Editing Data in a Template Column]
+
+link:xamgrid-editing-data.html[Editing Data]
+
+link:xamgrid-validating-data.html[Validating Data]
+
+link:xamgrid-using-editing-events-to-create-a-custom-editor.html[Using Editing Events to Create a Custom Editor]

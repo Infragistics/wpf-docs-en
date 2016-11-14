@@ -1,0 +1,75 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-format-numeric-time-values",
+    "controlName": ["xamTimeline"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{715A6233-68BB-4E17-BC8A-F8E4C2013722}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.0504124Z"
+}
+|metadata|
+////
+
+= Format Numeric Time Values
+
+You can format the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeseries.html[NumericTimeSeries] object’s link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.axislabel.html[AxisLabel] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventtitle.html[EventTitle] display values by using the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.axislabel~stringformat.html[StringFormat] property. This property accepts the standard .NET format strings for values of type Double.
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows you how to style the AxisLabel and EventTitle in order to provide a custom format for the display values.
+
+*In XAML:*
+
+----
+<UserControl.Resources>
+    <!-- Axis Label -->
+    <Style x:Key="rscAxisFormatStyle" TargetType="ig:AxisLabel">
+        <!-- Formating the numeric time axis label to display: -->
+        <!-- BC for negative timeline numbers -->
+        <!-- AD for postive timeline numbers -->
+        <Setter Property="StringFormat" Value="{}{0:## AD;## BC;0}" />
+    </Style>
+</UserControl.Resources>
+<Grid x:Name="LayoutRoot" >
+    <ig:XamTimeline x:Name="xamTimeline" 
+                     Width="1000" Height="500" Margin="15">
+        <!-- Set Label Style for the Axis -->
+        <ig:XamTimeline.Axis>
+            <ig:NumericTimeAxis Minimum="-2800" Maximum="2200"
+                                  LabelStyle="{StaticResource rscAxisFormatStyle}"
+                                  AutoRange=" Unit="400"/>
+        </ig:XamTimeline.Axis>
+        <ig:XamTimeline.Series>
+            <!-- Historic Events -->
+            <ig:NumericTimeSeries Title="Historic Events" Fill="Red" 
+                                    Position="TopOrLeft">
+                <!-- TODO: Add Numeric Time Entries -->
+                <ig:NumericTimeSeries.Entries>
+                    <ig:NumericTimeEntry Time="-2575" Title="Pyramid"/>
+                    <ig:NumericTimeEntry Time="-600" Title="Hanging Gardens"  />
+                    <ig:NumericTimeEntry Time="70" Title="Colosseum "  />
+                    <ig:NumericTimeEntry Time="-432" Title="Statue of Zeus"  />
+                    <ig:NumericTimeEntry Time="-550" Title="Temple of Artemis"  />
+                    <ig:NumericTimeEntry Time="-350" Title="Mausoleum of Mausolus"  />
+                    <ig:NumericTimeEntry Time="-280" Title="Colossus of Rhodes"  />
+                    <ig:NumericTimeEntry Time="-247" Title="Lighthouse of Alexandria"  />
+                    <ig:NumericTimeEntry Time="-206" Title="Great Wall of China"  />
+                    <ig:NumericTimeEntry Time="1520" Title="Hagia Sophia"  />
+                    <ig:NumericTimeEntry Time="1653" Title="Taj Mahal"  />
+                    <ig:NumericTimeEntry Time="600" Title="Chichen Itza"/>
+                    <ig:NumericTimeEntry Time="1450" Title="Machu Picchu"  />
+                </ig:NumericTimeSeries.Entries>
+            </ig:NumericTimeSeries>
+        </ig:XamTimeline.Series>
+    </ig:XamTimeline>
+</Grid>
+----
+
+image::images/XamTimeline_Format_Numeric_Time_Values_01.png[]
+
+== Related Topics
+
+link:xamtimeline-about-formatting-xamwebtimeline.html[About Formatting xamTimeline]
+
+link:xamtimeline-format-datetime-values.html[Format Date Time Values]
+
+link:xamtimeline-format-point-and-span-values.html[Format Point and Span Values]

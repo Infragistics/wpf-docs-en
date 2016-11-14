@@ -1,0 +1,116 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-add-a-formula-to-a-cell",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Application Blocks","Calculations","Exporting","Getting Started","How Do I"],
+    "guid": "{090BEB57-8245-4C9F-9159-0A419C5A94F8}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7497031Z"
+}
+|metadata|
+////
+
+= Adding a Formula to a Cell (Infragistics Excel Engine)
+
+The Infragistics Excel Engine allows you to add Microsoft® Excel® formulas to a cell or group of cells in a worksheet. You can do this using the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell.html[WorksheetCell] object’s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~applyformula.html[ApplyFormula] method or by instantiating a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.formula.html[Formula] object and applying it to a cell. Regardless of the manner in which you apply a formula to a cell, you can access the Formula object using the WorksheetCell object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~formula.html[Formula] property. If you need the value, use the cell's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~value.html[Value] property.
+
+The following code shows you how to add a formula to a cell. The example code assumes you have a reference to a Worksheet object named worksheet1.
+
+*In Visual Basic:*
+[source,vb]
+----
+worksheet1.Rows(5).Cells(0).ApplyFormula("=Sum(A1:A5)")
+'Using a Formula object to apply a formula
+Dim sumFormula As Formula = Formula.Parse("=Sum(A1:A5)")
+sumFormula.ApplyTo(worksheet1.Rows(5).Cells(0))
+----
+
+*In C#:*
+[source,csharp]
+----
+worksheet1.Rows[5].Cells[0].ApplyFormula("=Sum(A1:A5)");
+//Using a Formula object to apply a formula
+Formula sumFormula = Formula.Parse("=Sum(A1:A5)");
+sumFormula.ApplyTo(worksheet1.Rows[5].Cells[0]);
+----
+
+== Example 2
+
+The next sample code shows you how to export data from dataGrid and set formulas
+
+*In Visual Basic:*
+[source,vb]
+----
+'Export Data From Grid
+Dim currentRow As Integer = 1
+For Each row As Row In Me.dataGrid.Rows
+        Dim currentCell As Integer = 0
+        For Each cell As Cell In row.Cells
+                If cell.Column.Visibility = Visibility.Visible Then
+                        Me.SetCellValue(sheetOne.Rows(currentRow).Cells(currentCell), cell.Value)
+                        currentCell += 1
+                End If
+        Next
+        'Concatenate the string "Category: " with value of
+        'the cell on the current row but 6 columns before the current cell
+        sheetOne.Rows(currentRow).Cells(currentCell).ApplyFormula("=CONCATENATE(""Category: ""," & sheetOne.Rows(currentRow).Cells(currentCell - 6).ToString(CellReferenceMode.A1, False) & ")")
+        'Multiplies the contents previous 2 cells
+        sheetOne.Rows(currentRow).Cells(currentCell + 1).ApplyFormula("=" & sheetOne.Rows(currentRow).Cells(currentCell - 1).ToString(CellReferenceMode.A1, False) & "*" & sheetOne.Rows(currentRow).Cells(currentCell - 2).ToString(CellReferenceMode.A1, False))
+        currentRow += 1
+Next
+----
+
+*In C#:*
+[source,csharp]
+----
+//Export Data From Grid
+int currentRow = 1;
+   foreach (Row row in this.dataGrid.Rows)
+      {
+         int currentCell = 0;
+         foreach (Cell cell in row.Cells)
+            {
+                if (cell.Column.Visibility == Visibility.Visible)
+                   {
+                       this.SetCellValue(sheetOne.Rows[currentRow].Cells[currentCell], cell.Value);
+                       currentCell++;
+                   }
+            }
+         //Concatenate the string "Category: " with value of
+         //the cell on the current row but 6 columns before the current cell
+         sheetOne.Rows[currentRow].Cells[currentCell].ApplyFormula(@"=CONCATENATE(""Category: ""," + sheetOne.Rows[currentRow].Cells[currentCell - 6].ToString(CellReferenceMode.A1, false) +")");
+         //Multiplies the contents previous 2 cells
+         sheetOne.Rows[currentRow].Cells[currentCell + 1].ApplyFormula(
+            @"=" + sheetOne.Rows[currentRow].Cells[currentCell - 1].ToString(CellReferenceMode.A1, false) +
+            "*"+
+            sheetOne.Rows[currentRow].Cells[currentCell - 2].ToString(CellReferenceMode.A1, false));
+         currentRow++;
+      }
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-format-a-cell.html[Formatting a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Referenceing Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disable Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

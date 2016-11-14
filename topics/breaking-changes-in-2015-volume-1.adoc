@@ -1,0 +1,99 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-in-2015-volume-1",
+    "controlName": ["Breaking Changes"],
+    "tags": [],
+    "guid": "752c4981-bfeb-4848-a1ae-baaeacdb3b56",  
+    "buildFlags": [],
+    "createdOn": "2015-03-17T13:28:18.6997944Z"
+}
+|metadata|
+////
+
+= Breaking Changes in 2015 Volume 1
+
+== Breaking Changes Summary
+
+=== Breaking changes summary chart
+
+The following table summarizes the breaking changes of the Infragistics WPF 2015 Volume 1 Release. Detailed explanations of the issues are provided after the summary table.
+
+==== _<<Ref382990783, xamComboEditor / xamMultiColumnComboEditor >>_
+
+[options="header", cols="a,a"]
+|====
+|Issue|Description
+
+|<<_Ref398294255,MinDropDownWidth property's default value changed>>
+|The _xamComboEditor's_ `MinDropDownWidth` property default value is changed from `double.NegativeInfinity` to `double.NaN`.
+
+|====
+
+==== _<<Ref382990784, xamGrid >>_
+
+[options="header", cols="a,a"]
+|====
+|Issue|Description
+
+|<<_Ref398294256,ChildBands collection behavior>>
+|The `GroupByRow.ChildBands` collection property's return value is changed.
+
+|<<_Ref398294257,Change in column's collapsing behavior>>
+|There are behavioral changes in what happens when the user collapses the last visible column.
+
+|====
+
+[[_Ref382990783]]
+== _xamComboEditor / xamMultiColumnComboEditor_
+
+[[_Ref398294255]]
+
+=== MinDropDownWidth property's default value changed
+
+The  _xamComboEditor's_   `MinDropDownWidth` property default value is changed.
+
+[options="header", cols="a,a"]
+|====
+|Old Value|New Value
+
+|`double.NegativeInfinity`
+|`double.NaN`
+
+|====
+
+[[_Ref382990784]]
+== _xamGrid_
+
+[[_Ref398294256]]
+
+=== ChildBands collection behavior
+
+The `GroupByRow.ChildBands` collection property is changed to return `null` because it is not supported by design for a row of type `GroupByRow`.
+
+[options="header", cols="a,a"]
+|====
+|Old Behavior|New Behavior
+
+|Throwing InvalidCastException when accessing child bands.
+|Returning null.
+
+|====
+
+[[_Ref398294257]]
+
+=== Change in column's collapsing behavior
+
+There are changes in column's visibility behavior described in the table below:
+
+[options="header", cols="a,a"]
+|====
+|Old Behavior|New Behavior
+
+|When a user tries to collapse the last visible column in a group, its parent column collapses and the child column remains visible.
+|If the user tries to collapse the last visible child column - it collapses as well as its parent column.
+
+|====
+
+When you switch the visibility of a parent column from collapsed to visible - the parent column becomes visible as well as all its children columns.

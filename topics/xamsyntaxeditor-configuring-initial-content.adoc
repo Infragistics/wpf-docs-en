@@ -1,0 +1,306 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-configuring-initial-content",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Data Binding","Getting Started","How Do I"],
+    "guid": "0c664804-37e3-472c-810b-d836f6b0d0db",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3373527Z"
+}
+|metadata|
+////
+
+= Configuring Initial Content (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+In this topic, you will find instructions and code examples for using the  _xamSyntaxEditor™_   link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument]'s Load and Save methods for loading and saving content.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-adding-to-your-page.html[Adding _xamSyntaxEditor_ to Your Page]
+|This topic provides you with systematic instructions designed to help you get the _xamSyntaxEditor_ up and running as quickly as possible.
+
+|====
+
+=== Prerequisites
+
+To complete the procedure, you need the following:
+
+* An instance of the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor.html[xamSyntaxEditor]
+* The  _xamSyntaxEditor’s_   link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~document.html[Document] property set to an instance of a link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument] class.
+
+.Note
+[NOTE]
+====
+It is important to configure the Document property prior to loading its content as some languages, Visual Basic for one, can modify a keyword’s case. To apply the correct syntax highlighting, set the `TextDocument`’s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~language.html[language].
+
+Please refer to the link:xamsyntaxeditor-syntax-highlighting.html[Syntax Highlighting] topic for additional information about configuring document languages.
+====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref331776029, Document Loading and Saving Summary >>
+* <<_Ref331776035, Loading document from a file location >>
+* <<_Ref331776046, Loading document from a stream >>
+* <<_Ref331776056, Loading documents by providing the content as string >>
+* <<_Ref331776065, Saving documents to a file location >>
+* <<_Ref331776073, Saving documents to a stream >>
+* <<_Ref331776081, Related Content >>
+
+[[_Ref331776029]]
+== Document Loading and Saving Summary
+
+=== Document loading methods
+
+The following table lists the methods available to you for loading and saving `TextD``ocument` content.
+
+[options="header", cols="a,a"]
+|====
+|Configurable aspects|Details
+
+|<<_Ref331776035,Load document from a file location>>
+|Loads the document’s content from the file location that you specify and provide as a string.
+
+|<<_Ref331776046,Load document from a stream>>
+|Loads the document’s content from the stream you provide.
+
+|<<_Ref331776056,Load document by providing the content as string>>
+|Loads the document’s content from the string that you provide.
+
+|<<_Ref331776065,Save document to a file location>>
+|Saves the document’s content to the file location that you specify and provide as a string.
+
+|<<_Ref331776073,Save document to a stream>>
+|Saves the document’s content to the stream you provide.
+
+|====
+
+[[_Ref331776035]]
+== Loading document from a file location
+
+=== Overview
+
+This method allows you to load a specific file by passing its location as a string value.
+
+=== Methods
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Invoke this method:|And provide:
+
+|Load content in the `TextDocument`
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~load.html[Load]
+|file’s location, as a string
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSyntaxEditor1.Document.Load("C:\\file.txt");
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSyntaxEditor1.Document.Load("C:\file.txt")
+----
+
+[[_Ref331776046]]
+== Loading document from a stream
+
+=== Overview
+
+This method allows you to load document content from the stream you specify.
+
+=== Methods
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Invoke this method:|And provide:
+
+|Load content in the `TextDocument`
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~load.html[Load]
+|stream containing the text content
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+FileInfo fi = new FileInfo("C:\\file.txt");
+FileStream fs = fi.OpenRead();
+this.xamSyntaxEditor1.Document.Load(fs);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim fi As New FileInfo("C:\file.txt")
+Dim fs As FileStream = fi.OpenRead()
+Me.xamSyntaxEditor1.Document.Load(fs)
+----
+
+[[_Ref331776056]]
+== Loading document by providing the content as a string
+
+=== Overview
+
+This method allows you to load a document’s content from a string value you specify.
+
+=== Methods
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Invoke this method:|And provide:
+
+|Load content in the `TextDocument`
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~initializetext.html[InitializeText]
+|content as string
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSyntaxEditor1.Document.InitializeText("the quick brown fox... ");
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSyntaxEditor1.Document.InitializeText("the quick brown fox...")
+----
+
+[[_Ref331776065]]
+== Saving document to a file location
+
+=== Overview
+
+This method allows you to save a document’s content to a specific file by passing its location as a string value.
+
+Saves the document’s content to the file location, which you provide as string.
+
+=== Methods
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Invoke this method:|And provide:
+
+|Save the `TextDocument`’s content to a file
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~save.html[Save]
+|file location as string
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSyntaxEditor1.Document.Save("C:\\file.txt");
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSyntaxEditor1.Document.Save("C:\file.txt")
+----
+
+[[_Ref331776073]]
+== Saving document to a stream
+
+=== Overview
+
+This method allows you to save a document to the stream you specify.
+
+=== Methods
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Invoke this method:|And provide:
+
+|Save the `TextDocument`’s content in a stream
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~save.html[Save]
+|stream to which the content is saved
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+FileInfo fi = new FileInfo("C:\\file.txt");
+FileStream fs = fi.OpenWrite();
+this.xamSyntaxEditor1.Document.Save(fs);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim fi As New FileInfo("C:\file.txt")
+Dim fs As FileStream = fi.OpenWrite()
+Me.xamSyntaxEditor1.Document.Save(fs)
+----
+
+[[_Ref331776081]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-syntax-highlighting.html[Syntax Highlighting]
+|This topic provides information about text colorization, based on the `TextDocument`’s associated language.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/load-external-file[Load External File]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/load-external-file[Load External File]"] 
+|This sample demonstrates loading of external files of different types in the _xamSyntaxEditor_ .
+
+|====

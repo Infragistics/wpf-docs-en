@@ -1,0 +1,264 @@
+﻿////
+|metadata|
+{
+    "name": "xamcomboeditor-handling-enums",
+    "tags": ["Data Binding","How Do I"],
+    "controlName": ["xamComboEditor"],
+    "guid": "7058afdf-9f00-4260-8848-245f11129d21",
+    "buildFlags": [],
+    "createdOn": "2015-06-16T11:33:27.2775059Z"
+}
+|metadata|
+////
+
+= Handling Enum Data Type (xamComboEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the behavior of the control when bound to an enum data type.
+
+=== Required background
+
+The following topic is prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:wpf-xamcomboeditor-about-xamcomboeditor.html[About xamComboEditor]
+|This topic will help you to better understand the functionalities of the control.
+
+|====
+
+== Enum Handling
+
+=== Summary
+
+When the  _xamComboEditor_   control has both its link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamcomboeditor~itemssource.html[ItemsSource] and link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamcomboeditor~itemsprovider.html[ItemsProvider] properties not set and the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valuetype.html[ValueType] property set to an enum (or a nullable enum) type then an internal items provider is created and populates the dropdown with the values obtained from the enum type.
+
+The enum values are extracted in the following manner:
+
+* it obtains a type converter with a call to `TypeDescriptor.GetConverter(valueType)`
+* it then enumerates over the converter’s `GetStandardValues()` collection which also determines the order of the values in the dropdown
+
+The null value of a nullable enum is handled in the following way: if the converter converts the null to a non-empty string it will be used as the display value, otherwise a localized string with a key of `Nullable_Enum_NullValue_Literal` (which for English is "[null]") will be used. This resource is in the Editors assembly.
+
+There are ways to exclude certain properties from the dropdown, change their display value or even change the order they are shown in the dropdown. All these features are described in the table below.
+
+=== Configuration tasks
+
+The following table explains briefly the configurable aspects of the enum handling feature of the  _xamComboEditor_   control.
+
+[options="header", cols="a,a,a"]
+|====
+|Task|Sample|Attribute
+
+|Populate the control's dropdown with enum's values.
+|The following example demonstrates how to set an enum type to the `ValueType` property which will result in populating the control's dropdown with the enum's values. 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+Public Enum Foods
+  Fruits
+  Vegetables
+  Meat
+  Dairy
+  Bread
+  Eggs
+End Enum
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+public enum Foods
+{
+  Fruits,
+  Vegetables,
+  Meat,
+  Dairy,
+  Bread,
+  Eggs
+}
+---- 
+
+*In XAML:*
+---- 
+...
+<igEditors:XamComboEditor ValueType="{x:Type Foods}">
+</igEditors:XamComboEditor>
+...
+---- 
+
+|`ValueType`
+
+|[[_Hlk356484826]] 
+
+Exclude an enum value from the control’s dropdown.
+|The following example demonstrates the definition of an enum value "AnEnumValue" which will not be included in the dropdown list because it has its "Browsable" attribute set to false. 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+Public Enum AnEnum
+  <Browsable(False)> _
+  AnEnumValue
+End Enum 
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+public enum AnEnum
+{
+  [Browsable(false)]
+  AnEnumValue
+}
+---- 
+
+.Note 
+[NOTE] 
+==== 
+If the _xamComboEditor’s_ link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xamcomboeditor~iseditable.html[IsEditable] property is true the user will still be able to set an excluded value. 
+====
+
+|`Browsable`
+
+|Provide a custom description for an enum value.
+|The following example demonstrates the definition of a custom description (which will be shown in the dropdown) for an enum value instead of its name using the "Description" attribute. 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+Public Enum DrinksEnum
+  <Description("Apple Juice")> _
+  JuiceApple
+End Enum
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+public enum DrinksEnum
+{
+  [Description("Apple Juice")]
+  JuiceApple
+}
+---- 
+
+|`Description`
+
+|Customize the order of the enum values
+|The following example demonstrates the definition of an enum with several values and a custom type converter. 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+<TypeConverter(GetType(MyTypeConverter))> _
+Public Enum Foods
+  Fruits
+  Vegetables
+  Meat
+  Dairy
+  Bread
+  Eggs
+End Enum
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+[TypeConverter(typeof(MyTypeConverter))] public enum Foods
+{
+  Fruits,
+  Vegetables,
+  Meat,
+  Dairy,
+  Bread,
+  Eggs
+}
+---- 
+
+The following example demonstrates the definition of a type converter which provides a custom list ordering which will be used to populate the drop down. 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+Public Class MyTypeConverter
+  Inherits TypeConverter
+  Public Overrides Function GetStandardValues(context As ITypeDescriptorContext) _
+    As TypeConverter.StandardValuesCollection  
+    Dim f As New List(Of Foods)()  
+    f.Add(Foods.Eggs)
+    f.Add(Foods.Meat)
+    f.Add(Foods.Vegetables)
+    Return New TypeConverter.StandardValuesCollection(f)
+  End Function
+End Class
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+public class MyTypeConverter : TypeConverter
+{
+  public override TypeConverter.StandardValuesCollection GetStandardValues  (ITypeDescriptorContext context)
+  {
+     List<Foods> f = new List<Foods>();
+     f.Add(Foods.Eggs);
+     f.Add(Foods.Meat);
+     f.Add(Foods.Vegetables);
+     return new TypeConverter.StandardValuesCollection(f);
+  }
+}
+---- 
+
+.Note 
+[NOTE] 
+==== 
+You can also achieve similar results by returning a collection of arbitrary strings and then override the `ConvertTo`/`ConvertFrom`/`CanConvert` methods of the type converter and convert the strings to and from the enum values. 
+====
+
+|`TypeConverter`
+
+|====
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamcomboeditor-bind-xamcomboeditor-to-a-collection.html[Bind xamComboEditor to a Collection]
+|This topics explains how to bind the control to a Collection.
+
+| link:xamcomboeditor-bind-xamcomboeditor-to-a-dataset.html[Bind xamComboEditor to a DataSet]
+|This topics explains how to bind the control to a DataSet.
+
+| link:xamcomboeditor-bind-xamcomboeditor-to-an-xmldataprovider.html[Bind xamComboEditor to an XmlDataProvider]
+|This topics explains how to bind the control to an XmlDataProvider.
+
+| link:xamcomboeditor-manually-add-items-to-xamcomboeditor.html[Manually Add Items to xamComboEditor]
+|This topics explains how to add items in the control’s dropdown by declaring them in XAML.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/handling-enums[Handling Enum Data Type]
+|This sample demonstrates how you can customize the xamComboEditor's dropdown content by adding attributes to the enum values.
+
+|====

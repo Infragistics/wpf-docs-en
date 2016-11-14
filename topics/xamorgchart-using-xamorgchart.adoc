@@ -1,0 +1,48 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamorgchart-using-xamorgchart",
+    "controlName": ["xamOrgChart"],
+    "tags": ["Getting Started"],
+    "guid": "6e93357c-6e72-43ad-9832-8be065a43dee",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.6452952Z"
+}
+|metadata|
+////
+
+= Using xamOrgChart
+
+This topic introduces the Node Layouts and the node architecture of the link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.xamorgchart.html[xamOrgChart]™ control.
+
+== Node Layouts
+
+The xamOrgChart control uses a concept called link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnodelayout.html[Node Layouts] to determine which nodes are shown and where they are located in the organization. The Org Chart scans its items source and if an item matches a Node Layout object, a new node is created.
+
+Node Layouts are responsible for:
+
+* link:xamorgchart-node-layouts-and-data.html[binding to the data source]
+* link:xamorgchart-expansion-indicators-visibility.html[setting the visibility of the expansion indicators]
+* link:xamorgchart-using-custom-node-item-templates.html[assigning item templates to the nodes]
+* link:xamorgchart-node-tooltips.html[adding tooltips to the nodes]
+* link:xamorgchart-styling.html[applying styles to the nodes and their expansion indicators]
+
+== Nodes Architecture
+
+The xamOrgChart control uses two key classes to work with nodes:
+
+* link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode.html[OrgChartNode] – the actual Org Chart nodes. This class carries information about the parent and children nodes, the data shown by the node, and a reference to the OrgChartNodeLayout object used to create the node.
+* link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnodecontrol.html[OrgChartNodeControl] – the OrgChartNodeControl objects serve as visual representations of the OrgChartNode objects.
+
+Whenever a node is moved out of the visible area of the Org Chart due to panning, the OrgChartNodeControl related to the node is disposed. Also, when the children of a node are collapsed, their OrgChartNodeControls are disposed.
+
+If a node has to be shown, a new OrgChartNodeControl associated to the node is created and the link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.xamorgchart~nodecontrolattachedevent_ev.html[NodeControlAttachedEvent] is raised.
+
+*Related Topics*
+
+link:xamorgchart-understanding-xamorgchart.html[Understanding xamOrgChart]
+
+link:xamorgchart-adding-xamorgchart-to-your-application.html[Adding xamOrgChart to Your Application]
+
+link:xamorgchart-api-overview.html[API Overview]

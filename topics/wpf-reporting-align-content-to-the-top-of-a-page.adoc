@@ -1,0 +1,68 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-reporting-align-content-to-the-top-of-a-page",
+    "controlName": ["IG WPF Reporting"],
+    "tags": ["Reporting"],
+    "guid": "{D836267D-23C0-473E-9F46-BBA5E287F4AA}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.8997331Z"
+}
+|metadata|
+////
+
+= Align Content to the Top of a Page
+
+When you print a report, the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection.html[EmbeddedVisualReportSection] object automatically centers your content on the page. If you want to align your content to the top of the page, you have to create a DataTemplate that does it for you.
+
+Both the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object and the EmbeddedVisualReportSection object expose a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsection~pagecontenttemplate.html[PageContentTemplate] property that determines the content layout of the page. If you set the PageContentTemplate property of the Report object, the data template will affect the entire report. However, if you also set an EmbeddedVisualReportSection object's PageContentTemplate property, it will only affect that particular section.
+
+Aligning content in a report is a two-step process.
+
+[start=1]
+. Create a DataTemplate object in XAML.
+[start=2]
+. Assign the DataTemplate object to the PageContentTemplate property of a Report object or EmbeddedVisualReportSection object.
+
+The following example code demonstrates how to align content to the top of a page using a data template. The XAML creates a basic DataTemplate object and the procedural code assigns it to the PageContentTemplate property of a Report. The example code assumes you already have a Report object named report1.
+
+*In XAML:*
+
+----
+<Window.Resources>
+    <DataTemplate x:Key="basicContentTemplate">    
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ContentPresenter Content="{TemplateBinding Content}" />
+        </Grid>
+    </DataTemplate>
+</Window.Resources>
+----
+
+*In Visual Basic:*
+
+----
+'Find and cast the resource to a DataTemplate
+report1.PageContentTemplate = TryCast(Me.TryFindResource("basicContentTemplate"), DataTemplate)
+----
+
+*In C#:*
+
+----
+//Find and cast the resource to a DataTemplate
+report1.PageContentTemplate = this.TryFindResource("basicContentTemplate") as DataTemplate;
+----
+
+== Related Topics
+
+link:wpf-reporting-understanding-wpf-reporting.html[About WPF Reporting]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]

@@ -1,0 +1,293 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampivotgrid-handlingevents",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Editing","Events","Grids","How Do I"],
+    "guid": "d5fde060-f863-48b3-87a9-68bb1d1ce3cf",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.0972828Z"
+}
+|metadata|
+////
+
+= Handling Events (xamPivotGrid)
+
+This section provides you with useful information about task-based procedures on handling events for the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid]™ control.
+
+This topic is organized as follows:
+
+* <<Introduction,Introduction>>
+* <<TypesofEvents,Types of Events>>
+* <<EventsforxamPivotGrid,Events for xamPivotGrid>>
+* <<EventsforIOlapViewModel,Events for IOlapViewModel>>
+* <<RelatedTopics,Related Topics>>
+
+** link:xampivotgrid-getting-started-with-xampivotgrid.html[Getting Started with xamPivotGrid]
+** link:xampivotgrid-binding-data-to-the-xampivotgrid.html[Binding Data to the xamPivotGrid]
+** link:xampivotgrid-us-selection-and-cell-interaction.html[Selection and cell interaction]
+
+[[Introduction]]
+
+== Introduction
+
+To begin, please read the link:xampivotgrid-getting-started-with-xampivotgrid.html[Getting Started with xamPivotGrid] and the link:xampivotgrid-binding-data-to-the-xampivotgrid.html[Binding Data] topics in order to get familiar with the xamPivotGrid control and its supported data sources.
+
+[[TypesofEvents]]
+
+== Types of Events
+
+In the xamPivotGrid control, events are categorized into two groups based on what object is raising them.
+
+Table 1 – Event Groups in the xamPivotGrid
+
+[options="header", cols="a,a"]
+|====
+|Component|Description
+
+|xamPivotGrid
+|Exposes events related to the user interface aspect of the xamPivotGrid control.
+
+|IOlapViewModel
+|Exposes events related to data source of the xamPivotGrid control. The various data sources directly inherit the IOlapViewModel interface.
+
+|====
+
+.Note:
+[NOTE]
+====
+The following code examples assume that you set up your project for the xamPivotGrid control and Infragistics OLAP components.
+====
+
+[[EventsforxamPivotGrid]]
+
+== Events for xamPivotGrid
+
+The xamPivotGrid control has a number of eventsand a complete list of events is provided in the events section of the link:xampivotgrid-api-overview.html[API Overview] of the xamPivotGrid. The following paragraphs highlight the most often used events.
+
+Table 2 – Event Exposed by the xamPivotGrid control
+
+[options="header", cols="a,a"]
+|====
+|Event|Description
+
+|AxisExpansionChanging 
+
+AxisExpansionChanged
+|These events occur when the user clicks on the expansion indicator of a header cell and a row is expanded/ing or collapsed/ing.
+
+|ActiveCellChanging 
+
+ActiveCellChanged
+|These events occur when the active cell is changed through the control’s user interface or through code.
+
+|CellControlAttached
+|This event occurs every time the UI control of a cell is loaded by the xamPivotGrid control. This event is especially useful when implementing conditional formatting. The event arguments include a reference to the loaded cell typed as a PivotCell. This means you can easily find out to which column or row the cell belongs. You can also get a reference to the visual component of the cell and apply a style to when you get the cell’s value.
+
+|CellClicked 
+
+CellDoubleClicked
+|These events occur when cells are clicked or double-clicked.
+
+|ColumnResizing 
+
+ColumnResized
+|These events occur when the user drags the column separators to change the width of the columns and the user driven resizing has begun (ColumnResizing) or completed (ColumnResized).
+
+|ColumnSorting 
+
+ColumnSorted
+|These events occur when the user clicks on the sort indicator of a column and column sorting has begun (ColumnSorting) or completed (ColumnSorted).
+
+|LayoutLoaded
+|This event occurs when the layout update is completed after result has been changed. Whatever the state of the grid is when the event is raised, that is what you should see on the screen.
+
+|SelectedCellsCollectionChanged 
+
+SelectedColumnsCollectionChanged 
+
+SelectedRowsCollectionChanged
+|These events occur when the user selects a collection of cells, columns, or rows. For more information on these events refer to the Selection and Cell Interaction topic.
+
+|PivotItemDragStart$$*$$
+|Occurs when an item drag operation is started.
+
+|PivotItemDragEnter$$*$$
+|Occurs when a dragged item has entered into a valid drop target.
+
+|PivotItemDragLeave$$*$$
+|Occurs when a dragged item has left a valid drop target.
+
+|PivotItemDrop$$*$$
+|Occurs when a dragged item is droped into a valid drop target.
+
+|PivotItemDragEnd$$*$$
+|Occurs when a drag operation has ended.
+
+|====
+
+$$*$$This event is also available for the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector_members.html[XamPivotDataSelector] class.
+
+== Using xamPivotGrid Events
+
+The following code snippet applies a style to the cells in column number two (if it is not null) when cells are loaded by handling the CellControlAttached event.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids       
+...
+AddHandler Me.PivotGrid.DataSource.CellControlAttached, AddressOf OnPivotGridCellControlAttached
+...
+Private Sub OnPivotGridCellControlAttached( ByVal sender As Object, ByVal e As PivotCellControlAttachedEventArgs)
+        If Me.PivotGrid.DataColumns.IndexOf(e.Cell.DataColumn) = 1 Then
+            e.Cell.Style = TryCast(Me.Resources("FormattedCellStyle"), System.Windows.Style)
+        End If
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+this.PivotGrid.CellControlAttached += OnPivotGridCellControlAttached;
+...
+void OnPivotGridCellControlAttached(object sender, PivotCellControlAttachedEventArgs e)
+{
+    if (this.PivotGrid.DataColumns.IndexOf(e.Cell.DataColumn) == 1)
+    {
+        e.Cell.Style = this.Resources["FormattedCellStyle"] as System.Windows.Style;
+    }
+}
+----
+
+Besides implementing custom logic when these events are raised, you can also disable some of the grid functionalities using these events. The following snippet disables header expansion, cancels column resizing for the second column, and displays a message when a column is sorted.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids       
+...
+AddHandler Me.PivotGrid.AxisExpansionChanging, AddressOf OnPivotGridAxisExpansionChanging
+AddHandler Me.PivotGrid.ColumnResizing, AddressOf OnPivotGridColumnResizing
+AddHandler Me.PpivotGrid.ColumnSorted, AddressOf OnPivotGridColumnSorted
+...
+Private Sub AxisExpansionChanging(ByVal sender As Object, ByVal e As CancellableAxisEventArgs)
+        e.Cancel = True
+End Sub
+Private Sub ColumnResizing(ByVal sender As Object, ByVal e As CancellableColumnResizingEventArgs)
+        If e.Columns.Contains(Me.pivotGrid.DataColumns(1)) Then
+            e.Cancel = True
+        End If
+End Sub
+Private Sub ColumnSorted(ByVal sender As Object, ByVal e As PivotSortedColumnEventArgs)
+        MessageBox.Show(e.Column.Key + " was sorted.")
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+this.PivotGrid.AxisExpansionChanging += OnPivotGridAxisExpansionChanging;
+this.PivotGrid.ColumnResizing += OnPivotGridColumnResizing;
+this.PivotGrid.ColumnSorted += OnPivotGridColumnSorted;
+...
+void OnPivotGridColumnResizing(object sender, PivotCancellableColumnResizingEventArgs e)
+{
+    if (e.Columns.Contains(this.pivotGrid.DataColumns[1]))
+    {
+        e.Cancel = true;
+    }
+}
+void OnPivotGridColumnSorted(object sender, PivotSortedColumnEventArgs e)
+{
+    System.Windows.MessageBox.Show(e.Column.Key + " was sorted.");
+}
+void OnPivotGridAxisExpansionChanging(object sender, PivotCancellableAxisEventArgs e)
+{
+    e.Cancel = true;
+}
+----
+
+[[EventsforIOlapViewModel]]
+
+== Events for IOlapViewModel
+
+The xamPivotGrid control’s DataSource exposes only a few events of the IOlapViewModel interface and they are all related to loading the data. For a complete list refer to the IOlapViewModel interface in {ApiPlatform}Olap.v{ProductVersion} assembly section of the API Reference Guide.
+
+Table 3 – Event Exposed by the IOlapViewModel interface
+
+[options="header", cols="a,a"]
+|====
+|Event|Description
+
+|ResultChanged
+|This event occurs every time the slice is changed in some way. This event may be triggered by adding a new hierarchy to a row, or changing a measure. When the event is raised, the DataSource.Result property is completely loaded and you have access to the computed slice data. Note that this event happens after a change, but before the UI is updated.
+
+|LoadDimensionsComplete
+|This event occurs when an asynchronous call for loading dimensions is completed.
+
+|LoadMeasuresComplete
+|This event occurs when an asynchronous call for loading measures is completed.
+
+|LoadMembersComplete
+|This event occurs when an asynchronous call for loading members is completed.
+
+|LoadCubesComplete
+|This event occurs when an asynchronous call for loading cubes is completed.
+
+|LoadSchemaCompleted
+|This event occurs when an asynchronous call for loading schema is completed.
+
+|====
+
+== Using IOlapViewModel Events
+
+The Load events are useful if you want to know when the DataSource has finished initializing the dimensions, measures, cubes or members, data load progress indicators and styling based on different cubes among other applications.
+
+The following code shows how to apply a style when the cube is loaded and then display a message every time the result is changed.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids       
+...
+AddHandler Me.pivotGrid.DataSource.LoadCubesCompleted, AddressOf OnDataSourceLoadCubesCompleted
+AddHandler Me.pivotGrid.DataSource.ResultChanged, AddressOf OnDataSourceResultChanged
+...
+Private Sub OnDataSourceLoadCubesCompleted(ByVal sender As Object, ByVal e As LoadCubesCompletedEventArgs)
+     Me.pivotGrid.Style = Me.Resources("PivotGridStyle")
+End Sub
+Private Sub OnDataSourceResultChanged(ByVal sender As Object, ByVal e As AsyncCompletedEventArgs)
+    System.Windows.MessageBox.Show("The result is changed!")
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+this.PivotGrid.DataSource.LoadCubesCompleted += OnDataSourceLoadCubesCompleted;
+this.PivotGrid.DataSource.ResultChanged += OnDataSourceResultChanged;
+...
+void OnDataSourceResultChanged(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+{
+    System.Windows.MessageBox.Show("The result is changed!");
+}
+void OnDataSourceLoadCubesCompleted(object sender, LoadCubesCompletedEventArgs e)
+{
+    this.PivotGrid.Style = this.Resources["PivotGridStyle"] as System.Windows.Style;
+}
+----
+
+[[RelatedTopics]]
+== Related Topics
+
+* link:xampivotgrid-getting-started-with-xampivotgrid.html[Getting Started with xamPivotGrid]
+* link:xampivotgrid-binding-data-to-the-xampivotgrid.html[Binding Data to the xamPivotGrid]
+* link:xampivotgrid-us-selection-and-cell-interaction.html[Selection and cell interaction]

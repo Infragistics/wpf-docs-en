@@ -1,0 +1,255 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatagrid-item-class-code-example",
+    "controlName": ["xamDataGrid"],
+    "tags": ["Calculations","Grids","Grouping","Sample Data Source"],
+    "guid": "09c1f4c2-0945-4209-9324-e223298b5ad2",  
+    "buildFlags": [],
+    "createdOn": "2012-09-12T13:44:11.2724044Z"
+}
+|metadata|
+////
+
+= xamDataGrid Item class Code Example
+
+=== Description
+
+This code creates a class called `Item`, which inherits the link:http://msdn.microsoft.com/en-us/library/System.ComponentModel.INotifyPropertyChanged.aspx[INotifyPropertyChanged] interface.
+
+=== Code
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Namespace ExternalOperations
+      Public Class Item
+            Implements INotifyPropertyChanged
+            Private m_a As String, m_b As String
+            Private m_dateField As DateTime
+            Private m_intField As Integer
+            Private m_floatField As Single
+            Private m_doubleField As Double
+            Private m_decimalField As Decimal
+            #Region "Properties"
+            Public Property A() As String
+                  Get
+                        Return m_a
+                  End Get
+                  Set
+                        If m_a <> value Then
+                              m_a = value
+                              OnPropertyChanged("A")
+                        End If
+                  End Set
+            End Property
+            Public Property B() As String
+                  Get
+                        Return m_b
+                  End Get
+                  Set
+                        If m_b <> value Then
+                              m_b = value
+                              OnPropertyChanged("B")
+                        End If
+                  End Set
+            End Property
+            Public Property DateField() As DateTime
+                  Get
+                        Return m_dateField
+                  End Get
+                  Set
+                        If m_dateField <> value Then
+                              m_dateField = value
+                              OnPropertyChanged("DateField")
+                        End If
+                  End Set
+            End Property
+            Public Property IntField() As Integer
+                  Get
+                        Return m_intField
+                  End Get
+                  Set
+                        If m_intField <> value Then
+                              m_intField = value
+                              OnPropertyChanged("IntField")
+                        End If
+                  End Set
+            End Property
+            Public Property FloatField() As Single
+                  Get
+                        Return m_floatField
+                  End Get
+                  Set
+                        If m_floatField <> value Then
+                              m_floatField = value
+                              OnPropertyChanged("FloatField")
+                        End If
+                  End Set
+            End Property
+            Public Property DoubleField() As Double
+                  Get
+                        Return m_doubleField
+                  End Get
+                  Set
+                        If m_doubleField <> value Then
+                              m_doubleField = value
+                              OnPropertyChanged("DoubleField")
+                        End If
+                  End Set
+            End Property
+            Public Property DecimalField() As Decimal
+                  Get
+                        Return m_decimalField
+                  End Get
+                  Set
+                        If m_decimalField <> value Then
+                              m_decimalField = value
+                              OnPropertyChanged("DecimalField")
+                        End If
+                  End Set
+            End Property
+            #End Region
+            #Region "INotifyPropertyChanged"
+            Public Event PropertyChanged As PropertyChangedEventHandler
+            Private Sub OnPropertyChanged(propertyName As String)
+                  RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+            End Sub
+            #End Region
+      End Class
+End Namespace
+----
+
+*In C#:*
+
+[source,csharp]
+----
+namespace ExternalOperations
+{
+    public class Item : INotifyPropertyChanged
+    {
+        private string a, b;
+        private DateTime dateField;
+        private int intField;
+        private float floatField;
+        private double doubleField;
+        private decimal decimalField;
+        #region Properties
+        public string A
+        {
+            get { return a; }
+            set
+            {
+                if (a != value)
+                {
+                    a = value;
+                    OnPropertyChanged("A");
+                }
+            }
+        }
+        public string B
+        {
+            get { return b; }
+            set
+            {
+                if (b != value)
+                {
+                    b = value;
+                    OnPropertyChanged("B");
+                }
+            }
+        }
+        public DateTime DateField
+        {
+            get { return dateField; }
+            set
+            {
+                if (dateField != value)
+                {
+                    dateField = value;
+                    OnPropertyChanged("DateField");
+                }
+            }
+        }
+        public int IntField
+        {
+            get { return intField; }
+            set
+            {
+                if (intField != value)
+                {
+                    intField = value;
+                    OnPropertyChanged("IntField");
+                }
+            }
+        }
+        public float FloatField
+        {
+            get { return floatField; }
+            set
+            {
+                if (floatField != value)
+                {
+                    floatField = value;
+                    OnPropertyChanged("FloatField");
+                }
+            }
+        }
+        public double DoubleField
+        {
+            get { return doubleField; }
+            set
+            {
+                if (doubleField != value)
+                {
+                    doubleField = value;
+                    OnPropertyChanged("DoubleField");
+                }
+            }
+        }
+        public decimal DecimalField
+        {
+            get { return decimalField; }
+            set
+            {
+                if (decimalField != value)
+                {
+                    decimalField = value;
+                    OnPropertyChanged("DecimalField");
+                }
+            }
+        }
+        #endregion // Properties
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion // INotifyPropertyChanged
+    }
+}
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-external-grouping.html[External grouping]
+|This topic explains how to use external grouping with _XamDataGrid_ .
+
+| link:xamdatagrid-external-summary-calculations.html[External summary calculations]
+|This topic explains the external summary calculation feature of _xamDataGrid_ .
+
+|====

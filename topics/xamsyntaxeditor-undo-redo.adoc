@@ -1,0 +1,197 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-undo-redo",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","How Do I"],
+    "guid": "951b1b42-87b0-4648-ac41-357a5686ca8d",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3623536Z"
+}
+|metadata|
+////
+
+= Undo / Redo (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the  _xamSyntaxEditor™_   control’s Undo and Redo operations.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Introduction, Introduction >>
+* <<_Undo_Operation, Undo Operation >>
+* <<_Redo_Operation, Redo Operation >>
+* <<_Related_Content, Related Content >>
+
+[[_Introduction]]
+== Introduction
+
+=== Introduction to the Undo and Redo support
+
+The  _xamSyntaxEditor_   control uses the link:undo-redo-framework.html[Infragistics Undo/Redo Framework] to provide robust undo redo support for text updates. The link:{ApiPlatform}undo.v{ProductVersion}~infragistics.undo.undomanager.html[UndoManager] is available programmatically via the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument.html[TextDocument]'s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~undomanager.html[UndoManager] property. By default, each `TextDocument` has its own `UndoManager`, which means you will have a separate history of all changes for each `TextDocument` in your application. Alternatively, you can configure a single `UndoManager` to multiple `TextDocuments` thereby allowing you to have a shared history tracking all the revisions across all TextDocuments.
+
+‘Undo’ and ‘Redo’ operations are triggered via the following:
+
+* The user presses a specific key combination while the  _XamSyntaxEditor_   has focus. For example, Ctrl + Z triggers an  _Undo_   operation while Ctrl + Y triggers a  _Redo_   operation on the `TextDocument` under edit.
+* Invoking the Undo and Redo commands (see code snippets below)
+* Calling one of the following methods
+** link:{ApiPlatform}undo.v{ProductVersion}~infragistics.undo.undomanager~undo.html[TextDocument.UndoManager.Undo]
+** link:{ApiPlatform}undo.v{ProductVersion}~infragistics.undo.undomanager~redo.html[TextDocument.UndoManager.Redo]
+
+.Note
+[NOTE]
+====
+For more information about the keyboard shortcuts, please refer to the link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview] topic.
+====
+
+== Undo And Redo Configuration Summary
+
+=== Undo and redo configuration summary chart
+
+The following table lists the Undo and Redo operation with details.
+
+[options="header", cols="a,a,a"]
+|====
+|Operation|Details|Command to invoke
+
+|<<_Ref332719506,Undo Operation>>
+|Perform an Undo operation on the specified _xamSyntaxEditor_ instance.
+|
+* Undo 
+
+|<<_Ref332719522,Redo Operation>>
+|Perform a Redo operation on the specified _xamSyntaxEditor_ instance.
+|
+* Redo 
+
+|====
+
+[[_Undo_Operation]]
+[[_Ref332719506]]
+== Undo Operation
+
+=== Overview
+
+The undo operation incrementally rolls back the last changes made on the `TextDocument`, pops the Undo operation record off the undo history stack and adds it to the top of the Redo history stack.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Instantiate the following command source:|And set the following properties:
+
+|Perform the Undo operation on a specific _xamSyntaxEditor_ instance.
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource.html[SyntaxEditorCommandSource]
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource~eventname.html[EventName] 
+
+link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource~commandtype.html[CommandType] 
+
+link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.syntaxeditorcommandsource~targetname.html[TargetName]
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Undo">
+    <ig:Commanding.Command>
+        <igPrim:SyntaxEditorCommandSource 
+            EventName="Click" CommandType="Undo" TargetName="xamSyntaxEditor1" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Redo_Operation]]
+[[_Ref332719522]]
+== Redo Operation
+
+=== Overview
+
+The Redo operation incrementally backs out the changes inserted by the Undo operation on the `TextDocument` , pops the Undo operation record off the redo history stack and adds it to the top of the undo history stack.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Instantiate the following command source:|And set the following properties:
+
+|Perform the Redo operation on a specific _xamSyntaxEditor_ instance.
+|`SyntaxEditorCommandSource`
+|`EventName` 
+
+`CommandType` 
+
+`TargetName`
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+<Button Content="Redo">
+    <ig:Commanding.Command>
+        <igPrim:SyntaxEditorCommandSource 
+            EventName="Click" CommandType="Redo" TargetName="xamSyntaxEditor1" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-events-and-commands.html[Events and Commands]
+|This topic lists the events and supported commands available to you, while building your _xamSyntaxEditor_ applications.
+
+| link:generalconcepts-about-ig-commanding.html[Infragistics Commanding Framework]
+|This topic provides extensible information as well as samples about the Infragistics Commanding framework.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/undo-redo[Undo / Redo]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/undo-redo[Undo / Redo]"] 
+|This sample demonstrates how to use a single (shared) or multiple Undo/Redo managers with two instances of the _xamSyntaxEditor_ .
+
+|====

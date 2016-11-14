@@ -1,0 +1,296 @@
+﻿////
+|metadata|
+{
+    "name": "creating-a-graphical-image-from-a-visual-in-wpf",
+    "controlName": [],
+    "tags": ["Exporting","How Do I"],
+    "guid": "b3e441f6-8cc9-4ffc-b3bc-7db2f8e1969f",
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-03-26T14:59:01.5606054Z"
+}
+|metadata|
+////
+
+= Creating a Graphical Image from a Visual in WPF
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to use the WPF build-in functionality to export a visual or a visual-derived object to a PNG or JPEG image.
+
+=== Required background
+
+Because the code example in this topic uses link:datachart-datachart.html[xamDataChart™] you need to have basic knowledge of this control.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref319052957, Exporting xamDataChart to an Image >>
+** <<_Ref319052954,Introduction>>
+** <<_Ref319052987,Requirements>>
+** <<_Ref319052990,Overview>>
+** <<_Ref319052993,Steps>>
+
+* <<_Ref319053343, Code Example: Creating a Graphical Image from a xamDataChart >>
+** <<_Ref319053004,Description>>
+** <<_Ref319053007,Code>>
+** <<_Ref319053010,Code>>
+** <<_Ref319053012,Code>>
+
+* <<_Ref319053015, Related Content >>
+** <<_Ref319053018,Topics>>
+** <<_Ref319053021,Samples>>
+** <<_Ref319053024,Resources>>
+
+[[_Ref319052957]]
+== Exporting xamDataChart to an Image
+
+[[_Ref319052954]]
+
+=== Introduction
+
+Using the built in functionality you can easily create a graphical image from any instance of a class derived from the `Visual` class. The process consists of creating a bitmap first and then exporting it to a common compressed image format like PNG or JPEG. The following blocks conceptually explain the procedure. If you are familiar with the process at that conceptual level, you can proceed straight to the code example at the end.
+
+[[_Ref319052987]]
+
+=== Requirements
+
+To complete the procedure, you need the following:
+
+* A WPF application where a xamDataChart control is used
+* A button with an event handler for the Click event. In the event handler you will place the code for capturing the bitmap data, encoding and saving the image file
+
+[[_Ref319052990]]
+
+=== Overview
+
+Following is a conceptual overview of the process: +
+
+*1.* *Converting the visual to bitmap* +
+*2.* *Encoding the bitmap to an image file*
+
+[[_Ref319052993]]
+
+=== Steps
+
+The table bellows describes the procedure in detail.
+
+=== 1. Convert the visual to bitmap.
+
+1. *Create a RenderTargetBitmap*
++
+To convert the visual to bitmap, you need to create an instance of the class that will perform the conversion to bitmap. This is the link:http://msdn.microsoft.com/en-us/library/system.windows.media.imaging.rendertargetbitmap.aspx[RenderTargetBitmap] class. The constructor of this Class accepts five arguments - Width, Height, Horizontal DPI, Vertical DPI and Pixel format
++
+All of the arguments are required for creating the `RenderTargetBitmap` instance.
++
+Following are some considerations about the use of the arguments:
+
+* If you are creating a bitmap from a `FrameworkElement`-derived object, for the width and height get the values of its `ActualWidth`/`ActualHeight` properties.
+* The horizontal and vertical DPI values need to be 96, which is the native DPI value in WPF.
+* The pixel format should be `System.Windows.Media.PixelFormats.Pbgra32`.
+
+2. *Render the Visual object into the RenderTargetBitmap.*
++
+This is done by calling the `Render` method of the `RenderTargetBitmap` class:
++
+*Code Example:* 
++
+The following code example shows how to export a control’s content to an image. (In your actual code, replace `ControlName` with the actual setting of the control’s `Name` property, for example, dataChart.
++
+*In C#:*
++
+[source,csharp]
+----
+RenderTargetBitmap bitmap = new RenderTargetBitmap((int)this.ControlName.ActualWidth, (int)this. ControlName.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+bitmap.Render(this.ControlName);
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim bitmap As New RenderTargetBitmap(CInt(Me. ControlName.ActualWidth), CInt(Me. ControlName.ActualHeight), 96, 96, PixelFormats.Pbgra32)
+bitmap.Render(Me.ControlName)
+----
+
+=== 2. Encode the bitmap data to an image file.
+
+1. *Create a file stream.*
++
+Call the static `Create` method of the `File` class with the path to the output file as argument. This will create a `FileStream` … to which the encoded image data will be written.
++
+*In C#:*
++
+[source,csharp]
+----
+using (FileStream stream = File.Create(@"[path to file]\[file name].jpeg")) // or .png
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Using stream As FileStream = File.Create(@"[path to file]\[file name].jpeg") ' or .png
+----
+
+2. *Create a JpegBitmapEncoder or PngBitmapEncoder.*
++
+Depending on the format to which you want to export the image, create either a `JpegBitmapEncoder` or `PngBitmapEncoder` object. If you export to JPEG, you also have the option to control the image quality by setting the `QualityLevel` property to an integer value in the range from 1 to 100 (the higher the number, the higher the quality, the default is 75).
++
+*Code Example:*  Setting the image quality to 90:
++
+*In C#:*
++
+[source,csharp]
+----
+JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+encoder.QualityLevel = 90;
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim encoder As New JpegBitmapEncoder()
+encoder.QualityLevel = 90
+----
+
+3. *Add the bitmap of the RenderTargetBitmap to the Frames collection of the encoder.*
++
+*In C#:*
++
+[source,csharp]
+----
+encoder.Frames.Add(BitmapFrame.Create(bitmap));
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+encoder.Frames.Add(BitmapFrame.Create(bitmap))
+----
+
+4. *Save the encoded image.*
++
+Call the Save method of the encoder passing the stream as the method parameter. This will save the encoded image into the specified file.
++
+*In C#:*
++
+[source,csharp]
+----
+encoder.Save(stream);
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+encoder.Save(stream)
+----
+
+[[_Ref319052998]]
+[[_Ref319053343]]
+== Code Example: Creating a Graphical Image from a xamDataChart
+
+[[_Ref319053004]]
+
+=== Description
+
+The code below demonstrates how to let the user export the chart in a xamDataChart control as a jpg/png encoded image, when they click a button.
+
+[[_Ref319053007]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+…
+<ig:XamDataChart xmlns:ig="http://schemas.infragistics.com/xaml"
+ x:Name="dataChart">
+…
+</ig:XamDataChart>
+<Button Click="SaveButton_Click" Content="Export Image"/>
+…
+----
+
+[[_Ref319053010]]
+
+*In C#:*
+
+[source,csharp]
+----
+using System.IO;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+…
+private void SaveButton_Click(object sender, RoutedEventArgs e)
+{
+    RenderTargetBitmap bitmap =
+        new RenderTargetBitmap((int)this.dataChart.ActualWidth, 
+            (int)this.dataChart.ActualHeight, 
+                  96, 96, PixelFormats.Pbgra32);
+    bitmap.Render(this.dataChart);
+    using (FileStream stream = File.Create(@"[file path]\[file name].[extension]"))
+    {
+        JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+        encoder.QualityLevel = (int)this.qualitySlider.Value;
+        encoder.Frames.Add(BitmapFrame.Create(bitmap));
+        encoder.Save(stream);
+        // If you want to export the xamDataChart to a PNG 
+        // instead of JPEG, use this code block:
+        // PngBitmapEncoder encoder = new PngBitmapEncoder();
+        // encoder.Frames.Add(BitmapFrame.Create(bitmap));
+        // encoder.Save(stream);
+        }
+    }
+}
+----
+
+[[_Ref319053012]]
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports System.IO
+…
+Private Sub SaveButton_Click(sender As Object, e As RoutedEventArgs)
+      Dim bitmap As New RenderTargetBitmap(CInt(Me.SaveButtonButton.ActualWidth), CInt(Me.SaveButtonButton.ActualHeight), 96, 96, PixelFormats.Pbgra32)
+      bitmap.Render(Me.SaveButtonButton)
+      Using stream As Stream = File.Create((@"[file path]\[file name].[extension]")
+            Dim encoder As New JpegBitmapEncoder()
+            encoder.QualityLevel = 90
+            encoder.Frames.Add(BitmapFrame.Create(bitmap))
+                  encoder.Save(stream)
+            'If you want to export the xamDataChart to a PNG
+            'instead of JPEG, use this code block:
+            'Dim encoder As New PngBitmapEncoder()
+            'encoder.Frames.Add(BitmapFrame.Create(bitmap))
+            'encoder.Save(stream)
+      End Using
+End Sub
+----
+
+[[_Ref319053015]]
+== Related Content
+
+[[_Ref319053018]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:datachart-getting-started-with-datachart.html[Getting Started with xamDataChart]
+|You will learn how to add the xamDataChart control with simple data binding in Microsoft® Visual Studio® and Expression Blend®.
+
+|====

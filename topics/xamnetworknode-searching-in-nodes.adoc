@@ -1,0 +1,108 @@
+﻿////
+|metadata|
+{
+    "name": "xamnetworknode-searching-in-nodes",
+    "controlName": ["xamNetworkNode"],
+    "tags": ["How Do I","Tips and Tricks"],
+    "guid": "7f287b0e-aea4-40ca-b433-170ca8ff81e6",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.4762485Z"
+}
+|metadata|
+////
+
+= Searching in Nodes
+
+== Introduction
+
+When searching in nodes, the search conditions are specified by a predicate delegate. During the search, the link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.xamnetworknode.html[xamNetworkNode™] control enumerates all nodes and calls the predicate delegate on each node. A network node is considered a match and returned in the search results if its underlying data fulfills the conditions of the predicate delegate. The matching results are presented as a collection of NetworkNodeNode objects.
+
+== Implementing Searching in Nodes
+
+There are two implementation approaches based on how the predicate delegate is defined. Each of them is covered in an individual sub-section below.
+
+== Using a Standard Predicate Delegate
+
+When using a standardly defined predicate delegate, you first create the predicate delegate (the search condition), and then use it to perform the search.
+
+[start=1]
+. *Create the predicate delegate.*
+
+.. *Define a predicate delegate search condition.*
++
+The predicate delegate is a method that accepts a generic parameter and returns a Boolean value.
++
+The following method receives a *NodeModel* object and compares its Label to a string.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private _searchText As String = "some text"
+Private Function SearchCondition(node As NodeModel) As Boolean
+    Dim nodeLabel As String = node.Label.ToLower()
+    'Compare the label to a string.
+    Return nodeLabel.Contains(_searchText)
+End Function
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private string _searchText = "some text";
+private bool SearchCondition(NodeModel node)
+{
+    string nodeLabel = node.Label.ToLower();
+    //Compare the label to a string.
+    return nodeLabel.Contains(_searchText);
+}
+----
+
+.. *Encapsulate the Search Condition method.*
++
+Create a link:http://msdn.microsoft.com/en-us/library/bfcke1bz.aspx[Predicate<T>] object, which will encapsulate the *SearchCondition* method created in Step 1. The predicate object will be passed as a parameter to the *Search* method of Network Node:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim searchCondition As New _
+    Predicate(Of NodeModel)(AddressOf SearchCondition)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+Predicate searchCondition = new Predicate(SearchCondition);
+----
+
+[start=2]
+. *Perform the search.*
+
+== Using a Lambda Expression
+
+This is a "shortcut" approach: it uses a lambda expression to define the predicate delegate directly in the *Search* method.
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim searchText As String = "some text"
+Dim searchResults As IEnumerable(Of NetworkNodeNode) = _ 
+    networkNodeInstance.Search(Function(node As NodeModel) _
+    node.Label.ToLower().Contains(searchText))
+----
+
+*In C#:*
+[source,csharp]
+----
+string searchText = "some text";
+IEnumerable searchResults = networkNodeInstance.Search
+    ((NodeModel node) => node.Label.ToLower().Contains(searchText));
+----
+
+== Related Topics
+
+* link:xamnetworknode-getting-started-with-xamnetworknode.html[Getting Started with xamNetworkNode]
+* link:xamnetworknode-using-xamnetworknode.html[Using xamNetworkNode]

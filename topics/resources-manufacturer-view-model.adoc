@@ -1,0 +1,90 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-manufacturer-view-model",
+    "controlName": [],
+    "tags": ["Sample Data Source"],
+    "guid": "d3dcc837-d94f-4f96-98fc-a0e1607d8eb7",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.3320167Z"
+}
+|metadata|
+////
+
+= Manufacturer View Model
+
+*In Visual Basic:*
+
+----
+Imports System.Collections.ObjectModel
+Public Class ManufacturerViewModel
+    Private _manufacturers As ObservableCollection(Of Manufacturer)
+    Public Property Manufacturers() As ObservableCollection(Of Manufacturer)
+        Get
+            Return _manufacturers
+        End Get
+        Set(ByVal value As ObservableCollection(Of Manufacturer))
+            _manufacturers = Value
+        End Set
+    End Property
+    Public Sub New()
+        Manufacturers = New ObservableCollection(Of Manufacturer)() From { _
+         New Manufacturer() With {.Name = "Bike Store", .Revenue = 1000}, _
+         New Manufacturer() With {.Name = "Professional Sales", .Revenue = 2000}, _
+         New Manufacturer() With {.Name = "Riders Company", .Revenue = 3000}, _
+         New Manufacturer() With {.Name = "Bike Mechanics", .Revenue = 4000}, _
+         New Manufacturer() With {.Name = "Nationwide Supply", .Revenue = 5000} _
+        }
+    End Sub
+End Class
+Public Class Manufacturer
+    Private _name As String
+    Public Property Name() As String
+        Get
+            Return _name
+        End Get
+        Set(ByVal value As String)
+            _name = Value
+        End Set
+    End Property
+    Private _revenue As Integer
+    Public Property Revenue() As Integer
+        Get
+            Return _revenue
+        End Get
+        Set(ByVal value As Integer)
+            _revenue = Value
+        End Set
+    End Property
+End Class
+----
+
+*In C#:*
+
+----
+using System.Collections.ObjectModel;
+namespace UsingXamTreemap
+{
+    public class ManufacturerViewModel
+    {
+        public ObservableCollection<Manufacturer> Manufacturers { get; set; }
+        public ManufacturerViewModel()
+        {
+            Manufacturers = new ObservableCollection<Manufacturer>()
+            {
+                new Manufacturer() { Name = "Bike Store", Revenue=1000 },
+                new Manufacturer() { Name = "Professional Sales", Revenue=2000 },
+                new Manufacturer() { Name = "Riders Company", Revenue=3000 },
+                new Manufacturer() { Name = "Bike Mechanics", Revenue=4000 },
+                new Manufacturer() { Name = "Nationwide Supply", Revenue = 5000 }
+            };
+        }
+    }
+    public class Manufacturer
+    {
+        public string Name { get; set; }
+        public int Revenue { get; set; }
+    }
+}
+----

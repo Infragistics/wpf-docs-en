@@ -1,0 +1,80 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdialogwindow-window-header-controls",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{14B9BE28-C2DF-442F-BC2C-E4D0781F766B}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.0291107Z"
+}
+|metadata|
+////
+
+= Window Header Controls
+
+The default template of the xamDialogWindow™ control contains buttons for Minimizing, Maximizing and closing the control. To simplify toggling which buttons are visible, three properties were added to the control, which simply toggle the VisualStates in the Template.
+
+Your end user can interact with and change the window state of the dialog window by using these buttons. For more information on window states, see the link:xamdialogwindow-handle-window-state-changing-events.html[Handle the Window Changing Events].
+
+When your end user minimizes or maximizes the dialog window, that button changes to a Restore button. The restore button will cause the dialog window to return to its original size and position.
+
+By default the Minimize, Maximize and Close buttons are displayed. However, you can change this default feature by setting the xamDialogWindow control’s link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~closebuttonvisibility.html[CloseButtonVisibility], link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~maximizebuttonvisibility.html[MaximizeButtonVisibility] and link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~minimizebuttonvisibility.html[MinimizeButtonVisibility] properties to the Collapsed value of the Visibility enumeration, as demonstrated in the following code.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamDialogWindow Content="Dialog Window" 
+       x:Name="DialogWindow" 
+       Width="200" Height="200" 
+       CloseButtonVisibility="Collapsed"
+       MaximizeButtonVisibility="Collapsed"
+       MinimizeButtonVisibility="Collapsed"/>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Imports System.Windows
+…
+DialogWindow.CloseButtonVisibility = Visibility.Collapsed
+DialogWindow.MaximizeButtonVisibility = Visibility.Collapsed
+DialogWindow.MinimizeButtonVisibility = Visibility.Collapsed
+----
+
+*In C#:*
+
+----
+using System.Windows;
+…
+DialogWindow.MaximizeButtonVisibility = Visibility.Collapsed;
+DialogWindow.MinimizeButtonVisibility = Visibility.Collapsed;
+DialogWindow.CloseButtonVisibility = Visibility.Collapsed;
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-moving-events.html[Handle Moving Events]
+
+link:xamdialogwindow-handle-window-state-changing-events.html[Handle Window State Changing Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-modal-and-modeless-dialog-windows.html[Modal and Modeless Dialog Windows]
+
+link:xamdialogwindow-position-minimized-dialog-window.html[Position Minimized Dialog Window]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-the-xamdialogwindow-controls-behavior.html[The xamDialogWindow Control's Behavior]

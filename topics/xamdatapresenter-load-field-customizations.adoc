@@ -1,0 +1,51 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-load-field-customizations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Layouts","Styling"],
+    "guid": "{AB95F65A-2991-439C-9A0D-4D56B36D0572}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2470025Z"
+}
+|metadata|
+////
+
+= Load Field Customizations
+
+Your end users can move, sort, and group fields at run time using the xamDataGrid™ control or the xamDataPresenter™ control. The xamDataCarousel™ control will only allow end users to group fields since it does not display field headers. Your end users will expect you to save and load these customizations so that they do not have to modify the fields when they restart your application. The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class exposes an overloaded link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~loadcustomizations.html[LoadCustomizations] method that you can use to load a previously saved field customization. If the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~key.html[Key] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] object does not match the key value in the layout file, the data presenters will not apply the customizations from the layout file.
+
+The following example code demonstrates how to load field customizations. The example code uses an instance of a xamDataGrid control, but you can use a xamDataPresenter control or xamDataCarousel control as well.
+
+*In Visual Basic:*
+
+----
+Imports System.IO
+...
+' Load the layout from a stream
+Using fs As New FileStream("xamDataGridLayout1.xml", FileMode.Open, FileAccess.Read) 
+    Me.xamDataGrid1.LoadCustomizations(fs)                             
+End Using 
+...
+----
+
+*In C#:*
+
+----
+using System.IO;
+...
+// Load the layout from a stream
+using (FileStream fs =
+    new FileStream("xamDataGridLayout1.xml", FileMode.Open, FileAccess.Read))
+{
+    this.xamDataGrid1.LoadCustomizations(fs);
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout]
+
+link:xamdatapresenter-save-field-customizations.html[Save Field Customizations]

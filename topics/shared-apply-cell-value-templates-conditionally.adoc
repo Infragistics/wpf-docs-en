@@ -1,0 +1,321 @@
+﻿////
+|metadata|
+{
+    "tags": [],
+    "controlName": [""]
+}
+|metadata|
+////
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how you can conditionally supply display and edit templates for cells via properties exposed off a TemplateField.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-understanding-xamdatagrid.html[About _xamDataGrid_ ]
+|This topic introduces the _xamDataGrid_ control and various elements, on which control is composed.
+
+| link:xamdatapresenter-about-data-items-and-data-records.html[About Data Items and Data Records]
+|This topic explains the difference between Data Items and Data Records.
+
+| link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout]
+|This topic describes how to define field layouts to specify which fields to display and to set properties related to those fields in the _xamDataPresenter_ controls.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref419378280, Template Selector Summary >>
+* <<_Ref419378289, Related Content >>
+
+[[_Ref419378280]]
+== Template Selector Summary
+
+=== Description
+
+The data presenter controls support applying templates dynamically to a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.templatefield.html[TemplateField] for both displaying and editing a cell value. You have the ability to set "selectors" on a `TemplateField` which are used to provide the conditional logic for applying different templates based on the value being edited. The selector class should extend from the link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector(v=vs.110).aspx[DataTemplateSelector] class and implement the link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector.selecttemplate(v=vs.110).aspx[SelectTemplate] method which returns a link:https://msdn.microsoft.com/en-us/library/system.windows.datatemplate(v=vs.110).aspx[DataTemplate] type.
+
+The `SelectTemplate` method is called on the selector specified via the `TemplateField`’s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.templatefield~displaytemplateselector.html[DisplayTemplateSelector] property in the following cases:
+
+* when each link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] is created and displayed
+* after a `CellValuePresenter` exits edit mode
+* when the value of a cell changes while not in edit mode
+
+The `SelectTemplate` method is called on the selector specified via the `TemplateField`’s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.templatefield~edittemplateselector.html[EditTemplateSelector] property in the following cases:
+
+* as a `CellValuePresenter` is entering editing mode
+* when the cell’s value changes while in edit mode
+
+.Note
+[NOTE]
+====
+The `SelectTemplate` method of an editing template selector will be invoked repeatedly on each user typing when in edit mode. If your selector logic returns different template after the `CellValuePresenter` enters edit mode this will cause a focus loss and ending the editing mode. To prevent this you should save an instance of the first `DataTemplate` provided when entering edit mode (for example in the editor's Tag property) and returns only this instance until the editing ends by user request. See the example code snippets below.
+====
+
+=== Tasks
+
+The following table explains briefly the configurable aspects of the  _xamDataGrid_   control and maps them to the properties that configure them.
+
+[options="header", cols="a,a,a"]
+|====
+|Tasks|Details|Property
+
+|[[_Hlk356484826]] 
+
+Set selector to be used when a cell is *not* in edit mode
+|Set a selector class to be used to provide a template for cells that are *not* is edit mode for a specific `TemplateField`. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+If the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.templatefield~displaytemplate.html[DisplayTemplate] property is also set then this property is ignored. 
+
+====
+|`DisplayTemplateSelector`
+
+|Set selector to be used when a cell is in edit mode
+|Set a selector class to be used to provide a template for cells that are in edit mode for a specific `TemplateField`. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+If the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.templatefield~edittemplate.html[EditTemplate] property is also set then this property is ignored. If neither the `EditTemplate` nor `EditTemplateSelector` properties are set then the `DisplayTemplate` or `DisplayTemplateSelector` properties will be used in edit mode as well. 
+
+====
+|`EditTemplateSelector`
+
+|====
+
+=== Code snippet
+
+The following code defines some display and edit templates:
+
+*In XAML:*
+
+[source,xaml]
+----
+…
+<Page.Resources>
+    <DataTemplate x:Key="displayTemplateRed">
+        <TextBlock Text="{igEditor:TemplateEditorValueBinding}" Forground="Red" />
+    </DataTemplate>
+    <DataTemplate x:Key="displayTemplateGreen">
+        <TextBlock Text="{igEditor:TemplateEditorValueBinding}" Forground="Green" />
+    </DataTemplate>
+    <DataTemplate x:Key="editTemplateRed">
+        <TextBox Text="{igEditor:TemplateEditorValueBinding}" Background="Red" />
+    </DataTemplate>
+    <DataTemplate x:Key="editTemplateGreen">
+        <TextBox Text="{igEditor:TemplateEditorValueBinding}" Background="Green" />
+    </DataTemplate>
+</Page.Resources>
+…
+----
+
+The following code implements the display template selector:
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomDisplayTemplateSelector
+  Inherits DataTemplateSelector
+  Public Overrides Function SelectTemplate(item As Object, container As DependencyObject) _
+      As DataTemplate
+    Dim dataTemplate As DataTemplate = Nothing
+    Dim editor = TemplateEditor.GetEditor(container)
+    ' clearing the Tag property which in this case is used
+    ' to track the template returned in edit mode.
+    edior.Tag = Nothing
+    If item IsNot Nothing Then
+      If CInt(item) > 10000 Then
+        dataTemplate = TryCast(editor.FindResource("displayTemplateRed"), DataTemplate)
+      Else
+        dataTemplate = TryCast(editor.FindResource("displayTemplateGreen"), DataTemplate)
+      End If
+    End If
+    If dataTemplate IsNot Nothing Then
+      Return dataTemplate
+    End If
+    Return MyBase.SelectTemplate(item, container)
+  End Function
+End Class
+----
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomDisplayTemplateSelector : DataTemplateSelector
+{
+  public override DataTemplate SelectTemplate(object item, DependencyObject container)
+  {
+    DataTemplate dataTemplate = null;
+    var editor = TemplateEditor.GetEditor(container);
+    // clearing the Tag property which in this case is used
+    // to track the template returned in edit mode.
+    edior.Tag = null;
+    if (item != null)
+    {
+      if ((int)item > 10000)
+      {
+        dataTemplate = editor.FindResource("displayTemplateRed") as DataTemplate;
+      }
+      else
+      {
+        dataTemplate = editor.FindResource("displayTemplateGreen") as DataTemplate;
+      }
+    }
+    if (dataTemplate != null) return dataTemplate;
+    return base.SelectTemplate(item, container);
+  }
+}
+----
+
+The following code implements the edit template selector:
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomEditTemplateSelector
+  Inherits DataTemplateSelector
+  Public Overrides Function SelectTemplate(item As Object, container As DependencyObject) _
+      As DataTemplate
+    Dim dataTemplate As DataTemplate = Nothing
+    Dim editor = TemplateEditor.GetEditor(container)
+    ' If the Tag property is set this means that an edit template was already
+    ' returned and we need to return the same template to prevent the editor
+    ' to exit edit mode.
+    If TypeOf editor.Tag Is DataTemplate Then
+      Return TryCast(editor.Tag, DataTemplate)
+    End If
+    If item IsNot Nothing Then
+      If CInt(item) > 10000 Then
+        dataTemplate = TryCast(editor.FindResource("editTemplateRed"), DataTemplate)
+      Else
+        dataTemplate = TryCast(editor.FindResource("editTemplateGreen"), DataTemplate)
+      End If
+    End If
+    If dataTemplate IsNot Nothing Then
+      editor.Tag = dataTemplate
+      Return dataTemplate
+    End If
+    Return MyBase.SelectTemplate(item, container)
+  End Function
+End Class
+----
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomEditTemplateSelector : DataTemplateSelector
+{
+  public override DataTemplate SelectTemplate(object item, DependencyObject container)
+  {
+    DataTemplate dataTemplate = null;
+    var editor = TemplateEditor.GetEditor(container);
+    // If the Tag property is set this means that an edit template was already
+    // returned and we need to return the same template to prevent the editor
+    // to exit edit mode.
+    if (editor.Tag is DataTemplate)
+        return editor.Tag as DataTemplate;
+    if (item != null)
+    {
+      if ((int)item > 10000)
+      {
+        dataTemplate = editor.FindResource("editTemplateRed") as DataTemplate;
+      }
+      else
+      {
+        dataTemplate = editor.FindResource("editTemplateGreen") as DataTemplate;
+      }
+    }
+    if (dataTemplate != null)
+    {
+        editor.Tag = dataTemplate;
+        return dataTemplate;
+    }
+    return base.SelectTemplate(item, container);
+  }
+}
+----
+
+The following code adds the display and edit selectors to the page's resources:
+
+*In XAML:*
+
+[source,xaml]
+----
+…
+<Page.Resources>
+    <localNameSpace:CustomDisplayTemplateSelector x:Key="Selector1" />
+    <localNameSpace:CustomEditTemplateSelector x:Key="Selector2" />
+</Page.Resources>
+…
+----
+
+The following code sets the display and edit selectors to a template field:
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:XamDataGrid>
+    <igDP:XamDataGrid.FieldLayouts>
+        …
+        <igDP:TemplateField Name="BasePrice" Label="Price"
+            DisplayTemplateSelector="{StaticResource Selector1}"
+            EditTemplateSelector="{StaticResource Selector2}"
+        />
+        …
+    </igDP:XamDataGrid.FieldLayouts>
+</igDP:XamDataGrid>
+----
+
+[[_Ref419378289]]
+== Related Content
+
+=== Topic
+
+The following topic provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:configuring-template-field.html[Configuring Template Field]
+|This topic describes how to create a field with a custom display and edit template using a TemplateField in the _xamDataPresenter_ controls.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/apply-templates-conditionally[Apply Display and Edit Templates Conditionally]
+|This sample demonstrates how to apply different display and edit template to the cells of a template field depending on a certain condition.
+
+|====

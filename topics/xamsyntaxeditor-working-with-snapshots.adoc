@@ -1,0 +1,298 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-working-with-snapshots",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","How Do I","Patterns and Practices"],
+    "guid": "7339d904-6192-4a9d-be5b-b8fc6040cebf",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3883924Z"
+}
+|metadata|
+////
+
+= Working with Snapshots (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes features provided by the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot_members.html[TextDocumentSnapshot] and the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner_members.html[TextDocumentSnapshotScanner] classes.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref333583345, Snapshots >>
+** <<_Ref333583351,Overview>>
+** <<_Ref333583358,Properties summary>>
+** <<_Ref333583365,Methods summary>>
+
+* <<_Ref333583370, Snapshot Scanner >>
+** <<_Ref333583377,Overview>>
+** <<_Ref333583382,Properties summary>>
+** <<_Ref333583391,Methods summary>>
+
+* <<_Ref333583398, Related Content >>
+
+[[_Ref333583345]]
+== Snapshots
+
+[[_Ref333583351]]
+
+=== Overview
+
+Snapshots are immutable objects that represent the entire state of a document at a specific point in time. Snapshots are created whenever changes are made to the document’s content (for example, when typing in the  _xamSyntaxEditor’s_   editing area). The link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument]’s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~currentsnapshot.html[CurrentSnapshot] property contains the most recent snapshot, which returns an object of type `TextDocumentSnapshot`.
+
+The snapshots are thread-safe, so they can be used for longer running operations, without having to worry about dealing with any changes made to the document during the process.
+
+Terms:
+
+[options="header", cols="a,a"]
+|====
+|Term|Description
+
+| *Offset* 
+|This is a zero-based index of a character in a document starting from the beginning.
+
+| *Text Location* 
+|This is a structure, which contains zero-based line and character offset that uniquely identify a character location in a document.
+
+| *Token* 
+|Produced during the lexical analysis of the document tokens represent sections of the text (for example, keyword, punctuations characters, whitespace, etc...). By concatenating the text of all of its tokens, you can reconstruct the entire text of a document.
+
+| *Word* 
+|Unlike the token, the _Word_ structure can only represent a word (not punctuation characters, whitespace or delimiters).
+
+|====
+
+[[_Ref333583358]]
+
+=== Properties summary
+
+The following table lists the available read-only properties for obtaining document information:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~length.html[Length]
+|The length of a snapshot measured in characters.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~linecount.html[LineCount]
+|The number of lines contained in the snapshot.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~tokencount.html[TokenCount]
+|The number of tokens contained in the snapshot.
+
+|====
+
+[[_Ref333583365]]
+
+=== Methods summary
+
+The following table lists the public methods exposed by the snapshot.
+
+[options="header", cols="a,a"]
+|====
+|Method|Description
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~gettext.html[GetText]
+|Returns part or the entire content of the snapshot.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~gettokens.html[GetTokens]
+|Returns either a forward or a backward token enumerator with an optional filter callback.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~getlines.html[GetLines]
+|Returns either a forward or a backward line enumerator.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~linefromindex.html[LineFromIndex]
+|Obtains a line by it zero-based index.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~linefromoffset.html[LineFromOffset]
+|Obtains a line from a character offset within the document.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~lineindexfromoffset.html[LineIndexFromOffset]
+|Obtains a line index from a character offset within the document.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~locationfromoffset.html[LocationFromOffset]
+|Obtains a location from an offset.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~offsetfromlocation.html[OffsetFromLocation]
+|Obtains an offset from a location.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~tokenfromoffset.html[TokenFromOffset]
+|Obtains a token from an offset.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~wordfromoffset.html[WordFromOffset]
+|Obtains a word from an offset.
+
+|====
+
+.Note
+[NOTE]
+====
+You can use the indexer of the `TextDocumentSnapshot` class to access the characters at a zero-based offset.
+====
+
+.Note
+[NOTE]
+====
+You can also use the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~find.html[Find] and link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~findall.html[FindAll] methods of the snapshots to find single or multiple occurrences of a text by using search criteria similar to the one explained in the link:xamsyntaxeditor-find-replace.html[Find / Replace] topic.
+====
+
+[[_Ref333583370]]
+== Snapshot Scanner
+
+[[_Ref333583377]]
+
+=== Overview
+
+The snapshot’s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot~createscanner.html[CreateScanner] method creates a `TextDocumentSnapshotScanner` class targeting a specific instance of a `TextDocumentSnaphot`. It is useful for efficiently scanning through the snapshot’s lines, tokens and words.
+
+.Note
+[NOTE]
+====
+Even though the snapshot that it targets is thread-safe, the scanner is not. Create the scanner on the same thread that uses it. Creating a scanner on one thread and trying to access the properties and methods of a scanner created on another thread raises an link:http://msdn.microsoft.com/en-us/library/system.invalidoperationexception.aspx[InvalidOperationException].
+====
+
+When first creating the scanner its current scan position initializes to zero. The scan position can be explicitly set (via the `CurrentOffset` property) or manipulated by calling any of the following “seek” methods. There are also several “peek” methods, which are useful in obtain  _Tokens_   or  _Words_   surrounding the current scan position, without changing the current scan position.
+
+[[_Ref333583382]]
+
+=== Properties summary
+
+You can use the following properties to obtain different information regarding the current scan position:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~currentoffset.html[CurrentOffset]
+|Returns or sets the current offset from the beginning of the document.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~currentcharacter.html[CurrentCharacter]
+|Returns the character at the `CurrentOffset`.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~currentline.html[CurrentLine]
+|Returns the line containing the `CurrentOffset`.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~currenttoken.html[CurrentToken]
+|Returns the token containing the `CurrentOffset`. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+Setting the `CurrentOffset` to the snapshot’s length returns the end-of-stream (EOS) token. 
+
+====
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~currentword.html[CurrentWord]
+|Returns either the word containing the `CurrentOffset` or null in the event that the `CurrentOffset` is not within a word.
+
+|====
+
+[[_Ref333583391]]
+
+=== Methods summary
+
+You can use the following methods to move back and forth the current scan position:
+
+[options="header", cols="a,a"]
+|====
+|Method|Description
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~seektoend.html[SeekToEnd]
+|Move the scan position to the end of the snapshot content.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~seektoline.html[SeekToLine]
+|Move the scan position to a specific line in the snapshot content.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~seektostart.html[SeekToStart]
+|Move the scan position to the start of the snapshot content.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~seektotoken.html[SeekToToken]
+|Move the scan position to the next/previous start/end token.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~seektoword.html[SeekToWord]
+|Move the scan position to the next/previous start/end word.
+
+|====
+
+You can use the following methods to peek the surrounding documents parts without moving the current scan position:
+
+[options="header", cols="a,a"]
+|====
+|Method|Description
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~peeknexttoken.html[PeekNextToken]
+|Obtain the next token.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~peeknextword.html[PeekNextWord]
+|Obtain the next word.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~peekprevioustoken.html[PeekPreviousToken]
+|Obtain the previous token.
+
+| link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshotscanner~peekpreviousword.html[PeekPreviousWord]
+|Obtain the previous word.
+
+|====
+
+[[_Ref333583398]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-error-reporting.html[Error Reporting]
+|This topic provides an overview of the _xamSyntaxEditor_ control’s error reporting functionality and shows how to configure and work with the control.
+
+| link:xamsyntaxeditor-find-replace.html[Find / Replace]
+|This topic explains the `TextDocument`’s Find, Replace and ReplaceAll operations.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/error-reporting[Error Reporting]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/error-reporting[Error Reporting]"] 
+|This sample demonstrates how to configure error reporting and how to obtain a list of errors from the _xamSyntaxEditor_ .
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/find-and-replace[Find and Replace]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/find-and-replace[Find and Replace]"] 
+|This sample demonstrates how to use the find and replace functionality of the `TextDocument`.
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/search-results[Search Results]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/search-results[Search Results]"] 
+|This sample demonstrates Text Document searching and how you can navigate through the results.
+
+|====

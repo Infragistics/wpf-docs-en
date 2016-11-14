@@ -1,0 +1,170 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-project-configuration-overview",
+    "controlName": ["xamGantt"],
+    "tags": ["API","How Do I","Scheduling"],
+    "guid": "caae9c16-c966-47ff-a857-cab60afe921c",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.3141671Z"
+}
+|metadata|
+////
+
+= Project Configuration Overview
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of the  _xamGantt™_   link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project] class and its configurable aspects.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-xamgantt-overview.html[xamGantt Overview]
+|This topic describes basic conceptual information about _xamGantt_, project, tasks and other _xamGantt_ elements.
+
+| link:xamgantt-xamgantt-in-detail.html[xamGantt in Detail]
+|This group of topics describes the _xamGantt_ control in details.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334823696, Introduction >>
+* <<_Ref334823701, Project Configuration Properties Summary >>
+* <<_Ref334823707, Project Configuration Methods Summary >>
+* <<_Ref334823713, Related Content >>
+
+[[_Ref334823696]]
+== Introduction
+
+=== Project class summary
+
+The link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project] class is the  _xamGantt_   control’s the primary class.
+
+It manages the data for the project which includes:
+
+* tasks
+* resources
+* calendars
+
+It has a built-in scheduling engine similar to Microsoft’s Project 2010 engine that adjusts the dates of tasks based on their constraints, deadline, predecessors and successors.
+
+[[_Ref334823701]]
+== Project Configuration Properties Summary
+
+=== Project configuration properties summary chart
+
+The following table lists some of the main configurable aspects of the  _xamGantt_   `Project`.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Property
+
+|Getting or setting the calendar associated with the project by its unique id
+|Identifies or modifies link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcalendar_members.html[ProjectCalendar] associated with the project by id.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~calendarid.html[CalendarId]
+
+|Getting the calendars associated with the project
+|Identifies the collection of `ProjectCalendar` objects associated with the project.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~calendars.html[Calendars]
+
+|Getting or setting the finish date for a project in Coordinated Universal Time(UTC)
+|Identifies or modifies the project finish date in UTC. 
+
+If the scheduling of the project is from its finish date you must set the project finish date. 
+
+The project finish date is a read-only calculated value when scheduling the project from its start date.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~finish.html[Finish]
+
+|Getting or setting whether the project is calculated from a start or from a finish date
+|Identifies or modifies whether the project’s calculations are from the start date.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isscheduledfromstart.html[IsScheduledFromStart]
+
+|Getting the resources associated with the project
+|Identifies the project’s collection of associated link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectresource_members.html[ProjectResource] objects.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~resourceitems.html[ResourceItems]
+
+|Getting the project root summary task
+|Identifies the project’s root task.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~roottask.html[RootTask]
+
+|Configuring various project settings
+|Configures the project settings.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~settings.html[Settings]
+
+|Getting or setting the start date for a project in Coordinated Universal Time(UTC)
+|Identifies or modifies the project’s start date in UTC. 
+
+If the scheduling of the project is from its start date you must set the project start date. 
+
+The project start date is a read-only calculated value when scheduling the project from its finish date.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~start.html[Start]
+
+|Getting or setting the default settings for all tasks within the project
+|Configures project’s default tasks settings.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~tasksettings.html[TaskSettings]
+
+|====
+
+[[_Ref334823707]]
+== Project Configuration Methods Summary
+
+=== Project configuration methods summary chart
+
+The following table lists some of the main methods of the xamGantt `Project`.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Method
+
+|Notifying about the beginning of loading data
+|Notifies the project that a batch initialization/update will be performed.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~beginloaddata.html[BeginLoadData]
+
+|Scheduling the project explicitly when suspending automatic calculations
+|Calculates the schedule for the tasks in the project.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~calculate.html[Calculate]
+
+|Notifying about the end of loading data
+|Notifies the project when performing either a batch initialization or update.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~endloaddata.html[EndLoadData]
+
+|Getting local date properties
+|Returns the local time for the specified date property relative to the specified time zone.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~getlocal.html[GetLocal]
+
+|Setting local date properties
+|Sets the local time for the specified date property relative to the specified time zone.
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~setlocal.html[SetLocal]
+
+|====
+
+[[_Ref334823713]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-scheduling-project-from-start-or-finish-date.html[Scheduling a Project from a Start or Finish Date]
+|This topic explains how the _xamGantt_ control calculates the project’s and tasks’ dates based upon the project’s start or finish date.
+
+| link:xamgantt-calculating-explicitly-a-project.html[Calculating Explicitly a Project]
+|This topic explains how to calculate a project explicitly using the _xamGantt_ control.
+
+|====

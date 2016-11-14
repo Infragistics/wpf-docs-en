@@ -1,0 +1,62 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-connector-list",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "e825ee50-5097-471b-a310-fa3e1e0ff22a",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.668324Z"
+}
+|metadata|
+////
+
+= ListScheduleConnector
+
+The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleConnector] is a non-visual element that is used as a connector between link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] and a scheduling data source. It creates view model objects ( link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[resources], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[calendars] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase.html[activities]) that are provided to the schedule data manager. The developer can bind the connector to any set of IEnumerable item sources. If the data is then manipulated in the UI it gets directed to XamScheduleDataManager, which in turns directs the requests to the data connector. The data connector takes the necessary steps to realize the changes back to the underlying item sources.
+
+*In XAML:*
+
+----
+<ig:ListScheduleDataConnector
+  ResourceItemsSource="{Binding resources}"
+  ResourceCalendarItemsSource="{Binding calendars}"
+  AppointmentItemsSource="{Binding appointments}"
+  TaskItemsSource="{Binding tasks}"
+  JournalItemsSource="{Binding journals}"/>
+----
+
+*In Visual Basic:*
+
+----
+Dim dataConnector = New ListScheduleDataConnector()
+dataConnector.ResourceItemsSource = resources
+dataConnector.ResourceCalendarItemsSource = calendars
+dataConnector.AppointmentItemsSource = appointments
+dataConnector.TaskItemsSource = tasks
+dataConnector.JournalItemsSource = journals
+----
+
+*In C#:*
+
+----
+var dataConnector = new ListScheduleDataConnector();
+dataConnector.ResourceItemsSource = resources;
+dataConnector.ResourceCalendarItemsSource = calendars;
+dataConnector.AppointmentItemsSource = appointments;
+dataConnector.TaskItemsSource = tasks;
+dataConnector.JournalItemsSource = journals;
+----
+
+In the sample code above all the collections implement IEnumerable<T> where T is the appropriate type – e.g., resources is IEnumerable<Resource>, appointments are IEnumerable<Appointment>, and so on. The connector can also bind to custom data types and optionally map properties by specifying the appropriate PropertyMapping settings (see related topics).
+
+== Related Topics
+
+link:xamschedule-understanding-data-connector.html[About the Data Connector]
+
+link:xamschedule-understanding-activities.html[About Activities]
+
+link:xamschedule-understanding-resources-calendars.html[About Resources and Calendars]
+
+link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]

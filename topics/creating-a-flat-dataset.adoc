@@ -1,0 +1,197 @@
+﻿////
+|metadata|
+{
+    "name": "creating-a-flat-dataset",
+    "controlName": [],
+    "tags": [],
+    "guid": "{8DF832EC-13A1-480B-BA08-A060989FE1AA}",
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-02-01T16:01:19.6108354Z"
+}
+|metadata|
+////
+
+= Creating a Flat DataSet
+
+== Before You Begin
+
+The ADO.NET® classes encapsulate and simplify database access. You can use a Connection object, a Command object, and a DataAdapter object to retrieve and store data in a DataSet.
+
+If you want to bind a Microsoft® Windows® Presentation Foundation control to a DataTable, you will have to remember to use a DataView. This is because all data bound Windows® Presentation Foundation controls must bind to an object that implements the IEnumerable interface. The simplest way to satisfy this requirement is to use the DefaultView property of a DataTable as a data source.
+
+Another way to satisfy this requirement is to create an ObjectDataProvider in Extensible Application Markup Language (XAML) that exposes a DataTable to the presentation layer of your application. The ObjectDataProvider will automatically wrap the DataTable in a DataView. Creating an ObjectDataProvider that returns a DataTable will not differ much from an ObjectDataProvider that returns a collection of objects. The only difference between the two will be the method that the ObjectDataProvider calls to retrieve your data. For more information on creating an ObjectDataProvider, see the topic on link:creating-an-objectdataprovider.html[Creating an ObjectDataProvider].
+
+This topic does not cover binding the DataSet to any specific control; however, you will need to use the DataSet created in this topic for control specific tasks. For information on binding a control to the DataSet you created in this topic, use the links provided at the end of this topic.
+
+== What You Will Accomplish
+
+This topic will show you how to create the necessary components (SqlConnection, SqlCommand, and SqlDataAdapter) to create a flat DataSet in procedural code. The procedural code is written generically enough that it is control-independent.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window or Page project.
+
+[start=2]
+. Add using/Imports directives in your code-behind.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports System.Data
+Imports System.Data.SqlClient
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using System.Data;
+using System.Data.SqlClient;
+----
+
+[start=3]
+. Add private variables for the SqlConnection, SqlCommand, SqlDataAdapter, and DataSet objects.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private sqlConnection1 As SqlConnection
+Private sqlSelectCommand1 As SqlCommand
+Private sqlDataAdapter1 As SqlDataAdapter
+Private exampleDataSet As DataSet
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private SqlCommand sqlSelectCommand1;
+private SqlConnection sqlConnection1;
+private SqlDataAdapter sqlDataAdapter1;
+private DataSet exampleDataSet;
+----
+
+[start=4]
+. Override the OnInitialized method of the Window or Page.
++
+You can also achieve the same functionality by handling the Load event of the Window or Page.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Protected Overrides Sub OnInitialized(ByVal e As EventArgs) 
+        MyBase.OnInitialized(e) 
+        'TODO: Initialize private variables here
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+protected override void OnInitialized(EventArgs e)
+{
+        base.OnInitialized(e);
+        //TODO: Initialize private variables here
+}
+----
+
+[start=5]
+. Initialize your private variables in the OnInitialized method.
++
+When you initialize the SqlConnection object, make sure you change the DATABASE_NAME placeholder to the name of your database.
++
+.Note
+[NOTE]
+====
+The example code below assumes you have a database called Northwind running on a Microsoft® SQL Server. If you do not have this database, you will need to change the SqlCommand and SqlConnection to point to the name of database you have running.
+====
++
+*In Visual Basic:*
++
+[source,vb]
+----
+...
+' Initialize DataSet and name it
+Me.exampleDataSet = New DataSet("exampleDataSet")
+' Initialize the SqlConnection with a connection string
+Me.sqlConnection1 = New SqlConnection("Data Source=DATABASE_NAME; Initial Catalog=Northwind; Integrated Security=True")
+' Initialize the SqlCommand with a Select statement
+Me.sqlSelectCommand1 = New SqlCommand("SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City, PostalCode, Country, Phone FROM Customers")
+' Assign the SqlConnection to the Connection property of the SqlCommand
+Me.sqlSelectCommand1.Connection = Me.sqlConnection1
+' Initialize the SqlDataAdapter
+Me.sqlDataAdapter1 = New SqlDataAdapter()
+' Assign the SelectCommand property to the SqlCommand that has been created
+Me.sqlDataAdapter1.SelectCommand = Me.sqlSelectCommand1
+...
+----
++
+*In C#:*
++
+[source,csharp]
+----
+...
+// Initialize DataSet and give it a name
+this.exampleDataSet = new DataSet("exampleDataSet");
+// Initialize the SqlConnection with a connection string
+this.sqlConnection1 = new SqlConnection("Data Source=DATABASE_NAME; Initial Catalog=Northwind; Integrated Security=True");
+// Initialize the SqlCommand that contains the Select command
+this.sqlSelectCommand1 = new SqlCommand("SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City, PostalCode, Country, Phone FROM Customers");
+// Assign the SqlConnection to the Connection property of the SqlCommand
+this.sqlSelectCommand1.Connection = this.sqlConnection1;
+// Initialize the SqlDataAdapter
+this.sqlDataAdapter1 = new SqlDataAdapter();
+// Assign the SelectCommand property to the SqlCommand that has been created
+this.sqlDataAdapter1.SelectCommand = this.sqlSelectCommand1;
+...
+----
+
+[start=6]
+. Fill the DataSet by calling the Fill method of the SqlDataAdapter.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+...
+Try
+        ' Fill the DataSet
+        Me.sqlDataAdapter1.Fill(Me.exampleDataSet)
+        ' TODO: Set the DataSource of a control.
+Catch ex As SqlException
+        ' Catch and display any exceptions that may occur
+        MessageBox.Show(ex.Message.ToString())
+End Try
+...
+----
++
+*In C#:*
++
+[source,csharp]
+----
+...
+try
+{
+        // Fill the DataSet
+        this.sqlDataAdapter1.Fill(this.exampleDataSet);
+        //TODO:  Set the DataSource of a control
+}
+catch (SqlException ex)
+{
+        // Catch and display any exceptions that may occur
+        MessageBox.Show(ex.Message.ToString());
+}
+...
+----
+
+[start=7]
+. Running your application at this time will just display an empty Window. You will have to add a control to the Window and bind the DataSet that you created in this topic to the control in order to see the results. Use the links provided below to bind the DataSet to a specific control.
+
+== Related Topics
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-dataset.html[Bind xamComboEditor to a DataSet]

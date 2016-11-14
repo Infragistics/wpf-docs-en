@@ -1,0 +1,33 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-impact-styles-have-on-performance-of-controls",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Performance","Styling"],
+    "guid": "{EC19A27C-6980-4CA7-80A9-A19D9ED585F6}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5198571Z"
+}
+|metadata|
+////
+
+= Styles Have Impact on Performance of Controls
+
+One of the nice features of Microsoft® Windows® Presentation Foundation is the ability to customize a control's styles, including its Template, which defines its visual tree of elements.
+
+When working with xamDataGrid™, xamDataCarousel™, and xamDataPresenter™ it is good practice to know exactly what you are changing and how it will impact performance. These controls expose several 'styling points' to let you customize the look and behavior of individual elements contained within the control (refer to the link:wpf-working-with-xamdatagrid-xamdatacarousel-and-xamdatapresenter-styling-points.html[Working with xamDataGrid, xamDataCarousel and xamDataPresenter Styling Points] topic). However, care should be taken when modifying the Templates for these styling points so that you don't introduce performance issues that could result in a poor user experience. Certain styling points are especially sensitive because of the sheer number of elements they represent.
+
+For example, if you change the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter]'s Template to add some BitmapEffects (which are very expensive), a lot of gradient brushes or a lot of elements to the visual tree, you should keep in mind that this style is used by every CellValuePresenter in the control. So if you have a xamDataGrid that has 10 link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]s (data columns) and 20 link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]s (data rows) in view, you will actually have 200 instances of CellValuePresenters in view. If you have defined a style for CellValuePresenter that sets its Template property to a tree that has 25 UI elements, you will have 5000 elements created simply to display the cell values. This doesn't include the other elements used to render the control.
+
+For an idea of where a particular styling point is used in the xamDataGrid or xamDataCarousel, see their Composition Diagrams.
+
+== Related Topics
+
+link:wpf-working-with-xamdatagrid-xamdatacarousel-and-xamdatapresenter-styling-points.html[Working with xamDataGrid, xamDataCarousel, and xamDataPresenter Styling Points]
+
+link:xamdatapresenter-xamdatapresenters-carousel-view-composition-diagram.html[xamDataPresenter's Carousel View Composition Diagram]
+
+link:xamdatapresenter-xamdatapresenters-grid-view-composition-diagram.html[xamDataPresenters Grid View Composition Diagram]
+
+link:https://msdn.microsoft.com/en-us/library/bb613559(v=vs.100).aspx[Optimizing Performance: Application Resources]

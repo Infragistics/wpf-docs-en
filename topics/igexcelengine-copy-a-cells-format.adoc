@@ -1,0 +1,70 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-copy-a-cells-format",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Formatting","Getting Started","How Do I"],
+    "guid": "{71975533-A319-42D9-9687-04A1F99C0465}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7537039Z"
+}
+|metadata|
+////
+
+= Copying a Cell's Format (Infragistics Excel Engine)
+
+Cells can have different formatting, including background color, format string, and font style. If you need a cell to have the same format as a previously formatted cell, instead of individually setting each option exposed by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell.html[WorksheetCell] object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~cellformat.html[CellFormat] property, you can call the CellFormat object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.iworksheetcellformat~setformatting.html[SetFormatting] method and pass it a CellFormat object to copy. This will copy every format setting from the first cell to the second cell. You can also do this for a row, merged cell region, or column.
+
+The following code shows you how to copy the format of the 2nd column to the 4th column.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Documents.Excel
+...
+'Format 2nd column
+worksheet1.Columns(1).CellFormat.Fill = _
+    CellFill.CreateSolidFill(System.Windows.Media.Colors.Green)
+worksheet1.Columns(1).CellFormat.Font.Bold = ExcelDefaultableBoolean.True
+'Copy format of 2nd column to 4th column
+worksheet1.Columns(3).CellFormat.SetFormatting(worksheet1.Columns(1).CellFormat)
+----
+
+*In C#:*
+
+----
+using Infragistics.Documents.Excel;
+...
+//Format 2nd column
+worksheet1.Columns[1].CellFormat.Fill =
+    CellFill.CreateSolidFill(System.Windows.Media.Colors.Green);
+worksheet1.Columns[1].CellFormat.Font.Bold = ExcelDefaultableBoolean.True;
+//Copy format of 2nd column to 4th column
+worksheet1.Columns[3].CellFormat.SetFormatting(worksheet1.Columns[1].CellFormat);
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Referencing Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Adding a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

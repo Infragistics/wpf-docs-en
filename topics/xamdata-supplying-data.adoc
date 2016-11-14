@@ -1,0 +1,43 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-supplying-data",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding"],
+    "guid": "{F8E80ED6-5CD5-40B0-87DB-E876AD835C1E}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5338599Z"
+}
+|metadata|
+////
+
+= Supplying Data
+
+You can supply data to the xamDataGrid™, xamDataCards™, xamDataCarousel™, or xamDataPresenter™ control by either:
+
+* setting or binding to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~datasource.html[DataSource] property; or
+* adding items directly to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~dataitems.html[DataItems] collection through code or through XAML, as shown below.
+
+The DataSource property can be set to any object that implements the System.Collections.IEnumerable interface (other than a string), as shown in the XAML below.
+
+----
+<igDP:XamDataGrid DataSource="{Binding Source={StaticResource MyData}}"/>
+----
+
+The DataItems collection is marked as the "Content" property, so you don't need to specify it explicitly in XAML. Any enclosed objects will automatically get added to this collection, as shown in the XAML below.
+
+----
+<igDP:XamDataGrid> 
+        <MYCustomer ... /> 
+        <MYCustomer ... /> 
+        <MYCustomer ... /> 
+        <MYCustomer ... /> 
+</igDP:XamDataGrid>
+----
+
+.Note
+[NOTE]
+====
+Setting the DataSource property and adding items to the DataItems collection of the same control is not supported and will cause an exception to be thrown.
+====

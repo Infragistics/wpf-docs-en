@@ -1,0 +1,163 @@
+﻿////
+|metadata|
+{
+    "name": "xampivotgrid-us-defining-hierarchies-and-providing-metadata-with-flatdata",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["How Do I"],
+    "guid": "b940b434-bfb0-44f8-bf53-3e8cf1895574",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.9613129Z"
+}
+|metadata|
+////
+
+= Presenting Flat Data as OLAP Data (xamPivotGrid)
+
+When you use XMLA DataSource, your data is already organized in cubes and each dimension has defined hierarchies. However, that is not the case with FlatData. With FlatData, you can define your own hierarchies for each property that is of some custom class. You can do that both in XAML and in code behind. The following paragraphs show you how to do it.
+
+All hierarchies are defined in the DataSource’s collection HierarchyDescriptors.
+
+*In XAML:*
+[source,xaml]
+----
+<igOlap:FlatDataSource.HierarchyDescriptors>
+    
+    <igOlap:HierarchyDescriptor SourcePropertyName="Product">
+        <igOlap:HierarchyDescriptor.LevelDescriptors>
+            <igOlap:HierarchyLevelDescriptor
+                LevelName="All products" />
+            <igOlap:HierarchyLevelDescriptor
+                LevelName="Product name"
+                LevelExpressionPath="Name" />
+        </igOlap:HierarchyDescriptor.LevelDescriptors>
+    </igOlap:HierarchyDescriptor>
+    
+    <igOlap:HierarchyDescriptor SourcePropertyName="City">
+        <igOlap:HierarchyDescriptor.LevelDescriptors>
+            <igOlap:HierarchyLevelDescriptor
+                LevelName="All locations" />
+            <igOlap:HierarchyLevelDescriptor
+                LevelName="City" LevelExpressionPath="Name" />
+        </igOlap:HierarchyDescriptor.LevelDescriptors>
+    </igOlap:HierarchyDescriptor>
+    
+</igOlap:FlatDataSource.HierarchyDescriptors>
+----
+
+This sample shows how to define a hierarchy for two of the cube’s properties. The cube is the class specified in the data source as main data holder. You may define as many HierarchyLevelDescriptors as you need. LevelExpressionPath is the property on which to group the data. LevelName will appear in the tree with hierarchies in the data selector.
+
+Currently the only auto-generated hierarchies are for the dimensions of DateTime type.
+
+If you want to do the same thing as above from code behind, your code would look like this:
+
+*In C#:*
+[source,csharp]
+----
+HierarchyDescriptor<Sale> productHierarchy =
+    new HierarchyDescriptor<Sale>(p => p.Product);
+productHierarchy.AddLevel(p => "All products", "All products");
+productHierarchy.AddLevel(p => p.Product.Name, "Product name");
+flatDataSource.AddHierarchyDescriptor(productHierarchy);
+
+HierarchyDescriptor<Sale> locationHierarchy =
+    new HierarchyDescriptor<Sale>(p => p.City);
+locationHierarchy.AddLevel(p => "All locations", "All locations");
+locationHierarchy.AddLevel(p => p.City, "City");
+flatDataSource.AddHierarchyDescriptor(locationHierarchy);
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim productHierarchy As _
+    New HierarchyDescriptor(Of Sale)(Function(p) p.Product)
+productHierarchy.AddLevel(Function(p) "All products", "All products")
+productHierarchy.AddLevel(Function(p) p.Product.Name, "Product name")
+flatDataSource.AddHierarchyDescriptor(productHierarchy)
+
+Dim locationHierarchy As _
+    New HierarchyDescriptor(Of Sale)(Function(p) p.City)
+locationHierarchy.AddLevel(Function(p) "All locations", "All locations")
+locationHierarchy.AddLevel(Function(p) p.City, "City")
+flatDataSource.AddHierarchyDescriptor(locationHierarchy)
+----
+
+== Providing Metadata with FlatData
+
+In addition to creating custom hierarchies, you may want to alter the metadata associated with each hierarchy or measure. The collection that holds all settings is called CubesSettings. The following paragraphs show how to add information there.
+
+For each cube create CubeMetadata that contains DimensionMetadata.
+
+*In XAML:*
+[source,xaml]
+----
+<FlatData:FlatDataSource.CubesSettings>
+    <FlatData:CubeMetadata
+        DataTypeFullName="ClassNamespaceName.Sale"
+        DisplayName="Sales Data">
+        
+        <FlatData:DimensionMetadata
+            SourcePropertyName="NumberOfUnits"
+            DisplayName="Units sold" />
+        
+        <FlatData:DimensionMetadata
+            SourcePropertyName="AmountOfSale"
+            DisplayName="Amount of sale"
+            DisplayFormat="{}{0:C2}" />
+            
+    </FlatData:CubeMetadata>
+</FlatData:FlatDataSource.CubesSettings>
+----
+
+The DisplayName is used to change the name of the hierarchy/measure in the UI and the DisplayFormat is used for measures. Raw value goes to the Value property of the cell and the formatted value goes to the FormattedValue property. The format in the string will show numbers as dollars (or other currency depending on the system culture) with double precision.
+
+The same can be achieved from code behind with this code:
+
+*In C#:*
+[source,csharp]
+----
+CubeMetadata cubeMetadata = new CubeMetadata();
+cubeMetadata.DisplayName = "Sales Data";
+cubeMetadata.DataTypeFullName = typeof(Sale).FullName;
+
+cubeMetadata.DimensionSettings.Add(new DimensionMetadata()
+{
+    SourcePropertyName = "AmountOfSale",
+    DisplayName = "Amount of sale",
+    DisplayFormat = "{0:C2}"
+});
+
+cubeMetadata.DimensionSettings.Add(new DimensionMetadata()
+{
+    SourcePropertyName = "NumberOfUnits",
+    DisplayName = "Units sold"
+});
+
+flatDataSource.CubesSettings.Add(cubeMetadata);
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim cubeMetadata As New CubeMetadata()
+cubeMetadata.DisplayName = "Sales Data"
+cubeMetadata.DataTypeFullName = GetType(Sale).FullName
+
+Dim d As New DimensionMetaData()
+d.SourcePropertyName = "AmountOfSale" 
+d.DisplayName = "Amount of sale"
+d.DisplayFormat = "{0:C2}"
+cubeMetadata.DimensionSettings.Add(d)
+
+Dim d2 As New DimensionMetaData()
+d2.SourcePropertyName = "NumberOfUnits"
+d2.DisplayName = "Units sold"
+cubeMetadata.DimensionSettings.Add(d2)
+flatDataSource.CubesSettings.Add(cubeMetadata)
+----
+
+=== Related Topics
+
+link:xampivotgrid-us-assigning-hierarchies-and-measures.html[Assigning Hierarchies and Measures]
+
+link:xampivotgrid-us-expanding-hierarchies-in-runtime-from-code.html[Filtering]

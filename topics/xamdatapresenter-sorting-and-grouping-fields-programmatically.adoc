@@ -1,0 +1,142 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-sorting-and-grouping-fields-programmatically",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Grouping","How Do I","Sorting"],
+    "guid": "{B1DF1EDA-70DA-4033-97BE-8A938165B3AE}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3030137Z"
+}
+|metadata|
+////
+
+= Sorting and Grouping Fields Programmatically
+
+You can sort and/or group fields using XAML or procedural code without the end user clicking a field label or dragging a field label into the group by area. In order to manually sort or group fields, you have to add link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsortdescription.html[FieldSortDescription] objects to a field layout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsortdescriptioncollection.html[SortedFields collection]. Each FieldSortDescription object that you add to the collection must correspond to a unique field that exists in your field layout. The DataPresenter controls will throw an exception if two or more FieldSortDescription objects refer to the same field or if a FieldSortDescription object refers to a field that does not exist in the field layout.
+
+As stated previously, you can add multiple FieldSortDescription objects to the SortedFields collection. Adding multiple FieldSortDescription objects to the SortedFields collection allows you to apply a primary sort on one field and then a secondary sort on another field. The xamDataGrid control sorts its records based on the order that you add FieldSortDescription objects to the SortedFields collection. For example, if you add a FieldSortDescription object for "Field A" and then a FieldSortDescription object for "Field B", xamDataGrid will do a primary sort on "Field A" and then a secondary sort on "Field B".
+
+.Note
+[NOTE]
+====
+The xamDataCards™ control does not support group-by records.
+====
+
+The following example code demonstrates how to programmatically sort and group fields.
+
+*In XAML:*
+
+----
+<!--XAML for xamDataGrid-->
+<igDP:XamDataGrid Name="xamDataGrid1" BindToSampleData="True">
+    <igDP:XamDataGrid.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:FieldLayout.SortedFields>
+                <igDP:FieldSortDescription 
+                    IsGroupBy="True" 
+                    Direction="Descending" 
+                    FieldName="department" />
+                <igDP:FieldSortDescription 
+                    Direction="Descending"
+                    FieldName="salary" />
+            </igDP:FieldLayout.SortedFields>
+        </igDP:FieldLayout>
+    </igDP:XamDataGrid.FieldLayouts>
+</igDP:XamDataGrid>
+<!--XAML for xamDataCarousel-->
+<igDP:XamDataCarousel Name="xamDataCarousel1" BindToSampleData="True">
+    <igDP:XamDataCarousel.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:FieldLayout.SortedFields>
+                <igDP:FieldSortDescription 
+                    IsGroupBy="True" 
+                    Direction="Descending" 
+                    FieldName="department" />
+                <igDP:FieldSortDescription 
+                    Direction="Descending"
+                    FieldName="salary" />
+             </igDP:FieldLayout.SortedFields>
+        </igDP:FieldLayout>
+    </igDP:XamDataCarousel.FieldLayouts>
+</igDP:XamDataCarousel>
+<!--XAML for xamDataPresenter-->
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:FieldLayout.SortedFields>
+                <igDP:FieldSortDescription 
+                    IsGroupBy="True" 
+                    Direction="Descending" 
+                    FieldName="department" />
+                 <igDP:FieldSortDescription 
+                     Direction="Descending"
+                     FieldName="salary" />
+            </igDP:FieldLayout.SortedFields>
+        </igDP:FieldLayout>
+    </igDP:XamDataPresenter.FieldLayouts>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+...
+Imports Infragistics.Windows.DataPresenter
+Dim deptSort As New FieldSortDescription() 
+deptSort.Direction = System.ComponentModel.ListSortDirection.Descending 
+deptSort.FieldName = "department" 
+deptSort.IsGroupBy = True 
+Dim salarySort As New FieldSortDescription() 
+salarySort.Direction = System.ComponentModel.ListSortDirection.Descending 
+salarySort.FieldName = "salary" 
+'Code for xamDataGrid
+Me.xamDataGrid1.FieldLayouts(0).SortedFields.Clear()
+Me.xamDataGrid1.FieldLayouts(0).SortedFields.Add(deptSort) 
+Me.xamDataGrid1.FieldLayouts(0).SortedFields.Add(salarySort)
+'Code for xamDataCarousel
+Me.xamDataCarousel1.FieldLayouts(0).SortedFields.Clear()
+Me.xamDataCarousel1.FieldLayouts(0).SortedFields.Add(deptSort) 
+Me.xamDataCarousel1.FieldLayouts(0).SortedFields.Add(salarySort)
+'Code for xamDataPresenter
+Me.xamDataPresenter1.FieldLayouts(0).SortedFields.Clear()
+Me.xamDataPresenter1.FieldLayouts(0).SortedFields.Add(deptSort) 
+Me.xamDataPresenter1.FieldLayouts(0).SortedFields.Add(salarySort)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+FieldSortDescription deptSort = new FieldSortDescription();
+deptSort.Direction = System.ComponentModel.ListSortDirection.Descending;
+deptSort.FieldName = "department";
+deptSort.IsGroupBy = true;
+FieldSortDescription salarySort = new FieldSortDescription();
+salarySort.Direction = System.ComponentModel.ListSortDirection.Descending;
+salarySort.FieldName = "salary";
+//Code for xamDataGrid
+this.xamDataGrid1.FieldLayouts[0].SortedFields.Clear();
+this.xamDataGrid1.FieldLayouts[0].SortedFields.Add(deptSort);
+this.xamDataGrid1.FieldLayouts[0].SortedFields.Add(salarySort);
+//Code for xamDataCarousel
+this.xamDataCarousel1.FieldLayouts[0].SortedFields.Clear();
+this.xamDataCarousel1.FieldLayouts[0].SortedFields.Add(deptSort);
+this.xamDataCarousel1.FieldLayouts[0].SortedFields.Add(salarySort);
+//Code for xamDataPresenter
+this.xamDataPresenter1.FieldLayouts[0].SortedFields.Clear();
+this.xamDataPresenter1.FieldLayouts[0].SortedFields.Add(deptSort);
+this.xamDataPresenter1.FieldLayouts[0].SortedFields.Add(salarySort);
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-about-sorting.html[About Sorting]
+
+link:xamdatapresenter-about-grouping.html[About Grouping]
+
+link:xamdatapresenter-disable-sorting.html[Disable Sorting]

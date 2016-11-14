@@ -1,0 +1,160 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatatree-xamdatatree-editing",
+    "controlName": ["xamDataTree"],
+    "tags": ["Editing","Events"],
+    "guid": "0e61075c-c85e-4f74-bf47-4d32b34988fa",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.9051125Z"
+}
+|metadata|
+////
+
+= Editing (xamDataTree)
+
+The xamDataTree™ control allows your end users to edit data in the tree’s nodes. You can enable editing on the xamDataTree control by setting the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.nodelayout~editingsettings.html[TreeEditingSettings] object’s link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~allowediting.html[AllowEditing] property to True. You can also enable or disable editing on different node levels by setting the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettingsoverride.html[TreeEditingSettingsOverride] object’s properties. The TreeEditingSettingsOverride object takes precedence over the TreeEditingSettings object.
+
+The following code demonstrates how to enable editing on xamDataTree and how to disable it on the Products level.
+
+*In XAML:*
+
+----
+<ig:XamDataTree x:Name="MyTree">
+   <ig:XamDataTree.EditingSettings>
+      <ig:TreeEditingSettings AllowEditing="True"/> 
+   </ig:XamDataTree.EditingSettings>
+   <ig:XamDataTree.GlobalNodeLayouts>
+      <ig:NodeLayout Key="CategoryLayout" TargetTypeName="Category" 
+                     DisplayMemberPath="CategoryName"/>
+      <ig:NodeLayout Key="ProductLayout" TargetTypeName="Product" 
+                     DisplayMemberPath="ProductName">
+         <ig:NodeLayout.EditingSettings>
+            <ig:TreeEditingSettingsOverride AllowEditing="False" />
+         </ig:NodeLayout.EditingSettings>
+      </ig:NodeLayout>
+   </ig:XamDataTree.GlobalNodeLayouts>
+</ig:XamDataTree>
+----
+
+*In Visual Basic:*
+
+----
+MyTree.EditingSettings.AllowEditing = True
+MyTree.GlobalNodeLayouts(1).EditingSettings.AllowEditing = False
+----
+
+*In C#:*
+
+----
+MyTree.EditingSettings.AllowEditing = true;
+MyTree.GlobalNodeLayouts[1].EditingSettings.AllowEditing = false;
+----
+
+There are several different ways in which your end user can enter edit mode. These can be determined by setting the following TreeEditingSettings and TreeEditingSettingsOverride objects properties:
+
+link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettingsoverride~isf2editingenabled.html[IsF2EditingEnabled] – this property specifies if a node should enter edit mode when your end user presses the F2 key.
+
+link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~isenterkeyeditingenabled.html[IsEnterKeyEditingEnabled] – this property specifies if a node should enter edit mode when your end user presses the Enter key.
+
+link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~isonnodeactiveeditingenabled.html[IsOnNodeActiveEditingEnabled] – this property specifies if a node should automatically enter edit mode.
+
+link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled] – this property must be set to one of the following link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treemouseeditingaction.html[TreeMouseEditingAction] enumeration values:
+
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treemouseeditingaction.html[DoubleClick] – this value specifies if a node should enter edit mode when your end user double-clicks it.
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treemouseeditingaction.html[SingleClick] – this value specifies if a node should enter edit mode when your end user clicks it.
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treemouseeditingaction.html[None] – this value specifies that when your end user clicks on a node, it will not enter edit mode.
+
+.Note:
+[NOTE]
+====
+Pressing the ESC key cancels out of edit mode. Pressing the ENTER key or clicking the mouse outside of the editor area will confirm the edited value.
+====
+
+*Events*
+
+There are four events associated with xamDataTree, as described in the following list. These events allow you to perform some custom logic during the editing lifecycle.
+
+.Note:
+[NOTE]
+====
+All of the “ing” events such as NodeEnteringEditMode are cancellable.
+====
+
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodeenteringeditmode_ev.html[NodeEnteringEditMode]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodeenterededitmode_ev.html[NodeEnteredEditMode]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodeexitingeditmode_ev.html[NodeExitingEditMode]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodeexitededitmode_ev.html[NodeExitedEditMode]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodeeditingvalidationfailed_ev.html[NodeEditingValidationFailed]
+
+*Editor Templates*
+
+A TextBox is the default editor for nodes in edit mode and it only allows you to edit the value set in the XamDataTree or link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.nodelayout~nodelayouts.html[NodeLayouts] object's link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.nodelayout~displaymemberpath.html[DisplayMemberPath] property. When your end user clicks away from the node, it will then be updated.
+
+However, you can also set up your own templates for editing. This can be achieved by setting the XamDataTree or NodeLayouts object’s link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.nodelayout~editortemplate.html[EditorTemplate] property to an instance of a data template. The DataContext of this custom editor specified with the DataTemplate is link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatreenodedatacontext.html[XamDataTreeNodeDataContext]. With this custom template implemented your end user can edit multiple values on the item.
+
+When binding to the value being edited, the Binding object must have the UpdateSourceTrigger property set to Explicit in order to be able to cancel editing.
+
+The following code snippet demonstrates how to achieve this.
+
+*In XAML:*
+
+----
+<ig:NodeLayout Key="ChapterLayout" TargetTypeName="Book" DisplayMemberPath="Title">
+   <ig:NodeLayout.EditorTemplate>
+      <DataTemplate>
+         <Grid>
+            <Grid.RowDefinitions>
+               <RowDefinition></RowDefinition>
+               <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Background="Red" Grid.Row="0" Text="{Binding Data.Title, Mode=TwoWay,UpdateSourceTrigger=Explicit}"></TextBox>
+            <TextBox Background="Yellow" Grid.Row="1" Text="{Binding Data.Author, Mode=TwoWay,UpdateSourceTrigger=Explicit}"></TextBox>
+         </Grid>
+      </DataTemplate>
+   </ig:NodeLayout.EditorTemplate>
+</ig:NodeLayout>
+----
+
+*Deleting Nodes*
+
+You can also delete nodes from the xamDataTree control. You can allow your end users to delete nodes by setting the TreeEditingSettings object’s link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~allowdeletion.html[AllowDeletion] property, as demonstrated in the following code snippet. Once deletion is enabled, your end users can delete nodes using the DELETE key.
+
+*In XAML:*
+
+----
+<ig:XamDataTree.EditingSettings>
+   <ig:TreeEditingSettings AllowEditing="True" 
+                           AllowDeletion="True"/> 
+</ig:XamDataTree.EditingSettings>
+----
+
+*In Visual Basic:*
+
+----
+MyTree.EditingSettings.AllowDeletion = True
+----
+
+*In C#:*
+
+----
+MyTree.EditingSettings.AllowDeletion = true;
+----
+
+*Related Topics*
+
+link:xamdatatree-xamdatatree-activation.html[Activation (xamDataTree)]
+
+link:xamdatatree-active-data-item.html[Configuring Active Data Item (xamDataTree)]
+
+link:xamdatatree-xamdatatree-check-boxes.html[Configuring Check Boxes Visibility (xamDataTree)]
+
+link:xamdatatree-expanded-and-collapsed-xamdatatree-nodes.html[Configuring Expanded/Collapsed Node State (xamDataTree)]
+
+link:xamdatatree-xamdatatree-drag-and-drop.html[Configuring Drag and Drop (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-connectors.html[Configuring Node Connectors Visibility (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-layouts.html[Configuring Node Layouts (xamDataTree)]
+
+link:xamdatatree-xamdatatree-selection.html[Selection (xamDataTree)]

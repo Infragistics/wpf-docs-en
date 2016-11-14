@@ -1,0 +1,281 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-customer-data",
+    "controlName": [],
+    "tags": [],
+    "guid": "8cc6235f-e73e-4751-b81b-6f6a5dbfe75c",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4100595Z"
+}
+|metadata|
+////
+
+= Customer Data
+
+*In Visual Basic:*
+
+----
+Imports System.Collections.ObjectModel
+Imports System.ComponentModel
+Public NotInheritable Class CustomerData
+    Private Sub New()
+    End Sub
+    Public Shared Function GetCustomers() As ObservableCollection(Of Customer)
+        Dim list As New ObservableCollection(Of Customer)()
+        'Add Customers to the ObservableCollection using Object Initializers. 
+        list.Add(New Customer With {.ID = 123, .FullName = New Name With {.FirstName = "John", .LastName = "Smith"}})
+        list.Add(New Customer With {.ID = 456, .FullName = New Name With {.FirstName = "John", .LastName = "Smith"}})
+        list.Add(New Customer With {.ID = 789, .FullName = New Name With {.FirstName = "Mary", .LastName = "Smith"}})
+        'You can still use the old way of creating objects, setting properties, and then adding them to the collection as shown in the commented code below. 
+        'Customer customer; 
+        'Name name; 
+        'customer = new Customer(); 
+        'customer.ID = 123; 
+        'name = new Name(); 
+        'name.FirstName = "John"; 
+        'name.LastName = "Smith"; 
+        'customer.FullName = name; 
+        'list.Add(customer); 
+        'customer = new Customer(); 
+        'customer.ID = 456; 
+        'name = new Name(); 
+        'name.FirstName = "Mike"; 
+        'name.LastName = "Smith"; 
+        'customer.FullName = name; 
+        'list.Add(customer); 
+        'customer = new Customer(); 
+        'customer.ID = 789; 
+        'name = new Name(); 
+        'name.FirstName = "Mary"; 
+        'name.LastName = "Smith"; 
+        'customer.FullName = name; 
+        'list.Add(customer); 
+        Return list
+    End Function
+End Class
+Public Class Customer
+    Implements INotifyPropertyChanged
+    Private _id As Integer
+    Public Property ID() As Integer
+        Get
+            Return _id
+        End Get
+        Set(ByVal value As Integer)
+            If _id <> value Then
+                _id = value
+                OnPropertyChanged("ID")
+            End If
+        End Set
+    End Property
+    Private _fullName As Name
+    Public Property FullName() As Name
+        Get
+            Return _fullName
+        End Get
+        Set(ByVal value As Name)
+            If _fullName <> value Then
+                _fullName = value
+                OnPropertyChanged("FullName")
+            End If
+        End Set
+    End Property
+#Region "INotifyPropertyChanged Members"
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+#End Region
+    Private Sub OnPropertyChanged(ByVal propertyName As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+    End Sub
+End Class
+Public Class Name
+    Implements INotifyPropertyChanged
+    Private _firstName As String
+    Public Property FirstName() As String
+        Get
+            Return _firstName
+        End Get
+        Set(ByVal value As String)
+            _firstName = value
+            OnPropertyChanged("FirstName")
+        End Set
+    End Property
+    Private _lastName As String
+    Public Property LastName() As String
+        Get
+            Return _lastName
+        End Get
+        Set(ByVal value As String)
+            _lastName = value
+            OnPropertyChanged("LastName")
+        End Set
+    End Property
+#Region "Overrides"
+    Public Shared Operator =(ByVal a As Name, ByVal b As Name) As Boolean
+        If Object.ReferenceEquals(a, Nothing) AndAlso Object.ReferenceEquals(b, Nothing) Then
+            Return True
+        ElseIf Object.ReferenceEquals(a, Nothing) OrElse Object.ReferenceEquals(b, Nothing) Then
+            Return False
+        End If
+        Return a.FirstName = b.FirstName AndAlso a.LastName = b.LastName
+    End Operator
+    Public Shared Operator <>(ByVal a As Name, ByVal b As Name) As Boolean
+        Return Not (a = b)
+    End Operator
+    Public Overloads Overrides Function Equals(ByVal obj As Object) As Boolean
+        Dim b As Name = TryCast(obj, Name)
+        Return Me = b
+    End Function
+    Public Overloads Overrides Function GetHashCode() As Integer
+        Return (Me.FirstName + " " + Me.LastName).GetHashCode()
+    End Function
+#End Region
+#Region "INotifyPropertyChanged Members"
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+#End Region
+    Private Sub OnPropertyChanged(ByVal propertyName As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+    End Sub
+End Class
+----
+
+*In C#:*
+
+----
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+namespace IGDocumentation
+{
+    public static class CustomerData
+    {
+        public static ObservableCollection<Customer> GetCustomers()
+        {
+            ObservableCollection<Customer> list = new ObservableCollection<Customer>();
+            //Add Customers to the ObservableCollection using Object Initializers.
+            list.Add(new Customer { ID = 123, FullName = new Name { FirstName = "John", LastName = "Smith" } });
+            list.Add(new Customer { ID = 456, FullName = new Name { FirstName = "John", LastName = "Smith" } });
+            list.Add(new Customer { ID = 789, FullName = new Name { FirstName = "Mary", LastName = "Smith" } });
+            //You can still use the old way of creating objects, setting properties, and then adding them to the collection as shown in the commented code below.
+            //Customer customer;
+            //Name name;
+            //customer = new Customer();
+            //customer.ID = 123;
+            //name = new Name();
+            //name.FirstName = "John";
+            //name.LastName = "Smith";
+            //customer.FullName = name;
+            //list.Add(customer);
+            //customer = new Customer();
+            //customer.ID = 456;
+            //name = new Name();
+            //name.FirstName = "Mike";
+            //name.LastName = "Smith";
+            //customer.FullName = name;
+            //list.Add(customer);
+            //customer = new Customer();
+            //customer.ID = 789;
+            //name = new Name();
+            //name.FirstName = "Mary";
+            //name.LastName = "Smith";
+            //customer.FullName = name;
+            //list.Add(customer);
+            return list;
+        }
+    }
+    public class Customer:INotifyPropertyChanged
+    {
+        private int _id;
+        public int ID
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    OnPropertyChanged("ID");
+                }
+            }
+        }
+        private Name _fullName;
+        public Name FullName
+        {
+            get { return _fullName; }
+            set
+            {
+                if (_fullName != value)
+                {
+                    _fullName = value;
+                    OnPropertyChanged("FullName");
+                }
+            }
+        }
+        #region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+    public class Name:INotifyPropertyChanged
+    {
+        private string _firstName;
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                _firstName = value;
+                OnPropertyChanged("FirstName");
+            }
+        }
+        private string _lastName;
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                _lastName = value;
+                OnPropertyChanged("LastName");
+            }
+        }        
+        #region Overrides
+        public static bool operator ==(Name a, Name b)
+        {
+            if (object.ReferenceEquals(a, null) && object.ReferenceEquals(b, null))
+            {
+                return true;
+            }
+            else if (object.ReferenceEquals(a, null) || object.ReferenceEquals(b, null))
+            {
+                return false;
+            }
+            return a.FirstName == b.FirstName && a.LastName == b.LastName;
+        }
+        public static bool operator !=(Name a, Name b)
+        {
+            return !(a == b);
+        }
+        public override bool Equals(object obj)
+        {
+            Name b = obj as Name;
+            return this == b;
+        }
+        public override int GetHashCode()
+        {
+            return (this.FirstName + " " + this.LastName).GetHashCode();
+        }
+        #endregion
+        #region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
+----

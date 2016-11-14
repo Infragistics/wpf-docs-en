@@ -1,0 +1,309 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgeographicmap-using-geographic-contour-line-series",
+    "controlName": ["xamGeographicMap"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "8b0fa942-8853-46e5-9e2a-8b07abdf07e2",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.8342138Z"
+}
+|metadata|
+////
+
+= Using Geographic Contour Line Series
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to use the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] type of series in the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.xamgeographicmap_members.html[xamGeographicMap]™ control.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgeographicmap-visual-elements-of-xamgeographicmap.html[Visual Elements of xamGeographicMap]
+|This topic provides information about layout of map elements in the `xamGeographicMap` control.
+
+| link:xamgeographicmap-triangulating-geographic-data.html[Triangulating Geographic Data]
+|This topic provides information on how triangulation of data points works as well as how it can improve performance of rendering data in the `xamGeographicMap` control.
+
+| link:xamgeographicmap-binding-shape-files-with-geospatial-data.html[Binding Shape Files with Geo-spatial Data]
+|This topic provides information on how to bind shape files with geo-spatial data to the `xamGeographicMap` control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref320651776, Geographic Contour Line Series >>
+
+** <<_Ref320193474,Overview>>
+** <<_Ref320651783,Preview>>
+** <<_Ref320651786,Data Requirements>>
+** <<_Ref335249132,Data Binding>>
+** <<_Ref335248897,Contour Fill Scale>>
+** <<_Ref335252263,Contour Value Resolver>>
+** <<_Ref320651790,Example>>
+
+<<_Ref320185294,Related Content>>
+
+== Geographic Contour Line Series
+
+[[_Ref320193474]]
+
+=== Overview
+
+In the `xamGeographicMap` control, the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] is a visual map element that draws colored contour lines, in a geographic context, based on a triangulation of longitude and latitude data with a numeric value assigned to each point.
+
+This type of geographic series is useful for rendering scattered data defined by geographic locations such as weather temperature, atmospheric pressure, precipitation, population distribution, topographic data, etc. The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] works a lot like the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicscatterareaseries_members.html[GeographicScatterAreaSeries] except that it represents data as contour lines, colored using a fill scale and the geographic scatter area series, represents data as a surface interpolated using a color scale.
+
+[[_Ref320651783]]
+
+=== Preview
+
+The following is a preview of the _xamGeographicMap_ control with link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] plotting precipitation over the United States. Darker blue contours indicate lower precipitation and the lighter red contours indicate higher precipitation.
+
+image::images/xamGeoMap_Using_Geographic_Contour_Line_Series_1.png[]
+
+[[_Ref320651786]]
+
+=== Data Requirements
+
+Similar to other types of geographic series in the `xamGeographicMap` control, the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] has the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~itemssource.html[ItemsSource] property for data binding. This property can be bound to an object that implements an link:http://msdn.microsoft.com/en-us/library/system.collections.ienumerable.aspx[IEnumerable] interface.
+
+In addition, each item in the items source must have three data columns, two that store geographic location (longitude and latitude coordinates) and one data column that stores a value associated with the geographic location. These data column, are identified by link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~longitudememberpath.html[LongitudeMemberPath], link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~latitudememberpath.html[LatitudeMemberPath], and link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~valuememberpath.html[ValueMemberPath] properties of the geographic series.
+
+The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] automatically performs built-in data triangulation on items in the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~itemssource.html[ItemsSource] if no triangulation is set to the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource] property. However, computing triangulation can be a very time-consuming process, so the runtime performance will be better when specifying a link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.charts.triangulationsource_members.html[TriangulationSource] for this property, especially when a large number of data items are present.
+
+.Note:
+[NOTE]
+====
+Refer to the link:xamgeographicmap-triangulating-geographic-data.html[Triangulating Geographic Data] topic for more information about the process of creating, saving, and loading triangulation data.
+====
+
+[[_Ref335249132]]
+
+=== Data Binding
+
+The following table summarizes properties of link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] used for data binding.
+
+[options="header", cols="a,a,a"]
+|====
+|Property Name|Property Type|Description
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~itemssource.html[ItemsSource]
+|IEnumerable
+|Gets or sets the source of items to perform triangulation on if the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource] property provides no triangulation data.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource]
+|IEnumerable
+|Gets or sets the source of triangulation data. Setting link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.charts.triangulationsource~triangles.html[Triangles] of the link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.charts.triangulationsource_members.html[TriangulationSource] object to this property improves both runtime performance and geographic series rendering.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~longitudememberpath.html[LongitudeMemberPath]
+|string
+|The name of the property containing the Longitude for each item in the ItemsSource.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~latitudememberpath.html[LatitudeMemberPath]
+|string
+|The name of the property containing the Latitude for each item in the ItemsSource.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~valuememberpath.html[ValueMemberPath]
+|string
+|The name of the property on each data item containing a numeric value which can be converted to a brush by a fill scale set to the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~fillscale.html[FillScale] property.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglevertexmemberpath1.html[TriangleVertexMemberPath1]
+|string
+|The name of the property of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource] items which, for each triangle, contains the index of the first vertex point in the ItemsSource. It is not mandatory to set this property. It is taken by default unless custom triangulation logic is provided.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglevertexmemberpath2.html[TriangleVertexMemberPath2]
+|string
+|The name of the property of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource] items which, for each triangle, contains the index of the first vertex point in the ItemsSource. It is not mandatory to set this property. It is taken by default unless custom triangulation logic is provided.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglevertexmemberpath3.html[TriangleVertexMemberPath3]
+|string
+|The name of the property of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicxytriangulatingseries~trianglessource.html[TrianglesSource] items which, for each triangle, contains the index of the first vertex point in the ItemsSource. It is not mandatory to set this property. It is taken by default unless custom triangulation logic is provided.
+
+|====
+
+[[_Ref335248897]]
+
+=== Contour Fill Scale
+
+Use the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~fillscale.html[FillScale] property of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] to resolve fill brushes of the contour lines of the geographic series.
+
+The provided link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.valuebrushscale_members.html[ValueBrushScale] class should satisfy most of your coloring needs, but the application for custom coloring logic can inherit the link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.valuebrushscale_members.html[ValueBrushScale] class.
+
+The following table list properties of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.custompalettecolorscale_members.html[CustomPaletteColorScale] affecting the surface coloring of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries].
+
+[options="header", cols="a,a,a"]
+|====
+|Property Name|Property Type|Description
+
+|Brushes 
+| link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.brushcollection_members.html[BrushCollection]
+|Gets or sets the collection of brushes for filling contours of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries]
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.custompalettecolorscale~maximumvalue.html[MaximumValue]
+|double
+|The highest value to assign a brush in a fill scale.
+
+| link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.custompalettecolorscale~minimumvalue.html[MinimumValue]
+|double
+|The lowest value to assign a brush in a fill scale.
+
+|====
+
+[[_Ref335252263]]
+
+=== Contour Value Resolver
+
+The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] renders using exactly 10 contour lines at even intervals between the minimum and maximum values of the items mapped to the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~valuememberpath.html[ValueMemberPath] property. If you desire more or fewer contours, you can assign the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.linearcontourvalueresolver_members.html[LinearContourValueResolver] with a number of contours to the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries~valueresolver.html[ValueResolver] property of the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries].
+
+The following code shows how to configure the number of contour lines in the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries]
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:GeographicContourLineSeries 
+        <ig:GeographicContourLineSeries.ValueResolver>
+                  <ig:LinearContourValueResolver ValueCount="5" />
+        </ig:GeographicContourLineSeries.ValueResolver>
+</ig:GeographicContourLineSeries>
+----
+
+To determine the position of contour lines in an application, implement the Custom value resolvers. This is accomplished by inheriting from the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.contourvalueresolver_members.html[ContourValueResolver] and overriding the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.charts.contourvalueresolver~getcontourvalues.html[GetContourValues] method.
+
+The following code shows implementation of a custom contour value resolver that specifies contour lines at predefined positions.
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomValueResolver : Infragistics.Controls.Charts.ContourValueResolver
+{
+    public override IEnumerable<double> GetContourValues(IFastItemColumn<double> valueColumn)
+    {
+        return new double[] {1, 2, 4, 5, 8};
+    }
+}
+----
+
+[[_Ref320651790]]
+
+=== Example
+
+The following code shows how to bind the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographiccontourlineseries_members.html[GeographicContourLineSeries] to triangulation data representing precipitation over the United States.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:ItfConverter x:Key="itfConverter" Source="precipitation_observed_20110831.itf" />
+<ig:XamGeographicMap.Series>
+    <ig:GeographicContourLineSeries 
+          ValueMemberPath="Value"  
+          LongitudeMemberPath="Point.X"
+          LatitudeMemberPath="Point.Y"
+          ItemsSource="{Binding TriangulationSource.Points, Source={StaticResource itfConverter}}"
+          TrianglesSource="{Binding TriangulationSource.Triangles, Source={StaticResource itfConverter}}"
+          TriangleVertexMemberPath1="V1"
+          TriangleVertexMemberPath2="V2"
+          TriangleVertexMemberPath3="V3">
+        <ig:GeographicContourLineSeries.FillScale>
+            <ig:ValueBrushScale MinimumValue="0.05" MaximumValue="1.75">
+                        <ig:ValueBrushScale.Brushes>
+                                <SolidColorBrush Color="DarkRed"/>
+                                <SolidColorBrush Color="Red"/>
+                                <SolidColorBrush Color="Orange"/>
+                                <SolidColorBrush Color="Yellow"/>
+                        </ig:ValueBrushScale.Brushes>
+            </ig:ValueBrushScale>
+        </ig:GeographicContourLineSeries.FillScale>
+    </ig:GeographicContourLineSeries>
+</ig:XamGeographicMap.Series>
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim itfConverter = New ItfConverter()
+itfConverter.Source = New Uri("precipitation_observed_20110831.itf", UriKind.RelativeOrAbsolute)
+Dim fillScale = New ValueBrushScale()
+fillScale.MinimumValue = 0.05
+fillScale.MinimumValue = 1.75
+fillScale.Brushes = New BrushCollection()
+fillScale.Brushes.Add(New SolidColorBrush(Colors.DarkRed))
+fillScale.Brushes.Add(New SolidColorBrush(Colors.Red))
+fillScale.Brushes.Add(New SolidColorBrush(Colors.Orange))
+fillScale.Brushes.Add(New SolidColorBrush(Colors.Yellow))
+Dim geoSeries = New GeographicContourLineSeries()
+geoSeries.FillScale = fillScale
+geoSeries.LongitudeMemberPath = "Point.X"
+geoSeries.LatitudeMemberPath = "Point.Y"
+geoSeries.TriangleVertexMemberPath1 = "V1"
+geoSeries.TriangleVertexMemberPath2 = "V2"
+geoSeries.TriangleVertexMemberPath3 = "V3"
+geoSeries.ItemsSource = itfConverter.TriangulationSource.Points
+geoSeries.TrianglesSource = itfConverter.TriangulationSource.Triangles
+----
+
+*In C#:*
+
+[source,csharp]
+----
+var itfConverter = new ItfConverter();
+itfConverter.Source = new Uri("precipitation_observed_20110831.itf", UriKind.RelativeOrAbsolute);
+var fillScale = new ValueBrushScale();
+fillScale.MinimumValue = 0.05;
+fillScale.MinimumValue = 1.75;
+fillScale.Brushes = new BrushCollection();
+fillScale.Brushes.Add(new SolidColorBrush(Colors.DarkRed));
+fillScale.Brushes.Add(new SolidColorBrush(Colors.Red));
+fillScale.Brushes.Add(new SolidColorBrush(Colors.Orange));
+fillScale.Brushes.Add(new SolidColorBrush(Colors.Yellow));
+var geoSeries = new GeographicContourLineSeries();
+geoSeries.FillScale = fillScale;
+geoSeries.LongitudeMemberPath = "Point.X";
+geoSeries.LatitudeMemberPath = "Point.Y";
+geoSeries.TriangleVertexMemberPath1 = "V1";
+geoSeries.TriangleVertexMemberPath2 = "V2";
+geoSeries.TriangleVertexMemberPath3 = "V3";
+geoSeries.ItemsSource = itfConverter.TriangulationSource.Points;
+geoSeries.TrianglesSource = itfConverter.TriangulationSource.Triangles;
+----
+
+[[_Ref320185294]]
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgeographicmap-visual-elements-of-xamgeographicmap.html[Visual Elements of xamGeographicMap]
+|This topic provides information about layout of map elements in the `xamGeographicMap` control.
+
+| link:xamgeographicmap-triangulating-geographic-data.html[Triangulating Geographic Data]
+|This topic provides information on how triangulation of data points works as well as how it can improve performance of rendering data in the `xamGeographicMap` control.
+
+| link:xamgeographicmap-binding-shape-files-with-geospatial-data.html[Binding Shape Files with Geo-spatial Data]
+|This topic provides information on how to bind shape files with geo-spatial data to the `xamGeographicMap` control.
+
+| link:xamgeographicmap-using-geographic-scatter-area-series.html[Using Geographic Scatter Area Series]
+|This topic provides information on how to use the GeographicScatterAreaSeries type of series in the `xamGeographicMap` control.
+
+|====

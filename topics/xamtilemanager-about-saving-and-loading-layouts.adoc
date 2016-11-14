@@ -1,0 +1,333 @@
+﻿////
+|metadata|
+{
+    "name": "xamtilemanager-about-saving-and-loading-layouts",
+    "controlName": ["xamTileManager"],
+    "tags": ["How Do I","Layouts"],
+    "guid": "5bfb4ab8-359f-4576-83f4-44058cd32775",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.6553794Z"
+}
+|metadata|
+////
+
+= About Saving and Loading Layouts
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to save the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager.html[xamTileManager]™’s layout and later restore it using the Infragistics® Control Persistence Framework. Saving the layout using the framework allows the user to not have to reconfigure the application layout for each session.
+
+=== In this topic
+
+This document contains the following sections:
+
+* <<SavingLayouts,Saving Layouts>>
+* <<LoadingLayouts,Loading Layouts>>
+
+=== Required background
+
+The following table lists the prerequisites required for this topic:
+
+[options="header", cols="a,a"]
+|====
+|Background type|Content
+
+|Concepts
+|You need to be familiar with the following concepts: 
+
+* link:control-persistence-framework.html[Infragistics Control Persistence Framework] 
+
+|Topics
+|You need to first read the following topics: 
+
+* link:persistence-about-ig-control-persistence-framework.html[About Infragistics Control Persistence Framework] 
+
+* link:persistenceframework-getting-started-with-infragistics-control-persistence-framework.html[Getting Started with Infragistics Control Persistence Framework] 
+
+* link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties] 
+
+|====
+
+== Control Configuration Overview
+
+The xamTileManager allows users to fully configure the layout by enabling moving and resizing of tiles and the ability to change the state of tiles at run time. Users may expect you to save and load their custom layouts between sessions so they are not forced to reconfigure the xamTileManager every time the application restarts. Infragistics Control Persistence Framework allows you to save and load the tile layout for the xamTileManager.
+
+In order to save a tile's state information in a layout, you must name the tile or set xamTileManager's attached property link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~setserializationid.html[SerializationId] to a unique string value. If you set both the Name and the SerializationId property, the SerializationId property takes precedence. The xamTileManager offers several different ways to set a tile's serialization ID.
+
+* You can set the attached SerializationId property exposed by xamTileManager. You can use this approach when you manually add items derived from the DependencyObject class to xamTileManager's Items collection.
+* You can set xamTileManager's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~serializationidpath.html[SerializationIdPath] property to the name of a property exposed by your data items. You can use this approach when you bind xamTileManager to data to create your tiles.
+* You can handle the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~savingitemmapping_ev.html[SavingItemMapping] event and set the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.savingitemmappingeventargs.html[SavingItemMappingEventArgs] object's SerializationId property. If you handle the SavingItemMapping event, you must also handle the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~loadingitemmapping_ev.html[LoadingItemMapping] event to map the serialization ID to a specific item.
+
+If you name a tile or supply a serialization ID but you do not want to save the tile, you can set its link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~saveinlayout.html[SaveInLayout] property to False.
+
+=== Control configuration chart
+
+The table below lists the methods you can use to save and load xamTileManager’s layout.
+
+[options="header", cols="a,a,a"]
+|====
+|Feature|Details|Static Methods
+
+|<<SavingLayouts,Saving Layouts>>
+|Use the *Save* static method to save the xamTileManager’s tiles layout
+| link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~save.html[PersistenceManager.Save]
+
+|<<LoadingLayouts,Loading Layouts>>
+|Use the *Load* static method to restore the xamTileManager’s tiles layout
+| link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~load.html[PersistenceManager.Load]
+
+|====
+
+[[SavingLayouts]]
+
+== Saving Layouts
+
+=== Saving layouts details
+
+In order to save the xamTileManager state and tile’s layout, you must invoke the static Save method of the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager.html[PersistenceManager] class. There is an overload of the Save method, which accepts a link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] argument, which is used to configure what properties to save or exclude. The persistence methods return a MemoryStream object which you can then save to a persistent location.
+
+*Note:* Depending on your application architecture you may choose different approaches on how to persist the MemoryStream (like XML file or database). Refer to the “Saving and Loading Layouts” sample to see how the layout is persisted in a byte array.
+
+=== Saving layouts method settings
+
+The Save methods are accessed through the PersistenceManager class.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to…|Use this method:|And set the following arguments…
+
+|<<InOrderSave,Save layout with all properties>>
+|PersistenceManager.Save
+|object
+
+|<<InOrderSave2,Save layout and configure which properties are saved or ignored>>
+|PersistenceManager.Save
+|object, settings
+
+|====
+
+[[InOrderSave]]
+
+=== Saving layout with all properties
+
+The <<ExSavingLayout,Saving Layout example>> demonstrates how to persist all control’s properties.
+
+[options="header", cols="a,a"]
+|====
+|Arguments|Types
+
+|object
+|The DependencyObject, whose properties will be saved
+
+|====
+
+[[InOrderSave2]]
+
+=== Saving layout and configure which properties should be saved or ignored
+
+The <<ExSavingLayout2,Including and Excluding Layout Properties During Save example>> demonstrates how to configure the persistence framework to ignore some properties when saving the state of a control.
+
+[options="header", cols="a,a"]
+|====
+|Arguments|Types
+
+|object
+|The DependencyObject, whose properties will be saved
+
+|settings
+|A PersistenceSettings object, which is describing the properties, which should be saved or ignored
+
+|====
+
+[[LoadingLayouts]]
+
+== Loading Layouts
+
+=== Loading layouts details
+
+In order to load the xamTileManager state and tile’s layout, you must invoke the static Load method of the PersistenceManager class. Additionally, there is an overload of the Load method that accepts an instance of the PersistenceSettings class as an argument. The PersistenceSettings instance is used to configure what properties to save or ignore in the layout. The data returned from the Save methods is supplied to the Load methods (as Stream objects) to restore the control’s state.
+
+=== Loading layouts method settings
+
+The Load methods are accessed through the PersistenceManager class.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to…|Use this method:|And set the following arguments…
+
+|<<InOrderLoad,Load layout with all properties>>
+|PersistenceManager.Load
+|object
+
+|====
+
+[[InOrderLoad]]
+
+=== Loading layout with all properties
+
+The <<ExLoadingLayout,Loading Layout example>> demonstrates how to load all persisted control’s properties.
+
+[options="header", cols="a,a"]
+|====
+|Arguments|Types
+
+|object
+|The DependencyObject, whose properties will be restored
+
+|====
+
+== Code Examples
+
+=== Examples overview
+
+The following table lists the code examples provided below.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|<<ExSavingLayout,Saving layout>>
+|Shows how to save all properties of the specified control.
+
+|<<ExSavingLayout2,Including and excluding layout properties during save>>
+|Shows how to save control state and specify which properties should be ignored.
+
+|<<ExLoadingLayout,Loading layout>>
+|Shows how to restore all saved properties of the specified control.
+
+|====
+
+[[ExSavingLayout]]
+
+== Code Example: Saving Layout
+
+=== Example description
+
+The code below demonstrates how to Save control’s state using the Save method with the following parameters:
+
+* The control, which state will be persisted
+
+*In Visual Basic:*
+
+----
+Dim memoryStream As MemoryStream =
+    PersistenceManager.Save(xamTileManager1)
+----
+
+*In C#:*
+
+----
+MemoryStream memoryStream =
+    PersistenceManager.Save(xamTileManager1);
+----
+
+[[ExSavingLayout2]]
+
+== Code Example: Including and Excluding Layout Properties During Save
+
+=== Example description
+
+The code below demonstrates how to Save control’s state using the Save method with the following parameters:
+
+* The control, which state will be persisted
+* A Persistence Settings object specifying, which properties should be ignored
+
+*In Visual Basic:*
+
+----
+' create the Persistence Settings object
+Dim settings As New PersistenceSettings()
+' save all properties except those ignored
+settings.SavePersistenceOptions =
+    Persistence.Primitives.PersistenceOption.AllButIgnored
+' add the "Left" property as ignored
+Dim prop1 As New PropertyNamePersistenceInfo() With { _
+    .PropertyName = "Left" _
+}
+settings.IgnorePropertySettings.Add(prop1)
+' add the "Top" property as ignored
+Dim prop2 As New PropertyNamePersistenceInfo() With { _
+    .PropertyName = "Top" _
+}
+settings.IgnorePropertySettings.Add(prop2)
+' save the control's properties in a memory stream
+Dim memoryStream As MemoryStream =
+    PersistenceManager.Save(xamTileManager1, settings)
+----
+
+*In C#:*
+
+----
+// create the Persistence Settings object
+PersistenceSettings settings = new PersistenceSettings();
+// save all properties except those ignored
+settings.SavePersistenceOptions =
+    Persistence.Primitives.PersistenceOption.AllButIgnored;
+// add the "Left" property as ignored
+PropertyNamePersistenceInfo prop1 = new PropertyNamePersistenceInfo
+{
+    PropertyName = "Left"
+};
+settings.IgnorePropertySettings.Add(prop1);
+// add the "Top" property as ignored
+PropertyNamePersistenceInfo prop2 = new PropertyNamePersistenceInfo
+{
+    PropertyName = "Top"
+};
+settings.IgnorePropertySettings.Add(prop2);
+// save the control's properties in a memory stream
+MemoryStream memoryStream =
+    PersistenceManager.Save(xamTileManager1, settings);
+----
+
+[[ExLoadingLayout]]
+
+== Code Example: Loading Layout
+
+=== Example description
+
+The code below demonstrates how to load control’s state using the Load method with the following parameters:
+
+* The control, which state will be restored
+
+*In Visual Basic:*
+
+----
+PersistenceManager.Load(xamTileManager1, memoryStream)
+----
+
+*In C#:*
+
+----
+PersistenceManager.Load(xamTileManager1, memoryStream);
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

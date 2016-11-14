@@ -1,0 +1,154 @@
+﻿////
+|metadata|
+{
+    "name": "thememanager-applying-theme-to-supported-ms-wpf-controls",
+    "tags": ["Getting Started","How Do I","Theming"],
+    "controlName": ["IG Theme Manager"],
+    "guid": "e4a6ebbd-49df-4cde-a84a-6799c003f514",
+    "buildFlags": [],
+    "createdOn": "2014-09-03T11:38:47.4273381Z"
+}
+|metadata|
+////
+
+= Applying a Theme to the Supported Microsoft WPF Controls (ThemeManager)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to enable/disable the theming of the supported Microsoft WPF controls using  _Infragistics ThemeManager_™.
+
+=== Required background
+
+The following topic is a prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:thememanager-overview.html[Features Overview (ThemeManager)]
+|This topic provides a detailed overview of _Infragistics ThemeManager_ and its main features.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref397277880,Supported Microsoft WPF controls>>
+* <<_Ref397277885,Configuring the Theming of the supported Microsoft WPF controls>>
+* <<_Ref397277890,Related Content>>
+
+** <<_Ref397277895,Topics>>
+
+[[_Ref397277880]]
+== Supported Microsoft WPF controls
+
+=== Supported Microsoft WPF controls
+
+The following is a list with the Microsoft WPF controls which have built-in IG, Metro, MetroDark, Office2010 and Office2013 themes:
+
+* Button
+* CheckBox
+* ComboBox and ComboBoxItem
+* Expander
+* GridSplitter
+* GroupBox
+* Label
+* ListBox and ListBoxItem
+* PasswordBox
+* ProgressBar
+* RadioButton
+* RepeatButton
+* ScrollBar
+* ScrollViewer
+* Slider
+* TextBlock
+* TextBox
+* ToggleButton
+
+[[_Ref397277885]]
+== Configuring the Theming of the supported Microsoft WPF controls
+
+[[_Hlk368069110]]
+=== Overview
+
+Using _ThemeManager_ on an application level or on a page level results in theming of all presented controls. This includes the supported Microsoft WPF controls as well.
+
+Use the `StyleMicrosoftControls` property if you want to turn off the theming of these controls.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:
+|Use this property:
+|And set it to:
+
+|Apply a specific theme to the supported Microsoft WPF controls
+| link:{ApiPlatform}v{ProductVersion}~infragistics.themes.builtinthemebase~stylemicrosoftcontrols.html[StyleMicrosoftControls]
+|`True` (default)
+
+|Exclude the supported Microsoft WPF controls from theming
+| link:{ApiPlatform}v{ProductVersion}~infragistics.themes.builtinthemebase~stylemicrosoftcontrols.html[StyleMicrosoftControls]
+|`False`
+
+|====
+
+[[_Hlk337817761]]
+=== Example
+
+The example code below demonstrates how to apply _Office2013 theme_ to all controls except the supported Microsoft WPF controls:
+
+*In XAML:*
+[source, xaml]
+----
+<ig:ThemeManager.Theme>
+    <ig:Office2013Theme StyleMicrosoftControls="False" />
+</ig:ThemeManager.Theme>
+----
+
+*In C#:*
+[source, csharp]
+----
+var office2013Theme = new Office2013Theme {StyleMicrosoftControls = false};
+ThemeManager.SetTheme(LayoutRootGrid, office2013Theme);
+----
+
+*In Visual Basic:*
+[source, vb]
+----
+Dim office2013Theme = New Office2013Theme() With { 
+    .StyleMicrosoftControls = False 
+}
+ThemeManager.SetTheme(LayoutRootGrid, office2013Theme)
+----
+
+[[_Ref397277890]]
+== Related Content
+
+[[_Ref397277895]]
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:thememanager-applying-theme-to-control.html[Applying a Theme on a FrameworkElement Level]
+|This topic describes how to apply a theme to a FrameworkElement using _Infragistics ThemeManager_.
+
+| link:thememanager-applying-theme-to-application.html[Applying a Theme on an Application Level]
+|This topic describes how to apply a theme to an application using _Infragistics ThemeManager_.
+
+| link:thememanager-creating-new-custom-theme.html[Creating a New Custom Theme]
+|This topic describes how to create and apply a new custom theme to a control using _Infragistics ThemeManager_.
+
+| link:thememanager-extending-existing-control-theme.html[Extending an Existing Control Theme]
+|This topic describes how to extend an existing control theme using _Infragistics Theme Manager_.
+
+|====

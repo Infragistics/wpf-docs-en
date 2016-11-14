@@ -1,0 +1,110 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcontextmenu-opening-and-showing-xamcontextmenu",
+    "controlName": ["xamContextMenu"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{818B2899-C26A-4153-A669-276C00431E0B}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.8000975Z"
+}
+|metadata|
+////
+
+= Opening and Showing xamContextMenu
+
+By default, the xamContextMenu™ control will be displayed when your end users release the right-mouse button. The link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.contextmenumanager.html[ContextMenuManager] object gives you several options to change this default behavior.
+
+* You can set the ContextMenuManager object's link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.contextmenumanager~modifierkeys.html[ModifierKeys] property to a bitwise combination of modifier keys that your end users have to hold before activating xamContextMenu.
+* You can set the ContextMenuManager object's link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.contextmenumanager~openmode.html[OpenMode] property to an link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.openmode.html[OpenMode] enum value to determine the mouse button that activates xamContextMenu.
+* You can use the Infragistics Commanding Framework along with the link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.xamcontextmenucommandsource.html[xamContextMenuCommandSource] object and the link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.controls.menus.xamcontextmenucommand.html[Open] command to activate xamContextMenu. This option gives you the flexibility to choose any event exposed by a control to activate xamContextMenu. If you choose this option, you should set the ContextMenuManager object's OpenMode property to None.
+
+The following code gives you an example how you can change the default (right click) opening mode to left mouse click and set the ModifierKeys property to a combination of Control and Shift key.
+
+ifdef::wpf[]
+*In XAML:*
+
+endif::wpf[]
+
+ifdef::wpf[]
+----
+<TextBox Name="textBox1">
+    <!--
+    Example of using the Infragistics Commanding Framework to open the context menu:
+    -->
+    <!--
+    <igWPF:Commanding.Command>
+        <ig:XamContextMenuCommandSource 
+            CommandType="Open" 
+            EventName="SelectionChanged" 
+            TargetName="contextMenu1" />
+    </igWPF:Commanding.Command>
+    -->
+    <ig:ContextMenuService.Manager>
+        <!--If you use the Infragistics Commanding Framework, you should set the OpenMode property to None-->
+        <ig:ContextMenuManager ModifierKeys="Control, Shift" OpenMode="LeftClick">
+            <ig:ContextMenuManager.ContextMenu>
+                <ig:XamContextMenu Name="contextMenu1">
+                    <ig:XamMenuItem Header="Font" />
+                    <ig:XamMenuItem Header="Formatting" />
+                </ig:XamContextMenu>
+            </ig:ContextMenuManager.ContextMenu>
+        </ig:ContextMenuManager>
+    </ig:ContextMenuService.Manager>
+</TextBox>
+----
+endif::wpf[]
+
+ifdef::sl[]
+*In XAML:*
+
+endif::sl[]
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Menus
+Imports Infragistics
+...
+Dim contextMenuManager1 As New ContextMenuManager()
+contextMenuManager1.ModifierKeys = ModifierKeys.Control Or ModifierKeys.Shift
+contextMenuManager1.OpenMode = OpenMode.LeftClick
+'TODO: Create a xamContextMenu and add XamMenuItem objects to it.
+'TODO: Set the ContextMenuManager object's ContextMenu property to the xamContextMenu control.
+ContextMenuService.SetManager(textBox1, contextMenuManager1)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Menus;
+using Infragistics;
+...
+ContextMenuManager contextMenuManager1 = new ContextMenuManager
+{
+    ModifierKeys = ModifierKeys.Control | ModifierKeys.Shift,
+    OpenMode = OpenMode.LeftClick
+};
+//TODO: Create a xamContextMenu and add XamMenuItem objects to it.
+//TODO: Set the ContextMenuManager object's ContextMenu property to the xamContextMenu control.
+ContextMenuService.SetManager(textBox1, contextMenuManager1);
+...
+----
+
+== Related Topics
+
+link:xamcontextmenu-opening-and-showing-xamcontextmenu.html[Opening and Showing xamContextMenu]
+
+link:xamcontextmenu-set-xamcontextmenus-location.html[Set xamContextMenu's Location]
+
+link:xammenu-binding-to-data.html[Binding to Data]
+
+link:xammenu-adding-and-removing-items.html[Adding and Removing Items]
+
+link:xammenu-adding-separators-between-xammenuitems.html[Adding Separators between XamMenuItems]
+
+link:xammenu-adding-icons-to-xammenuitems.html[Adding Icons to XamMenuItems]
+
+link:xammenu-adding-check-boxes-to-xammenuitems.html[Adding Check Boxes to XamMenuItems]

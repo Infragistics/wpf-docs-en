@@ -1,0 +1,162 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcalculationmanager-overview-of-named-references",
+    "controlName": ["xamCalculationManager"],
+    "tags": ["Calculations","Getting Started"],
+    "guid": "a8635e55-b53f-4c7a-b22f-31c3aac4b6f5",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.5830861Z"
+}
+|metadata|
+////
+
+= Overview of Named References
+
+== Named References
+
+The xamCalculationManager™ control exposes a collection of link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference.html[NamedReference] objects that allow globally defined named values to be used by the xamCalculationManager. A NamedReference is not associated with any control.
+
+The NamedReference’s main purpose is to allow you to create constants that are available in different calculations. NamedReferences also allow you to store the results of calculations, that may not necessarily be displayed on screen but can be used in the code behind or other calculations.
+
+== NamedReference properties chart
+
+The table below explains the properties of the NamedReference and lists their default settings.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Type|Description|Default Value
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference~category.html[Category]
+|String
+|This property specifies the category that is used by the UI of the xamFormulaEditor control to categorize the NamedReference. For more information, see the link:xamformulaeditor-using.html[Using xamFormulaEditor and FormulaEditorDialog with xamCalculationManager] topic.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference~formula.html[Formula]
+|String
+|This property specifies a formula for the NamedReference.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference~referenceid.html[ReferenceId]
+|String
+|This property specifies the id of the NamedReference. You can reference the NamedReference in a formula by using the ReferenceId property. You can use the relative form, e.g., [ReferenceId] from formulas of the root level objects or using the absolute for e.g. [//ReferenceId] from any formula in the calculation network. 
+
+.Note: 
+
+[NOTE] 
+
+==== 
+
+The ReferenceId property of all NamedReferences must be unique, non-null and non-empty strings. 
+
+====
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference~result.html[Result]
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.calculationresult~calculationvalue.html[CalculationValue]
+|This property returns the result of the Formula.
+|null
+
+| link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.namedreference~value.html[Value]
+|Object
+|This property specifies the value of the NamedReference. If the Formula property is set, this will return the result of the formula calculation.
+|null
+
+|====
+
+== Code Example: Creating Formulas using NamedReferences
+
+== Example description
+
+The code below demonstrates how to create a formula using defined NamedReferences. This is achieved by accessing the NamedReference through the ReferenceId in the xamCalculationManager’s Formula property. In the code snippet below the ShipFactor, and TaxFactor NamedReferences are used in the xamCalculationManager’s formula
+
+*In XAML:*
+
+----
+<StackPanel>
+   <StackPanel.Resources>
+      <ig:XamCalculationManager x:Key="CalcManager">
+         <ig:XamCalculationManager.NamedReferences>
+            <!--Create Named References, setting the ReferenceId, Value and Formula -->  
+            <ig:NamedReferenceCollection>
+               <ig:NamedReference ReferenceId="ShipRate" Value=".05" />
+               <ig:NamedReference ReferenceId="TaxRate" Value=".08" />
+               <ig:NamedReference ReferenceId="ShipFactor" Formula="1 + [ShipRate]" />
+               <ig:NamedReference ReferenceId="TaxFactor" Formula="1 + [TaxRate]" />
+            </ig:NamedReferenceCollection>
+         </ig:XamCalculationManager.NamedReferences>
+      </ig:XamCalculationManager>
+   </StackPanel.Resources>
+   <TextBox x:Name="txtQuantity" ig:XamCalculationManager.CalculationManager="{StaticResource CalcManager}"/>
+   <TextBox x:Name="txtPrice" ig:XamCalculationManager.CalculationManager="{StaticResource CalcManager}"/>
+   <TextBlock x:Name="Result" ig:XamCalculationManager.CalculationManager="{StaticResource CalcManager}">
+      <ig:XamCalculationManager.ControlSettings>
+         <!--The formula uses the ShipFactor and TaxFactor NamedReferences -->
+         <ig:ControlCalculationSettings Formula="[txtQuantity] * [txtPrice] * [ShipFactor] * [TaxFactor]" />
+      </ig:XamCalculationManager.ControlSettings>
+   </TextBlock>
+</StackPanel>
+----
+
+*In Visual Basic:*
+
+----
+Dim CalcManager As XamCalculationManager = New XamCalculationManager
+Dim ShipRate As NamedReference () With {ReferenceId = "ShipRateRef", Value="0.05"}
+Dim TaxRate As NamedReference () With {ReferenceId = "TaxRateRef", Value = "0.08" }
+Dim ShipFactor As NamedReference () With {ReferenceId = "ShipFactorRef", Formula = "[ShipRateRef]+1"}
+Dim TaxFactor As NamedReference () With {ReferenceId = "TaxFactorRef", Formula = "[TaxRateRef]+1" }
+CalcManager.NamedReferences = New NamedReferenceCollectionCalcManager.NamedReferences.Add(ShipRate)
+CalcManager.NamedReferences.Add(TaxRate)
+CalcManager.NamedReferences.Add(ShipFactor)
+CalcManager.NamedReferences.Add(TaxFactor)
+Dim stackPanel As StackPanel = New StackPanel
+Dim textbox1 As TextBox () With { Name="txtQuantity"}
+XamCalculationManager.SetCalculationManager(textbox1, CalcManager)stackPanel.Children.Add(textbox1)
+Dim textbox2 As TextBox () With { Name="txtPrice"}
+XamCalculationManager.SetCalculationManager(textbox2, CalcManager)
+stackPanel.Children.Add(textbox2)
+Dim textblock1 As TextBlock = New TextBlock
+Dim calcSettings As ControlCalculationSettings = New ControlCalculationSettings
+'The formula uses the ShipFactor and TaxFactor Named References 
+calcSettings.Formula = "[txtQuantity]*[txtPrice]*[ShipFactorRef]* [TaxFactorRef]"
+XamCalculationManager.SetControlSettings(textblock1, calcSettings)
+XamCalculationManager.SetCalculationManager(textblock1, CalcManager)
+stackPanel.Children.Add(textblock1)
+----
+
+*In C#:*
+
+----
+XamCalculationManager CalcManager = new XamCalculationManager();
+//Create Named References            
+NamedReference ShipRate = new NamedReference() {ReferenceId = "ShipRateRef", Value="0.05"};
+NamedReference TaxRate = new NamedReference() {ReferenceId = "TaxRateRef", Value = "0.08" };
+NamedReference ShipFactor = new NamedReference() {ReferenceId = "ShipFactorRef", Formula = "[ShipRateRef]+1"};
+NamedReference TaxFactor = new NamedReference() {ReferenceId = "TaxFactorRef", Formula = "[TaxRateRef]+1" };
+CalcManager.NamedReferences = new NamedReferenceCollection();
+CalcManager.NamedReferences.Add(ShipRate);
+CalcManager.NamedReferences.Add(TaxRate);
+CalcManager.NamedReferences.Add(ShipFactor);
+CalcManager.NamedReferences.Add(TaxFactor);
+StackPanel stackPanel = new StackPanel();
+TextBox textbox1 = new TextBox() { Name="txtQuantity"};
+XamCalculationManager.SetCalculationManager(textbox1, CalcManager);
+stackPanel.Children.Add(textbox1);
+TextBox textbox2 = new TextBox() { Name="txtPrice"};
+XamCalculationManager.SetCalculationManager(textbox2, CalcManager);
+stackPanel.Children.Add(textbox2);
+TextBlock textblock1 = new TextBlock();
+ControlCalculationSettings calcSettings = new ControlCalculationSettings();
+//The formula uses the ShipFactor and TaxFactor Named References
+calcSettings.Formula = "[txtQuantity]*[txtPrice]*[ShipFactorRef]* [TaxFactorRef]";
+XamCalculationManager.SetControlSettings(textblock1, calcSettings);
+XamCalculationManager.SetCalculationManager(textblock1, CalcManager);
+stackPanel.Children.Add(textblock1);
+----
+
+*Related Topics:*
+
+* link:xamcalculationmanager-overview-of-list-calculator.html[Overview of List Calculator]
+* link:xamcalculationmanager-overview-of-item-calculator.html[Overview of Item Calculator]

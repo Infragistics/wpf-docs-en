@@ -1,0 +1,69 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-about-repositioning-animations",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Layouts","Tips and Tricks"],
+    "guid": "{01CBA19F-F818-48BC-9406-0E9643B891B3}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3650261Z"
+}
+|metadata|
+////
+
+= About Repositioning Animations
+
+The xamDataCards™ control animates cards into position when it rearranges its cards. This can happen when your end users interact with xamDataCards by scrolling, collapsing, resizing cards, or when you reset the data source. However, you can disable the animation or customize the animation's timing by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings.html[CardViewSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings~shouldanimatecardpositioning.html[ShouldAnimateCardPositioning] property or link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings~repositionanimation.html[RepositionAnimation] property, respectively.
+
+If you want to customize the animation's timing, you can set the CardViewSettings object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings~repositionanimation.html[RepositionAnimation] property to an instance of an object that derives from the DoubleAnimationBase class, e.g., a DoubleAnimation object. However, if you disable animations, the xamDataCards control will ignore the custom animation timing you provide. For more information, see the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings~repositionanimation.html[Remarks section] for the RepositionAnimation property in the API Reference Guide.
+
+The following example code demonstrates how to modify the animation timings.
+
+*In XAML:*
+
+----
+<Window.Resources>
+    <DoubleAnimationUsingKeyFrames x:Key="repositionAnimation1">
+        <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+        <SplineDoubleKeyFrame KeyTime="00:00:01" Value="1.5" />
+        <SplineDoubleKeyFrame KeyTime="00:00:01.5" Value="0.8" />
+        <SplineDoubleKeyFrame KeyTime="00:00:02" Value="1" />
+    </DoubleAnimationUsingKeyFrames> 
+</Window.Resources>
+...
+<igDP:XamDataCards Name="xamDataCards1">
+    <igDP:XamDataCards.ViewSettings>
+        <igDP:CardViewSettings RepositionAnimation="{StaticResource repositionAnimation1}" />
+    </igDP:XamDataCards.ViewSettings>
+</igDP:XamDataCards>
+...
+----
+
+*In Visual Basic:*
+
+----
+Me.xamDataCards1.ViewSettings.RepositionAnimation = TryCast(Me.Resources("repositionAnimation1"), DoubleAnimationBase)
+----
+
+*In C#:*
+
+----
+this.xamDataCards1.ViewSettings.RepositionAnimation = this.Resources["repositionAnimation1"] as DoubleAnimationBase;
+----
+
+== Related Topics
+
+link:xamdatapresenter-about-card-settings.html[About Card Settings]
+
+link:xamdatapresenter-about-card-sizing.html[About Card Sizing]
+
+link:xamdatapresenter-collapse-a-card.html[Collapse a Card]
+
+link:xamdatapresenter-collapse-an-empty-cell.html[Collapse an Empty Cell]
+
+link:xamdatapresenter-set-the-maximum-number-of-viewable-cards.html[Set the Maximum Number of Viewable Cards]
+
+link:xamdatapresenter-set-the-space-between-cards.html[Set the Space Between Cards]
+
+link:xamdatapresenter-working-with-card-headers.html[Working with Card Headers]

@@ -1,0 +1,171 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-creating-a-style-groups-class",
+    "controlName": [],
+    "tags": ["Styling"],
+    "guid": "{120D7224-AF47-4241-A9C1-3D327A8D1ED4}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:33:32.0490388Z"
+}
+|metadata|
+////
+
+= Creating a Style Group's Class
+
+This topic is second in a multi-part walkthrough. Refer to link:wpf-creating-and-setting-up-a-themepack-project.html[Creating and Setting Up a ThemePack Project] for information on setting up the Microsoft® Visual Studio® 2008 project. In this topic, you will create the style group's class file.
+
+.Note
+[NOTE]
+====
+Each style group's class file is similar in content and layout; therefore, this multi-part walkthrough will discuss DataPresenter's style group.
+====
+
+[start=1]
+. In the "MyThemePack" project, right click on the DataPresenter folder under ResourceSets. In the pop-up menu, click Add, then click Class.
+[start=2]
+. In the Add New Item dialog box, name the class file "DataPresenter_ResourceSets" and click Add.
+
+.Note
+[NOTE]
+====
+We recommend that you name the class file using the following convention: " _StyleGroupName_ _ResourceSets"
+====
+
+[start=3]
+. Change the name of the class (not the class file) from "DataPresenter_ResourceSets" to "DataPresenter." Place the public (Public in Visual Basic) keyword before the class keyword.
+[start=4]
+. Change the class' namespace from "MyThemePack.ResourceSets.DataPresenter" to "MyThemePack.ResourceSets.OrangePeel."
+[start=5]
+. Before you start writing any code, you should place using/Imports directives at the top of your class file so you don't need to always type out a member's fully qualified name.
+
+*In Visual Basic:*
+
+----
+Imports System.ComponentModel
+Imports System.Reflection
+Imports Infragistics.Windows
+Imports Infragistics.Windows.Themes
+----
+
+*In C#:*
+
+----
+using System.ComponentModel;
+using System.Reflection;
+using Infragistics.Windows;
+using Infragistics.Windows.Themes;
+----
+
+[start=6]
+. The DataPresenter class derives from link:infragisticswpf4.datapresenter.v{ProductVersion}~infragistics.windows.themes.datapresenterresourceset`1.html[DataPresenterResourceSet]. The link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourceset.html[ResourceSet] that you derive from depends upon the style group (i.e., if you were creating the ResourceSet for the Editors, you would derive from EditorsResourceSet).
+
+*In Visual Basic:*
+
+----
+Public Class DataPresenter
+        Inherits DataPresenterResourceSet(Of Locator)
+        ...
+End Class
+----
+
+*In C#:*
+
+----
+public class DataPresenter : DataPresenterResourceSet<Locator> 
+{
+        ... 
+}
+----
+
+[start=7]
+. Create a static variable that is an instance of the DataPresenter class and provide a static method that accesses the static instance. This makes sure that there is only one instance of this style's DataPresenterResourceSet at all times.
+
+*In Visual Basic:*
+
+----
+...
+        Private Shared g_Instance As DataPresenter
+        Public Shared ReadOnly Property Instance() As DataPresenter
+                Get
+                        If g_Instance Is Nothing Then
+                                g_Instance = New DataPresenter()
+                        End If
+                        Return g_Instance
+                End Get
+        End Property
+...
+----
+
+*In C#:*
+
+----
+...
+        private static DataPresenter g_Instance;
+        public static DataPresenter Instance
+        {
+                get
+                {
+                        if (g_Instance == null)
+                                g_Instance = new DataPresenter();
+                        return g_Instance;
+                }
+}
+...
+----
+
+[start=8]
+. A style group's class file must contain a Locator class. The Locator class derives from link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourcesetlocator.html[ResourceSetLocator] and defines key properties such as:
+
+** access to the link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourcesetlocator~assembly.html[Assembly] containing the resource set
+** the link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourcesetlocator~theme.html[Theme] or name of the style
+** the link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourcesetlocator~grouping.html[Grouping], which is specific to the style group
+** the link:infragisticswpf4.v{ProductVersion}~infragistics.windows.themes.resourcesetlocator~resourcepath.html[ResourcePath] to the embedded ResourceDictionary for the style group within the assembly
+
+*In Visual Basic:*
+
+----
+...
+        Public Class Locator
+                Inherits ResourceSetLocator
+                Public Overrides ReadOnly Property [Assembly]() As [Assembly]
+                        Get
+                                Return Me.GetType().Assembly
+                        End Get
+                End Property
+                Public Overrides ReadOnly Property Theme() As String
+                        Get
+                                Return "OrangePeel"
+                        End Get
+                End Property
+                Public Overrides ReadOnly Property Grouping() As String
+                        Get
+                                Return DataPresenterGeneric.Instance.Grouping
+                        End Get
+                End Property
+                Public Overrides ReadOnly Property ResourcePath() As String
+                        Get
+                                Return "ResourceSets\DataPresenter\DataPresenter.xaml"
+                        End Get
+                End Property
+        End Class
+...
+----
+
+*In C#:*
+
+----
+...
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public class Locator : ResourceSetLocator
+        {
+                public override Assembly Assembly { get { return this.GetType().Assembly; } }
+                public override string Theme { get { return "OrangePeel"; } }
+                public override string Grouping { get { return DataPresenterGeneric.Instance.Grouping; } }
+                public override string ResourcePath { get { return @"ResourceSets\DataPresenter\DataPresenter.xaml"; } }
+        }
+...
+----
+
+The file the ResourcePath is set to is created in the link:wpf-creating-a-style-groups-resourcedictionary-files.html[Creating a Style Group's ResourceDictionary Files].

@@ -1,0 +1,88 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-merge-cells",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Editing","Formatting","How Do I"],
+    "guid": "{37B86801-E298-4166-AADC-6B12691C2EC0}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7677067Z"
+}
+|metadata|
+////
+
+= Merging Cells (Infragistics Excel Engine)
+
+Aside from setting the value or format of cells, you can also merge cells to make two or more cells appear as one. If you merge cells, they must be in a rectangular region. When you merge cells, each cell in the region will have the same value and cell format. The merged cells will also be associated with the same link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetmergedcellsregion.html[WorksheetMergedCellsRegion] object, accessible from their AssociatedMergedCellsRegion property. The WorksheetMergedCellsRegion object will also have the same value and cell format as the cells. Setting the value (or cell format) of the region or any cell in the region will change the value of all cells and the region. If you unmerge cells, all of the previously merged cells will retain the shared cell format they had before they were unmerged. However, only the top-left cell of the region will retain the shared value.
+
+In order to create a merged cell region, you must add a range of cells to the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet] object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~mergedcellsregions.html[MergedCellsRegions] collection. The MergedCellsRegions collection exposes an link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetmergedcellsregioncollection~add.html[Add] method that takes four integer parameters. The four parameters determine the index of the starting row and column (top-left most cell) and the index of the ending row and column (bottom-right most cell).
+
+The following example demonstrates how to merge cells.
+
+*In Visual Basic:*
+[source,vb]
+----
+Imports Infragistics.Documents.Excel
+...
+Dim workbook1 As New Workbook()
+Dim worksheet As Worksheet = workbook1.Worksheets.Add("Sheet1")
+' Add column headers
+worksheet.Rows(1).Cells(1).Value = "Morning"
+worksheet.Rows(1).Cells(2).Value = "Afternoon"
+worksheet.Rows(1).Cells(3).Value = "Evening"
+' Create a merged region from column 1 to column 3 that will be a header to the column headers
+Dim mergedRegion1 As WorksheetMergedCellsRegion = worksheet.MergedCellsRegions.Add(0, 1, 0, 3)
+' Set the value of the merged region
+mergedRegion1.Value = "Day 1"
+' Set the cell alignment of the middle cell in the merged region.
+' Since a cell and its merged region shared a cell format, this will 
+' ultimately set the format of the merged region
+worksheet.Rows(0).Cells(2).CellFormat.Alignment = HorizontalCellAlignment.Center
+----
+
+*In C#:*
+[source,csharp]
+----
+using Infragistics.Documents.Excel;
+...
+Workbook workbook1 = new Workbook();
+Worksheet worksheet = workbook1.Worksheets.Add("Sheet1");
+// Make some column headers
+worksheet.Rows[1].Cells[1].Value = "Morning";
+worksheet.Rows[1].Cells[2].Value = "Afternoon";
+worksheet.Rows[1].Cells[3].Value = "Evening";
+// Create a merged region from column 1 to column 3 that will be a header to the column headers
+WorksheetMergedCellsRegion mergedRegion1 =  worksheet.MergedCellsRegions.Add(0, 1, 0, 3);
+// Set the value of the merged region
+mergedRegion1.Value = "Day 1";
+// Set the cell alignment of the middle cell in the merged region.
+// Since a cell and its merged region shared a cell format, this will 
+// ultimately set the format of the merged region
+worksheet.Rows[0].Cells[2].CellFormat.Alignment = HorizontalCellAlignment.Center;
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Referencing Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Adding a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

@@ -1,0 +1,81 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-use-multiple-series-with-xamwebtimeline",
+    "controlName": ["xamTimeline"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{629E1949-7A66-453C-BB4D-56FE5F720E42}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.009399Z"
+}
+|metadata|
+////
+
+= Display Multiple Series
+
+The xamTimeline™ control can display more than one time series. This allows for comparison between series and grouping of related timelines. The process is simple and involves just adding the additional series to the timeline and specifying the positioning of the series by setting the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.timelineseries~position.html[Position] property to either TopOrLeft or BottomOrRight.
+
+A timeline with multiple time series will display all the event points on the same pane. This means you must make sure the points are distinctively colored to distinguish one point from another. You can do this by setting the Fill or Stroke attributes for a particular time series.
+
+.Note:
+[NOTE]
+====
+The time series must be of the same type: link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeseries.html[NumericTimeSeries] or link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries].
+====
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows how to set up xamTimeline to display multiple Numeric Time Series.
+
+*In XAML:*
+
+----
+<ig:XamTimeline x:Name="xamTimeline" 
+                  Width="1000" Height="400" Margin="15">
+    <ig:XamTimeline.Series>
+        <ig:NumericTimeSeries Title="Numeric Time Series 1"
+                                Fill="Red" Position="TopOrLeft">
+            <ig:NumericTimeSeries.Entries>
+                <ig:NumericTimeEntry Time="1000" Title="Numeric Time Entry 1" 
+                                       Details="Details Time Entry 1"/>
+                <ig:NumericTimeEntry Time="2000" Title="Numeric Time Entry 2" 
+                                       Details="Details Time Entry 2"/>
+                <ig:NumericTimeEntry Time="3000" Title="Numeric Time Entry 3" 
+                                       Details="Details Time Entry 3"/>
+            </ig:NumericTimeSeries.Entries>
+        </ig:NumericTimeSeries>
+        <ig:NumericTimeSeries Title="Numeric Time Series 2"
+                                Fill="Blue" Position="BottomOrRight">
+            <ig:NumericTimeSeries.Entries>
+                <ig:NumericTimeEntry Time="1500" Title="Numeric Time Entry 1" 
+                                       Details="Details Time Entry 1"/>
+                <ig:NumericTimeEntry Time="2500" Title="Numeric Time Entry 2" 
+                                       Details="Details Time Entry 2"/>
+                <ig:NumericTimeEntry Time="3500" Title="Numeric Time Entry 3" 
+                                       Details="Details Time Entry 3"/>
+            </ig:NumericTimeSeries.Entries>
+        </ig:NumericTimeSeries>
+        <ig:NumericTimeSeries Title="Numeric Time Series 3"
+                                Fill="Yellow" Position="BottomOrRight">
+            <ig:NumericTimeSeries.Entries>
+                <ig:NumericTimeEntry Time="1300" Title="Numeric Time Entry 1" 
+                                       Details="Details Time Entry 1"/>
+                <ig:NumericTimeEntry Time="2300" Title="Numeric Time Entry 2" 
+                                       Details="Details Time Entry 2"/>
+                <ig:NumericTimeEntry Time="3300" Title="Numeric Time Entry 3" 
+                                       Details="Details Time Entry 3"/>
+            </ig:NumericTimeSeries.Entries>
+        </ig:NumericTimeSeries>
+    </ig:XamTimeline.Series>
+</ig:XamTimeline>
+----
+
+image::images/XamTimeline_Use_Multiple_Series_01.png[]
+
+== Related Topics
+
+link:xamtimeline-add-event-entries.html[Add Numeric Event Entries]
+
+link:xamtimeline-display-date-time-series.html[Display Date Time Series]
+
+link:xamtimeline-display-numeric-time-series.html[Display Numeric Time Series]
+
+link:xamtimeline-style-time-series.html[Styling Time Series]

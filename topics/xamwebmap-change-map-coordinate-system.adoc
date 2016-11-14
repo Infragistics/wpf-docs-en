@@ -1,0 +1,49 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-change-map-coordinate-system",
+    "controlName": ["xamMap"],
+    "tags": ["Application Blocks","How Do I"],
+    "guid": "{CF79C482-80B2-49B8-8D7C-1CADA78B637A}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.0972269Z"
+}
+|metadata|
+////
+
+= Change Map Coordinate System
+
+The xamMap™ control assumes all shapefiles are in unprojected geodetic coordinates and displays them using the projection specified in the the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap.html[xamMap] control's link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~mapprojectiontype.html[MapProjectionType] property. SphericalMercator is the default value. For more information on projection types, please refer to link:xamwebmap-understanding-xamwebmap.html[Understanding xamMap] section.
+
+If a Shapefile contains unprojected coordinates, you only need to read in the Shapefile, and xamMap will display the data. However, if the Shapefile's coordinate system uses a map projection, you must specify this input projection when reading in the Shapefile. Specifying the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.reader~coordinatesystem.html[CoordinateSystem] allows for the xamMap control to correctly interpret and visualize the map. This allows you to combine multiple map data (states, cities, roads) independent of their coordinate systems.
+
+The following code shows you how to read a Shapefile of Indiana State specified using the US State Plane Coordinate System for Indiana East zone. Usually, you can find information about the coordinate system of a map in the .prj or .txt Shapefiles. An example of what the information might look like can be found here: link:resources-indianashapefile.html[IndianaShapefile].
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+<igMap:MapLayer x:Name="Indiana">
+<igMap:MapLayer.Reader>
+   <igMap:ShapeFileReader Uri="/../../Shapefiles/IndianaShapefile">
+      <!-- Specify coordinate system with input projection type.
+           Settings for each attribute is obtained from the .txt Shapefile -->
+      <igMap:ShapeFileReader.CoordinateSystem>
+         <igMap:CoordinateSystem UnitType="M" FalseEasting="500000.0">
+            <igMap:CoordinateSystem.Projection>
+               <!-- The Shapefile uses Transverse Mercator Map Projection -->
+               <igMap:TransverseMercator EllipsoidType="NAD83" 
+                                         ScaleFactor="0.9996" CentralMeridian="-87.0" LatitudeOrigin="0.0"     />
+               </igMap:CoordinateSystem.Projection>
+            </igMap:CoordinateSystem>
+         </igMap:ShapeFileReader.CoordinateSystem>
+      </igMap:ShapeFileReader>
+   </igMap:MapLayer.Reader>
+</igMap:MapLayer>
+----
+
+endif::wpf[]
+
+image::images/SL_DV_XamMap_Change_Map_Coordinate_System_01.png[]

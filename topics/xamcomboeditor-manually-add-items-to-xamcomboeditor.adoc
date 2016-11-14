@@ -1,0 +1,45 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcomboeditor-manually-add-items-to-xamcomboeditor",
+    "controlName": ["xamComboEditor"],
+    "tags": ["How Do I"],
+    "guid": "{E8C2674E-7797-4394-A8E9-9D1ED6F22333}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.1009781Z"
+}
+|metadata|
+////
+
+= Manually Add Items to xamComboEditor
+
+Data binding plays a pivotal role in every data-presentation control, including the xamComboEditor™ control; however, there may be cases where you want to manually add items to a control without binding the control to data. A simple drop-down list that provides three choices, such as high, medium, and low may be a good candidate for this particular scenario. In order to satisfy this type of requirement, you can set the ItemsProvider property of xamComboEditor to an instance of a link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider.html[ComboBoxItemsProvider] object. Then, you can add link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxdataitem.html[ComboBoxDataItem] objects directly to link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamcomboeditor~itemsprovider.html[ItemsProvider] property of xamComboEditor. Just like any ItemsControl in Microsoft® Windows® Presentation Foundation, you must choose between setting the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider~itemssource.html[ItemsSource] property and adding items directly to the Items collection; you cannot do both.
+
+When you add ComboBoxDataItems to the Items collection, you need to set the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxdataitem~displaytext.html[DisplayText] property and the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxdataitem~value.html[Value] property of ComboBoxDataItem object. These two properties determine the value that is displayed to the end user and the value that is stored internally. By default, xamComboEditor will store the value of the ComboBoxDataItem object as a string. If you want to store the value as a different data type, you will have to set the XamComboEditor's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valuetype.html[ValueType] property to the data type that you want to store.
+
+The example code below demonstrates how to add ComboBoxDataItems to xamComboEditor.
+
+*In XAML:*
+
+----
+...
+<igEditors:XamComboEditor.ItemsProvider>
+        <igEditors:ComboBoxItemsProvider>
+                <igEditors:ComboBoxItemsProvider.Items>
+                        <igEditors:ComboBoxDataItem DisplayText="Item 1" Value="Item 1" />
+                        <igEditors:ComboBoxDataItem DisplayText="Item 2" Value="Item 2" />
+                        <igEditors:ComboBoxDataItem DisplayText="Item 3" Value="Item 3"/>
+                </igEditors:ComboBoxItemsProvider.Items>
+        </igEditors:ComboBoxItemsProvider>
+</igEditors:XamComboEditor.ItemsProvider>
+...
+----
+
+== Related Topics
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-collection.html[Bind xamComboEditor to a Collection]
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-dataset.html[Bind xamComboEditor to a DataSet]
+
+link:xamcomboeditor-bind-xamcomboeditor-to-an-xmldataprovider.html[Bind xamComboEditor to an XmlDataProvider]

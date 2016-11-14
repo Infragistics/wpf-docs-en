@@ -1,0 +1,166 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgeographicmap-using-geographic-series",
+    "controlName": ["xamGeographicMap"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "575a2eb8-baec-4ce1-a17c-7ad5060750c3",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.7922095Z"
+}
+|metadata|
+////
+
+= Using Geographic Series
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information about supported types of geographic series in the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.xamgeographicmap_members.html[xamGeographicMap]™ control.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgeographicmap-adding-xamgeographicmap-to-a-page.html[Adding xamGeographicMap to a Page]
+|This topic provides information on how to add the _xamGeographicMap_ control to an application page.
+
+| link:xamgeographicmap-visual-elements-of-xamgeographicmap.html[Visual Elements of xamGeographicMap]
+|This topic provides information about layout of map elements in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-shape-files-reference.html[Shape Files Reference]
+|This topic provides resources with information about maps, shape files, and geo-spatial related material. Use these resources to learn about and obtain geo-spatial shape files as well as tools for their editing.
+
+| link:xamgeographicmap-binding-shape-files-with-geospatial-data.html[Binding Shape Files with Geo-spatial Data]
+|This topic provides information on how to bind shape files with geo-spatial data to the _xamGeographicMap_ control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref320659119, Introduction >>
+
+** <<_Ref320659122,Geographic Series Overview>>
+** <<_Ref320659124,Types of Geographic Series>>
+** <<_Ref320659125,Example>>
+
+* <<_Ref320185294,Related Content>>
+
+[[_Ref320659119]]
+== Introduction
+
+[[_Ref320659122]]
+
+=== Geographic Series Overview
+
+In the _xamGeographicMap_ control, geographic series are visual elements of the map that display geo-spatial data as points (e.g. locations of cities), polylines (e.g. road connections), or polygons (shape of countries) in a geographic context.
+
+The _xamGeographicMap_ control’s link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.seriesviewer~series.html[Series] property is a collection of geographic series objects. This property is used to support rendering an unlimited number of geographic series in the same plot area (refer to the link:xamgeographicmap-displaying-multiple-geographic-series.html[Displaying Multiple Geographic Series] topic). When multiple geographic series objects are added to the link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.seriesviewer~series.html[Series] property, each successive series will be layered on top of the previous series starting from the first to the last series. Therefore, geographic series can be better understood as map layers that can be stacked on top of each other and/or on top of geographic imagery (refer to the link:xamgeographicmap-using-geographic-imagery.html[Using Geographic Imagery] topic).
+
+[[_Ref320659124]]
+
+=== Types of Geographic Series
+
+The following table summarizes types of geographic series supported in the _xamGeographicMap_ control.
+
+[options="header", cols="a,a,a"]
+|====
+| *Geographic Series* | *Preview* | *Description* 
+
+|Geographic Shape Series
+|image::images/xamGeographicMap_Using_Geographic_Series_1.png[]
+|The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseries_members.html[GeographicShapeSeries] displays geo-spatial data using polygons in a geographic context. This type of geographic series is often used to render shapes of countries or regions defined by geographic locations.
+
+|Geographic Polyline Series
+|image::images/xamGeographicMap_Using_Geographic_Series_2.png[]
+|The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicpolylineseries_members.html[GeographicPolylineSeries] displays geo-spatial data using polylines in a geographic context. This type of geographic series is often used to render roads or connections between geographic locations such as cities or airports.
+
+|Geographic Symbol Series
+|image::images/xamGeographicMap_Using_Geographic_Series_3.png[]
+|The link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries_members.html[GeographicSymbolSeries] displays geo-spatial data using points or markers in a geographic context. This type of geographic series is often used to render a collection of geographic locations such as cities, airports, earthquakes, or points of interest.
+
+|====
+
+The following is a list of topics which provide task-based information on using individual types of geographic series and their unique features in the _xamGeographicMap_ control.
+
+* link:xamgeographicmap-using-geographic-shape-series.html[Using Geographic Shape Series]
+* link:xamgeographicmap-using-geographic-symbol-series.html[Using Geographic Symbol Series]
+* link:xamgeographicmap-using-geographic-polyline-series.html[Using Geographic Polyline Series]
+
+All types of geographic series are always rendered on top of the geographic imagery tiles. However, sometimes geographic series (e.g. with detailed shape files of the world) might provide enough geographic contexts for an application and geographic imagery is not desired in the _xamGeographicMap_ control. Refer to the link:xamgeographicmap-hiding-geographic-imagery-in-map-background-content.html[Hiding Geographic Imagery in Map Background Content] topic for information on how to hide the geographic imagery.
+
+[[_Ref320659125]]
+
+=== Example
+
+The code shows how to add the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseries_members.html[GeographicShapeSeries] with the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.shapefileconverter_members.html[ShapefileConverter] binding to the _xamGeographicMap_ control.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGeographicMap x:Name="GeoMap">
+    <ig:XamGeographicMap.Series>
+        <ig:GeographicShapeSeries ItemsSource="{StaticResource shapefileConverter}"
+                                   ShapeMemberPath="Points">
+        </ig:GeographicShapeSeries>
+    </ig:XamGeographicMap.Series>
+</ig:XamGeographicMap>
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create and set data binding to the GeographicShapeSeries
+Dim geoSeries = New GeographicShapeSeries()
+geoSeries.ItemsSource = shapefileConverter
+geoSeries.ShapeMemberPath = "Points"
+' add the GeographicShapeSeries to the the xamGeographicMap
+Me.GeoMap.Series.Add(geoSeries)
+----
+
+*In C#:*
+
+[source,csharp]
+----
+// create and set data binding to the GeographicShapeSeries
+var geoSeries = new GeographicShapeSeries();
+geoSeries.ItemsSource = shapefileConverter;
+geoSeries.ShapeMemberPath = "Points";
+// add the GeographicShapeSeries to the the xamGeographicMap
+this.GeoMap.Series.Add(geoSeries);
+----
+
+[[_Ref320185294]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+| *Topic* | *Purpose* 
+
+| link:xamgeographicmap-using-geographic-symbol-series.html[Using Geographic Symbol Series]
+|This topic provides information on how to use the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicsymbolseries_members.html[GeographicSymbolSeries] element in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-using-geographic-shape-series.html[Using Geographic Shape Series]
+|This topic provides information on how to use the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicshapeseries_members.html[GeographicShapeSeries] element in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-using-geographic-polyline-series.html[Using Geographic Polyline Series]
+|This topic provides information on how to use the link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.geographicpolylineseries_members.html[GeographicPolylineSeries] element in the _xamGeographicMap_ control.
+
+| link:xamgeographicmap-styling-shapes-in-geographic-series.html[Styling Shapes in Geographic Series]
+|This topic provides information on how to style shapes of geographic series in the _xamGeographicMap_ control.
+
+|====

@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-auto-size-columns-using-mouse-clicks",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Grids","How Do I","Layouts"],
+    "guid": "{A6115212-38FE-4C82-A638-E7937D6FDD58}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.853166Z"
+}
+|metadata|
+////
+
+= Auto Size Columns Using Mouse Clicks
+
+There are two ways in which your end users can resize columns. They can drag the edge of a column to the desired size or they can double click on the right-hand edge of a column's header to resize it which sets the column's width to the longest value currently visible.
+
+To allow your end users to resize columns using a double click, you must set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings.html[ColumnResizingSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnresizingsettings~allowdoubleclicktosize.html[AllowDoubleClickToResize] property to True.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="MyGrid">
+    <ig:XamGrid.ColumnResizingSettings>
+        <ig:ColumnResizingSettings AllowColumnResizing="Indicator" 
+                                   AllowDoubleClickToSize="True"/>
+    </ig:XamGrid.ColumnResizingSettings>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+Me.MyGrid.ColumnResizingSettings.AllowDoubleClickToSize = True
+----
+
+*In C#:*
+
+----
+this.MyGrid.ColumnResizingSettings.AllowDoubleClickToSize = true;
+----
+
+== *Related Topics*
+
+link:xamgrid-column-resizing.html[Column Resizing]
+
+link:xamgrid-multi-column-resizing.html[Multi-Column Resizing]
+
+link:xamgrid-resize-in-the-cell-area.html[Resize Cells in the Cell Area]
+
+link:xamgrid-set-columns-maximum-and-minimum-widths.html[Set Column's Maximum and Minimum Widths]
+
+link:xamgrid-disable-resizing-of-certain-columns.html[Disable Resizing of Certain Columns]
+
+link:xamgrid-column-resizing-events.html[Column Resizing Events]
+
+pick:[win-rt=" link:bb45cdbe-7149-49bc-a63a-1a77676c6986[Touch Support]"]

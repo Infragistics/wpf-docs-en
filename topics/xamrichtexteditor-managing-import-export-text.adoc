@@ -1,0 +1,153 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-import-export-text",
+    "tags": ["Data Binding"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "9605601b-70c6-42ea-9417-22dbda0ab498",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.477342Z"
+}
+|metadata|
+////
+
+= Import/Export Plain Text (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to import and export plain text data using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control.
+
+=== Required background
+
+The following topic is a prerequisite to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-serialization-providers.html[Serialization Providers Overview]
+|This topic explains the _xamRichTextEditor_ control’s serialization providers.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362608235,Import/Export Plain Text Configuration Summary>>
+* <<_Ref362603137,Import Plain Text Content>>
+* <<_Ref362603145,Export Plain Text Content>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362608235]]
+== Import/Export Plain Text Configuration Summary
+
+=== Import/Export configuration summary chart
+
+The following table briefly explains the configurable aspects of the  _xamRichTextEditor_   control and maps them to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Methods
+
+|<<_Ref362603137,Import Plain Text Content>>
+|Import plain text content from a stream.
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~loadfromplaintext.html[LoadFromPlainText]
+
+|<<_Ref362603145,Export Plain Text Content>>
+|Export plain text content to a stream.
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~savetoplaintext.html[SaveToPlainText]
+
+|====
+
+.Note
+[NOTE]
+====
+There is also a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~gettextinspan.html[GetTextInSpan] method, which returns the full text of a specific document’s span. You can also specify different settings in the argument of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.plaintextformatoptions_members.html[PlainTextFormatOptions].
+====
+
+[[_Ref362603137]]
+== Import Plain Text Content
+
+=== Overview
+
+Use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument]’s `LoadFromPlainText` method to import plain text content in the  _xamRichTextEditor_   control from a stream.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Import plain text content
+|`LoadFromPlainText`
+|
+* The stream object containing the plain text format content 
+
+* Content loading options object of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextloadoptions_members.html[PlainTextLoadOptions], which is not required 
+
+|====
+
+[[_Ref362603145]]
+== Export Plain Text Content
+
+=== Overview
+
+Use the `SaveToPlainText` method of the `RichTextDocument` to export  _xamRichTextEditor’s_   content to a stream in plain text format.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Export content in plain text format
+|`SaveToPlainText`
+|
+* The stream object into which the plain text content is uploading 
+
+* Content saving options object of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextsaveoptions_members.html[PlainTextSaveOptions], which is not required 
+
+|====
+
+[[_Ref359594803]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-import-export-rtf.html[Import/Export RTF]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting RTF data.
+
+| link:xamrichtexteditor-managing-import-export-docx.html[Import/Export DOCX]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting DOCX formatted data.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/export-content[Export Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/export-content[Export Content]"] 
+|This sample demonstrates the export of content in different formats.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/import-content[Import Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/import-content[Import Content]"] 
+|This sample demonstrates the import of content in different formats.
+
+|====

@@ -1,0 +1,50 @@
+﻿////
+
+|metadata|
+{
+    "name": "xammonthcalendar-retrieve-the-selected-dates",
+    "controlName": ["xamMonthCalendar"],
+    "tags": ["How Do I","Selection"],
+    "guid": "{AE43B446-E709-4B57-A8D5-4AD2A813DDBC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.9891509Z"
+}
+|metadata|
+////
+
+= Retrieve the Selected Dates
+
+The xamMonthCalendar™ control exposes two properties that you can use to retrieve the date(s) an end user selects. The link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~selecteddates.html[SelectedDates] collection returns a collection of DateTime structures while the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammonthcalendar~selecteddate.html[SelectedDate] property returns a single Nullable DateTime structure. If an end user selects multiple dates, the SelectedDate property will return the first date that the end user selected.
+
+The following example code demonstrates how to retrieve the selected dates by iterating over the SelectedDates collection.
+
+*In Visual Basic:*
+
+----
+Dim sbSelectedDate As New System.Text.StringBuilder()
+For Each dt As DateTime In Me.xamMonthCalendar1.SelectedDates 
+    sbSelectedDate.AppendLine(dt.ToShortDateString()) 
+Next 
+MessageBox.Show("Selected Dates: " & sbSelectedDate.ToString())
+----
+
+*In C#:*
+
+----
+StringBuilder sbSelectedDate = new StringBuilder();
+foreach (DateTime dt in this.xamMonthCalendar1.SelectedDates)
+{
+    sbSelectedDate.AppendLine(dt.ToShortDateString());
+}
+MessageBox.Show("Selected Dates: " + sbSelectedDate.ToString());
+----
+
+== Related Topics
+
+link:xammonthcalendar-about-xammonthcalendar.html[About xamMonthCalendar]
+
+link:xammonthcalendar-getting-started-with-xammonthcalendar.html[Adding xamMonthCalendar to Your Page]
+
+link:xammonthcalendar-restrict-the-selectable-dates.html[Restrict the Selectable Dates]
+
+link:xammonthcalendar-switch-to-a-different-calendar-view.html[Switch to a Different Calendar View]

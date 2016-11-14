@@ -1,0 +1,211 @@
+﻿////
+|metadata|
+{
+    "name": "xamcomboeditor-support-for-primitives",
+    "tags": ["Data Binding","Getting Started","How Do I"],
+    "controlName": ["xamComboEditor"],
+    "guid": "caf8caf5-e1f2-453d-983c-758e3ae37091",
+    "buildFlags": ["WPF"],
+    "createdOn": "2016-05-25T18:21:54.7691046Z"
+}
+|metadata|
+////
+
+= Binding to Collections of Primitive Types (xamComboEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes the specifics when the  _xamComboEditor_™ control is bound to a collection of primitive type data.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref411706789,Supported Types>>
+* <<_Ref411709393,Working with xamComboEditor Bound to a Collection of Primitive Type>>
+* <<_Ref411709401,Related Content>>
+
+** <<_Ref411709430,Topics>>
+** <<_Ref411709434,Samples>>
+
+[[_Ref411706789]]
+== Supported Types
+
+=== Supported types summary chart
+
+We refer to the following types as a primitive type data supported by the  _xamComboEditor_   control:
+
+[options="header", cols="a,a,a"]
+|====
+|Data Type|Details|Types
+
+|Primitives
+|The `Type` `IsPrimitive` property returns `true` for this particular type – e.g. `typeof(int).IsPrimitive`
+|
+* Boolean 
+
+* Char 
+
+* Byte, SByte, Int16, UInt16, Int32, UInt32, Int64, UInt64, IntPtr, UIntPtr 
+
+* Double and Single 
+
+|DateTime Structure
+|Represents an instant in time.
+|DateTime
+
+|Enumeration
+|Consists of a set of named constants called the enumerator list.
+|enum
+
+|string
+|Represents a sequence of zero or more Unicode characters.
+|string
+
+|====
+
+[[_Ref411709393]]
+== Working with  _xamComboEditor_   Bound to a Collection of Primitive Type Data
+
+=== Supported key features summary chart
+
+The following table summarizes briefly the key features of the  _xamComboEditor_   control and which of them are supported when the control is bound to a collection of a primitive type data. Further details are available after the table.
+
+[options="header", cols="a,a,a"]
+|====
+|Feature|Data Type|Supported
+
+|<<_Ref411714865,Auto Complete>>
+|Primitives
+|Yes
+|
+|DateTime Structure
+|Yes
+|
+|Enumeration
+|Yes
+|
+|string
+|Yes
+
+|<<_Ref411714901,Custom Value Entered Action>>
+|Primitives
+|Yes
+|
+|DateTime Structure
+|Yes
+|
+|Enumeration
+|Yes
+|
+|string
+|Yes
+
+|<<_Ref411715029,Selection>>
+|Primitives
+|Yes
+|
+|DateTime Structure
+|Yes
+|
+|Enumeration
+|Yes
+|
+|string
+|Yes
+
+|<<_Ref411844272,Custom Filtering>>
+|Primitives
+|See the details below
+|
+|DateTime Structure
+|Yes
+|
+|Enumeration
+|See the details below
+|
+|string
+|Yes
+
+|====
+
+== General
+
+When the  _xamComboEditor_   is bound to a collection of primitive type data, the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~displaymemberpath.html[DisplayMemberPath] property should not be set. If it is set, an `ArgumentException` is thrown.
+
+[[_Ref411714865]]
+
+== Auto Complete
+
+Auto complete feature is completely supported when the  _xamComboEditor_   is bound to a collection of primitive type data.
+
+[[_Ref411714901]]
+== Custom Value Entered Action
+
+Different options for custom value entered action – Add, Allow and Ignore are supported when the  _xamComboEditor_   is bound to a collection of primitive type data.
+
+When the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~customvalueenteredaction.html[CustomValueEnteredAction] is set to link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.customvalueenteredactions.html[Add], the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~dataobjectrequested_ev.html[DataObjectRequested] event is not fired.
+
+[[_Ref411715029]]
+
+== Selection
+
+Selection is supported when the  _xamComboEditor_   is bound to a collection of primitive type data.
+
+.Note
+[NOTE]
+====
+The  _xamComboEditor_   link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectedvalue.html[SelectedValue] and link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectedvalues.html[SelectedValues] properties return always `null` because they depend on the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectedvaluepath.html[SelectedValuePath] property which expects a complex data type property. In the case of a collection of primitive type data, the `SelectedValuePath` property should remain unset.
+====
+
+[[_Ref411844272]]
+== Custom Filtering
+
+Custom filtering is supported when the  _xamComboEditor_ is bound to a collection of primitive type data. The link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboitemfilter_members.html[ComboItemFilter] link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboitemfilter~fieldname.html[FieldName] should remain unset.
+
+.Note
+[NOTE]
+====
+For collection of `bool` or `enum`, the only applicable link:{ApiPlatform}datamanager.v{ProductVersion}~infragistics.comparisoncondition_members.html[ComparisonCondition] link:{ApiPlatform}datamanager.v{ProductVersion}~infragistics.comparisoncondition~operator.html[Operator] -s are link:{ApiPlatform}datamanager.v{ProductVersion}~infragistics.comparisonoperator.html[Equals] and link:{ApiPlatform}datamanager.v{ProductVersion}~infragistics.comparisonoperator.html[NotEquals].
+====
+
+[[_Ref411709401]]
+== Related Content
+
+[[_Ref411709430]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamcomboeditor-about-xamcomboeditor.html[About xamComboEditor]
+|This topic lists the _xamComboEditor_ control key features.
+
+| link:xamcomboeditor-adding-xamcomboeditor-to-your-page.html[Adding xamComboEditor to Your Page]
+|This topic describes how to get started with the _xamComboEditor_ control and how to add it to your page using procedural code.
+
+| link:xamcomboeditor-using-xamcomboeditor.html[Configuring xamComboEditor]
+|The topics in this group explain the main features of the _xamComboEditor_ control, their use and configuration.
+
+|====
+
+[[_Ref411709434]]
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+|link:{SamplesURL}/combo-box/comboeditor-primitives-binding-wpf[Combo Editor Primitive Types Binding]
+|This sample demonstrates how the _xamComboEditor_ control is bound to different primitive types of data – enum, double, DateTime, char and string.
+
+|====

@@ -1,0 +1,172 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcomboeditor-using-xamcomboeditor-to-edit-a-field-in-xamdatagrid",
+    "controlName": ["xamComboEditor"],
+    "tags": ["How Do I"],
+    "guid": "{9CDFEAAE-442F-4193-A0D9-B28AC782FEC3}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.1149781Z"
+}
+|metadata|
+////
+
+= Using xamComboEditor to Edit a Field in xamDataGrid
+
+== Before You Begin
+
+You can use xamComboEditor™ to present your end users with a drop-down list of items within a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] of xamDataGrid™. The recommended approach to populating xamComboEditor for use within xamDataGrid is to create the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider.html[ComboBoxItemsProvider] object as a resource and then reference it using a markup extension. This pattern will keep overhead to a minimum by reusing a single instance of the ComboBoxItemsProvider object within a Field of xamDataGrid.
+
+== What You Will Accomplish
+
+You will add an `UnboundField` to xamDataGrid that uses xamComboEditor to edit the Cell values.
+
+== Follow these Steps
+
+[start=1]
+. Add the following XML namespace declarations inside the opening Window tag.
+
+*In XAML:*
+
+----
+xmlns:igEditors="http://infragistics.com/Editors" 
+xmlns:sys="clr-namespace:System;assembly=mscorlib"
+----
+
+[start=2]
+. Create a Resources section in your Window.
+
+*In XAML:*
+
+----
+<Window.Resources>
+        <!--TODO: Add a ComboBoxItemsProvider here-->
+</Window.Resources>
+----
+
+[start=3]
+. Add a ComboBoxItemsProvider to the Resources section and give it a key so that you can reference it later.
+
+*In XAML:*
+
+----
+...
+<igEditors:ComboBoxItemsProvider x:Key="cbipRatings">
+        <!--TODO: Add ComboBoxDataItems here-->
+</igEditors:ComboBoxItemsProvider>
+...
+----
+
+[start=4]
+. Add five ComboBoxDataItem objects to the Items collection of the ComboBoxItemsProvider object.
+
+You will need to set the DisplayText property and Value property of each ComboBoxDataItem object. The DisplayText property will determine the text that the end user will see and the Value property will determine the value that is stored in the Cell's Value property as well as the underlying data model.
+
+*In XAML:*
+
+----
+...
+<igEditors:ComboBoxItemsProvider.Items>
+        <igEditors:ComboBoxDataItem DisplayText="5 Stars" Value="5 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="4 Stars" Value="4 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="3 Stars" Value="3 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="2 Stars" Value="2 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="1 Star" Value="1 Star" />
+</igEditors:ComboBoxItemsProvider.Items>
+...
+----
+
+[start=5]
+. Add a FieldLayout to xamDataGrid.
+
+*In XAML:*
+
+----
+...
+<igDP:XamDataGrid.FieldLayouts>
+        <igDP:FieldLayout>
+            <!--TODO: Add tags for the Fields collection here-->
+        </igDP:FieldLayout>
+</igDP:XamDataGrid.FieldLayouts>
+...
+----
+
+[start=6]
+. Add tags for the FieldLayout object's Fields collection.
+
+*In XAML:*
+
+----
+...
+<igDP:FieldLayout.Fields>
+    <!--TODO: Add Fields and UnboundFields here-->
+</igDP:FieldLayout.Fields>
+...
+----
+
+[start=7]
+. Add an UnboundField to the FieldLayout object's Fields collection.
+
+*In XAML:*
+
+----
+...
+<igDP:UnboundField Name="rating" Label="Rating">
+</igDP:UnboundField>
+...
+----
+
+[start=8]
+. Add a FieldSettings object to the UnboundField.
+
+The EditorType property of a Field will determine the editor that is used when a Cell in that Field goes into edit mode.
+
+*In XAML:*
+
+----
+...
+<igDP:Field.Settings>
+        <igDP:FieldSettings EditorType="{x:Type igEditors:XamComboEditor}">
+        <!--TODO: Add an EditorStyle here to set an editor's properties-->
+        </igDP:FieldSettings>
+</igDP:Field.Settings>
+...
+----
+
+[start=9]
+. Set the EditorStyle property of the FieldSettings object to a Style that targets xamComboEditor.
+
+*In XAML:*
+
+----
+...
+<igDP:FieldSettings.EditorStyle>
+        <Style TargetType="{x:Type igEditors:XamComboEditor}">
+        <!--TODO: Add Setters here to set an editor's properties-->
+        </Style>
+</igDP:FieldSettings.EditorStyle> 
+...
+----
+
+[start=10]
+. Add a Setter that sets the ItemsProvider property of xamComboEditor.
+
+The Value property of the setter will use a markup extension to reference the ComboBoxItemsProvider object you created in step three.
+
+*In XAML:*
+
+----
+...
+<Setter Property="ItemsProvider" Value="{StaticResource cbipRatings}" />
+...
+----
+
+[start=11]
+. Run the project and you will see an unbound Field titled Rating along with Fields that are bound to the Orders.xml file. Click a Cell in the unbound Field titled Rating to display a drop-down list of items. The screen shot below shows a Cell in xamDataGrid with a drop-list of ratings provided by xamComboEditor.
+
+== Related Topics
+
+link:xamdata-default-editor-types-for-different-data-types.html[Default Editor Types for Different Data Types]
+
+link:xamdatapresenter-embedding-a-xameditor-in-a-field.html[Embedding a xamEditor in a Field]

@@ -1,0 +1,122 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtreegrid-conf-expansion-indicators",
+    "tags": ["Drilldown","How Do I"],
+    "controlName": ["xamTreeGrid"],
+    "guid": "2dc62a17-4a14-4508-bf37-dfec8c3bca28",  
+    "buildFlags": [],
+    "createdOn": "2015-02-06T12:27:59.1749155Z"
+}
+|metadata|
+////
+
+= Configuring Expansion Indicators (xamTreeGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to configure the expansion indicators' behavior.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamtreegrid-features-overview.html[Features Overview (xamTreeGrid)]
+|This topic explains the features supported by the control from developer perspective.
+
+| link:xamtreegrid-visual-elements-overview.html[Visual Elements Overview (xamTreeGrid)]
+|This topic provides an overview of the visual elements of the control.
+
+|====
+
+== Tree Expansion Indicators Behavior Summary
+
+=== Expansion indicators summary
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamtreegrid.html[xamTreeGrid] control allows you to specify how the expansion indicators are initially drawn. The following options are available:
+
+*Always*  – indicators are always shown
+
+*Never*  – indicators are never shown
+
+*CheckOnDisplay*  – the control checks for child records and shows indicators only when child records are available
+
+*CheckOnExpand*  – indicators are shown for each records, however when the user click on them and no child records are available the indicator will be hidden
+
+=== Expansion indicators configuration summary
+
+The following table explains briefly the configurable aspect of the  _xamTreeGrid_   control and maps it to the property that configure it.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|[[_Hlk356484826]] 
+
+Expansion Indicators
+|Used to set the expansion indicators behavior
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~expansionindicatordisplaymode.html[XamTreeGrid.FieldLayoutSettings.ExpansionIndicatorDisplayMode]
+
+|====
+
+=== Code example
+
+The following code example show how to set the expansion indicators to be visible on initial display, but check for child records on the expanding.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:XamTreeGrid>
+  <igDP:XamTreeGrid.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings ExpansionIndicatorDisplayMode="CheckOnExpand" />
+  </igDP:XamTreeGrid.FieldLayoutSettings>
+</igDP:XamTreeGrid>
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamtreegrid-conf-tree-field.html[Configuring Tree Field (xamTreeGrid)]
+|This topic explains how to configure the control's tree field.
+
+| link:xamtreegrid-conf-indentation-per-level.html[Configuring Indentation per Level (xamTreeGrid)]
+|This topic explains how to set the indentation used to render the child records.
+
+| link:xamtreegrid-conf-selection.html[Configuring Selection (xamTreeGrid)]
+|This topic explains how to configure the selection behavior for child level records.
+
+| link:xamtreegrid-conf-filtering.html[Configuring Filtering (xamTreeGrid)]
+|This topic explains how to configure the filtering feature of the control.
+
+| link:xamtreegrid-conf-summaries.html[Configuring Summaries (xamTreeGrid)]
+|This topic explains the specifics of the summaries support of the control.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/tree-grid/configuring[Configuring]
+|This sample demonstrates how to configure the control.
+
+|====

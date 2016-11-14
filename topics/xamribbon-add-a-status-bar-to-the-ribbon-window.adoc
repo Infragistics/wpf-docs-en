@@ -1,0 +1,46 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-add-a-status-bar-to-the-ribbon-window",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Getting Started","How Do I"],
+    "guid": "{6DCD8776-72ED-446E-909E-20193CCC232F}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1131757Z"
+}
+|metadata|
+////
+
+= Add a Status Bar to the Ribbon Window
+
+
+
+The StatusBar of xamRibbonWindow allows you to display messages at the bottom of the application window. Typically, you can use this area to display a progress indicator for time-consuming tasks or display a message for invalid operations performed by your end user. The StatusBar property of the xamRibbonContentHost must be set to an instance of a StatusBar control.
+
+Just like any ContentControl, a property of the control cannot be declared as part of the control’s content. Therefore, you must declare the xamRibbonContentHost's StatusBar property outside of any layout containers. A good place to put the tags for the StatusBar would be immediately following the xamRibbonContentHost's Ribbon property closing tag.
+
+.Note
+[NOTE]
+====
+The creation of a link:http://msdn2.microsoft.com/en-us/library/system.windows.controls.primitives.statusbar.aspx[StatusBar] control is not included as it is outside the scope of this help topic.
+====
+
+The following example code demonstrates how to add a StatusBar to xamRibbonWindow.
+
+*In XAML:*
+
+----
+...
+<igRibbon:RibbonWindowContentHost.StatusBar>
+        <StatusBar Name="StatusBar1">
+                <!--TODO: Add StatusBar Items -->
+                <TextBlock>Ready</TextBlock>
+        </StatusBar>
+</igRibbon:RibbonWindowContentHost.StatusBar>
+...
+----
+
+== Related Topics
+
+link:xamribbon-display-xamribbon-in-the-ribbon-window.html[Display xamRibbon in the Ribbon Window]

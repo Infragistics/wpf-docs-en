@@ -1,0 +1,96 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-add-event-entries",
+    "controlName": ["xamTimeline"],
+    "tags": ["API","Data Presentation","How Do I"],
+    "guid": "{F7EB7B6B-AEAE-41A8-ACD7-6F47A167D876}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.9314261Z"
+}
+|metadata|
+////
+
+= Add Numeric Event Entries
+
+An event entry is the data point for a time series in xamTimeline™. It provides information such as Time, Title, Duration, and Details that is associated with each event. There are two types of event entries: a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeentry.html[NumericTimeEntry] for the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.numerictimeseries.html[NumericTimeSeries] object, and a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeentry.html[DateTimeEntry] for the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries] object.
+
+.Note:
+[NOTE]
+====
+For more information on the different types of time series, see Time Series.
+====
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows how to add numeric time entries to a Numeric Time Series.
+
+*In XAML:*
+
+----
+<ig:XamTimeline x:Name="Timeline" 
+                Width="1000" Height="400" Margin="15">
+    <ig:XamTimeline.Series>
+        <ig:NumericTimeSeries Title="xaml Series">
+            <ig:NumericTimeSeries.Entries>
+                <!-- Add Numeric Time Entries  -->
+                <ig:NumericTimeEntry Time="500" Title="Numeric Time Entry 1" 
+                                       Details="Details Time Entry 1"/>
+                <ig:NumericTimeEntry Time="1000" Title="Numeric Time Entry 2" 
+                                       Details="Details Time Entry 2"/>
+                <ig:NumericTimeEntry Time="1500" Title="Numeric Time Entry 3" 
+                                       Details="Details Time Entry 3"/>
+                <ig:NumericTimeEntry Time="2000" Title="Numeric Time Entry 4" 
+                                       Details="Details Time Entry 4"/>
+                <ig:NumericTimeEntry Time="2500" Title="Numeric Time Entry 5" 
+                                       Details="Details Time Entry 5"/>
+            </ig:NumericTimeSeries.Entries>
+        </ig:NumericTimeSeries>
+    </ig:XamTimeline.Series>
+</ig:XamTimeline>
+----
+
+*In Visual Basic:*
+
+----
+Dim Timeline As New XamTimeline()
+Me.LayoutRoot.Children.Add(Timeline)
+'Add Numeric Time Entries 
+Dim numTimeSeries As New NumericTimeSeries()
+For ind As Integer = 1 To 5
+    Dim entry As New NumericTimeEntry()
+    entry.Time = ind * 500
+    entry.Title = "Numeric Time Entry " + ind.ToString()
+    entry.Details = "Details Time Entry " + ind.ToString()
+    numTimeSeries.Entries.Add(entry)
+Next
+Me.Timeline.Series.Add(numTimeSeries)
+----
+
+*In C#:*
+
+----
+var Timeline = new XamTimeline();
+this.LayoutRoot.Children.Add(Timeline);
+// Add Numeric Time Entries 
+var numTimeSeries = new NumericTimeSeries();
+for (int ind = 1; ind <= 5 ind++)
+{
+    var entry = new NumericTimeEntry();
+    entry.Time = ind * 500;
+    entry.Title = "Numeric Time Entry " + ind.ToString();
+    entry.Details = "Details Time Entry " + ind.ToString();
+    numTimeSeries.Entries.Add(entry);
+}
+Timeline.Series.Add(numTimeSeries);
+----
+
+image::images/XamTimeline_Add_Event_Entries_01.png[]
+
+== Related Topics
+
+link:xamtimeline-display-date-time-series.html[Display Date Time Series]
+
+link:xamtimeline-display-numeric-time-series.html[Display Numeric Time Series]
+
+link:xamtimeline-style-time-series.html[Styling Time Series]
+
+link:xamtimeline-use-multiple-series-with-xamwebtimeline.html[Display Multiple Series]

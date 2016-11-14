@@ -1,0 +1,84 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-breaking-changes-in-2013-volume-1",
+    "controlName": [],
+    "tags": [],
+    "guid": "0bf67a2f-9000-4dad-a0c6-4a7194aab916",  
+    "buildFlags": [],
+    "createdOn": "2013-03-07T15:45:06.7686458Z"
+}
+|metadata|
+////
+
+= 2013 Volume 1
+
+== Known Issues and Limitations
+
+=== Overview
+
+The following table summarizes the known issues and limitations of the {ProductName} 2013 Volume 1. Detailed explanations of all of the issues and the existing workarounds are provided after the summary table.
+
+==== Legend:
+
+[cols="a,a"]
+|====
+|image::images/Yes.png[]
+|Workaround available
+
+|image::images/No.png[]
+|No known workaround
+
+|image::images/Fix.png[]
+|Fix planned
+
+|====
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<issue1,RecordFilterAction Enumeration>>
+|There are changes in the behavior of the enumeration’s constants
+|image::images/Yes.png[]
+
+|<<issue2,Themes Restructuring>>
+|The themes were cleaned up and restructured
+|image::images/Yes.png[]
+
+|====
+
+[[issue1]]
+== RecordFilterAction Enumeration
+
+=== RecordFilterAction enumeration description
+
+The RecordFilterAction link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordfilteraction.html[RecordFilterAction] enumeration’s constant  *None*  is obsoleted. It is replaced with a new equivalent constant –  *ReduceOpacity* .
+
+=== RecordFilterAction enumeration workaround
+
+Change the  *None*  constant from the `RecordFilterAction` enumeration to the  *ReduceOpacity*  constant when using {ProductName} 13.1 or newer.
+
+[[issue2]]
+== Themes Restructuring
+
+=== Theme.Colors.xaml description
+
+This file is a ResourceDictionary. It contains color definitions that are used across all styles in a given Theme.
+
+=== Styles.Shared.xaml description
+
+This file is a ResourceDictionary. It contains styles and brushes that apply on common cross platform MS controls like Buttons, Checkboxes and Lists.
+
+=== Styles.WPF.xaml description
+
+This file is a ResourceDictionary. It contains styles and brushes for MS controls that are specific for WPF platform like Scrollers, TextBoxes and Comboboxes.
+
+=== IG.$$*$$.xaml description
+
+These files were cleaned up and restructured to use the Themes.Colors.xaml and the other common ResourceDictionaries like Styles.Shared.xaml, Styles.WPF.xaml and IG.DataVisualization.xaml
+
+=== Themes restructuring workaround
+
+Copy the new themes over the old ones and copy the needed relevant common files (Themes.Colors.xaml, Styles.Shared.xaml, Styles.WPF.xaml and IG.DataVisualization.xaml) next to the themes files.

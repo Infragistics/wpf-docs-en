@@ -1,0 +1,85 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdiagram-configuring-node-configuration-overview",
+    "tags": ["Charting","Getting Started","How Do I","Summaries"],
+    "controlName": ["xamDiagram"],
+    "guid": "30270853-67ac-4418-9405-3a036a42d863",  
+    "buildFlags": [],
+    "createdOn": "2014-06-16T09:28:43.9848499Z"
+}
+|metadata|
+////
+
+= Nodes Configuration Overview (xamDiagram)
+
+[[_Ref391537902]]
+== _xamDiagram_   Nodes Configuration Overview
+
+=== Purpose
+
+This topic provides an overview of the configurable aspects of the nodes of the  _xamDiagram_™ control.
+
+=== Required background
+
+The following topic is a prerequisite to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-general-overview.html[General Overview ( _xamDiagram_ )]
+|This topic provides a conceptual overview of the _xamDiagram_ control and its main features and capabilities.
+
+|====
+
+[[_Ref391538003]]
+== Nodes Configuration Overview
+
+[[_Ref391538008]]
+
+=== xamDiagram nodes configuration summary chart
+
+include::xamdiagram-nodes-configuration-summary-chart.adoc[]
+
+[[_Ref391538016]]
+
+=== Position and size
+
+The nodes of  _xamDiagram_   can be positioned either individually at any location on the diagram’s surface or by applying a layout algorithm (setting available through the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~layout.html[Layout] property. (For information about the latter approach, refer to the link:xamdiagram-configuring-the-layout.html[Configuring the Layout] topic.)
+
+By default, if no explicit overriding has been applied, a newly created node is displayed at the point of origin of the coordinate system (0, 0).
+
+The size of a diagram node can be controlled explicitly by setting its width and height. There is a default size which depends on its shape. (For reference on default sizes, see link:xamdiagram-visual-elements-overview.html#_Ref389665128[Nodes Default Sizes].)
+
+==== Related Topics:
+
+* link:xamdiagram-configuring-the-position-and-size-of-diagram-nodes.html[Configuring the Position and Size of Diagram Nodes ( _xamDiagram_ )]
+
+[[_Ref391538021]]
+
+=== Shape
+
+The  _xamDiagram_   provides a number of pre-defined shapes for the nodes. (See the link:xamdiagram-general-overview.html[General Overview] topic for details.) A pre-defined shape is selected through the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~shapetype.html[ShapeType] property. This property accepts as a value the respective node shapes available as `ShapeType` enumeration. If the desired shape is not available as a pre-defined shape, a custom shape can be set to the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~geometry.html[Geometry] property.
+
+==== Related Topics:
+
+* link:xamdiagram-configuring-the-shape-of-diagram-nodes-overview.html[Configuring the Shape of the Diagram Nodes ( _xamDiagram_ )]
+
+[[_Ref391538026]]
+
+=== Connection points
+
+Connection points are the points on a node where diagram connections can start/end. A connection point for a node is specified by a name and coordinates.
+
+*  *Name*  – used for explicitly specifying a connection point for connection through the connection’s link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection~startnodeconnectionpointname.html[DiagramConnection.StartNodeConnectionPointName]/ link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection~endnodeconnectionpointname.html[DiagramConnection.EndNodeConnectionPointName] properties; therefore, all names of connection points for a node should be unique.
+*  *Coordinates*  – relative to the node’s rectangle. The coordinates are in the range 0,0 (top-left) to 1,1 (bottom-right).
+
+Each connection point is represented by a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnectionpoint_members.html[DiagramConnectionPoint] object exposing link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnectionpoint~name.html[Name] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnectionpoint~position.html[Position] properties.
+
+When using one of the predefined shape types set through the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~shapetype.html[DiagramNode.ShapeType] property, the node’s link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~connectionpoints.html[ConnectionPoints] collection is pre-populated with a few points according to the node type. For custom node shapes, no connection points are added by default.
+
+==== Related Topics:
+
+* link:xamdiagram-configuring-the-connection-points-of-diagram-nodes.html[Configuring the Connection Points of Diagram Nodes ( _xamDiagram_ )]

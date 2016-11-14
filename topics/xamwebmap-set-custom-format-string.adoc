@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-set-custom-format-string",
+    "controlName": ["xamMap"],
+    "tags": [],
+    "guid": "{E0325476-3002-452C-90F6-885157F57ADE}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.2592756Z"
+}
+|metadata|
+////
+
+= Set Custom Format String
+
+You can provide a custom format string to control the way data is displayed in xamMap™. link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapelement.html[MapElement] properties such as link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapelement~caption.html[Caption] and link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapelement~tooltip.html[ToolTip] allow the use of standard .NET format strings. Other displayed values can also be customized; Color Swatch Pane labels can be customized by setting the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mapcolorswatchpane~labelformatstring.html[LabelFormatString] property to any standard format.
+
+The following code shows you how to display the tooltip as a number with zero decimal places.
+
+*In XAML:*
+
+----
+<igMap:MapLayer x:Name="worldLayer" DataMapping="Name=CountryName; Value=BirthRate" ToolTip="{} Birth Rate: {Value:n0}">
+</igMap:MapLayer>
+----
+
+*In Visual Basic:*
+
+----
+' Set ToolTip format 
+For Each element As MapElement In layer.Elements
+        element.ToolTip = String.Format("Birth Rate: {0:n0}", element.Value)
+Next
+----
+
+*In C#:*
+
+----
+foreach (MapElement element in layer.Elements)
+{
+   element.ToolTip = string.Format("Birth Rate: {0:n0}", element.Value);
+}
+----
+
+image::images/SL_DV_XamMap_Set_Custom_Format_String_01.png[]
+
+== Related Topics
+
+link:xamwebmap-add-image-using-map-elements.html[Add Image Using Map Elements]
+
+link:xamwebmap-add-symbol-element.html[Add Symbol Element]
+
+link:xamwebmap-add-path-element.html[Add Path Element]
+
+link:xamwebmap-add-surface-element.html[Add Surface Element]
+
+link:xamwebmap-map-elements-color-map-elements.html[Color Map Elements]

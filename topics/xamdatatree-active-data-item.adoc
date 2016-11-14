@@ -1,0 +1,157 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatatree-active-data-item",
+    "tags": ["Data Binding","Getting Started","How Do I"],
+    "controlName": ["xamDataTree"],
+    "guid": "d9ab2a42-5fdb-4d8a-be34-b00835c86817",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.8251041Z"
+}
+|metadata|
+////
+
+= Configuring Active Data Item (xamDataTree)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to easily identify and manipulate the currently active  _xamDataTree_™ data item while using the Model-View-ViewModel (MVVM) architecture.
+
+=== Required background
+
+The following topic is a prerequisite to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatatree-adding-xamdatatree-to-your-page.html[Adding xamDataTree to Your Page]
+|This topic describes the basic steps required for adding the _xamDataTree_ control to your page using procedural code and XAML.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref381800672,Active Data Item Feature Configuration Summary>>
+* <<_Ref378858326,Configuring Active Data Item>>
+* <<_Ref381800685,Related Content>>
+
+** <<_Ref381800691,Topics>>
+** <<_Ref381800695,Samples>>
+
+[[_Ref381800672]]
+== Active Data Item Feature Configuration Summary
+
+=== Active data item configuration summary chart
+
+The following table briefly explains the active data item configuration. Further details are available after the table.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Properties
+
+|<<_Ref378858326,Configuring Active Data Item>>
+|Configures the currently active data item in the _xamDataTree_ control.
+| link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~activedataitem.html[ActiveDataItem]
+
+|====
+
+[[_Ref378858326]]
+== Configuring Active Data Item
+
+[[_Hlk368069110]]
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set an active data item in the _xamDataTree_ control
+| link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~activedataitem.html[ActiveDataItem]
+|`object`
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+Following is the code that implements an example of using the `ActiveDataItem` property.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamDataTree x:Name="ProductsDataTree" 
+                ItemsSource="{Binding Path=Products}"
+                ActiveDataItem="{Binding ActiveProduct, Mode=TwoWay}">
+    <ig:XamDataTree.GlobalNodeLayouts>
+        <ig:NodeLayout Key="ProductLayout"                             
+                       TargetTypeName="Product"  
+                       DisplayMemberPath="ProductName">
+        </ig:NodeLayout>
+    </ig:XamDataTree.GlobalNodeLayouts>
+</ig:XamDataTree>
+----
+
+[[_Ref381800685]]
+== Related Content
+
+[[_Ref381800691]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatatree-xamdatatree-activation.html[Activation]
+|This topic describes the nodes activation feature in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-check-boxes.html[Configuring Check Boxes Visibility]
+|This topic describes how to enable the nodes’ check boxes in the _xamDataTree_ control.
+
+| link:xamdatatree-expanded-and-collapsed-xamdatatree-nodes.html[Configuring Expanded/Collapsed Node State]
+|This topic describes how to expand certain or all nodes in code in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-drag-and-drop.html[Configuring Drag and Drop]
+|This topic describes the drag and drop functionality in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-editing.html[Editing]
+|This topic describes how to enable editing in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-node-connectors.html[Configuring Node Connectors Visibility]
+|This topic describes how to visualize the node connectors in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-node-layouts.html[Configuring Node Layouts]
+|This topic describes the concept of node layout and different node layouts in the _xamDataTree_ control.
+
+| link:xamdatatree-xamdatatree-selection.html[Selection]
+|This topic describes the selection in the _xamDataTree_ control.
+
+|====
+
+[[_Ref381800695]]
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/data-tree/#/activation[Activation]"] pick:[wpf=" link:{SamplesURL}/data-tree/activation[Activation]"] 
+|This sample demonstrates the xamDataTree's activation of its nodes. A node is considered to be active if it is the current node that has focus. Only one node can be active at any given time. View the Options pane to view the current active node.
+
+|====

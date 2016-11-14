@@ -1,0 +1,64 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-specify-the-content-to-be-copied",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Selection"],
+    "guid": "21e7da15-c0b7-42e4-9c28-14a5a6aa4a72",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.2401791Z"
+}
+|metadata|
+////
+
+= Specify the Content to Be Copied
+
+When copy operation is enabled in the xamGrid control, you can copy a random selection of data to the clipboard and after that paste it in the proper format into a Microsoft® Excel® worksheet. This data selection includes a collection of cells or rows.
+
+If you need more control over the copied data, you can configure the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.clipboardsettings.html[ClipboardSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.clipboardsettings~copytype.html[CopyType] property which can have as a value one of the following options of the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopytype.html[GridClipboardCopyType] enumeration:
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopytype.html[SelectedCells] - Only selected cells will be copied.
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopytype.html[SelectedRows] - Only selected rows will be copied.
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopytype.html[Default] - The value of the SelectionSettings object’s CellClickAction property specifies whether a cell or row collection will be copied.
+
+The following code demonstrates how to use copy operation.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="xamGrid" … >             
+    <ig:XamGrid.ClipboardSettings>
+        <ig:ClipboardSettings AllowCopy="True" CopyType="SelectedRows"/>
+    </ig:XamGrid.ClipboardSettings>
+</ig:XamGrid>
+----
+
+In code-behind:
+
+*In Visual Basic:*
+
+[source]
+----
+Imports Infragistics.Controls.Grids
+----
+
+[source]
+----
+----
+
+[source]
+----
+'Set the copy operation settings
+xamGrid.ClipboardSettings.AllowCopy = True
+xamGrid.ClipboardSettings.CopyType = GridClipboardCopyType.SelectedRows
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+// Set copy operation settings
+igGrid.ClipboardSettings.AllowCopy = true;
+igGrid.ClipboardSettings.CopyType = GridClipboardCopyType.SelectedRows;
+----

@@ -1,0 +1,61 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-modify-field-sizing-behaviors",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","How Do I","Layouts","Tips and Tricks"],
+    "guid": "{418BBC2A-4E35-44E1-AE6E-2A41728680EB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2540039Z"
+}
+|metadata|
+////
+
+= Modify Field-Sizing Behaviors
+
+Your end users can double click a field's resizing indicator to resize a field to fit the longest content in the field. When your end users automatically resize a field, the DataPresenter control will resize the field based on several factors. The first factor is the elements the DataPresenter control will measure, e.g., data cells, labels, summary cells, etc. and the second factor is whether these elements are in view. By default, the DataPresenter control will account for any elements in view when your end users automatically resize a field. However, you can modify this default behavior by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizeoptions.html[AutoSizeOptions] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~autosizescope.html[AutoSizeScope] properties.
+
+You can set the AutoSizeOptions property to a bitwise combination of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldautosizeoptions.html[FieldAutoSizeOptions] enum values. This property determines the elements that a DataPresenter control will measure. For example, if you set the AutoSizeOptions property to DataCells, the DataPresenter control will only measure data cells when resizing the field even if there are other elements such as labels or filter cells in view.
+
+The AutoSizeScope property determines whether a DataPresenter control measures elements that are not in view. However, when your end users double click a field's resizing indicator to resize the field, the DataPresenter control will have to allocate records in order to measure elements that are not in view. You should keep in mind that measuring elements in a DataPresenter control is time consuming; therefore, you should not use the ViewableRecords and AllRecords enum values when dealing with large data sources.
+
+The following example code demonstrates how to modify field-sizing behaviors.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldSettings>
+        <igDP:FieldSettings AutoSizeOptions="DataCells, Label" AutoSizeScope="ViewableRecords" />
+    </igDP:XamDataPresenter.FieldSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Me.xamDataPresenter1.FieldSettings.AutoSizeOptions = FieldAutoSizeOptions.DataCells Or FieldAutoSizeOptions.Label
+Me.xamDataPresenter1.FieldSettings.AutoSizeScope = FieldAutoSizeScope.ViewableRecords
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+this.xamDataPresenter1.FieldSettings.AutoSizeOptions = FieldAutoSizeOptions.DataCells | FieldAutoSizeOptions.Label;
+this.xamDataPresenter1.FieldSettings.AutoSizeScope = FieldAutoSizeScope.ViewableRecords;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-set-a-fields-width.html[Set a Field's Width]
+
+link:xamdatapresenter-automatically-fit-fields.html[Automatically Fit Fields]
+
+link:xamdatapresenter-perform-an-auto-sizing-operation.html[Perform an Auto-Sizing Operation]

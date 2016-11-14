@@ -1,0 +1,92 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-format-the-value-of-a-summary",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Summaries"],
+    "guid": "{C4355114-85E7-47E5-8743-597542CAF191}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2139959Z"
+}
+|metadata|
+////
+
+= Format the Value of a Summary
+
+The xamDataPresenter™ control formats a summary value that result in double or decimal data type using two decimal places. The xamDataPresenter control does not format integer and string values; however, you can format the result of a summary using a .NET Framework composite format string. For example, if you want the value of a summary to represent a monetary value, you can set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarydefinition~stringformat.html[StringFormat] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarydefinition.html[SummaryDefinition] object to "{}{0:c}" in XAML or "{0:c}" in procedural code.
+
+In addition to the value placeholder token ('0'), you can use a combination of the following placeholder tokens in your composite format string:
+
+* {0} - Represents the actual value of the summary.
+* {1} - Represents the name of the summary calculator that is being used to calculate this summary.
+* {2} - Represents the SummaryDefinition object's Key property.
+* {3} - Represents the name of the field that is being used to calculate this summary.
+
+If you are programmatically adding summaries for a field, you can instantiate a SummaryDefinition object and then set its StringFormat property. However, if you want to set the StringFormat property after an end user selects a summary calculator from the summary selection dialog box, you can handle xamDataPresenter's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~summaryresultchanged_ev.html[SummaryResultChanged] event and use the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.summaryresultchangedeventargs.html[SummaryResultChangedEventArgs] object to format the summary value. You can check the properties of the SummaryResultChangedEventArgs object to determine if you need to format that particular summary value.
+
+The following example code demonstrates how to format the value of a summary. The example code assumes that you have a field layout with a field named "BasePrice".
+
+*In XAML:*
+
+----
+...
+<igDP:XamDataPresenter Name="xamDataPresenter1">
+    <igDP:XamDataPresenter.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:FieldLayout.SummaryDefinitions>
+                <igDP:SummaryDefinition 
+                    Calculator="{x:Static igDP:SummaryCalculator.Sum}" 
+                    SourceFieldName="BasePrice"  
+                    Key="priceSum" 
+                    StringFormat="{}{1} = {0:c}" />
+            </igDP:FieldLayout.SummaryDefinitions>
+        </igDP:FieldLayout>
+    </igDP:XamDataPresenter.FieldLayouts>
+</igDP:XamDataPresenter>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Dim summary As New SummaryDefinition()
+summary.Calculator = SummaryCalculator.Sum
+summary.SourceFieldName = "BasePrice"
+summary.Key = "priceSum"
+summary.StringFormat = "{1} = {0:c}"
+Me.xamDataPresenter1.FieldLayouts(0).SummaryDefinitions.Add(summary)
+'If you are handling the SummaryResultChanged event, you can use the following code in the event handler. For the sake of simplicity, the code unconditionally formats the value.
+'e.SummaryResult.SummaryDefinition.StringFormat = "{1} = {0:c}"
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+SummaryDefinition summary = new SummaryDefinition();
+summary.Calculator = SummaryCalculator.Sum;
+summary.SourceFieldName = "BasePrice";
+summary.Key = "priceSum";
+summary.StringFormat = "{1} = {0:c}";
+this.xamDataPresenter1.FieldLayouts[0].SummaryDefinitions.Add(summary);
+//If you are handling the SummaryResultChanged event, you can use the following code in the event handler. For the sake of simplicity, the code unconditionally formats the value.
+//e.SummaryResult.SummaryDefinition.StringFormat = "{1} = {0:c}"
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-apply-default-summary-formats.html[Apply Default Summary Formats]
+
+link:xamdatapresenter-creating-a-custom-summary-calculator.html[Creating a Custom Summary Calculator]
+
+link:xamdatapresenter-enable-row-summaries.html[Enable Row Summaries]
+
+link:xamdatapresenter-programmatically-add-summaries-to-a-field.html[Programmatically Add Summaries to a Field]
+
+link:xamdatapresenter-retrieve-the-result-of-a-summary.html[Retrieve the Result of a Summary]

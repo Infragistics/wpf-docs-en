@@ -1,0 +1,116 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamspellchecker-spelling-options",
+    "controlName": ["xamSpellChecker"],
+    "tags": ["How Do I"],
+    "guid": "{48D7AC9E-7931-4524-8EE9-73AAF5601AD4}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.158382Z"
+}
+|metadata|
+////
+
+= Spelling Options
+
+You can override the default settings of the xamSpellChecker control so that in certain situations your end users’ input can be accepted by the spell checker. For example, by default, words with mixed case would be considered a spelling error by the spell checker.
+
+The link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions.html[SpellOptions] object exposes many properties which allow you to customize how the xamSpellChecker control checks for spelling errors.
+
+The following table explains each property, the default value, and an example to help you understand how each property determines how words are checked for spelling errors.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Default value|Description|Example
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~allowanycase.html[AllowAnyCase]
+|False
+|This allows words to be spelled with any case.
+|united states instead of United States
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~allowcaseinsensitivesuggestions.html[AllowCaseInsensitiveSuggestions]
+|False
+|This allows suggestions for correctly spelled words with mixed cases.
+|For example, if your end user entered tHe, when this property is set to False, your end user will not be presented with a list of spelling suggestions, however, if set to true, your end user will receive spelling suggestions.
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~allowmixedcase.html[AllowMixedCase]
+|False
+|This allows words spelled with mixed cases.
+| pick:[sl="SilVerLight"] pick:[wpf="WpF"] 
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~allowwordswithdigits.html[AllowWordsWithDigits]
+|False
+|This allows words with numbers in them.
+|Volume91
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~allowxml.html[AllowXML]
+|False
+|This allows XML and HTML tags
+|
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~checkhyphenatedtext.html[CheckHyphenatedText]
+|False
+|If this property is set to True, then it will check the hyphenated text as separate words, however if it is false, it will check the hyphenated word as one word.
+|For example, when set to True the word after-effect would be checked as two separate words, when set to False, the word would be checked as one hyphenated word. In both situations if either part is misspelled the whole word will be marked as wrong.
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~includeuserdictionaryinsuggestions.html[IncludeUserDictionaryInSuggestions]
+|False
+|This specifies if the user dictionary should be used in finding suggestions for misspelled words
+|Volume91
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~languageparser.html[LanguageParser]
+|False
+|This sets the language the parser should use. Where possible, this should match the language of the dictionary
+|
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~separatehyphenwords.html[SeparateHyphenWords]
+|False
+|If this property is set to True, the hyphenated text is checked as two separate words. If one of the words is misspelled then only that word would be marked wrong.
+|Cheap-deals
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.spelloptions~suggestionsmethod.html[SuggestionMethod]
+|HashingSuggestions
+|HashingSuggestions – Suggestions will be determined by hashing the text. This is the default value. PhonesticSuggestions – Suggestions will be determined phonetically.
+|
+
+|====
+
+The following code demonstrates how to allow the xamSpellChecker control to accept words with numbers and mixed case.
+
+*In XAML:*
+
+----
+<ig:XamSpellChecker x:Name="spellChecker">
+   <ig:XamSpellChecker.SpellOptions>
+      <ig:SpellOptions AllowMixedCase="True" AllowWordsWithDigits="True"/>
+   </ig:XamSpellChecker.SpellOptions>
+   …
+</ig:XamSpellChecker>
+----
+
+*In Visual Basic:*
+
+----
+…
+Me.spellChecker.SpellOptions.AllowMixedCase = True
+Me.spellChecker.SpellOptions.AllowWordsWithDigits = True
+…
+----
+
+*In C#:*
+
+----
+..
+this.spellChecker.SpellOptions.AllowMixedCase = true;
+this.spellChecker.SpellOptions.AllowWordsWithDigits = true;
+..
+----
+
+== Related Topics
+
+link:xamspellchecker-performance-options.html[Performance Options]
+
+link:xamspellchecker-how-to-specify-text-to-be-spell-checked.html[How to Specify Text to be Spell Checked]
+
+link:xamspellchecker-dictionaries.html[Dictionaries]

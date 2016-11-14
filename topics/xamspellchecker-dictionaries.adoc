@@ -1,0 +1,71 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamspellchecker-dictionaries",
+    "controlName": ["xamSpellChecker"],
+    "tags": ["Getting Started"],
+    "guid": "{ABFF9416-F8B2-4347-B402-912210AC1737}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.1703827Z"
+}
+|metadata|
+////
+
+= Dictionaries
+
+== Before You Begin
+
+The xamSpellChecker™ control comes standard with dictionaries for nine different languages, including Dutch, English (American, Australian, British and Canadian), French, German, Spanish and Portuguese. The default dictionary is English, American.
+
+All dictionaries are located in the following installation folder for {ProductName}:
+
+{InstallPath}\Dictionaries
+
+_Assumptions_
+
+_This topic assumes that you already have a xamSpellChecker control added to your page, for more information see the link:xamspellchecker-adding-xamspellchecker-to-your-page.html[Adding xamSpellChecker to Your Page] topic._
+
+== What You Will Accomplish
+
+This topic will guide you through the process of changing which dictionary the xamSpellChecker control uses. In this example, we will use the French dictionary.
+
+== Follow these Steps
+
+[start=1]
+. Create a folder in the ClientBin of your application, naming it Dictionaries.
+[start=2]
+. Copy the French dictionary (fr-french-v2-whole.dict) from its default location to the Dictionaries folder.
+[start=3]
+. Set the link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.xamspellchecker~dictionaryuri.html[DictionaryUri] property to the Uri of the French dictionary.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot">
+   <ig:XamSpellChecker x:Name="spellChecker" DictionaryUri="Dictionaries/fr-french-v2-whole.dict">
+   …
+   </ig:XamSpellChecker>
+   …
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Me.spellChecker.DictionaryUri = New Uri("Dictionaries/fr-french-v2-whole.dict", UriKind.Relative)
+----
+
+*In C#:*
+
+----
+this.spellChecker.DictionaryUri = new Uri("Dictionaries/fr-french-v2-whole.dict", UriKind.Relative);
+----
+
+== Related Topics
+
+link:xamspellchecker-performance-options.html[Performance Options]
+
+link:xamspellchecker-spelling-options.html[Spelling Options]
+
+link:xamspellchecker-how-to-specify-text-to-be-spell-checked.html[How to Specify Text to be Spell Checked]

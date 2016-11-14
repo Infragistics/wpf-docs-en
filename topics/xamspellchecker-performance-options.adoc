@@ -1,0 +1,101 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamspellchecker-performance-options",
+    "controlName": ["xamSpellChecker"],
+    "tags": ["Performance"],
+    "guid": "{7C603037-C504-49B6-BFDB-65D020EE5A40}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.1513817Z"
+}
+|metadata|
+////
+
+= Performance Options
+
+The xamSpellChecker™ control allows various ways for you to enhance the performance of the control. This allows for an overall better user experience. The link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions.html[PerformanceOptions] object exposes several properties that tell the spell checking engine what to check and what not to check, and also what kind of suggestions to give.
+
+The following table explains each property, the default value, and an example to help you understand how each property impacts performance.
+
+[options="header", cols="a,a,a,a"]
+|====
+|Property|Default value|Description|Example
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions~allowcapitalizedwords.html[AllowCapitalizedWords]
+|False
+|The xamSpellChecker control checks the spelling of words with all capital letters. Setting this property to True ensures that all capitalized words are ignored, therefore improving performance.
+|AJAX 
+
+ATLAS 
+
+XML
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions~checkcompoundwords.html[CheckCompoundWords]
+|False
+|The xamSpellChecker control marks compound words as misspelled. However setting this property to True is very important for some languages, such as German, where compound words are accepted. For example, the words in the Example column would not be spelling errors if this property is set to True. Note: Setting this property to True will significantly decrease performance.
+|Helloworld 
+
+Tooltips 
+
+CheckCompoundWords
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions~considerationrange.html[ConsiderationRange]
+|80
+|The xamSpellChecker control considers suggested words with up to 80 characters for misspelled words. Setting this property to a lower value will increase the speed with which it retrieves suggestions but there will be fewer suggestions. If this value is set to a negative number at run time, it will default to 80.
+|If the ConsiderationRange is 3 and the misspelled word is 'carr', xamSpellChecker will suggest 'car'. If the ConsiderationRange is then set to 4, xamSpellChecker would then suggest 'care' as well as 'car'.
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions~splitwordthreshold.html[SplitWordThreshold]
+|2
+|This property determines the minimum size of each word in order for it to become a suggestion. SuggestSplitWords must be set to True in order to use this property.
+|SplitWordThreshold = 2 Asfault ('As fault' is suggested) 
+
+SplitWordThreshold = 3 Asfault ('As fault' is not suggested)
+
+| link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.performanceoptions~suggestsplitwords.html[SuggestSplitWords]
+|True
+|If the xamSpellChecker control can see that a combined word is two separate words, the split word will appear as a suggestion. CheckCompoundWords must be set to False in order for this property to be used.
+|'helloword' will have 'hello world' as a suggestion
+
+|====
+
+The following example code shows you how to set the various performance options for the xamSpellChecker control.
+
+*In XAML:*
+
+----
+<ig:XamSpellChecker Name="MySpellChecker">
+       <ig:XamSpellChecker.PerformanceOptions>
+              <ig:PerformanceOptions AllowCapitalizedWords="True" CheckCompoundWords="True" ConsiderationRange="10" SplitWordThreshold="3" SuggestSplitWords="True"></ig:PerformanceOptions>
+        </ig:XamSpellChecker.PerformanceOptions>
+   ...       
+</ig:XamSpellChecker>
+----
+
+*In Visual Basic:*
+
+----
+Me.MySpellChecker.PerformanceOptions.AllowCapitalizedWords = True
+Me.MySpellChecker.PerformanceOptions.ConsiderationRange = 10
+Me.MySpellChecker.PerformanceOptions.SuggestSplitWords = True
+Me.MySpellChecker.PerformanceOptions.SplitWordThreshold = 3
+Me.MySpellChecker.PerformanceOptions.CheckCompoundWords = True   
+----
+
+*In C#:*
+
+----
+this.MySpellChecker.PerformanceOptions.AllowCapitalizedWords = false;
+this.MySpellChecker.PerformanceOptions.ConsiderationRange = 10;
+this.MySpellChecker.PerformanceOptions.SuggestSplitWords = true;
+this.MySpellChecker.PerformanceOptions.SplitWordThreshold = 3;
+this.MySpellChecker.PerformanceOptions.CheckCompoundWords = true;
+----
+
+== Related Topics
+
+link:xamspellchecker-spelling-options.html[Spelling Options]
+
+link:xamspellchecker-how-to-specify-text-to-be-spell-checked.html[How to Specify Text to be Spell Checked]
+
+link:xamspellchecker-dictionaries.html[Dictionaries]

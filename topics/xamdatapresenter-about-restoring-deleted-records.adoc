@@ -1,0 +1,34 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-about-restoring-deleted-records",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing"],
+    "guid": "{53E7DB8A-6555-49D9-9CE1-DFB255E62BBB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0569645Z"
+}
+|metadata|
+////
+
+= About Restoring Deleted Records
+
+If you enable undo operations and record deletion, your end users can restore deleted records. However, unlike the other features that your end users can undo, you must implement the abstract link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.undeleterecordsstrategy.html[UndeleteRecordsStrategy] class to allow your end users to restore deleted records.
+
+When you implement the UndeleteRecordsStrategy class, you must override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.undeleterecordsstrategy~canundelete.html[CanUndelete] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.undeleterecordsstrategy~undelete.html[Undelete] methods.
+
+* *CanUndelete* - You can return a Boolean value to determine whether your end users can restore the deleted record(s).
+* *Undelete* - The RecordInfo objects that are passed into this method expose information about the deleted records. You can use this information to add/insert deleted data items back into the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager.html[RecordManager] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager~sourceitems.html[SourceItems] collection. In addition, you must return a dictionary of RecordInfo objects mapped to the data items you inserted/added to the SourceItems collection. The mapping provides a way for the DataPresenter controls to undo changes that your end users applied to the record before deleting it.
+
+After you implement the UndeleteRecordsStrategy class, you must handle a DataPresenter control's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordsdeleting_ev.html[RecordsDeleting] event. In the event handler, set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.recordsdeletingeventargs.html[RecordsDeletingEventArgs] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.recordsdeletingeventargs~undeletestrategy.html[UndeleteStrategy] property to an instance of your class that implements the UndeleteRecordsStrategy class.
+
+Implementing the UndeleteRecordsStrategy class is complex and may change based on your data source. Fortunately, the samples feature browser contains a sample named "Undo - Advanced" that demonstrates basic implementation of the UndeleteRecordsStrategy class that you can use as a starting point for your own implementation.
+
+== Related Topics
+
+link:xamdatapresenter-enable-undo-operations.html[Enable Undo Operations]
+
+link:xamdatapresenter-limit-the-undo-history.html[Limit the Undo History]
+
+link:xamdatapresenter-perform-an-undo-operation.html[Perform an Undo Operation]

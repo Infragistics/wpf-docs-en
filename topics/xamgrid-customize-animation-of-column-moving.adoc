@@ -1,0 +1,62 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-customize-animation-of-column-moving",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Layouts","Styling"],
+    "guid": "{996C76AF-4EC4-4D32-8783-EA73156D623F}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.0392051Z"
+}
+|metadata|
+////
+
+= Customize Animation of Column Moving
+
+You can customize the animation that is used when the column moving feature is enabled and the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnmovingtype.html[ColumnMovingType] is set to link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnmovingtype.html[Immediate]. This can be done by setting the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnmovingsettings.html[ColumnMovingSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnmovingsettings~animationduration.html[AnimationDuration] and link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnmovingsettings~easingfunction.html[EasingFunction] properties.
+
+Setting the EasingFunction property specifies which EasingFunctionBase will be used to animate the immediate moving of columns. You can also create your own custom easing functions by inheriting from the EasingFunctionBase class, for more information see link:http://msdn.microsoft.com/en-us/library/system.windows.media.animation.easingfunctionbase(VS.100).aspx[EasingFunctionBase].
+
+The following demonstrates how to customize the animation of column moving.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamGrid x:Name="MyDataGrid" AutoGenerateColumns=">
+      <ig:XamGrid.ColumnMovingSettings>
+         <ig:ColumnMovingSettings AllowColumnMoving="Immediate" AnimationDuration="20">
+            <ig:ColumnMovingSettings.EasingFunction>
+               <BounceEase />
+            </ig:ColumnMovingSettings.EasingFunction>
+         </ig:ColumnMovingSettings>
+      </ig:XamGrid.ColumnMovingSettings>
+      …
+  </ig:XamGrid>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Me.MyDataGrid.ColumnMovingSettings.AllowColumnMoving = Infragistics.Controls.Grids.ColumnMovingType.Immediate
+Me.MyDataGrid.ColumnMovingSettings.AnimationDuration = "20"
+Me.MyDataGrid.ColumnMovingSettings.EasingFunction = New BounceEase()
+----
+
+*In C#:*
+
+----
+this.MyDataGrid.ColumnMovingSettings.AllowColumnMoving = Infragistics.Controls.Grids.ColumnMovingType.Immediate;
+this.MyDataGrid.ColumnMovingSettings.AnimationDuration = 20;
+this.MyDataGrid.ColumnMovingSettings.EasingFunction = new BounceEase();
+----
+
+== *Related Topics*
+
+link:xamgrid-column-moving.html[Column Moving]
+
+link:xamgrid-disable-moving-of-certain-columns.html[Disable Moving of Certain Columns]
+
+link:xamgrid-column-moving-events.html[Column Moving Events]

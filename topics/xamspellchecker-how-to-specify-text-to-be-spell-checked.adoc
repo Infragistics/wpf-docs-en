@@ -1,0 +1,77 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamspellchecker-how-to-specify-text-to-be-spell-checked",
+    "controlName": ["xamSpellChecker"],
+    "tags": ["How Do I"],
+    "guid": "{1A51FB11-0F35-48CA-B1C0-D5CDBBA79169}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.1643827Z"
+}
+|metadata|
+////
+
+= How to Specify Text to be Spell Checked
+
+The xamSpellChecker control allows you to spell check single or multiple controls within your application. This can be achieved by creating a binding to the input control and then adding this binding to the link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.xamspellchecker~spellchecktargets.html[SpellCheckTargets] collection. You can add as many bindings as you want to the collection and the spelling errors for each input control will appear in a spell checker dialog user interface.
+
+The following code demonstrates how to add a Binding element to the SpellCheckerTargets collection.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot">
+   <ig:XamSpellChecker x:Name="spellChecker">
+      <ig:XamSpellChecker.SpellCheckTargets>
+         <!-- Where txtSpellCheck in the name of the input control -->
+         <Binding ElementName="txtSpellCheck" Path="Text" Mode="TwoWay" NotifyOnValidationError="True" ValidatesOnExceptions="True"></Binding>          
+      </ig:XamSpellChecker.SpellCheckTargets>
+   </ig:XamSpellChecker>
+   …
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Interactions
+Imports Infragistics
+Imports System.Windows.Data
+…
+Dim spellChecker As New XamSpellChecker()
+Dim spellBinding As New Binding()
+spellBinding.Mode = BindingMode.TwoWay
+Dim propPathSpellBinding As New PropertyPath("Text")
+spellBinding.Path = propPathSpellBinding
+' Specifies the input control to be spell checked.
+spellBinding.Source = txtSpellCheck
+Me.spellChecker.SpellCheckTargets.Add(spellBinding)
+…
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Interactions;
+using Infragistics;
+using System.Windows.Data;
+…
+XamSpellChecker spellChecker = new XamSpellChecker();
+Binding spellBinding = new Binding();
+spellBinding.Mode = BindingMode.TwoWay;
+PropertyPath propPathSpellBinding = new PropertyPath("Text");
+spellBinding.Path = propPathSpellBinding;
+// Specifies the input control to be spell checked.
+spellBinding.Source = txtSpellCheck;
+this.spellChecker.SpellCheckTargets.Add(spellBinding);
+…
+----
+
+== Related Topics
+
+link:xamspellchecker-performance-options.html[Performance Options]
+
+link:xamspellchecker-spelling-options.html[Spelling Options]
+
+link:xamspellchecker-dictionaries.html[Dictionaries]

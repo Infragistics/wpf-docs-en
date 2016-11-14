@@ -1,0 +1,215 @@
+﻿////
+|metadata|
+{
+    "name": "configuring-readonly-fields-disabling-cells",
+    "controlName": [],
+    "tags": [],
+    "guid": "e9c7306d-30e4-4bb1-a656-15aeb90c7a36",
+    "buildFlags": [],
+    "createdOn": "2014-06-26T13:32:52.8055414Z"
+}
+|metadata|
+////
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to disable a particular field’s cells and how to set a field to be read-only in the  _xamDataPresenter_™ controls.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:wpf-terms-and-concepts.html[Terms and Concepts]
+|This section defines the major elements that constitute the controls that make up The Data Presenter Family.
+
+| link:xamdatagrid-getting-started-with-xamdatagrid.html[Adding xamDataGrid to Your Page]
+|This topic describes how to add a _xamDataGrid_ control to your page.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref388548388, Configuring Read-only Field >>
+* <<_Ref388548392, Disabling a Cell or Field >>
+* <<_Ref388548402, Related Content >>
+
+** <<_Ref388548405,Topics>>
+** <<_Ref388548409,Samples>>
+
+[[_Ref388548388]]
+== Configuring Read-only Field
+
+[[_Hlk368069110]]
+
+=== Overview
+
+In some cases, you may want to prevent the user from editing `Field` data through the UI in the  _xamDataPresenter_   controls. In order to do that, set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field_members.html[Field] `IsReadOnly` property to `true`.
+
+Note that, you still can modify the editor’s value through code.
+
+The default value of the `IsReadOnly` property is `null` which resolves to false.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set a `Field` as read-only
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~isreadonly.html[IsReadOnly]
+|`true`
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:TextField Name="SKU" Label="Product SKU" IsReadOnly="True" />
+----
+
+[[_Ref388548392]]
+== Disabling a Field’s Cells
+
+=== Overview
+
+You can disable a `Field`’s cells in the  _xamDataPresenter_   controls.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Disable a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field_members.html[Field]’s cells in add records
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~isenabledinaddrecord.html[IsEnabledInAddRecord]
+|`false`
+
+|Disable a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field_members.html[Field]’s cells in data records (i.e. not add records or filter records)
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~isenabled.html[IsEnabled]
+|`false`
+
+|====
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:TextField Name="ProductID" Label="ID" IsEnabled=" IsEnabledInAddRecord=" />
+----
+
+== Enabling or Disabling Specific Cells
+
+=== Overview
+
+You can enable or disable a specific `Cell` in the  _xamDataPresenter_   controls to override the setting on its associated `Field`.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Enable a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell_members.html[Cell]
+|`IsEnabled`
+|`true`
+
+|Disable a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell_members.html[Cell]
+|`IsEnabled`
+|`false`
+
+|====
+
+=== Example
+
+Following is the code that implements this example.
+
+*In C#:*
+
+[source,csharp]
+----
+void XDG1_InitializeRecord(object sender, InitializeRecordEventArgs e)
+{
+    var dr = e.Record as DataRecord;
+    if (dr != null)
+    {
+        dr.Cells["SKU"].IsEnabled = false;
+        dr.Cells["ProductID"].IsEnabled = true;
+    }
+}
+----
+
+[[_Ref388548402]]
+== Related Content
+
+[[_Ref388548405]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdata-about-xamdatapresenter-and-xameditors.html[About xamDataPresenter and xamEditors]
+|This topic describes the _xamDataPresenter_ and _xamEditors_ controls.
+
+| link:xamdatapresenter-accessing-cell-values-in-the-active-record.html[Accessing Cell Values in the Active Record]
+|This topic describes how to create a section in your Window for data entry tasks using XAML.
+
+| link:xamdatapresenter-accessing-cell-values-in-the-recordactivated-event.html[Accessing Cell Values in the RecordActivated Event]
+|This topic describes how to access cell values in the active Record through _xamDataPresenter_ RecordActivated event.
+
+| link:xamdata-changing-field-record-cell-selection-behavior.html[Changing Field, Record, or Cell Selection Behavior]
+|This topic describes how to modify a _xamDataPresenter_ control selection functionality for Cells, Records, and Fields.
+
+| link:xamdata-default-editor-types-for-different-data-types.html[Default Editor Types for Different Data Types]
+|This topic lists the data type and the editor that is registered to edit it by default in the _xamDataPresenter_ controls.
+
+| link:xamdatapresenter-embedding-a-custom-control-in-a-field.html[Embedding a Custom Control in a Field]
+|This topic describes how to embed any control into a cell by creating a custom template.
+
+| link:xamdatapresenter-embedding-a-xameditor-in-a-field.html[Embedding a xamEditor in a Field]
+|This topic describes how to embed _xamEditor_ control into a cell by creating a custom style.
+
+|====
+
+[[_Ref388548409]]
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/controlling-tabstop-enabled-readonly[Using IsTabStop, IsEnabled and IsReadOnly properties]
+|This sample demonstrates how to exclude particular fields from tab navigation, how to disable cells at runtime and how to set a field to be read- only in the _xamDataGrid_ control.
+
+|====

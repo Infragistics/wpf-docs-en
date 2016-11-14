@@ -1,0 +1,159 @@
+﻿////
+
+|metadata|
+{
+    "name": "word-about-ig-word-library",
+    "controlName": ["IG Word Library"],
+    "tags": ["How Do I"],
+    "guid": "ca9b338a-5da3-42c1-9dfc-2d34d60ca5ca",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.3310776Z"
+}
+|metadata|
+////
+
+= About Infragistics Word Library
+
+This topic explains with examples the possible approaches to creating Word documents: the forward-only streamer approach and the object-model approach.
+
+The topic is organized as follows:
+
+* <<Streamer,Generating Word Documents using the Forward-Only Streamer>>
+
+** <<WordDocumentWriterIntro,Introduction to the WordDocumentWriter Object>>
+** <<StreamerReq,Requirements>>
+** <<Instance,Creating an Instance>>
+** <<BlankDoc,Creating a Blank Word Document>>
+** <<StreamerPara,Adding Paragraphs>>
+
+* <<RefAndDep,Word Document Generation References and Dependencies>>
+* <<RelatedTopics,Related Topic>>
+
+[[Streamer]]
+=== Generating Word Documents using the Forward-Only Streamer
+
+[[WordDocumentWriterIntro]]
+===== Introduction to the WordDocumentWriter Object
+
+The link:{ApiPlatform}documents.io.v{ProductVersion}~infragistics.documents.word.worddocumentwriter.html[WordDocumentWriter] is a streamer object that provides a fast, non-cached, forward-only means of generating streams or files containing word processing data. This object is available in the link:{ApiPlatform}documents.io.v{ProductVersion}.html[{ApiPlatform}Documents.IO.v{ProductVersion}.dll] assembly. The WordDocumentWriter object enables you to create Word documents with improved performance through the forward-only streaming approach.
+
+The sections below demonstrate how to use the WordDocumentWriter class with code examples.
+
+[[StreamerReq]]
+===== Requirements
+
+A reference to the link:{ApiPlatform}documents.io.v{ProductVersion}.html[{ApiPlatform}Documents.IO.v{ProductVersion}.dll] assembly is required.
+
+[[Instance]]
+===== Creating an Instance
+
+The WordDocumentWriter class is abstract, and does not support direct instantiation. Therefore, a static link:{ApiPlatform}documents.io.v{ProductVersion}~infragistics.documents.word.worddocumentwriter~create.html[Create] method is exposed to create an instance of a derived class.
+
+*In C#:*
+
+----
+//  Compile the file name
+string filename = "C:\\SampleWordDoc";
+// Create a new instance of the WordDocumentWriter class using the
+// static 'Create' method.
+using ( WordDocumentWriter writer = WordDocumentWriter.Create(filename) )
+{
+}
+----
+
+*In Visual Basic:*
+
+----
+'  Compile the file name
+Dim filename As String = "C:\SampleWordDoc"
+' Create a new instance of the WordDocumentWriter class using the
+' static 'Create' method.
+Using writer As WordDocumentWriter = WordDocumentWriter.Create(filename)
+End Using
+----
+
+[[BlankDoc]]
+===== Creating a Blank Word Document
+
+One of the first things when creating a Word document is to indicate the begining the document. This writes the and tags to the output stream, and prepares the writer for further input. The following code sample demonstrates how to start and close a blank Word document:
+
+*In C#:*
+
+----
+//  Create a new instance of the WordDocumentWriter class using the
+//  static 'Create' method.
+string filename = "C:\\SampleWordDoc";
+using ( WordDocumentWriter writer = WordDocumentWriter.Create(filename) )
+{
+  // Start the document...note that each call to StartDocument must
+  // be balanced with a corresponding call to EndDocument.
+  writer.StartDocument();
+  // TODO: Add document content here
+  // End the document.
+  writer.EndDocument();
+}
+----
+
+*In Visual Basic:*
+
+----
+'  Create a new instance of the WordDocumentWriter class using the
+'  static 'Create' method.
+Dim filename As String = "C:\SampleWordDoc"
+Using writer As WordDocumentWriter = WordDocumentWriter.Create(filename)
+    ' Start the document...note that each call to StartDocument must
+    ' be balanced with a corresponding call to EndDocument.
+    writer.StartDocument()
+    ' TODO: Add document content here
+    ' End the document.
+    writer.EndDocument()
+End Using
+----
+
+[[StreamerPara]]
+===== Adding Paragraphs
+
+The following code sample demonstrates how to add a paragraph with a text run, using a specific font:
+
+*In C#:*
+
+----
+private void WriteParagraph(
+    WordDocumentWriter writer,
+    string text,
+    Infragistics.Documents.Word.Font font )
+{
+    // Open a paragraph
+    writer.StartParagraph();
+    // Add a text run with the specified text and font
+    writer.AddTextRun( text, font );
+    // Close the paragraph.
+    writer.EndParagraph();
+}
+----
+
+*In Visual Basic:*
+
+----
+Private Sub WriteParagraph(writer As WordDocumentWriter, text As String, _
+  font As Infragistics.Documents.Word.Font)
+    ' Open a paragraph
+    writer.StartParagraph()
+    ' Add a text run with the specified text and font
+    writer.AddTextRun(text, font)
+    ' Close the paragraph.
+    writer.EndParagraph()
+End Sub
+----
+
+[[RefAndDep]]
+== Word Document Generation References and Dependencies
+
+Using .NET CLR 3.0 or greater
+
+When using the Infragistics® Word library and exporters to generate a Microsoft® Word® document, the .NET Framework CLR version 3.0 or greater is required. In this scenario, you will reference the link:{ApiPlatform}documents.io.v{ProductVersion}.html[{ApiPlatform}Documents.IO.v{ProductVersion}.dll] assembly. The compression and packaging functionality that is built into the Word document creation logic relies on the .NET Framework CLR3.0.
+
+[[RelatedTopics]]
+== Related Topic
+
+link:word-using-the-ig-word-library.html[Using the Infragistics Word Library]

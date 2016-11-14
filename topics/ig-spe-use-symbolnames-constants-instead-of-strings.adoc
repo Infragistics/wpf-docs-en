@@ -1,0 +1,72 @@
+﻿////
+
+|metadata|
+{
+    "name": "ig-spe-use-symbolnames-constants-instead-of-strings",
+    "controlName": ["IG Syntax Parsing Engine"],
+    "tags": [],
+    "guid": "e0ea6046-1957-441c-9b5a-ae8a6f6890c8",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.1851035Z"
+}
+|metadata|
+////
+
+= Use SymbolNames Constants Instead of Strings (Syntax Parsing Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the benefits of using the SymbolNames constants.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-overview.html[Syntax Parsing Engine Overview]
+|This topic provides an overview of the Syntax Parsing Engine.
+
+| link:ig-spe-non-terminal-symbols.html[Non-Terminal Symbols]
+|This topic explains a grammar’s non-terminal symbols.
+
+| link:ig-spe-defining-productions.html[Defining Productions]
+|This topic explains how to create productions for a non-terminal symbol.
+
+|====
+
+== Introduction
+
+=== Overview
+
+The internal grammatical structure of these the link:xamsyntaxeditor-supported-languages.html[supported languages], including the structure of the syntax tree created for documents parsed with them is subject to change. Moreover, if you are writing code to inspect or traverse a syntax tree you should use the nested `SymbolNames` class constants in each language definition to identify the name of each node's symbol (rather than the symbol name as a string literal) so that future changes to these symbol names will be highlighted via compilation errors.
+
+Additionally, it is a good practice to write test logic using the Debug.Assert method and test for the number and type of the child nodes on a particular node so changes to a node’s child structure in the future will be detected and handled gracefully.
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-improve-ebnf-files-readability.html[Improve EBNF Files Readability]
+|This topic describes how to improve EBNF file readability.
+
+| link:ig-spe-optimize-non-terminal-symbol-definitions.html[Optimize Non-Terminal Symbol Definitions]
+|This topic explains how to optimize your non-terminal symbol definitions in order to minimize the number of productions.
+
+| link:ig-spe-writing-operator-precedence-rules.html[Writing Operator Precedence Rules]
+|This topic explains how to write operator precedence rules correctly.
+
+| link:ig-spe-generate-grammar-from-ebnf.html[Generate Grammar from an EBNF File]
+|This topic explains the process of creating a grammar from EBNF content.
+
+|====

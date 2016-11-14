@@ -1,0 +1,126 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-about-group-resizing",
+    "controlName": ["xamRibbon"],
+    "tags": ["Getting Started"],
+    "guid": "{63782BAE-D182-40A7-8D79-FCD1C56D3E7A}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.0811693Z"
+}
+|metadata|
+////
+
+= About Ribbon Group Resizing
+
+
+
+== RibbonGroup Resizing Overview
+
+The xamRibbon™ control has the ability to resize the tools within the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbontabitem~ribbongroups.html[RibbonGroups] of a link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbontabitem.html[RibbonTabItem] when resizing the ribbon. By default, the XamRibbon tries to size the tools in the selected tab using their largest size. However, if there is not enough room, the ribbon will go through an iterative process reducing the size of each group within the currently selected tab. The order and type of resize action that can occur is based on the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.groupvariant.html[GroupVariants] that have been defined for the RibbonGroups in the selected RibbonTabItem.
+
+== Group Variants Overview
+
+The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~variants.html[Variants] collection of a link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup.html[RibbonGroup] determines the order and type of resize action that will occur. The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.groupvariant~priority.html[Priority] of a GroupVariant is used to sort the GroupVariants with respect to the GroupVariants of the sibling RibbonGroups in the containing RibbonTabItem. The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.groupvariant~resizeaction.html[ResizeAction] determines the resize behavior that will occur when that GroupVariant is processed.
+
+== Resize Actions
+
+There are six types of resize actions:
+
+* ReduceGalleryPreviewItems - Reduces the number of columns in a GalleryTool's preview area.
+* IncreaseHorizontalWrapRowCount - Increases the number of rows in a ToolHorizontalWrapPanel incrementally from its MinRows to MaxRows property.
+* HideGalleryPreview - Resizes a MenuTool that is displaying a preview of a GalleryTool to an ImageAndTextLarge sized tool.
+* ReduceImageAndTextLargeTools - Consecutive tools whose SizingMode is currently set to ImageAndTextLarge will be reduced to vertically stacked tools with a SizingMode of ImageAndTextSmall.
+* ReduceImageAndTextNormalTools - Consecutive tools whose SizingMode is currently set to ImageAndTextSmall will be reduced to a SizingMode of ImageOnly.
+* CollapseRibbonGroup - The RibbonGroup will display as a drop-down button that will display the contents of the RibbonGroup when clicked.
+
+== Group Variant Processing
+
+By default, there are no GroupVariants defined for a RibbonGroup. If the Variants collection of every RibbonGroup in a RibbonTabItem is empty, the RibbonGroup will use a default set of GroupVariants. If there are any GroupVariants defined in a RibbonGroup's Variants collection, only the explicitly defined GroupVariants will be processed.
+
+For example, consider a RibbonTabItem that contains two RibbonGroups named 'Clipboard' and 'Font' where the Variants collection of both RibbonGroups is empty. The following is the order in which the ResizeActions will be processed:
+
+[options="header", cols="a,a"]
+|====
+|Group Name|ResizeAction
+
+|Font
+|ReduceGalleryPreviewItems
+
+|Clipboard
+|ReduceGalleryPreviewItems
+
+|Font
+|IncreaseHorizontalWrapRowCount
+
+|Clipboard
+|IncreaseHorizontalWrapRowCount
+
+|Font
+|HideGalleryPreview
+
+|Clipboard
+|HideGalleryPreview
+
+|Font
+|ReduceImageAndTextLargeTools
+
+|Clipboard
+|ReduceImageAndTextLargeTools
+
+|Font
+|ReduceImageAndTextNormalTools
+
+|Clipboard
+|ReduceImageAndTextNormalTools
+
+|Font
+|CollapseRibbonGroup
+
+|Clipboard
+|CollapseRibbonGroup
+
+|====
+
+Consider another example where the RibbonGroups mentioned above have the following GroupVariants defined:
+
+== Font GroupVariants:
+
+* GroupVariant 1 - Priority set to 10, and ResizeAction set to ReduceGalleryPreviewItems.
+* GroupVariant 2 - Priority set to 20, and ResizeAction set to ReduceImageAndTextLargeTools.
+* GroupVariant 3 - Priority set to 30, and ResizeAction set to ReduceImageAndTextNormalTools.
+
+== Clipboard GroupVariants:
+
+* GroupVariant 1 - Priority set to 15, and ResizeAction set to IncreaseHorizontalWrapRowCount.
+* GroupVariant 2 - Priority set to 35, and ResizeAction set to CollapseRibbonGroup.
+
+The following is the order in which the ResizeActions will be processed:
+
+[options="header", cols="a,a"]
+|====
+|Group Name|ResizeAction
+
+|Font
+|ReduceGalleryPreviewItems
+
+|Clipboard
+|IncreaseHorizontalWrapRowCount
+
+|Font
+|ReduceImageAndTextLargeTools
+
+|Font
+|ReduceImageAndTextNormalTools
+
+|Clipboard
+|CollapseRibbonGroup
+
+|====
+
+== Related Topics
+
+link:xamribbon-add-a-ribbon-group-to-a-ribbon-tab.html[Add a Ribbon Group to a Ribbon Tab]
+
+link:xamribbon-using-the-dialog-box-launcher-to-display-a-dialog-box.html[Using the Dialog Box Launcher to Display a Dialog Box]

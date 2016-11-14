@@ -1,0 +1,35 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-fields-field-settings",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","Getting Started","Tips and Tricks"],
+    "guid": "{828AB29E-4709-4569-AC44-EC088F4DFD53}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5468625Z"
+}
+|metadata|
+////
+
+= Field Settings
+
+Field Settings describe the non-essential, defaultable characteristics of a Field. In order to better appreciate this distinction between the Field Settings class, and the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] class itself, a little retrospective is called for.
+
+Recall that the properties of the Field class relate to a specific peer object that represents a single "attribute" of your link:xamdata-terms-records-data-record.html[Data Record]. The properties on the Field object must always have a value, and if left unspecified, they can intrinsically resolve to a meaningful value without you needing to assign them values. These Field object properties include:
+
+* Name -- Used as a handle by which the Field can be referenced. The Field name defaults to the name found on the "attribute" of your data.
+* Label -- Human-readable text caption that describes the Field. The Label defaults to the Name. For more information, see link:xamdata-terms-fields-field-label.html[Field Label].
+* Position-related properties -- These properties define the X-, Y-, and extent of the Field in a grid-based layout panel. These values will default to the next available spot in the Grid, if left to the auspices of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autoarrangecells.html[AutoArrangeCells] property.
+
+When a DataPresenterBase-derived control knows these values for a Field object, it has all the essential information for presenting this Field to users. All further characteristics (and there are plenty of them) defining appearance and behavior belong to your Field Settings. The benefit is that their default values can be resolved according to the resolution process illustrated below.
+
+image::images/Terms_Fields_Field_Settings_01.PNG[Field Settings Resolution]
+
+When any property value on the FieldSettings class is required, the first place we look for that value is in the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~settings.html[Settings] property of the specific Field. This gives each Field individualized control over its appearance, behavior, and the appearance and behavior of its cells. You can assign a different link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~cellclickaction.html[CellClickAction] to every cell, if you make this setting on the Field Settings of every Field object.
+
+Many times there will be no value assigned to the Field Settings properties of the individual Field object. There are so many properties on the FieldSettings class that it would be very inconvenient for you to have to set them all on every Field object. If an individual Field object has no explicit value for a property on its Field Settings, the value for that property resolves to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fieldsettings.html[FieldSettings] on the link:xamdata-terms-fields-field-layout.html[Field Layout]. Thus, we default to the logical next tier away from our individual Field. The Field Layout, you will recall, knows everything about Fields common to this particular Type of Data Record. All Fields related to a particular Type of Data Record can therefore share the same Field Settings by doing so at the level of their Field Layout.
+
+When the Field Layout does not explicitly set a value for a Field Settings property, the resolved value of that property must default to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldsettings.html[DataPresenterBase.FieldSettings] on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase]-derived control. The property values assigned to Field Settings at the control level are common to all Fields, even those Fields pertaining to Data Records having a different data Type then this Field. If you wanted all Fields to have their cells styled in the same way, it takes only one assignment to link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~cellpresenterstyle.html[CellPresenterStyle] at the control level to have it.
+
+The most important thing for you to understand about the Field Settings resolution process is this: All default Field Settings values come from the control level, unless you override them at either the Field Layout, or the individual Field level.

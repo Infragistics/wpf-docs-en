@@ -1,0 +1,34 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-editors",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Getting Started"],
+    "guid": "{3C7509E7-CF16-4F66-AFFB-C841C9FA1201}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5378607Z"
+}
+|metadata|
+////
+
+= Editors
+
+All {ProductName} controls derived from the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class follow the same pattern of delegating the editing experience your users enjoy to an extensible editing object model. This allows you to plug in the most suitable xamEditor control for your situation (e.g., xamTextEditor™). There are also a few common principles that make programming the editors easy, no matter which of our controls you are using.
+
+All editors that can be embedded into our controls extend the ValueEditor abstract base class. Editors, then, add the specialized editing functionality they need through inheritance. The xamEditor control grouping provides you with editors for most frequently encountered data entry scenarios so you do not need to write your own. This base class gives all editors a common set of editing-related events (see Overview of the ValueEditor Class for more details), so that we can interact with them.
+
+There are three properties you can use to associate an editor with a value displayed by our controls:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editortype.html[EditorType] -- This is the Type of your specialized editor class. It must inherit from ValueEditor.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editastype.html[EditAsType] -- This is the Type that the editor should use when it edits the data. For example, you might set this to Double to edit numeric data values that are stored in Strings. This might happen because the Strings come to you from a schema-unaware XML data provider, even though the Field contains numbers only.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] -- This controls the appearance of the editor when it is in edit mode.
+
+image::images/Terms_Editors_01.PNG[Editors can be applied at either Field or Cell level.]
+
+The above illustration shows you two different scopes at which you can associate an editor with our WPF controls:
+
+* field-level -- You set up the editor once on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings], and it is reused for every cell in that field, no matter how many data records you have.
+* cell-level -- You set up the editor on each link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]. You might do this if the value of different cells in the same Field required different kinds of editors.
+
+If you are setting up the editor at the cell level, it is recommended that you handle the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event.

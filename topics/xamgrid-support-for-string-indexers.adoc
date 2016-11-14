@@ -1,0 +1,36 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-support-for-string-indexers",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Performance","Sorting"],
+    "guid": "2dcc970c-1ce8-4a3e-b5cf-dfca2d6d9926",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.2761804Z"
+}
+|metadata|
+////
+
+= Support for String Indexers
+
+pick:[sl="Beginning in Silverlight 4, the binding capabilities have been extended to allow you to specify string indexers in binding statements. For more information, see"]   pick:[sl=" link:http://www.silverlight.net/getstarted/silverlight-4/[What’s New in Silverlight 4]"]   pick:[sl="."]  The xamGrid control allows you to use the string indexer syntax in the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnbase~key.html[Key] property to bind to values in objects, as demonstrated in the following code snippet.
+
+*In XAML:*
+
+----
+<ig:TextColumn Key="[FirstName]" HeaderText="First Name"/>
+----
+
+This feature is also supported on ColumnLayout objects, as demonstrated in the following code snippet.
+
+*In XAML:*
+
+----
+<ColumnLayout key=”[Test].Children”/>
+----
+
+*Limitations:*
+
+* Supports String and Integer indexers only.
+* All indexers should return a specific type, not object. Otherwise, filtering and summaries will not be supported; however the GroupBy and Sorting features will work. If the indexer does return an object, you won’t get the dot notation off it, such as ([Test].MyChildProp)

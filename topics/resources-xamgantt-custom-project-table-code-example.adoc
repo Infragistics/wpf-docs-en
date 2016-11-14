@@ -1,0 +1,178 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-xamgantt-custom-project-table-code-example",
+    "controlName": [],
+    "tags": [],
+    "guid": "35198f78-c7c6-49f2-b94c-7420dcd39ee7",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4650617Z"
+}
+|metadata|
+////
+
+= Custom Project Table Code Example
+
+=== Description
+
+This code example presents a `CustomProjectTable` class. This class is used to create custom definition for  _xamGantt_   project table.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomProjectTable : INotifyPropertyChanged
+    {
+        #region Private variables
+        private string key;
+        private string columnIds;
+        private string dateFormat;
+        private bool showInMenu;
+        #endregion // Private variables
+        #region Public properties
+        public string Key
+        {
+            get { return key; }
+            set
+            {
+                if (key != value)
+                {
+                    key = value;
+                    OnPropertyChanged("Key");
+                }
+            }
+        }
+        public string ColumnIds
+        {
+            get { return columnIds; }
+            set
+            {
+                if (columnIds != value)
+                {
+                    columnIds = value;
+                    OnPropertyChanged("ColumnIds");
+                }
+            }
+        }
+        public string DateFormat
+        {
+            get { return dateFormat; }
+            set
+            {
+                if (dateFormat != value)
+                {
+                    dateFormat = value;
+                    OnPropertyChanged("DateFormat");
+                }
+            }
+        }
+        public bool ShowInMenu
+        {
+            get { return showInMenu; }
+            set
+            {
+                if (showInMenu != value)
+                {
+                    showInMenu = value;
+                    OnPropertyChanged("ShowInMenu");
+                }
+            }
+        }
+        #endregion // Public properties
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion // INotifyPropertyChanged
+    }
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomProjectTable
+      Implements INotifyPropertyChanged
+      #Region "Private variables"
+      Private m_key As String
+      Private m_columnIds As String
+      Private m_dateFormat As String
+      Private m_showInMenu As Boolean
+      #End Region
+      #Region "Public properties"
+      Public Property Key() As String
+            Get
+                  Return m_key
+            End Get
+            Set
+                  If m_key <> value Then
+                        m_key = value
+                        OnPropertyChanged("Key")
+                  End If
+            End Set
+      End Property
+      Public Property ColumnIds() As String
+            Get
+                  Return m_columnIds
+            End Get
+            Set
+                  If m_columnIds <> value Then
+                        m_columnIds = value
+                        OnPropertyChanged("ColumnIds")
+                  End If
+            End Set
+      End Property
+      Public Property DateFormat() As String
+            Get
+                  Return m_dateFormat
+            End Get
+            Set
+                  If m_dateFormat <> value Then
+                        m_dateFormat = value
+                        OnPropertyChanged("DateFormat")
+                  End If
+            End Set
+      End Property
+      Public Property ShowInMenu() As Boolean
+            Get
+                  Return m_showInMenu
+            End Get
+            Set
+                  If m_showInMenu <> value Then
+                        m_showInMenu = value
+                        OnPropertyChanged("ShowInMenu")
+                  End If
+            End Set
+      End Property
+      #End Region
+      #Region "INotifyPropertyChanged"
+      Public Event PropertyChanged As PropertyChangedEventHandler
+      Public Sub OnPropertyChanged(propertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+      End Sub
+      #End Region
+End Class
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-code-example-creating-view-for-xamgantt-using-custom-classes.html[Code Example Creating View for xamGantt using Custom Classes]
+|You can create custom classes for project columns, project tables and project views and use those classes to customize xamGantt appearance.
+
+|====

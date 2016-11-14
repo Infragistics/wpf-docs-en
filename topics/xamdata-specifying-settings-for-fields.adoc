@@ -1,0 +1,72 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-specifying-settings-for-fields",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I"],
+    "guid": "{E949AC3A-C8A9-45D2-9163-4A2901DDAC38}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5308593Z"
+}
+|metadata|
+////
+
+= Specifying Settings for Fields
+
+The FieldSettings object is used to specify settings that apply to one or more fields, as described below. This object is exposed by the following three properties:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase]'s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldsettings.html[FieldSettings] property
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout]'s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fieldsettings.html[FieldSettings] property
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]'s link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~settings.html[Settings] property
+
+== DataPresenterBase's FieldSettings Property
+
+Settings specified for this property become the default for all Fields in the control.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldSettings> 
+                <igDP:FieldSettings 
+                  CellClickAction="SelectCell"/> 
+        </igDP:XamDataGrid.FieldSettings> 
+</igDP:XamDataGrid>
+----
+
+== FieldLayout's FieldSettings Property
+
+Settings specified for this property become the default for all fields in this FieldLayout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fields.html[Fields] collection.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayouts> 
+                <igDP:FieldLayout> 
+                        <igDP:FieldLayout.FieldSettings> 
+                                <igDP:FieldSettings 
+                                  LabelWidth="200"/> 
+                        </igDP:FieldLayout.FieldSettings> 
+                </igDP:FieldLayout> 
+        </igDP:XamDataGrid.FieldLayouts> 
+</igDP:XamDataGrid>
+----
+
+== Field's Settings Property
+
+Settings specified for this property apply only to the specific field.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayouts> 
+                <igDP:FieldLayout> 
+                        <igDP:FieldLayout.Fields> 
+                                <igDP:Field Name="CustomerName"> 
+                                        <igDP:Field.Settings> 
+                                                <igDP:FieldSettings 
+                                                  LabelClickAction="SortByMultipleFields"/> 
+                                        <igDP:Field.Settings> 
+                                </igDP:Field> 
+                        </igDP:FieldLayout.Fields> 
+                </igDP:FieldLayout> 
+        </igDP:XamDataGrid.FieldLayouts> 
+</igDP:XamDataGrid>
+----

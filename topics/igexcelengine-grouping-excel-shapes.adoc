@@ -1,0 +1,96 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-grouping-excel-shapes",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","Grouping"],
+    "guid": "e5671d23-2e7a-4019-b66f-8de1ddab1cc3",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7827097Z"
+}
+|metadata|
+////
+
+= Grouping Shapes (Infragistics Excel Engine)
+
+== Topic Overview
+
+== Purpose
+
+This topic demonstrates how to group two or more shapes.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet]
+
+== Introduction
+
+A group of shapes is a structure consisting of two or more that behave like one shape. Working with groups of shapes is similar to working with link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet Class] and link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape.html[WorksheetShape Class].
+
+To group two or more shapes ensure you have the shapes initialized, then initialize a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapegroup.html[WorksheetShapeGroup] object and add the shapes to its link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapegroup~shapes.html[Shapes] collection.
+
+The procedure that follows demonstrates how to group two already initialized shapes.
+
+== Grouping Excel Shapes
+
+== Requirements
+
+To complete the procedure, you need the following:
+
+* Initialize two link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape.html[WorksheetShape] objects
+* Add the result of this procedure to a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet]
+
+== Overview
+
+Following is a conceptual overview of the process:
+
+[start=1]
+. *Initialize two shapes*
+[start=2]
+. *Group the shapes*
+[start=3]
+. *Set position and size. Add to a worksheet.*
+
+== Steps
+
+[start=1]
+. *Initialize two shapes*
++
+Name the object *shape1* and *shape2* . To complete this step refer to the link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet]
+
+[start=2]
+. *Group the shapes*
++
+Initialize new link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapegroup.html[WorksheetShapeGroup] object and add the shapes to its link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapegroup~shapes.html[Shapes] collection.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim shapeGroup As New WorksheetShapeGroup()
+shapeGroup.Shapes.Add(shape1)
+shapeGroup.Shapes.Add(shape2)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+WorksheetShapeGroup shapeGroup = new WorksheetShapeGroup();
+shapeGroup.Shapes.Add(shape1);
+shapeGroup.Shapes.Add(shape2);
+----
+
+[start=3]
+. *Set position and size. Add to a worksheet.*
++
+link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapegroup.html[WorksheetShapeGroup Class] derives from link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshape.html[WorksheetShape Class], so everything about sizing, positioning, adding to a sheet and etc is the same as link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet].
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet (Infragistics Excel Engine)]
+* link:igexcelengine-importing-shapes-from-excel.html[Importing Shapes from Excel (Infragistics Excel Engine)]

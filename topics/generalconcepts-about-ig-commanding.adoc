@@ -1,0 +1,93 @@
+﻿////
+
+|metadata|
+{
+    "name": "generalconcepts-about-ig-commanding",
+    "controlName": [],
+    "tags": [],
+    "guid": "1f4acc73-9d46-4281-b5dd-355485b9db84",  
+    "buildFlags": ["sl","wpf"],
+    "createdOn": "2012-01-30T15:19:06.2412649Z"
+}
+|metadata|
+////
+
+= About Infragistics Commanding
+
+*The Commanding Concept*
+
+Routed commands are a feature available in WPF that enhances the way behaviors are handled. It follows the Command Design Pattern in which an object is used to encapsulate a request for an action that can be queued and invoked at a later time. The object, specifically a command, is used to separate the semantics and source of the action from the actual logic. This means that one or more sources can invoke a command on any object that supports it, with the actual execution of the command being specific to each target object. For example, with a Paste command, any application that supports it can use it; i.e., spreadsheet applications, text editors, or image editing applications, but the actual logic for the paste operation is specific to each application.
+
+Infragistics provides a Command Framework that follows the basic concept of commands found in WPF. The Infragistics commanding system consists of the following things:
+
+[start=1]
+. Source – the object that invokes the command
+[start=2]
+. Target – the object that the command executes on
+[start=3]
+. Command – the action
+
+A command executes when the source sets up an event that gets raised.
+
+*Finding the Target*
+
+The target of the command is an object that implements the ICommandTarget interface and supports the command. When the event is raised, the Command Framework tries to resolve the target of the command. There are three basic ways in which this occurs.
+
+[start=1]
+. The target property of the CommandSource is set directly.
+[start=2]
+. The CommandSource looks through all globally registered ICommandTarget objects that support the attached command. The command source has a TargetName property that allows you to specify the name of the globally registered target to execute the command on.
+[start=3]
+. The CommandSource looks through all globally registered ICommandTarget objects that support the attached command. The command source has a TargetName property that allows you to specify the name of the globally registered target to execute the command on. If you do not set a target name, the command executes on all globally registered ICommandTarget objects that support the command.
+[start=4]
+. The visual tree is traversed starting from the command source up through the parent elements until a target that supports the command is found.
+
+*Examples*
+
+The xamGrid™ control exposes various commands that you can use. One such command is the NextPage command for paging. To execute the command, use a command source, such as the XamGridPagingCommandSource object, to set up the event and the command type using the object's EventName and CommandType properties, respectively. The command is executed on the target in the visual tree. In the XAML below, the NextPage command will execute when the button is clicked. The command executes on the PagerCellControl object since it is the first object in the visual tree that supports the command.
+
+*In XAML:*
+
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+xmlns:igPrim="http://schemas.infragistics.com/xaml/primitives"
+----
+
+*In XAML:*
+
+[source,xaml]
+----
+<Style x:Name="CustomPager1" TargetType="gridParts:PagerCellControl">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="igPrim:PagerCellControl">
+                <Button x:Name="NextPageButton" Content="Next">
+                <!-- Specify the command to use. Since the command is inside the button, the EventName property refers to the button's event.-->     
+                    <ig:Commanding.Command>
+                        <ig:XamGridPagingCommandSource EventName="Click" CommandType="NextPage"/>
+                    </ig:Commanding.Command>
+                </Button>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+----
+
+The following code shows you how to use the command source's TargetName property to find the right target with the xamSpellChecker™.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamSpellChecker x:Name="spellChecker">                
+    <ig:XamSpellChecker.SpellCheckTargets>
+        <Binding ElementName="Note" Path="Text" Mode="TwoWay"/>
+    </ig:XamSpellChecker.SpellCheckTargets>
+</ig:XamSpellChecker>
+<Button Content="Spell Check" >
+    <ig:Commanding.Command>
+        <ig:XamSpellCheckerCommandSource CommandType="SpellCheck" TargetName="spellChecker" EventName="Click"/>
+    </ig:Commanding.Command>
+</Button>
+----

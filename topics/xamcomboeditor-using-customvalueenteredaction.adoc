@@ -1,0 +1,133 @@
+﻿////
+|metadata|
+{
+    "name": "xamcomboeditor-using-customvalueenteredaction",
+    "controlName": ["xamComboEditor"],
+    "tags": ["Editing","Getting Started","How Do I"],
+    "guid": "{37CE55F1-7FD6-4FA0-96B0-17840BDA7125}",
+    "buildFlags": ["WPF"],
+    "createdOn": "2016-05-25T18:21:54.7301332Z"
+}
+|metadata|
+////
+
+= Configuring the Behavior on User Input (xamComboEditor)
+
+The xamComboEditor™ control’s link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~customvalueenteredaction.html[CustomValueEnteredAction] property allows you to specify how the control will behave when your end user types in the control’s text box. This property works when xamComboEditor is in edit mode.
+
+The CustomValueEnteredActions enumeration allows for three behaviors.
+
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.customvalueenteredactions.html[Ignore]: Default; if the character that you are typing does not match the filter criteria (or StartsWith criteria if you haven’t specified any filter criteria), then the control won’t allow you to continue typing. The invalid values will be automatically removed from the text box.
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.customvalueenteredactions.html[Allow]: This option allows you to type data but the typed text will not be included in the items collection.
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.customvalueenteredactions.html[Add]: If the value you typed is not in the underlying items collection, this new value will be added in it. The link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~dataobjectrequested_ev.html[DataObjectRequested], link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemadding_ev.html[ItemAdding] and link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemadded_ev.html[ItemAdded] events will be triggered.
+
+.Note
+[NOTE]
+====
+In case of a collection with fixed capacity (e.g. Array), the `CustomValueEnteredAction` `Add` is not applicable.
+====
+
+The following example shows how you can configure this property.
+
+*In XAML:*
+[source,xaml]
+----
+<ig:XamComboEditor
+    x:Name="comboEditor"                
+    Height="30"
+    Width="300"
+    ItemsSource="{Binding Source={StaticResource DataUtil}, Path=Products}"
+    DisplayMemberPath="ProductName"
+    IsEditable="True"
+    CustomValueEnteredAction="Add" />
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+Private Sub UserControl_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    ...
+    Dim comboEditor As New XamComboEditor()
+    ...
+    comboEditor.IsEditable = True
+    comboEditor.CustomValueEnteredAction = CustomValueEnteredActions.Add
+    ...
+End Sub
+----
+
+*In C#:*
+[source,csharp]
+----
+private void UserControl_Loaded(object sender, RoutedEventArgs e)
+{
+...
+XamComboEditor comboEditor = new XamComboEditor();
+...
+comboEditor.IsEditable = true;
+comboEditor.CustomValueEnteredAction = CustomValueEnteredActions.Add;
+...
+}
+----
+
+*Events*
+
+The link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~dataobjectrequested_ev.html[DataObjectRequested] event is raised when xamComboEditor needs to create a new data object for the item you attempt to add in the items collection.
+
+The link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemadding_ev.html[ItemAdding] event is raised when an item is going to be added in the control’s underlying ItemsSource. This event can be canceled. During this event, the entered value can be verified and after that added or cancelled.
+
+The link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemadded_ev.html[ItemAdded] event is raised when the item has been added in the ItemsSource of the xamComboEditor control.
+
+The following example shows how you can validate and cancel entered values during the ItemAdding event.
+
+*In Visual Basic:*
+[source,vb]
+----
+Private Sub UserControl_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    ' Adds event handler for the ItemAdding event
+    AddHandler comboEditor.ItemAdding, AddressOf _ItemAdding
+End Sub
+Private Sub _ItemAdding(ByVal sender As Object, ByVal e As ComboItemAddingEventArgs)
+    ' Gets the business object 
+    Dim product As Product = DirectCast(e.Item.Data, Product)
+    Dim name As String = product.ProductName
+    ' Validates the size of the entered product name
+    ' If the name is less than 5 characters, the event will be canceled
+    If name.Length < 5 Then
+        e.Cancel = True
+    End If
+End Sub
+----
+
+*In C#:*
+[source,csharp]
+----
+private void UserControl_Loaded(object sender, RoutedEventArgs e)
+{
+    // Adds event handler for the ItemAdding event
+    comboEditor.ItemAdding += new EventHandler<ComboItemAddingEventArgs>(_ItemAdding);
+}
+private void _ItemAdding(object sender, ComboItemAddingEventArgs e)
+{
+    // Gets the business object 
+    Product product = (Product)e.Item.Data;
+    string name = product.ProductName;
+    // Validates the size of the entered product name
+    // If the name is less than 5 characters, the event will be canceled
+    if (name.Length < 5)
+    {
+        e.Cancel=true;
+    }
+}
+----
+
+== *Related Topics*
+
+link:xamcomboeditor-autocomplete.html[Configuring Autocomplete (xamComboEditor)]
+
+link:xamcomboeditor-dropdown-resizing.html[Configuring the Drop-Down Size (xamComboEditor)]
+
+link:xamcomboeditor-custom-filtering.html[Configuring Item Filtering (xamComboEditor)]
+
+link:xamcomboeditor-working-with-itemtemplate.html[Configuring Item Template (xamComboEditor)]
+
+link:xamcomboeditor-selection.html[Selection (xamComboEditor)]

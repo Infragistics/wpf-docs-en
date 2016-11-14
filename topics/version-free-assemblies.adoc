@@ -1,0 +1,111 @@
+﻿////
+
+|metadata|
+{
+    "name": "version-free-assemblies",
+    "controlName": [],
+    "tags": ["Breaking Changes"],
+    "guid": "b1ae31bb-23d6-479e-9ba4-cc180653fc70",  
+    "buildFlags": ["wpf","sl"],
+    "createdOn": "2012-09-10T14:45:47.0059614Z"
+}
+|metadata|
+////
+
+= Version-Free Assemblies
+
+== Topic Overview
+
+=== Purpose
+
+This topic is a conceptual overview describing the benefits of using of the Version-Free assemblies.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref331107019, Version-Free Assemblies Conceptual Overview >>
+
+** <<_Ref331107030,Introduction>>
+
+** <<_Ref331107038,Using version-free assemblies>>
+
+** <<_Ref331107047,Assembly binding redirection>>
+
+** <<_Ref331107055,Code for binding redirect>>
+
+[[_Ref331107019]]
+== Version-Free Assemblies Conceptual Overview
+
+[[_Ref331107030]]
+
+=== Introduction
+
+Starting with the release of 2012 Volume 2, we offer you version-free assemblies that are available in zipped format along with  pick:[wpf,sl="{ProductName}"]  product.
+
+The version-free assemblies are libraries that do not have the version number or framework version identifier in their assembly names.
+
+For example, {ApiPlatform}.v12.2.dll will read as  Infragistics{PlatformName}.dll. The version-free assemblies will match the latest CLR version (WPF4 or SL5), and leave off the version number such as v12.2.
+
+[[_Ref331107038]]
+
+=== Using version-free assemblies
+
+.Note:
+[NOTE]
+====
+When using the version-free assemblies, you must perform a complete regression test on your application and review the breaking changes section of our Help, starting with the volume release that you previously had before upgrading.
+====
+
+To use these version-free assemblies, you need to perform the following:
+
+* 1. Navigate and open the folder: {InstallPath}\Version-Free.
+
+* 2. Unzip the  pick:[wpf,sl="{PlatformName}"] _20122_VersionFree.zip file.
+
+* 3. You can reference the version-free assemblies in your application from the location mentioned above, or you can add assemblies to the Global Assembly Cache (GAC) by using the link:http://msdn.microsoft.com/en-us/library/ex0ss12c.aspx[Gacutil.exe] program.
+
+* 4. Create a toolbox tab in Visual Studio and add the controls of the version-free assemblies by using Choose Item and browsing the version-free assemblies’ folder.
+
+[[_Ref331107047]]
+
+=== Assembly binding redirection
+
+Version-free assemblies allow you to upgrade easily from one version to another using assembly binding redirection, without needing to rebuild your applications.
+
+Assembly binding redirection tells the .Net runtime to redirect any assembly version to any other version of the assembly by using the application configuration file with the following elements:
+
+* The `bindingRedirect` element within the application configuration file (app.config) accepts attributes of `oldVersion` and `newVersion` that enable version redirection.
+
+* The `assemblyIdentity` element accepts a name attribute identifying the assembly.
+
+.Note:
+[NOTE]
+====
+With versioned assemblies, the assembly names change with each release (for example,　{ApiPlatform}.v12.1.dll, {ApiPlatform}.v12.2.dll, etc.,) and cannot be specified for the `assemblyIdentity` element. With version-free assemblies, the assembly names will remain the same across every Infragistics volume release allowing you to upgrade from one version to another using bindingRedirect, without needing to rebuild your application.
+====
+
+[[_Ref331107055]]
+
+=== Code for binding redirect
+
+Following is an example of using bindingRedirect within the app.config file in order to redirect the application to use the new version for either WPF or Silverlight.
+
+*In XML:*
+
+[source,xaml]
+----
+<configuration>
+<runtime>
+  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+  <dependentAssembly>
+   <assemblyIdentity name="InfragisticsWPF" publicKeyToken="7dd5c3163f2cd0cb" culture="neutral" />
+   <bindingRedirect oldVersion="12.1.20121.0" newVersion="12.2.20122.50"/>
+  </dependentAssembly>
+  <dependentAssembly>
+   <assemblyIdentity name="InfragisticsWPF.DataPresenter" publicKeyToken="7dd5c3163f2cd0cb" culture="neutral" />
+   <bindingRedirect oldVersion="12.1.20121.0" newVersion="12.2.20122.50"/> </dependentAssembly>
+  </assemblyBinding>
+</runtime>
+</configuration>
+----

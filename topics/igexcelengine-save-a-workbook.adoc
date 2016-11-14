@@ -1,0 +1,68 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-save-a-workbook",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","How Do I"],
+    "guid": "{AD387C75-027C-4411-9E17-7BACFBBC3C2E}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7717075Z"
+}
+|metadata|
+////
+
+= Saving a Workbook (Infragistics Excel Engine)
+
+You can save a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook.html[Workbook] object by calling its link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~save.html[Save] method. However, the workbook must contain at least one visible worksheet when you save it; otherwise, an exception will be thrown.
+
+The following example code demonstrates how to save a Workbook object as an Excel file.
+
+*In Visual Basic:*
+[source, vb]
+----
+Dim workbook1 As New Workbook()
+Dim worksheet As Worksheet = workbook1.Worksheets.Add("Sheet1")
+' Make some column headers
+worksheet.Rows(1).Cells(1).Value = "Morning"
+worksheet.Rows(1).Cells(2).Value = "Afternoon"
+worksheet.Rows(1).Cells(3).Value = "Evening"
+workbook1.Save("filename.xls")
+----
+
+*In C#:*
+[source, csharp]
+----
+Workbook workbook1 = new Workbook();
+Worksheet worksheet = workbook1.Worksheets.Add("Sheet1");
+// Make some column headers
+worksheet.Rows[1].Cells[1].Value = "Morning";
+worksheet.Rows[1].Cells[2].Value = "Afternoon";
+worksheet.Rows[1].Cells[3].Value = "Evening";
+workbook1.Save("filename.xls");
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Load an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-format-a-cell.html[Format a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copy a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Reference Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merge Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Add a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Add a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disable Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freeze Rows and Columns (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Set Excel Document Properties (Infragistics Excel Engine)]

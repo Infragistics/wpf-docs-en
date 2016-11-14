@@ -1,0 +1,136 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamorgchart-search-nodes",
+    "controlName": ["xamOrgChart"],
+    "tags": ["Navigation"],
+    "guid": "7e48587c-5765-4892-80b2-1be196df8907",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.7572641Z"
+}
+|metadata|
+////
+
+= Searching in Nodes
+
+This topic demonstrates how to implement search in an organization chart.
+
+The topic is organized as follows:
+
+* <<introduction,Introduction>>
+* <<implementing,Implementing Searching in Nodes>>
+
+** <<implementing_delegate,Implementing Searching in Nodes Using a Method Delegate>>
+** <<implementing_lambda,Implementing Searching in Nodes Using a Lambda Expression>>
+
+[[introduction]]
+== Introduction
+
+A node of the xamOrgChart™ control is included in the search results if its underlying data fulfills certain conditions. The conditions are specified using a method delegate or a lambda expression. The search results are represented as a collection of link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.orgchartnode.html[OrgChartNode] objects.
+
+There are two ways to implement searching in nodes:
+
+* using a method delegate
+* using a Lambda Expression
+
+The rest of the topic deals with them in detail.
+
+[[implementing]]
+== Implementing Searching in Nodes
+
+[[implementing_delegate]]
+== Implementing Searching in Nodes Using a Method Delegate
+
+When using a method delegate, you define the delegate first and then use it to perform the search.
+
+[start=1]
+. Define a search condition matching the link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.xamorgchart+conditionmethod.html[ConditionMethod] delegate:
+
+*In C#:*
+
+----
+bool SearchEmployee(object data)
+{
+    if(data is Employee)
+    {
+        Employee employee = (Employee)data;
+        if(employee.FirstName == "John")
+        {
+            return true;
+        }
+    }
+    return false;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Function SearchEmployee(data As Object) As Boolean
+    If TypeOf data Is Employee Then
+        Dim employee As Employee = DirectCast(data, Employee)
+        If employee.FirstName = "John" Then
+            Return True
+        End If
+    End If
+    Return False
+End Function
+----
+
+[start=2]
+. Perform the search.
+
+*In C#:*
+
+----
+IEnumerable<OrgChartNode> searchResults = orgChartInstance.Search(SearchEmployee);
+----
+
+*In Visual Basic:*
+
+----
+Dim searchResults As IEnumerable(Of OrgChartNode) = orgChartInstance.Search(AddressOf SearchEmployee)
+----
+
+[[implementing_lambda]]
+== Implementing Searching in Nodes Using a Lambda Expression
+
+When using a lambda expression, the search condition is defined directly in the link:{ApiPlatform}controls.maps.xamorgchart.v{ProductVersion}~infragistics.controls.maps.xamorgchart~search.html[Search] method.
+
+*In C#:*
+
+----
+IEnumerable<OrgChartNode> searchResults = orgChartInstance.Search(data =>
+{
+    if (data is Employee)
+    {
+        Employee employee = (Employee)data;
+        if (employee.FirstName == "John")
+        {
+            return true;
+        }
+    }
+    return false;
+});
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim searchResults As IEnumerable(Of OrgChartNode) = orgChartInstance.Search(Function(data)
+    If TypeOf data Is Employee Then
+        Dim employee As Employee = DirectCast(data, Employee)
+        If employee.FirstName = "John" Then
+            Return True
+        End If
+    End If
+    Return False
+    End Function)
+----
+
+== *Related Topics*
+
+link:xamorgchart-using-xamorgchart.html[Using xamOrgChart]

@@ -1,0 +1,31 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcarousel-disabling-reflection-for-an-item-along-a-path",
+    "controlName": ["xamCarousel"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{FDE7A434-8C13-4CFA-A8A6-03D0192E966E}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.0037539Z"
+}
+|metadata|
+////
+
+= Disabling Reflection for an Item Along a Path
+
+The xamCarouselPanel™, xamDataCarousel™, xamCarouselListBox™, and xamDataPresenter™'s Carousel View controls display their items with a reflection beneath the item. The Carousel controls use reflection by default, and therefore need to calculate the extra space needed to display the reflection.
+
+The Carousel controls offer a means to disable the reflection if it is detracting from the usability of your application. You can turn off reflections by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~reservespaceforreflections.html[ReserveSpaceForReflections] property off the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings] object to False. The following code turns off reflections for the xamCarouselPanel.
+
+*In XAML:*
+
+----
+<igWindows:XamCarouselPanel.ViewSettings>
+        <igWindows:CarouselViewSettings ReserveSpaceForReflections="False" />
+</igWindows:XamCarouselPanel.ViewSettings>
+----
+
+Place this code inside the XamCarouselPanel opening tag in the link:xamcarouselpanel-getting-started-with-xamcarouselpanel.html[Adding xamCarouselPanel to Your Page] topic. You will see xamCarouselPanel displaying buttons without reflections similar to the image below.
+
+image::images/xamCarousel_Disabling_Reflection_for_an_Item_Along_a_Path_01.png[xamcarouselistbox with reflection disabled]

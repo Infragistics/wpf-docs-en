@@ -1,0 +1,122 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-getting-started-with-xamdatapresenter",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Getting Started"],
+    "guid": "{D7BEF284-9683-4121-8317-4ECBFE227F82}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2159963Z"
+}
+|metadata|
+////
+
+= Adding xamDataPresenter to Your Application
+
+This topic shows you how to create and add a xamDataPresenter™ control to your Window using procedural code.
+
+== To create xamDataPresenter in procedural code:
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window project.
+
+[start=2]
+. In the Solution Explorer, add the following references:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}Editors.v{ProductVersion}.dll
+** {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+
+[start=3]
+. Name the default Grid layout panel so that you can reference it in the code-behind.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid Name="layoutRoot">
+</Grid>
+----
+
+[start=4]
+. Attach an event handler to the Window's Loaded event if you are going to use the code-behind to add the xamDataPresenter.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Window ... Loaded="Window_Loaded"  ... >
+----
+
+[start=5]
+. Add a namespace declaration and using/Imports directives for xamDataPresenter.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.DataPresenter
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.DataPresenter;
+----
+
+[start=6]
+. Create an instance of xamDataPresenter in XAML or in the Window_Loaded event handler in code-behind. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True. This will automatically populate xamDataPresenter with sample data so that you can preview the xamDataPresenter control without setting up a data source.
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private xamDataPresenter1 as XamDataPresenter
+xamDataPresenter1 = New XamDataPresenter()
+' You can data bind your instance of xamDataPresenter
+' instead of using the built in sample data
+xamDataPresenter1.BindToSampleData = True
+Me.layoutRoot.Children.Add(xamDataPresenter1)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private XamDataPresenter xamDataPresenter1;
+xamDataPresenter1 = new XamDataPresenter();
+// You can data bind your instance of xamDataPresenter
+// instead of using the built in sample data
+xamDataPresenter1.BindToSampleData = true;
+this.layoutRoot.Children.Add(xamDataPresenter1);
+----
+
+[start=7]
+. Run the project to see the xamDataPresenter control populated with sample data.
++
+image::images/xamDataPresenter_Creating_xamDataPresenter_in_XAML_01.png[creating xamdatapresenter in xaml]
+
+== Related Topics
+
+link:creating-a-flat-dataset.html[Creating a Flat DataSet]
+
+link:creating-an-objectdataprovider.html[Creating an ObjectDataProvider]
+
+link:creating-an-xmldataprovider.html[Creating an XmlDataProvider]
+
+link:using-the-data-context-for-data-binding.html[Using the Data Context for Data Binding]

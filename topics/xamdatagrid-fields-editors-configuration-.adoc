@@ -1,0 +1,316 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatagrid-fields-editors-configuration ",
+    "tags": ["Data Binding","Editing","Layouts"],
+    "controlName": ["xamDataGrid"],
+    "guid": "9ebaf96e-aa18-4fab-8884-b5bb5819ce3d",  
+    "buildFlags": [],
+    "createdOn": "2014-03-18T14:25:03.1125477Z"
+}
+|metadata|
+////
+
+= Field’s Editors Configuration
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to configure the controls on the data presenter field editor.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout]
+|This topic explains how to map the data presenter control’s fields to your data entities.
+
+| link:xamdata-about-xamdatapresenter-and-xameditors.html[About xamDataPresenter and xamEditors]
+|This topic explains the editors used by the data presenter controls.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref372731244,Introduction>>
+* <<_Ref372812467,Code Examples Summary>>
+* <<_Ref372811120,Code Example: Configuring XamCurrencyEditor>>
+* <<_Ref372811943,Code Example: Configuring XamComboEditor>>
+* <<_Ref372811958,Code Example: Configuring XamDateTimeEditor>>
+* <<_Ref372811963,Code Example: Configuring XamNumericEditor>>
+* <<_Ref372811968,Code Example: Configuring XamMaskedEditor #1>>
+* <<_Ref372811973,Code Example: Configuring XamMaskedEditor #2>>
+* <<_Ref372812502,Related Content>>
+
+[[_Ref372731244]]
+== Introduction
+
+[[_Ref372731249]]
+
+=== Configuration summary
+
+As discussed in the link:xamdata-default-editor-types-for-different-data-types.html[Default Editor Types for Different Data Types] topic, the controls from the data presenter family assign different default editors according to each field’s data type. You can either change the assigned editor of one or more fields using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editortype.html[EditorType] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings_members.html[FieldSettings] object as described in the link:xamdatapresenter-embedding-a-xameditor-in-a-field.html[Embedding a xamEditor in a Field] topic and/or configure these editors as described in the following code examples.
+
+To configure these controls you must use the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings_members.html[FieldSettings] object to set a style for a specific editor.
+
+.Note
+[NOTE]
+====
+Actual editor properties (and features) depend of the editor used for each field.
+====
+
+[[_Ref372812467]]
+[[_Ref372731257]]
+== Code Examples Summary
+
+=== Code examples summary chart
+
+The following table lists the code examples included in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Code Examples|Description
+
+|<<_Ref372811120,Configuring XamCurrencyEditor>>
+|`xamCurrencyEditor` configuration demonstration
+
+|<<_Ref372811943,Configuring XamComboEditor>>
+|`xamComboEditor` configuration demonstration
+
+|<<_Ref372811958,Configuring XamDateTimeEditor>>
+|`xamDateTimeEditor` configuration demonstration
+
+|<<_Ref372811963,Configuring XamNumericEditor>>
+|`xamNumericEditor` configuration demonstration
+
+|<<_Ref372811968,Configuring XamMaskedEditor #1>>
+|`xamMaskedEditor` configuration demonstration
+
+|<<_Ref372811973,Configuring XamMaskedEditor #2>>
+|`xamMaskedEditor` configuration demonstration
+
+|====
+
+[[_Ref372811120]]
+== Code Example: Configuring XamCurrencyEditor
+
+=== Description
+
+The following code snippet demonstrates how to use the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamcurrencyeditor_members.html[XamCurrencyEditor] as a field editor when configured as follows:
+
+* When the recorded value is null it displays “No Salary” in the text
+* Setting a mask allowing up to 7 digits in the integer part and 2 digits for the fraction part of the decimal
+
+=== Code
+
+Following is the code used to implement this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:Field Name="salary" Label="Salary">
+    <igDP:Field.Settings>
+        <igDP:FieldSettings
+            EditorType="{x:Type igEditors:XamCurrencyEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamCurrencyEditor}">
+                    <Setter Property="ValueType" Value="{x:Type sys:Decimal}" />
+                    <Setter Property="NullText" Value="No Salary" />
+                    <Setter Property="Mask" Value="{}{currency:7.2}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:Field.Settings>
+</igDP:Field>
+----
+
+[[_Ref372811943]]
+== Code Example: Configuring XamComboEditor
+
+=== Description
+
+The following code snippet demonstrates using the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamcomboeditor_members.html[XamComboEditor] as a field editor and how to populate items in the editor’s dropdown list from which the user may select.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:XamDataGrid.Resources>
+    <igEditors:ComboBoxItemsProvider x:Key="ComboItemsProvider">
+        <igEditors:ComboBoxItemsProvider.Items>
+            <igEditors:ComboBoxDataItem DisplayText="Accounting" Value="Accounting"/>
+            <igEditors:ComboBoxDataItem DisplayText="Admin" Value="Admin"/>
+            <igEditors:ComboBoxDataItem DisplayText="Board of Directors" Value="Board of Directors"/>
+            <igEditors:ComboBoxDataItem DisplayText="Human Resources" Value="Human Resources"/>
+            <igEditors:ComboBoxDataItem DisplayText="Sales" Value="Sales"/>
+        </igEditors:ComboBoxItemsProvider.Items>
+    </igEditors:ComboBoxItemsProvider>
+</igDP:XamDataGrid.Resources>
+<igDP:Field Name="department" Label="Department">
+    <igDP:Field.Settings>
+        <igDP:FieldSettings
+            EditorType="{x:Type igEditors:XamComboEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamComboEditor}">
+ <Setter Property="DropDownButtonDisplayMode" Value="MouseOver"/>
+ <Setter Property="ItemsProvider" Value="{StaticResource ComboItemsProvider}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:Field.Settings>
+</igDP:Field>
+----
+
+[[_Ref372811958]]
+== Code Example: Configuring XamDateTimeEditor
+
+=== Description
+
+The following code snippet demonstrates using the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamdatetimeeditor_members.html[XamDateTimeEditor] as a field editor and how to configure its mask requiring you to edit dates in the following order: year, month, date.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:UnboundField Label="Date of Birth" DataType="{x:Type sys:DateTime}">
+    <igDP:UnboundField.Settings>
+        <igDP:FieldSettings EditorType="{x:Type igEditors:XamDateTimeEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamDateTimeEditor}">
+                    <Setter Property="Mask" Value="yyyy/mm/dd" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:UnboundField.Settings>
+</igDP:UnboundField>
+----
+
+[[_Ref372811963]]
+== Code Example: Configuring XamNumericEditor
+
+=== Description
+
+The following code snippet demonstrates using the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamnumericeditor_members.html[XamNumericEditor] as a field editor and how to configure its minimum and maximum allowed values.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:UnboundField Label="Leave Left" DataType="{x:Type sys:Int32}">
+    <igDP:UnboundField.Settings>
+        <igDP:FieldSettings EditorType="{x:Type igEditors:XamNumericEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamNumericEditor}">
+                    <Setter Property="ValueConstraint">
+                        <Setter.Value>
+ <igEditors:ValueConstraint MinInclusive="0" MaxInclusive="10" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:UnboundField.Settings>
+</igDP:UnboundField>
+----
+
+[[_Ref372811968]]
+== Code Example: Configuring XamMaskedEditor #1
+
+=== Description
+
+The following code snippet demonstrates using the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammaskededitor_members.html[XamMaskedEditor] as a field editor and setting a mask requiring the editing of numbers in the range of 0 and 50.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:UnboundField Label="Leave Left" DataType="{x:Type sys:Int32}">
+    <igDP:UnboundField.Settings>
+        <igDP:FieldSettings EditorType="{x:Type igEditors:XamMaskedEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamMaskedEditor}">
+                    <Setter Property="Mask" Value="{}{number:0-50}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:UnboundField.Settings>
+</igDP:UnboundField>
+----
+
+[[_Ref372811973]]
+== Code Example: Configuring XamMaskedEditor #2
+
+=== Description
+
+The following code snippet demonstrates using the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammaskededitor.html[XamMaskedEditor] as a field editor and setting a mask requiring the entry of phone number in a specific format.
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:UnboundField Label="Phone" DataType="{x:Type sys:String}">
+    <igDP:UnboundField.Settings>
+        <igDP:FieldSettings EditorType="{x:Type igEditors:XamMaskedEditor}">
+            <igDP:FieldSettings.EditorStyle>
+                <Style TargetType="{x:Type igEditors:XamMaskedEditor}">
+                    <Setter Property="Mask" Value="{}{pass:[(###)-###-####]}" />
+                </Style>
+            </igDP:FieldSettings.EditorStyle>
+        </igDP:FieldSettings>
+    </igDP:UnboundField.Settings>
+</igDP:UnboundField>
+----
+
+[[_Ref372812502]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdata-default-editor-types-for-different-data-types.html[Default Editor Types for Different Data Types]
+|This topic describes the default editor types that are assigned by the data presenter controls for particular data types.
+
+| link:xamdatapresenter-embedding-a-xameditor-in-a-field.html[Embedding a xamEditor in a Field]
+|This topic explains how to change the default editor types assigned by the data presenter control.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/reevaluate-the-style-on-a-cell-value-change[Reevaluate the style on a cell value change]
+|This sample demonstrates how a cell style re-evaluates itself when its value changes.
+
+| link:{SamplesURL}/data-grid/xamcomboeditor-in-datarecord-cells[XamComboEditor in DataRecord Cells]
+|This sample shows two ways to embed a dropdown list into the cells of a XamDataGrid's records.
+
+|====

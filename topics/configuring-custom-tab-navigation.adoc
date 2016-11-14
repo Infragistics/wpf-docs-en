@@ -1,0 +1,142 @@
+﻿////
+|metadata|
+{
+    "name": "configuring-custom-tab-navigation",
+    "controlName": [],
+    "tags": [],
+    "guid": "05611632-0220-4689-b4ef-63efcc18a01a",
+    "buildFlags": [],
+    "createdOn": "2014-06-26T13:31:50.3255327Z"
+}
+|metadata|
+////
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to customize the default tab navigation in the  _xamDataPresenter_™ controls.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-getting-started-with-xamdatagrid.html[Adding xamDataGrid to Your Page]
+|This topic describes how to add a _xamDataGrid_ control to your page.
+
+| link:xamdatapresenter-keyboard-navigation-in-xamdatapresenter.html[Keyboard Navigation in xamDataPresenter]
+|This topic describes the _xamDataPresenter_ control’s built-in keyboard support that provides users the option of navigating Records and Fields with their keyboard.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref388537422, Configuring Custom TAB Navigation >>
+* <<_Ref388537428, Related Content >>
+
+** <<_Ref388537432,Topics>>
+** <<_Ref388537436,Samples>>
+
+[[_Ref388537422]]
+== Configuring Custom TAB Navigation
+
+[[_Hlk368069110]]
+
+=== Overview
+
+Using the `TAB` keyboard button, you can navigate through all the cells in the  _xamDataPresenter_   controls.
+
+You can exclude a particular link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell_members.html[Cell] or link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field_members.html[Field] from `TAB` navigation, using the `IsTabStop` property. This doesn’t affect records filtering and adding new records.
+
+The default value of this property is null which resolves to `true`.
+
+.Note
+[NOTE]
+====
+The `Cell` `IsTabStop` property value overrides its Field `IsTabStop` and `IsTabStopInAddRecord` settings.
+====
+
+=== Property settings
+
+The following table maps the desired behavior to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Change the default tab navigation by excluding a particular `Cell` or a `Field’s` cells in data records (i.e. not add records or filter records)
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~istabstop.html[IsTabStop]
+|`false`
+
+|Change the default tab navigation by excluding a `Field`’s cells in add records.
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~istabstopinaddrecord.html[IsTabStopInAddRecord]
+|`false`
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:TextField Name="Name" Label="Product_Name" IsTabStop=" IsTabStopInAddRecord=" />
+----
+
+[[_Ref388537428]]
+== Related Content
+
+[[_Ref388537432]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdata-selection-overview.html[Selection Overview]
+|This topic gives an overview of the selection in the xamDataGrid control.
+
+| link:xamdata-accessing-records-through-the-recordmanager.html[Accessing Records Through the RecordManager]
+|This topic describes the xamDataGrid RecordManager mechanism.
+
+| link:xamdatagrid-selected-data-items.html[Working with Selected Data Items]
+|This topic describes how to access the xamDataGrid selected items.
+
+| link:xamdatagrid-changing-field-record-or-cell-selection-behavior.html[Changing Field, Record, or Cell Selection Behavior]
+|This topic describes how to modify a xamDataPresenter control's selection functionality.
+
+| link:xamdatapresenter-keyboard-navigation-in-xamdatapresenter.html[Keyboard Navigation in xamDataPresenter]
+|This topic describes the xamDataPresenter control’s built-in keyboard support that provides users the option of navigating Records and Fields with their keyboard. It also allows users to perform clipboard operations using common keyboard shortcuts found in many operating systems.
+
+| link:xamdata-using-data-presenter-family-commands.html[Using Data Presenter Family Commands]
+|This topic lists the set of command bindings which is used to perform certain actions on the xamDataPresenter controls.
+
+|====
+
+[[_Ref388537436]]
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/controlling-tabstop-enabled-readonly[Using IsTabStop, IsEnabled and IsReadOnly properties]
+|This sample demonstrates how to exclude particular fields from tab navigation, how to disable cells at runtime and how to set a field to be read- only in the _xamDataGrid_ control.
+
+|====

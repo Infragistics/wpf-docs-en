@@ -1,0 +1,68 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-requireemptyconstructor-exception",
+    "controlName": ["xamGrid"],
+    "tags": ["Editing","Grids","How Do I","Performance","Tips and Tricks"],
+    "guid": "{5F545919-1D8B-4005-AF6C-F89735050BEF}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.1292102Z"
+}
+|metadata|
+////
+
+= RequireEmptyConstructor Exception
+
+When your end user attempts to add a new row to the xamGrid™ control, the grid initially tries to create a new instance of the data object type that is bound to the grid.
+
+For example, if your grid is bound to a list of customer objects, when your end user tries to add a new row, the grid will create a new Customer object.
+
+The topic will describe the scenario of adding a new row.
+
+In order for this to be successful, the object must include a default constructor so that the grid can use this to create a new object instance. However, in certain situations you may need to bind to a collection of objects that does not contain a default constructor. If there is no default constructor, the xamGrid control will throw a RequireEmptyConstructor exception when your end user attempts to add a new row to the control.
+
+To rectify this problem ensure that your object has a default constructor.
+
+*In C#:*
+
+----
+public class Person
+{
+   public Person()
+   {
+   }
+   public Person(string firstName, string lastName, int age, double height,   DateTime born, string address)
+   {
+      this.FirstName = firstName;
+      this.LastName = lastName;
+      this.Age = age;
+      this.Height = height;
+      this.Born = born;
+      this.Address = address;
+   }
+   public string FirstName { get; set; }
+   public string LastName { get; set; }
+   public int Age { get; set; }
+   public double Height { get; set; }
+   public DateTime Born { get; set; }
+   public string Address { get; set; }
+}
+----
+
+Since it is not always possible to modify the object yourself, you can handle the xamGrid control’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~dataobjectrequested_ev.html[DataObjectRequested] event to intercept the request for a new object. This event is raised when the DataManager is going to attempt to create a new underlying data object. In this event’s parameters is a member called e. link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.dataobjectcreationeventargs~newobject.html[NewObject]. You should set this object to a new instance of your data object and this will be used by the grid instead of trying to create a new object.
+
+*In C#:*
+
+----
+ig.DataObjectRequested += new EventHandler<DataObjectCreationEventArgs>(ig_DataObjectRequsted);
+void ig_DataObjectRequsted(object sender, DataObjectCreationEventArgs e)
+{
+   if (e.ObjectType == typeof(Person)) 
+     e.NewObject = new Person(null, null, 0, 0, DateTime.Today, null);
+}
+----
+
+== Related Topic
+
+link:xamgrid-add-new-row.html[Add New Row]

@@ -1,0 +1,79 @@
+﻿////
+|metadata|
+{
+    "name": "xamdata-performance-optimizations-overview",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Performance","Styling"],
+    "guid": "{5930FD97-2491-4527-9BCB-3EB613229FDE}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5218575Z"
+}
+|metadata|
+////
+
+= Performance Optimizations Overview
+
+Reducing the memory footprint and increasing the responsiveness of controls is always important. This is true both in "low-stress" situations such as binding to small data sets, and in demanding scenarios that involve binding to data sources that contain very large numbers of records and/or records with many columns. The DataPresenter controls use several techniques to improve performance in these scenarios. These techniques include:
+
+* Reducing the memory footprint of the control through aggressive virtualization of elements contained within the control.
+
+** *Record Virtualization* -- link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordpresenter.html[RecordPresenter] elements, which are used to display DataRecords in the UI, are created when the record they represent is scrolled into view and they are cleaned up when the record they represent has been scrolled out of view. This means that the number of RecordPresenter elements (which can potentially contain large numbers of elements including cell values and cell chrome) is kept as low as possible. This strategy is absolutely essential, particularly when bound to data sources that contain large numbers of records.
+** *Cell Virtualization* -- link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellpresenter.html[CellPresenter] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] elements, which are used to display cell values and labels for each cell in the UI, are not created until they are scrolled into view. For example, suppose you are using a xamDataGrid with the default orientation of vertical, and you are bound to a data source that contains records with 100 columns each. Assume further that the display is only wide enough to show 10 columns at a time. When the first page of records is displayed, xamDataGrid will only create CellValuePresenters in each RecordPresenter for the first 10 fields (not all 100). When the user page-scrolls the display to the right to reveal the next 10 columns, xamDataGrid will create CellValuePresenters in each RecordPresenter for the next 10 fields. This will continue until the user has scrolled far enough to the right to reveal all 100 columns.
++
+.Note
+[NOTE]
+====
+Unlike the Record Virtualization described above, the Cell Virtualization strategy does not clean up CellValuePresenters when they are scrolled out of view (i.e., when the user scrolls back to the left in our example). Instead, the CellValuePresenters will remain "hydrated" until the RecordPresenters that contain them are scrolled out of view (i.e., the user scrolls vertically in our example), at which time they will be cleaned up.
+====
+
+* Improving control-responsiveness in general, and scrolling responsiveness in particular, through the caching and reuse of LabelPresenter and CellValuePresenter elements.
+
+** *Caching and Reusing Elements* -- link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.labelpresenter.html[LabelPresenter] and CellValuePresenter elements are cached and reused when possible to reduce framework overhead and improve performance. Without caching, when a control is scrolled by the user to reveal a new set of records, the existing set of elements that are displaying the previously visible records need to be disconnected and cleaned up, and new elements need to be created to display the new set of visible records. This process includes removing the old elements from the Visual tree, disconnecting their bindings, destroying the old elements, creating new elements, adding them to the Visual tree, hooking up their bindings and resolving their styles up the resource chain. By caching (instead of destroying) and reusing (instead of creating) LabelPresenter and CellValuePresenter elements (i.e., the largest number of elements most directly impacted when a page is displayed or a scrolling operation takes place) the impact of the many framework and control operations that occur during these processes can be significantly reduced.
++
+.Note
+[NOTE]
+====
+The positive impact of this reuse strategy is greatest when the FieldLayout's LabelLocation property is set to InCells. This setting creates the largest number of elements since each cell has a field label in it (as opposed to the SeparateHeader setting which creates a single set of headers above all the records).
+====
+
+* Reducing the overhead of Windows® Presentation Foundation style resolution through caching of style information for key styling points in the control.
+
+** *Caching Style Information* -- By caching and reusing style information for key 'styling points', the controls are able to reduce the number of style lookups and resolutions. Style resolution, which is handled by the Windows Presentation Foundation framework and involves walking up the visual tree and inspecting resource dictionaries looking for a style for a specific type, can be a time-consuming process. By caching and reusing style information, the controls can increase performance during page display and scrolling. The above-mentioned styling points are elements within the visual tree of the controls that are implemented as custom types so they can be styled using resource-based styles. For example, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.headerpresenter.html[HeaderPresenter] element is derived from ContentControl. Instead of simply using a ContentControl for the header area, the derived HeaderPresenter type was created so that you could create a replacement style that targets only the the HeaderPresenter type and place it in the resource chain. If a ContentControl was used instead, there would be no way to style the header area without styling all ContentPresenters in the same resolution scope.
+
+* Avoiding the performance impact of thumb drag scrolling through the implementation of a 'deferred scrolling with ScrollTips' strategy.
+
+** *Deferred Scrolling* -- When the end user scrolls the display by dragging the scroll thumb, the potential exists for a large number of records to be traversed. In this case, a lot of elements need to be destroyed and created. Even though the controls have implemented an aggressive element reuse strategy as explained in the "Caching and Reusing Elements" description above, the sheer number of elements being traversed can negatively impact performance. To address this scenario, the controls implement a deferred scrolling strategy by default, to deal with the thumb-drag scrolling scenario. With deferred scrolling, the display is not updated with the new scroll position until after the thumb is released. At that point, the display is updated once, as opposed to every time the thumb is moved. In order to provide the user with feedback while they are dragging the thumb, the controls display a ScrollTip. A ScrollTip is a ToolTip that displays information about the record that would be the first displayed record if the thumb was released. The ScrollTip is updated with information about the new first record as the thumb is dragged. This provides the user with enough context to know when they've reached the scroll position they are looking for.
+
+* Reducing the memory footprint of the control through lazy creation of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] objects.
+
+** *Lazy Object Creation* -- DataRecord and Cell objects are thin wrappers around records and field values that are only created when they are asked for. By delaying the creation of these objects, the impact on the control's memory footprint is kept at the lowest possible level at any given time.
+
+*Ways to Optimize Performance:*
+
+The following list describes a couple of ways to optimize performance:
+
+[start=1]
+. Limit the number of fields that have the Settings.Width property set to the following:
++
+--
+** Auto
+** InitialAuto
+--
++
+However, for Fields that have the Settings.Width property set to one of the above auto settings, they should be not recycled. You can achieve this by setting the AllowCellVirtualization property to False. For the best performance, the Field’s Width property should be unset.
+
+[start=2]
+. There is overhead associated with Fields that maintain data history. Do not set the Field’s DataValueChangeHistoryLimit to 1 or greater to limit the amount of Fields that maintain data history.
+
+== Potential Side Effects
+
+There are ways in which the optimization techniques described above can affect your usage of the control. For example, if you have code in your application that is walking over the visual tree of elements in one of the 'xam' controls, you should be aware that not all the elements you expect to be present will be there. Specifically, CellValuePresenter elements may be "missing" from the Visual tree if they have not yet been scrolled into view. Similarly, if you are looking for RecordPresenter elements for records that have been scrolled out of view, they too will be missing from the Visual tree. In general, though, the optimizations described above should be transparent to your usage of the controls.
+
+== What Can You Do to Optimize Performance
+
+There are ways to adjust your usage of the controls to help optimize their performance. For example, if you create replacements styles and templates for the styling points within the 'xam' controls, try to keep the number of elements you add to a minimum. This is particularly important if you are replacing templates for elements that appear many times in the UI (e.g., CellValuePresenters). Increasing the number of elements in the controls is the best way to increase memory footprint and decrease performance. You should also avoid using certain special effects provided by Windows Presentation Foundation such as Bitmap Effects. Although their impact in the UI can be dramatic, these effects can come at a high performance cost, particularly if they are used on many elements.
+
+Refer to the following topics for more information on best practices for optimizing performance when using {ProductName} controls:
+
+* link:xamdata-impact-styles-have-on-performance-of-controls.html[Impact Styles Have on the Performance of Controls]
+* link:xamdata-displaying-tooltips-while-scrolling-the-grid.html[Displaying ToolTips While Scrolling the Grid]

@@ -1,0 +1,64 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-reference-cells-and-regions",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting"],
+    "guid": "{904B2B76-11A5-4EE1-8B32-1F4B5C0044E6}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7697071Z"
+}
+|metadata|
+////
+
+= Referencing Cells and Regions (Infragistics Excel Engine)
+
+You can access a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell.html[WorksheetCell] object or a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetregion.html[WorksheetRegion] object by calling the Worksheet object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~getcell.html[GetCell] or link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~getregion.html[GetRegion] methods, respectively. Both methods accept a string parameter that references a cell. Getting a reference to a cell is useful when applying formats or working with formulas and cell contents. A typical usage of the GetRegion method is shown in *Merging Cells* article (for more information refer to the *Related Topics* section).
+
+The following example code demonstrates how to reference cells and regions. The example code assumes you have a reference to a Worksheet object named worksheet1.
+
+*In Visual Basic:*
+[source,vb]
+----
+Imports Infragistics.Documents.Excel
+...
+'Accessing a single cell
+Dim cellE2 As WorksheetCell = worksheet1.GetCell("E2")
+'Accessing a range of cells
+Dim regionG As WorksheetRegion = worksheet1.GetRegion("G1:G10")
+----
+
+*In C#:*
+[source,csharp]
+----
+using Infragistics.Documents.Excel;
+...
+//Accessing a single cell
+WorksheetCell cellE2 = worksheet1.GetCell("E2");
+//Accessing a range of cells
+WorksheetRegion regionG = worksheet1.GetRegion("G1:G10");
+----
+
+== Related Topics
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-format-a-cell.html[Formatting a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Adding a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

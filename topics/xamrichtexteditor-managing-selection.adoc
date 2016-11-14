@@ -1,0 +1,279 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-selection",
+    "tags": ["How Do I","Selection"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "9c040e11-a825-4194-90b9-87fbac354cc6",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5383077Z"
+}
+|metadata|
+////
+
+= Managing Selection (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic covers the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s selection feature from the developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref359594750,Introduction>>
+* <<_Ref362272630,Obtaining Single Selection Programmatically>>
+* <<_Ref362272638,Set Single Selection Programmatically>>
+* <<_Ref359594792,Obtaining Multiple Selection Programmatically>>
+* <<_Ref365461606,Set Multiple Selection Programmatically>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref359594750]]
+== Introduction
+
+=== Selection summary
+
+The  _xamRichTextEditor_   control’s selection feature allows you or the user to select content from a document. You can select either a single area from the content or multiple areas, called ranges. The range is an object which represents part of the document’s content and is defined by its start and end positions. These positions are, in fact, the offsets from the beginning of the document’s content. Each rich content type (like characters, words, paragraph ends, list item indicators, images or tables) occupies a document offset.
+
+You can access the single selection using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~range.html[Selection.Range] property or use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~ranges.html[Selection.Ranges] collection, with multiple selection enabled via the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~ismultiselectenabled.html[IsMultiSelectEnabled] property, to obtain multiple selection ranges.
+
+.Note
+[NOTE]
+====
+The `Selection.Range` property refers to the selection range when using single selection. When using the multiple selection mode, this property refers to the most recent selection made, which is also the last entry in the `Selection.Ranges` collection.
+====
+
+[[_Ref359594778]]
+[[_Ref362272630]]
+== Obtaining Single Selection Programmatically
+
+=== Overview
+
+The following information describes how to obtain the single selection’s range. You can also access the selection range (or the primary selected range of the multiple selection) using the `Selection.Range` property. Use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~text.html[Selection.Text] property to obtain the plain text content of the selection.
+
+=== Property settings
+
+The following table maps the desired behaviors to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And obtain:
+
+|Obtain selection start
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~start.html[Start]
+|The start offset of the selection range
+
+|Obtain selection end
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~end.html[End]
+|The end offset of the selection range
+
+|Obtain selection content
+|`Text`
+|The content as string
+
+|====
+
+=== Code snippet
+
+*In C#:*
+
+[source,csharp]
+----
+// obtains the start and the end of the selection
+int startIndex = this.xamRichTextEditor1.ActiveDocumentView.Selection.Start;
+int endOffset = this.xamRichTextEditor1.ActiveDocumentView.Selection.End;
+string text = this.xamRichTextEditor1.ActiveDocumentView.Selection.Text;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' obtains the start and the end of the selection
+Dim startIndex As Integer = Me.xamRichTextEditor1.ActiveDocumentView.Selection.Start
+Dim endOffset As Integer = Me.xamRichTextEditor1.ActiveDocumentView.Selection.[End]
+Dim text As String = Me.xamRichTextEditor1.ActiveDocumentView.Selection.Text
+----
+
+[[_Ref362272638]]
+== Set Single Selection Programmatically
+
+=== Overview
+
+The following information describes how to set the single selection’s range. You can also set the selection content using the `Selection.Text` property, which replaces the existing selected content.
+
+=== Property settings
+
+The following table maps the desired behaviors to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set selection start
+|`Start`
+|The start offset of the selection range
+
+|Set selection end
+|`End`
+|The end offset of the selection range
+
+|Set selection new content
+|`Text`
+|To a value of type string
+
+|====
+
+.Note
+[NOTE]
+====
+The selection can also be changed using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~setrange.html[Selection.SetRange] method. There are also a lot of helper methods in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection_members.html[Selection] object, which can be used to select characters, words and other parts of the document. Please see the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection_members.html[API documentation] for specific help on each method.
+====
+
+.Note
+[NOTE]
+====
+To clear the selection you can use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~collapse.html[Selection.Collapse] method and specify which position of the range to collapse (the start or the end). After collapsing the range, the starting and ending point of the selection will be equal.
+====
+
+=== Code snippet
+
+*In C#:*
+
+[source,csharp]
+----
+// set the start and the end of the selection
+this.xamRichTextEditor1.ActiveDocumentView.Selection.Start = startOffset;
+this.xamRichTextEditor1.ActiveDocumentView.Selection.End = endOffset;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' set the start and the end of the selection
+Me.xamRichTextEditor1.ActiveDocumentView.Selection.Start = startOffset
+Me.xamRichTextEditor1.ActiveDocumentView.Selection.End = endOffset
+----
+
+[[_Ref359594792]]
+== Obtaining Multiple Selection Programmatically
+
+=== Overview
+
+The following information describes how to obtain multiple selections’ ranges. The most recent range made is also available using the `Selection.Range` property.
+
+=== Property settings
+
+The following table maps the desired behaviors to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Obtain multiple selection ranges
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~ranges.html[Ranges]
+|Access the elements of this collection of type Range
+
+|====
+
+=== Code snippet
+
+*In C#:*
+
+[source,csharp]
+----
+foreach (Range selRange in
+    this.xamRichTextEditor1.ActiveDocumentView.Selection.Ranges)
+{
+   int rangeStart = selRange.Start;
+   int rangeEnd = selRange.End;
+   string rangeText = selRange.Text;
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+For Each selRange As Range In Me.xamRichTextEditor1.ActiveDocumentView.Selection.Ranges
+        Dim rangeStart As Integer = selRange.Start
+        Dim rangeEnd As Integer = selRange.[End]
+        Dim rangeText As String = selRange.Text
+Next
+----
+
+[[_Ref365461606]]
+[[_Ref359594803]]
+== Set Multiple Selection Programmatically
+
+=== Overview
+
+The following information describes how to set the multiple selection ranges. New selection ranges can be added to the selection and, if needed, the current selection ranges can be kept.
+
+=== Property settings
+
+The following table maps the desired behaviors to methods.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And:
+
+|Add or replace multiple selection ranges
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.selection~updateselectionwithspans.html[UpdateSelectionWithSpans]
+|Specify the new selection ranges as document spans. Also specify whether the old selection ranges should be kept using the `replaceEntireSelection` Boolean argument.
+
+|====
+
+== Related Content
+
+=== Topics
+
+The following topic provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-configuring-selection.html[Configuring Selection]
+|This topic explains how to turn on the _xamRichTextEditor_ control’s multiple selection functionality.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/selection[Selection]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/selection[Selection]"] 
+|This sample demonstrates how to manipulate the *xamRichTextEditor’s* selected content.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/multiple-selection[Multiple Selection]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/multiple-selection[Multiple Selection]"] 
+|This sample demonstrates how to obtain the *xamRichTextEditor’s* multiple selection ranges.
+
+|====

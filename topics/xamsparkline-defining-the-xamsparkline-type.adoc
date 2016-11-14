@@ -1,0 +1,261 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsparkline-defining-the-xamsparkline-type",
+    "controlName": ["xamSparkline"],
+    "tags": ["API","Charting","How Do I"],
+    "guid": "2ff3fb45-379f-4f86-a3b2-b2ef6ee36b04",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.2433513Z"
+}
+|metadata|
+////
+
+= Defining the xamSparkline Type
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains, with code examples, how to define the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}.html[xamSparkline]™ type. There are individual sections about specifying the Win/Loss type because of the special requirements of this Sparkline type.
+
+=== Required Background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+| link:xamsparkline-configuring-xamsparkline.html[Configuring xamSparkline]
+|This topic explains, with code examples, how to configure and customize a tooltip in a _xamSparkline_ .
+
+|====
+
+=== In This Topic
+
+This topic contains the following sections:
+
+* <<_Ref317092856,Defining the Sparkline Type>>
+
+** <<_Ref317164782,Overview>>
+** <<_Ref317164795,Property settings>>
+** <<_Ref317164807,Example>>
+** <<_Ref317165117,Code>>
+
+* <<_Ref317186415,Defining a Sparkline of Win/Loss Type>>
+
+** <<_Ref317165227,Overview>>
+** <<_Ref317165233,Property settings>>
+** <<_Ref317165239,Example>>
+** <<_Ref317165392,Code>>
+
+* <<_Ref317164828,Related Content>>
+
+** <<_Topics,Topics>>
+
+[[_Ref317092856]]
+== Defining the Sparkline Type
+
+[[_Ref317164782]]
+
+=== Overview
+
+The xamSparkline control supports the following types of Sparklines
+
+*  _Line_  
+*  _Area_  
+*  _Column_  
+*  _Win/Loss_  
+
+The type is defined by the setting of the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline.html[DisplayType] property _._  If the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline.html[DisplayType] property is not specified, by default, the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[Line] type is displayed.
+
+[[_Ref317164795]]
+
+=== Property settings
+
+The following table maps the Sparkline types to the property settings that configure them.
+
+[options="header", cols="a,a"]
+|====
+|Desired xamSparkline type|Set the  _DisplayType_   property to:
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[Line]
+| _Line_ 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[Area]
+| _Area_ 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[Column]
+| _Column_ 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[WinLoss]
+| _WinLoss_ 
+
+|====
+
+[[_Ref317164807]]
+
+=== Example
+
+The screenshot below the table demonstrates a Sparkline defined with the following settings:
+
+[options="header", cols="a,a"]
+|====
+| *Property* | *Value* 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline.html[DisplayType]
+| _Column_ 
+
+|====
+
+image::images/Define_Sparkline_Types_1.png[]
+
+[[_Ref317165117]]
+
+=== Code
+
+The following code demonstrates setting the display type of the Sparkline to link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.sparklinedisplaytype.html[Column].
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamSparkline Name="xamSparkline1" DisplayType="Column"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSparkline1.DisplayType = SparklineDisplayType.Column;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSparkline1.DisplayType = SparklineDisplayType.Column
+----
+
+[[_Ref317186415]]
+== Defining a Sparkline of Win/Loss Type
+
+[[_Ref317165227]]
+
+=== Overview
+
+The Win/Loss type is a column chart type, in which the value of each column is equal to either the positive maximum (for positive values) or the negative minimum (for negative minimum) of the data set, often denoting a win or a loss (or similar opposing concepts). For the Win/Loss chart to display properly, the data set must have both positive and negative values.
+
+If the Win/Loss type is bound to the same data as the other types such as the Line type (which can be bound to a collection of numeric values), then  _xamSparkline_   will select two values from the collection – the highest and the lowest – and will render the Sparkline based on those values.
+
+For example, if all Sparkline types are bound to the same data source as follows:
+
+[options="header", cols="a,a"]
+|====
+|*Records*|* Values*
+
+|Record 1
+|2
+
+|Record 2
+|5
+
+|Record 3
+|-1
+
+|Record 4
+|4
+
+|Record 5
+|-3
+
+|====
+
+The  _Win/Loss_   type will pick only two values from the entire data source, the highest  _(5)_   and the lowest  _(-3)_  , then it will plot all positive data points identical to the highest value and all negative data points identical to the lowest value.
+
+[[_Ref317165233]]
+
+=== Property settings
+
+The following table demonstrates the property setting for setting a Sparkline of Win/Loss type to property setting that specifies it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set the Sparkline type to Win/Loss
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline.html[DisplayType]
+| _WinLoss_ 
+
+|====
+
+[[_Ref317165239]]
+
+=== Example
+
+The screenshot below demonstrates how the Sparkline looks as a result of the following settings:
+
+[options="header", cols="a,a"]
+|====
+|Property|Value
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline.html[DisplayType]
+| _WinLoss_ 
+
+|====
+
+image::images/Define_Sparkline_Types_2.png[]
+
+[[_Ref317165392]]
+
+=== Code
+
+The following code demonstrates setting the display type for xamSparkline to  _WinLoss_  .
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamSparkline Name="xamSparkline1" DisplayType="WinLoss"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSparkline1.DisplayType = SparklineDisplayType.WinLoss;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSparkline1.DisplayType = SparklineDisplayType.WinLoss
+----
+
+[[_Ref317164828]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+| link:xamsparkline-configuring-xamsparkline.html[Configuring xamSparkline]
+|This topic explains, with code examples, how to configure and customize a tooltip in a _xamSparkline_ .
+
+| link:xamsparkline-xamsparkline-property-reference.html[xamSparkline Property Reference]
+|This topic explains the featured properties of the _xamSparkline_ control.
+
+|====

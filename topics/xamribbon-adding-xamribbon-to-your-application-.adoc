@@ -1,0 +1,242 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-adding-xamribbon-to-your-application ",
+    "controlName": ["xamRibbon"],
+    "tags": ["Getting Started","Grouping","How Do I"],
+    "guid": "641031c2-9084-46c8-aec0-f845d3a2df62",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.2311993Z"
+}
+|metadata|
+////
+
+= Adding xamRibbon to Your Application
+
+This topic is designed to get you up and running as quickly as possible by describing the minimum basic procedure for adding the xamRibbon™ control to a Window using Microsoft® Visual Studio®.
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window project.
+[start=2]
+. Add references to your project. In the Solution Explorer, add the following references
+
+** {ApiPlatform}Editors.v{ProductVersion}.dll
+** {ApiPlatform}Ribbon.v{ProductVersion}.dll
+** {ApiPlatform}v{ProductVersion}.dll
+
+[start=3]
+. Add a namespace declaration for xamRibbon inside the opening Window tag. In code-behind you will need using/Imports directives so you don't have to type out a member's fully qualified name.
+
+*In XAML:*
+
+----
+<Window ...
+   xmlns:igRibbon="http://infragistics.com/Ribbon"
+   ... >
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+----
+
+[start=4]
+. Create an instance of xamRibbon, name it, and set its alignment. By default, Visual Studio will add a Grid layout container to a new Window, name it "layoutRoot". When you add xamRibbon to this Grid layout container, it will automatically stretch to fill the container. To prevent xamRibbon from stretching, set the VerticalAlignment property to Top, or use a different layout container such as the DockPanel.
+
+*In XAML:*
+
+----
+<Grid Name="layoutRoot">
+    <igRibbon:XamRibbon Name="xamRibbon1" VerticalAlignment="Top">
+        <!-- TODO: Add Tabs here -->    </igRibbon:XamRibbon>
+</Grid>
+----
+
+Create an instance of the xamRibbon control in the Window constructor after the InitializeComponent method and add it to the Grid's Children collection.
+
+*In Visual Basic:*
+
+----
+Dim xamRibbon1 As New XamRibbon()
+xamRibbon1.VerticalAlignment = VerticalAlignment.Top
+Me.layoutRoot.Children.Add(xamRibbon1)
+----
+
+*In C#:*
+
+----
+XamRibbon xamRibbon1 = new XamRibbon(); 
+xamRibbon1.VerticalAlignment = VerticalAlignment.Top;
+this.layoutRoot.Children.Add(xamRibbon1);
+----
+
+[start=5]
+. Declare a Tabs collection within the xamRibbon control tags.
+[start=6]
+. Add a RibbonTabItem to the Tabs collection. Set the Header property to display text in the header of the RibbonTabItem.
+[start=7]
+. Add a RibbonGroup to the RibbonTabItem. Set the RibbonGroup’s Caption property to display text in the caption area of the RibbonGroup.
+
+*In XAML:*
+
+----
+...
+<igRibbon:XamRibbon.Tabs>
+    <igRibbon:RibbonTabItem Header="Home">
+        <igRibbon:RibbonGroup Caption="Font">
+            <!-- TODO: Add tools here -->        </igRibbon:RibbonGroup>
+    </igRibbon:RibbonTabItem>
+</igRibbon:XamRibbon.Tabs>
+...
+----
+
+*In Visual Basic:*
+
+----
+Dim tabItem As New RibbonTabItem()
+tabItem.Header = "Home"
+Dim group As New RibbonGroup()
+group.Caption = "Font"
+tabItem.RibbonGroups.Add(group)
+xamRibbon1.Tabs.Add(tabItem)
+----
+
+*In C#:*
+
+----
+RibbonTabItem tabItem = new RibbonTabItem
+{
+    Header = "Home"
+};
+RibbonGroup group = new RibbonGroup
+{
+    Caption = "Font"
+};
+tabItem.RibbonGroups.Add(group);
+xamRibbon1.Tabs.Add(tabItem);
+----
+
+[start=8]
+. Add three ButtonTools to a ButtonGroup. Set the Caption and Id properties of each ButtonTool and attach an event handler to the Click event of each ButtonTool.
+
+*In XAML:*
+
+----
+...
+<igRibbon:ButtonGroup>
+    <igRibbon:ButtonTool Caption="Bold" Id="btnBold" Click="buttonTool_Click" />
+    <igRibbon:ButtonTool Caption="Italic" Id="btnItalic" Click="buttonTool_Click" />
+    <igRibbon:ButtonTool Caption="Underline" Id="btnUnderline" 
+              Click="buttonTool_Click" />
+</igRibbon:ButtonGroup>
+...
+----
+
+*In Visual Basic:*
+
+----
+Dim buttonGroup As New ButtonGroup()
+Dim buttonTool1 As New ButtonTool()
+buttonTool1.Caption = "Bold"
+buttonTool1.Id = "btnBold"
+buttonTool1.Click += New RoutedEventHandler(buttonTool_Click)
+Dim buttonTool2 As New ButtonTool()
+buttonTool2.Caption = "Italic"
+buttonTool2.Id = "btnItalic"
+buttonTool2.Click += New RoutedEventHandler(buttonTool_Click)
+Dim buttonTool3 As New ButtonTool()
+buttonTool3.Caption = "Underline"
+buttonTool3.Id = "btnUnderline"
+buttonTool3.Click += New RoutedEventHandler(buttonTool_Click)
+buttonGroup.Children.Add(buttonTool1)
+buttonGroup.Children.Add(buttonTool2)
+buttonGroup.Children.Add(buttonTool3)
+group.Items.Add(buttonGroup)
+...
+----
+
+*In C#:*
+
+----
+ButtonGroup buttonGroup = new ButtonGroup();
+ButtonTool buttonTool1 = new ButtonTool();
+buttonTool1.Caption = "Bold";
+buttonTool1.Id = "btnBold";
+buttonTool1.Click += new RoutedEventHandler(buttonTool_Click);
+ButtonTool buttonTool2 = new ButtonTool();
+buttonTool2.Caption = "Italic";
+buttonTool2.Id = "btnItalic";
+buttonTool2.Click += new RoutedEventHandler(buttonTool_Click);
+ButtonTool buttonTool3 = new ButtonTool();
+buttonTool3.Caption = "Underline";
+buttonTool3.Id = "btnUnderline";
+buttonTool3.Click += new RoutedEventHandler(buttonTool_Click);
+buttonGroup.Children.Add(buttonTool1);
+buttonGroup.Children.Add(buttonTool2);
+buttonGroup.Children.Add(buttonTool3);
+group.Items.Add(buttonGroup);
+...
+----
+
+[start=9]
+. In the code-behind, create a method that will handle the Click event of the ButtonTools.
+
+*In Visual Basic:*
+
+----
+Private Sub buttonTool_Click(ByVal sender As System.Object, _
+  ByVal e As System.Windows.RoutedEventArgs)
+        Dim bt as ButtonTool = DirectCast(e.OriginalSource, ButtonTool)
+        Select Case bt.Id
+                Case "btnBold"
+                        MessageBox.Show("Bold Button")
+                        Exit Select
+                Case "btnItalic"
+                        MessageBox.Show("Italic Button")
+                        Exit Select
+                Case "btnUnderline"
+                        MessageBox.Show("Underline Button")
+                        Exit Select
+        End Select
+End Sub
+----
+
+*In C#:*
+
+----
+private void buttonTool_Click(object sender, RoutedEventArgs e)
+{
+        ButtonTool bt = (ButtonTool)e.OriginalSource;
+        switch (bt.Id)
+        {
+                case "btnBold":
+                        MessageBox.Show("Bold Button");
+                        break;
+                case "btnItalic":
+                        MessageBox.Show("Italic Button");
+                        break;
+                case "btnUnderline":
+                        MessageBox.Show("Underline Button");
+                        break;
+        }
+}
+----
+
+[start=10]
+. Run the project and click the buttons to display a MessageBox.
+
+image::images/xamRibbon_Adding_Ribbon.png[]
+
+== Related Topics
+
+link:xamribbon-about-xamribbon.html[About xamRibbon]
+
+link:xamribbon-using-xamribbon.html[Using xamRibbon]

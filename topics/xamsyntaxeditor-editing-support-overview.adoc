@@ -1,0 +1,345 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-editing-support-overview",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","Extending","FAQ","How Do I","Selection"],
+    "guid": "7bfc11f3-464c-486e-8dcd-584b246707e8",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3503529Z"
+}
+|metadata|
+////
+
+= Editing Support Overview (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic covers the text editing capabilities of the  _xamSyntaxEditor™_   control from both the developer and user’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-adding-to-your-page.html[Adding _xamSyntaxEditor_ to Your Page]
+|This topic provides you with systematic instructions designed to help you get the _xamSyntaxEditor_ up and running as quickly as possible.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref329095863, Introduction >>
+** <<_Ref332377238,Introduction to the  _xamSyntaxEditor_   editing support>>
+
+* <<_Ref332377258, Keyboard Shortcuts >>
+** <<_Ref332377289,Overview>>
+** <<_Ref332377971,Caret shortcuts>>
+** <<_Ref332377990,Text editing>>
+** <<_Ref332378011,Scrolling shortcuts>>
+** <<_Ref332378041,Selection shortcuts>>
+** <<_Ref332378061,Clipboard shortcuts>>
+** <<_Ref332378091,Undo/Redo shortcuts>>
+
+* <<_Ref329095915, Mouse Shortcuts >>
+** <<_Ref332379959,Overview>>
+** <<_Ref332379967,Caret shortcuts>>
+** <<_Ref332379985,Scrolling shortcuts>>
+** <<_Ref332379994,Selection shortcuts>>
+
+* <<_Ref329095925, Related Content >>
+
+[[_Ref329095863]]
+== Introduction
+
+[[_Ref332377238]]
+
+=== Introduction to the xamSyntaxEditor editing support
+
+The  _xamSyntaxEditor_   is a highly customizable text editing control similar to Visual Studio’s code editor. There are a number of features included in the  _xamSyntaxEditor_   to facilitate document editing, by both the developer and the user. Some of the many features included are link:xamsyntaxeditor-clipboard-support.html[Clipboard Support]; link:xamsyntaxeditor-undo-redo.html[Undo and Redo]; link:xamsyntaxeditor-find-replace.html[Find and Replace]; link:xamsyntaxeditor-events-and-commands.html[Events and Commands] among many others.
+
+The  _xamSyntaxEditor_   displays a caret to show the insertion point in the document. That is the point where characters appear as they are typed. By default, the  _xamSyntaxEditor_   is set to link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~insert.html[Insert] mode, which means that new characters inserted between the texts on either side of the caret, depending on the configuration of the link:http://msdn.microsoft.com/en-us/library/system.windows.frameworkelement.flowdirection.aspx[FlowDirection] property. This is done without overwriting the character at that position. Existing characters shift towards the end of the document. By setting the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~textupdatemode.html[TextUpdateMode] property to link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentviewtextupdatemode.html[Overwrite] forces the  _xamSyntaxEditor_   to overwrite the existing character(s) starting at the caret and replacing current character with the new one, one character at a time. To disable all editing, set the document’s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~isreadonly.html[IsReadOnly] property to  _True_  .
+
+By default, the  _xamSyntaxEditor’s_   caret moves to the right as characters are typed; however, you may reverse the direction by setting the `FlowDirection` property to link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.editorientation.html[RightToLeft].
+
+The  _xamSyntaxEditor_   control consists of one or two  _views_   into a document. Each of these views shows a portion of the document currently under edit. If the document is too larger to fit in the  _xamSyntaxEditor’s_   view, scrollbars will appear allowing the user to navigate the content of the document.
+
+.Note
+[NOTE]
+====
+The scrollbars move the visible part of the document’s content in the  __view__  while maintaining the caret’s position during scrolling.
+====
+
+You can split the  _xamSyntaxEditor_   window (either horizontally or vertically) into two views allowing the user to quickly navigate and edit two parts of the same document at the same time. You can also limit user splitting to just horizontal or vertical via the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~splitoptions.html[SplitOptions] property or disable splitting altogether via the same property. For more information, please see the link:xamsyntaxeditor-splitting.html[Splitting] topic.
+
+The user can position the  _xamSyntaxEditor’s_   caret using either the keyboard or mouse. Also, using the various keyboard and mouse combinations, listed below, the user may select a continuous area of the text and perform various operations including, but not limited to, copy and delete. In addition, the user may start typing characters immediately after selecting an area of text, resulting in the newly typed text replacing the selected text. Optionally, you can configure notifications to notify you when a selection changes by either attaching a handler to the  _xamSyntaxEditor’s_   link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~selectionchanged_ev.html[SelectionChanged] event or manipulating the selection through the  _xamSyntaxEditor_   view’s link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview~selectionmanager.html[SelectionManager].
+
+The link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument] has API methods to edit the content from code. Use the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~append.html[Append], link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~insert.html[Insert] or link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~delete.html[Delete] methods to perform the corresponding operation. Additionally, you may use the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument~newlinesequence.html[NewLineSequence] property to specify which character(s) delimit the lines in the document.
+
+[[_Ref329095881]]
+[[_Ref332377258]]
+== Keyboard Shortcuts
+
+[[_Ref332377289]]
+
+=== Overview
+
+This table catalogs the available keyboard key and key combinations available whenever you are editing a document’s content.
+
+[[_Ref332377971]]
+
+=== Caret shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Move up
+|Up arrow
+
+|Move down
+|Down arrow
+
+|Move left
+|Left arrow
+
+|Move right
+|Right arrow
+
+|Move to begin of line / begin of text
+|Home
+
+|Move to end of line
+|End
+
+|Move to begin of document
+|Ctrl + Home
+
+|Move to end of document
+|Ctrl + End
+
+|Move one page up (this will scroll the document if necessary to persist the caret in the visible area)
+|Page up
+
+|Move one page down (this will scroll the document if necessary to persist the caret in the visible area)
+|Page down
+
+|====
+
+[[_Ref332377990]]
+
+=== Text editing
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Delete current character / 
+
+Delete selected text
+|Delete
+
+|Delete previous character
+|Backspace
+
+|Switch between Insert and Overwrite mode
+|Insert
+
+|====
+
+[[_Ref332378011]]
+
+=== Scrolling shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Scroll document up (without moving the caret position)
+|Ctrl + Up arrow
+
+|Scroll document down (without moving the caret position)
+|Ctrl + Down arrow
+
+|====
+
+[[_Ref332378041]]
+
+=== Selection shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Select one character left
+|Shift + Left arrow
+
+|Select one character right
+|Shift + Right arrow
+
+|Select one word left
+|Ctrl + Shift + Left arrow
+
+|Select one word right
+|Ctrl + Shift + Right arrow
+
+|Select one line upwards
+|Shift + Up arrow
+
+|Select one line downwards
+|Shift + Down arrow
+
+|Select to the beginning of the line
+|Shift + Home
+
+|Select to the end of the line
+|Shift + End
+
+|Select one page upwards
+|Shift + page up
+
+|Select one page downwards
+|Shift + page down
+
+|Select the whole document content
+|Ctrl + A
+
+|====
+
+[[_Ref332378061]]
+
+=== Clipboard shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Cut
+|Ctrl + X 
+
+Shift + Delete
+
+|Copy
+|Ctrl + C 
+
+Ctrl + Insert
+
+|Paste
+|Ctrl + V 
+
+Shift + Insert
+
+|====
+
+[[_Ref332378091]]
+
+=== Undo/Redo shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use this keyboard key:
+
+|Undo
+|Ctrl + Z 
+
+Alt + Backspace
+
+|Redo
+|Ctrl + Y 
+
+Ctrl + Shift + Z
+
+|====
+
+[[_Ref329095915]]
+== Mouse Shortcuts
+
+[[_Ref332379959]]
+
+=== Overview
+
+This table catalogs the available mouse movements, gestures and operation combinations available while editing the document’s content.
+
+[[_Ref332379967]]
+
+=== Caret shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use these mouse actions or movements:
+
+|Position the caret
+|Place the caret at the desired location and Click the left mouse button
+
+|====
+
+[[_Ref332379985]]
+
+=== Scrolling shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Use these mouse actions or movements:
+
+|Scroll document up (without moving the caret position)
+|Rotate mouse wheel up
+
+|Scroll document down (without moving the caret position)
+|Rotate mouse wheel down
+
+|====
+
+[[_Ref332379994]]
+
+=== Selection shortcuts
+
+[options="header", cols="a,a"]
+|====
+|In order to select:|Use these mouse actions or movements:
+
+|Text
+|Click left mouse button and begin dragging at the desired direction
+
+|Word
+|Double click on the desired word
+
+|====
+
+[[_Ref329095925]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-configuring-initial-content.html[Configuring Initial Content]
+|In this topic, you will find instructions and code examples for using the _xamSyntaxEditor_ `TextDocument`'s Load and Save methods for loading and saving content.
+
+| link:xamsyntaxeditor-syntax-highlighting.html[Syntax Highlighting]
+|This topic provides information about text colorization, based on the `TextDocument`’s associated language.
+
+| link:xamsyntaxeditor-customizing.html[Customizing the _xamSyntaxEditor_ ]
+|The topics in this group explain the ways to customize the _xamSyntaxEditor_ .
+
+| link:xamsyntaxeditor-changing-font-and-styles.html[Changing Fonts and Styles]
+|This topic provides information on how to change the presention of the document’s content inside the _xamSyntaxEditor_ .
+
+| link:xamsyntaxeditor-splitting.html[Splitting]
+|This topic will help you understand the document splitting capability of the _xamSyntaxEditor_ and how to customize it.
+
+|====

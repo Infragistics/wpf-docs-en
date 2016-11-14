@@ -1,0 +1,96 @@
+﻿////
+
+|metadata|
+{
+    "name": "igexcelengine-importing-shapes-from-excel",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["How Do I"],
+    "guid": "034a215d-da9c-4c0a-a360-641ad028a192",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7857103Z"
+}
+|metadata|
+////
+
+= Importing Shapes from Excel (Infragistics Excel Engine)
+
+== Topic Overview
+
+== Purpose
+
+This topic shows you how to enumerate shapes from an Excel file.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:igexcelengine-load-an-excel-file.html[Loading an Excel File (Infragistics Excel Engine)]
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet (Infragistics Excel Engine)]
+
+== Control Configuration Overview
+
+== Control configuration chart
+
+The table below lists the configurable behaviors of the Infragistics Excel Engine.
+
+[options="header", cols="a,a,a"]
+|====
+|Configuration behaviour|Configuration details|Configuration properties
+
+|Enumerate shapes from an Excel file
+|Read all shape instances from a worksheet
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~shapes.html[Worksheet.Shapes]
+
+|====
+
+== Enumerate shapes from an Excel file
+
+== Example description
+
+You can enumerate the existing shapes in a worksheet by first loading the file into a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook.html[Workbook] instance. Then, using the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~worksheets.html[Workbook.Worksheets collection], get the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet] instance and enumerate its link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~shapes.html[Shapes property]. This property is a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetshapecollection.html[WorksheetShapeCollection], which can be used to enumerate or modify the shapes on a Worksheet.
+
+*In Visual Basic:*
+
+----
+Dim book As Workbook = Workbook.Load("..\..\test.xlsx")
+For Each sheet As Worksheet In book.Worksheets
+    For Each shape As WorksheetShape In sheet.Shapes
+    Dim bounds As Rectangle = shape.GetBoundsInTwips()
+        Console.WriteLine(
+            [String].Format("ClassName:{0} – Bounds:{1},{2},{3},{4}",
+                shape.[GetType](),
+                bounds.X,
+                bounds.Y,
+                bounds.Width,
+                bounds.Height))
+    Next
+Next
+----
+
+*In C#:*
+
+----
+Workbook book = Workbook.Load(@"..\..\test.xlsx");
+foreach (Worksheet sheet in book.Worksheets)
+{
+    foreach (WorksheetShape shape in sheet.Shapes)
+    {
+    Rectangle bounds = shape.GetBoundsInTwips();
+        Console.WriteLine(
+            String.Format("ClassName:{0} – Bounds:{1},{2},{3},{4}",
+                shape.GetType(),
+                bounds.X,
+                bounds.Y,
+                bounds.Width,
+                bounds.Height));
+    }
+}
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:igexcelengine-adding-a-shape-to-an-excel-worksheet.html[Adding a Shape to a Worksheet (Infragistics Excel Engine)]
+* link:igexcelengine-customizing-excel-shapes.html[Customizing Shapes (Infragistics Excel Engine)]
+* link:igexcelengine-grouping-excel-shapes.html[Grouping Shapes (Infragistics Excel Engine)]

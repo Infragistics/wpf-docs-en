@@ -1,0 +1,115 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampivotgrid-connecting-to-an-oracle-xmla-datasource",
+    "controlName": ["xamPivotGrid"],
+    "tags": ["Data Binding","Data Presentation","Grids"],
+    "guid": "f89b8dbd-4ba7-4408-aacb-fff61f8326f7",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.0403173Z"
+}
+|metadata|
+////
+
+= Binding xamPivotGrid to an Oracle XMLA DataSource
+
+Oracle XMLA is one of link:xampivotgrid-getting-started-with-xampivotgrid.html[the data source types supported by the XamPivotGrid]. This topic explains with code examples how to use it.
+
+The topic is organized as follows:
+
+* Requirements
+* Adding the Data Source
+* Configuring the Pivot Grid to Use the Data Source
+* Configuring the ClientAccessPolicy
+* Related Topics
+
+== Requirements
+
+* Add a namespace with the location of the data source:
+
+*In XAML:*     
+
+[source]
+----
+xmlns:igOlap=http://schemas.infragistics.com/olap
+----
+
+* Add a reference to the {ApiPlatform}Olap.Xmla.Oracle.v{ProductVersion} assembly.
+
+== Adding the Data Source
+
+A common practice for adding the code for the data source to your application is to put it in the resources section and then add a static reference to your XamPivotGrid’s DataSource property (Just like you would do with link:{ApiPlatform}olap.flatdata.v{ProductVersion}~infragistics.olap.flatdata.flatdatasource.html[FlatDataSource] or link:{ApiPlatform}olap.xmla.v{ProductVersion}~infragistics.olap.xmla.xmladatasource.html[XMLADataSource]).
+
+*In XAML:*
+
+[source,xaml]
+----
+ <igOlap:XmlaOracleConnectionSettings 
+        x:Key="oracleSettings"
+        ServerUri="http://server/XMLAServicePath">
+ <igOlap:XmlaOracleConnectionSettings.DiscoverProperties>
+            <igOlap:XmlaQueryProperty 
+                PropertyName="DataSourceInfo" 
+                Value="Provider=Essbase;Data Source=igbgsoforacle"/>
+        </igOlap:XmlaOracleConnectionSettings.DiscoverProperties>
+ <igOlap:XmlaOracleConnectionSettings.ExecuteProperties>
+            <igOlap:XmlaQueryProperty 
+                PropertyName="DataSourceInfo" 
+                Value="Provider=Essbase;Data Source=igbgsoforacle"/>
+        </igOlap:XmlaOracleConnectionSettings.ExecuteProperties>
+ </igOlap:XmlaOracleConnectionSettings>
+ <igOlap:XmlaOracleDataSource 
+        x:Key="oracleXmla"
+        Database="Demo"
+        Cube="Demo.Basic"
+        ConnectionSettings="{StaticResource oracleSettings}">
+ <igOlap:XmlaOracleDataSource.Credentials>
+ <igOlap:XmlaNetworkCredential 
+                UserName="User" 
+                Password="Password" />
+ </igOlap:XmlaOracleDataSource.Credentials>
+ </igOlap:XmlaOracleDataSource>
+----
+
+In the code snippet above, the XmlaOracleDataSource is an extended XmlaDataSource that has all the standard properties of a DataSource – Cube, Database, Measures, Rows, Columns, Filters, Credentials, etc.. The Oracle-specific instructions happen behind scenes – they are implemented for you. However, you still need to configure the XmlaOracleConnectionSettings and provide the Discover and Execute properties as shown above. They are required for the proper operation of the connection. This is the bare minimum you need to get started with a working connection: you can modify it further to make it to suit your needs.
+
+== Configuring the Pivot Grid to Use the Data Source
+
+Once you have created the data source in the Resources like shown above you could use it in the pivot grid and the data selector with the following lines:
+
+*In XAML:*
+
+[source,xaml]
+----
+    <ig:XamPivotGrid 
+        x:Name="pivotGrid" 
+        DataSource="{StaticResource oracleXmla}" />
+    <ig:Expander Grid.Column="1">
+        <ig:XamPivotDataSelector 
+            x:Name="dataSelector" 
+            DataSource="{StaticResource oracleXmla}" />
+    </ig:Expander>
+----
+
+== Configuring the ClientAccessPolicy
+
+Finally, you might want to consider is providing the correct ClientAccessPolicy file. Those are the contents that work with the sample server used in the above snippet.
+
+*In ClientAccessPolicy.xml:*
+
+----
+   <?xml version="1.0" encoding="utf-8"?>
+   <access-policy>
+     <cross-domain-access>
+       <policy>
+         <allow-from http-request-headers="*">
+           <domain uri="*"/>
+         </allow-from>
+         <grant-to>
+           <resource path="/aps/XMLA" include-subpaths="true"/>
+         </grant-to>
+       </policy>
+     </cross-domain-access>
+   </access-policy>
+----

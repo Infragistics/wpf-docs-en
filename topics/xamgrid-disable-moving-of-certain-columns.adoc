@@ -1,0 +1,51 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-disable-moving-of-certain-columns",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Layouts","Selection"],
+    "guid": "{D5717024-A925-47B7-AFF4-B36E5EA58316}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.7991626Z"
+}
+|metadata|
+////
+
+= Disable Moving of Certain Columns
+
+You can disable the moving of certain columns on your xamGrid™ control, even though you have column moving enabled on the entire grid. For example, if you have a sorted column you may not want your end users to move this column.
+
+To achieve this, you simply set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~ismovable.html[IsMovable] property to false, as demonstrated in the following code snippet.
+
+*In XAML:*
+
+----
+<ig:TextColumn Key="ProductName" IsMovable="/>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+...
+Dim ColumnNotMovable As Column =Me.MyGrid.Columns.DataColumns("ProductName")
+ColumnNotMovable.IsMovable = False
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+Column ColumnNotMovable = this.MyGrid.Columns.DataColumns["ProductName"];
+ColumnNotMovable.IsMovable = false;
+----
+
+== *Related Topics*
+
+link:xamgrid-column-moving.html[Column Moving]
+
+link:xamgrid-column-moving-events.html[Column Moving Events]
+
+link:xamgrid-customize-animation-of-column-moving.html[Customize Animation of Column Moving]

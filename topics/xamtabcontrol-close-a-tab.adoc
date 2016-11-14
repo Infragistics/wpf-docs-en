@@ -1,0 +1,77 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtabcontrol-close-a-tab",
+    "controlName": ["xamTabControl"],
+    "tags": ["How Do I"],
+    "guid": "{EF1109C4-02FB-4989-B528-164D30D9C030}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.4572445Z"
+}
+|metadata|
+////
+
+= Close a Tab
+
+If you add link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabitemex.html[TabItemEx] objects to xamTabControl™ and the xamTabControl's link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~allowtabclosing.html[AllowTabClosing] property is set to True, an end user can close a tab by middle clicking the tab's header.
+
+.Note
+[NOTE]
+====
+When an end user closes a tab, xamTabControl does not remove the tab from the Items collection; it hides the tab. If a tab contains resource-heavy objects, you may want to link:xamtabcontrol-removing-a-closed-tab.html[remove the closed tab] from the Items collection.
+====
+
+The following example code demonstrates how to close a tab.
+
+*In XAML:*
+
+----
+<Button 
+    Content="Close the selected tab" 
+    Command="{x:Static igWindows:TabControlCommands.CloseSelected}" 
+    CommandTarget="{Binding ElementName=xamTabControl1}" />
+<igWindows:XamTabControl Name="xamTabControl1" AllowTabClosing="True">
+    <igWindows:TabItemEx Header="Tab 1">
+        <!--TODO: Add content here-->
+    </igWindows:TabItemEx>
+    <igWindows:TabItemEx Header="Tab 2">
+        <!--TODO: Add content here-->
+    </igWindows:TabItemEx>
+    <igWindows:TabItemEx Header="Tab 3">
+        <!--TODO: Add content here-->
+    </igWindows:TabItemEx>
+</igWindows:XamTabControl>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Controls
+...
+Me.xamTabControl1.ExecuteCommand(TabControlCommands.CloseSelected)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Controls;
+...
+this.xamTabControl1.ExecuteCommand(TabControlCommands.CloseSelected)
+...
+----
+
+== Related Topics
+
+link:xamtabcontrol-add-a-tab-to-xamtabcontrol.html[Add a Tab to xamTabControl]
+
+link:xamtabcontrol-add-content-to-a-tab.html[Add Content to a Tab]
+
+link:xamtabcontrol-enable-multiple-tab-rows.html[Enable Multiple Tab Rows]
+
+link:xamtabcontrol-removing-a-closed-tab.html[Removing a Closed Tab]
+
+link:xamtabcontrol-select-a-tab.html[Select a Tab]
+
+link:xamtabcontrol-tabs-dragging-and-reordering.html[Tabs Dragging and Reordering (xamTabControl)]

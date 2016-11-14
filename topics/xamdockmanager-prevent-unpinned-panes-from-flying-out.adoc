@@ -1,0 +1,58 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdockmanager-prevent-unpinned-panes-from-flying-out",
+    "controlName": ["xamDockManager"],
+    "tags": ["How Do I"],
+    "guid": "{90027EC2-7143-4888-A873-0CBF44CF4837}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.5180567Z"
+}
+|metadata|
+////
+
+= Prevent Unpinned Panes from Flying Out
+
+When your end users unpin a pane, it will automatically collapse into the unpinned tab pane area. If your end users then hover over the pane's header, the pane will automatically fly out to display its content. You can prevent unpinned panes from flying out automatically and instead require your end users to click the pane's header. Simply set the xamDockManager™ control's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~unpinnedtabhoveraction.html[UnpinnedTabHoverAction] property to None.
+
+The following example code demonstrates how to prevent unpinned panes from flying out.
+
+*In XAML:*
+
+----
+<igDock:XamDockManager Name="xamDockManager1" UnpinnedTabHoverAction="None">
+    <igDock:XamDockManager.Panes>
+        <igDock:SplitPane>
+            <igDock:ContentPane Header="Pane 1" IsPinned=">
+            </igDock:ContentPane>
+        </igDock:SplitPane>
+    </igDock:XamDockManager.Panes>
+</igDock:XamDockManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DockManager
+...
+Me.xamDockManager1.UnpinnedTabHoverAction = UnpinnedTabHoverAction.None
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DockManager;
+...
+this.xamDockManager1.UnpinnedTabHoverAction = UnpinnedTabHoverAction.None;
+...
+----
+
+== Related Topics
+
+link:xamdockmanager-add-panes-to-xamdockmanager.html[Add Panes to xamDockManager]
+
+link:xamdockmanager-add-content-to-a-contentpane.html[Add Content to a ContentPane]
+
+link:xamdockmanager-pin-and-unpin-a-pane.html[Pin and Unpin a Pane]

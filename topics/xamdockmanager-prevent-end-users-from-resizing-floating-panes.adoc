@@ -1,0 +1,70 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdockmanager-prevent-end-users-from-resizing-floating-panes",
+    "controlName": ["xamDockManager"],
+    "tags": ["How Do I"],
+    "guid": "{FC918009-65BD-4D7E-B48A-2E79E93EB71C}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.5160563Z"
+}
+|metadata|
+////
+
+= Prevent End Users From Resizing Floating Panes
+
+When your end user floats a pane, xamDockManager™ creates a link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.panetoolwindow.html[PaneToolWindow] object to host the pane. Just like any stand-alone Window, your end user can resize the pane tool window. If you want to prevent your end user from resizing a pane tool window, you can handle the link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~toolwindowloaded_ev.html[ToolWindowLoaded] event and set the pane tool window's link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.toolwindow~resizemode.html[ResizeMode] property to NoResize.
+
+The following example code demonstrates how to prevent your end user from resizing floating panes.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DockManager.Events
+...
+'You can attach this event handler to the ToolWindowLoaded event in XAML or in the code-behind.
+Private Sub xamDockManager1_ToolWindowLoaded(ByVal sender As Object, ByVal e As PaneToolWindowEventArgs) 
+    e.Window.ResizeMode = ResizeMode.NoResize 
+End Sub
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DockManager.Events;
+...
+//You can attach this event handler to the ToolWindowLoaded event in XAML or in the code-behind.
+private void xamDockManager1_ToolWindowLoaded(object sender, PaneToolWindowEventArgs e)
+{
+    e.Window.ResizeMode = ResizeMode.NoResize;
+}
+...
+----
+
+== Related Topics
+
+link:xamdockmanager-about-opening-and-closing-panes.html[About Opening and Closing Panes]
+
+link:xamdockmanager-add-content-to-a-contentpane.html[Add Content to a ContentPane]
+
+link:xamdockmanager-add-panes-to-the-documentcontenthost-object.html[Add Panes to the DocumentContentHost Object]
+
+link:xamdockmanager-add-panes-to-xamdockmanager.html[Add Panes to xamDockManager]
+
+link:xamdockmanager-creating-a-tabbed-mdi-application.html[Creating a Tabbed MDI Application]
+
+link:xamdockmanager-pin-and-unpin-a-pane.html[Pin and Unpin a Pane]
+
+link:xamdockmanager-set-the-location-of-a-floating-pane.html[Set the Location of a Floating Pane]
+
+link:xamdockmanager-set-the-initial-location-of-a-pane.html[Set the Initial Location of a Pane]
+
+link:xamdockmanager-set-the-size-of-a-floating-pane.html[Set the Size of a Floating Pane]
+
+link:xamdockmanager-show-the-pane-navigator-programmatically.html[Show the Pane Navigator Programmatically]
+
+link:xamdockmanager-end-user-settings.html[End User Settings]
+
+link:xamdockmanager-styling-xamdockmanager.html[Styling xamDockManager]

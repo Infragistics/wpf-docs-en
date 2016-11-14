@@ -1,0 +1,50 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-specifying-settings-for-fieldlayouts",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts"],
+    "guid": "{5CF44296-5243-4B1C-A6F8-A68BBFD5E398}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5288589Z"
+}
+|metadata|
+////
+
+= Specifying Settings for FieldLayouts
+
+The FieldLayoutSettings object is used to specify settings that apply to one or more FieldLayouts, as described below. This object is exposed by the following two properties:
+
+* DataPresenterBase's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutsettings.html[FieldLayoutSettings] property
+* FieldLayout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~settings.html[Settings] property
+
+== FieldLayoutSettings Property
+
+Settings specified for this property become the default for all FieldLayouts in the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayouts.html[FieldLayouts] collection.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayoutSettings> 
+                <igDP:FieldLayoutSettings 
+                  HighlightAlternateRecords="True"/> 
+        </igDP:XamDataGrid.FieldLayoutSettings> 
+</igDP:XamDataGrid>
+----
+
+== Settings Property
+
+Settings specified for this property apply only to the specific FieldLayout.
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayouts> 
+                <igDP:FieldLayout> 
+                        <igDP:FieldLayout.Settings> 
+                                <igDP:FieldLayoutSettings 
+                                  AutoGenerateFields="False"/> 
+                        </igDP:FieldLayout.Settings> 
+                </igDP:FieldLayout> 
+        </igDP:XamDataGrid.FieldLayouts> 
+</igDP:XamDataGrid>
+----

@@ -1,0 +1,84 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtagcloud-xamtagcloud-events",
+    "controlName": ["xamTagCloud"],
+    "tags": ["Events","Getting Started","How Do I"],
+    "guid": "{A0D7372F-9979-4246-A734-CEFA1AB6FD18}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.5543697Z"
+}
+|metadata|
+////
+
+= xamTagCloud Events
+
+The xamTagCloud™ control exposes two item-related events. You can handle these events to perform custom logic after a specific action occurs.
+
+* link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloud~xamtagclouditemclicked_ev.html[XamTagCloudItemClicked] event - This event fires immediately after a cloud item is clicked.
+* link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagcloud~xamtagcloudclipped_ev.html[xamTagCloudClipped] event – If the xamTagCloud control is too small to display all the cloud items, this event is fired.
+
+The following code demonstrates how to handle the xamTagCloudItemClicked and the xamTagCloudClipped event.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamTagCloud MaxScale="2" MinScale="1" Name="myTagCloud" XamTagCloudClipped="xamTagCloud_xamTagCloudClipped" XamTagCloudItemClicked="xamTagCloud_xamTagCloudItemClicked">
+...
+   </ig:XamTagCloud>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Menus
+Imports Infragistics
+...
+AddHandler Me.xamTagCloud.xamTagCloudClipped, AddressOf xamTagCloud_xamTagCloudClipped
+AddHandler Me.xamTagCloud.xamTagCloudItemClicked, AddressOf xamTagCloud_xamTagCloudItemClicked
+...
+Private Sub xamTagCloud_xamTagCloudItemClicked(ByVal sender As System.Object, ByVal e As xamTagCloudItemEventArgs)
+   System.Diagnostics.Debug.WriteLine("Cloud Item Clicked: Content =" + e.xamTagCloudItem.Content + "Weight " + e.xamTagCloudItem.Weight)
+End Sub
+
+Private Sub xamTagCloud_xamTagCloudClipped(ByVal sender As System.Object, ByVal e As xamTagCloudClippedEventArgs)
+   System.Diagnostics.Debug.WriteLine("xamTagCloudClipped Event Fired")
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Menus;
+using Infragistics;
+...
+
+this.xamTagCloud.xamTagCloudClipped += new EventHandler<xamTagCloudClippedEventArgs>(XamTagCloud_xamTagCloudClipped);
+this.xamTagCloud.xamTagCloudItemClicked += new EventHandler<xamTagCloudItemEventArgs>(XamTagCloud_xamTagCloudItemClicked);
+...
+void XamTagCloud_xamTagCloudItemClicked(object sender, xamTagCloudItemEventArgs e)
+{
+   System.Diagnostics.Debug.WriteLine("Cloud Item Clicked: Content =" + e.xamTagCloudItem.Content + "Weight " + e.xamTagCloudItem.Weight);
+}
+void XamTagCloud_xamTagCloudClipped(object sender, xamTagCloudClippedEventArgs e)
+{
+   System.Diagnostics.Debug.WriteLine("xamTagCloudClipped Event Fired");
+}
+----
+
+== *Related Topics*
+
+link:xamtagcloud-add-cloud-items-to-xamtagcloud.html[Add Cloud Items to xamTagCloud]
+
+link:xamtagcloud-add-navigation-uris-to-cloud-items2.html[Add Navigation URIs to Cloud Items]
+
+link:xamtagcloud-add-spaces-between-cloud-items.html[Add Spaces Between Cloud Items]
+
+link:xamtagcloud-setting-minimum-and-maximum-scale-values.html[Setting Minimum and Maximum Scale Values]
+
+link:xamtagcloud-smooth-scaling.html[Smooth Scaling]
+
+link:xamtagcloud-working-with-scalebreaks-collection.html[Working with ScaleBreaks Collection]

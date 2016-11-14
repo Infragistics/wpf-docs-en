@@ -1,0 +1,72 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-editing-cell-values",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{77C01635-5F26-48BD-BC27-4304C1240CCB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5108553Z"
+}
+|metadata|
+////
+
+= Editing Cell Values
+
+By default, editing cell values through the UI is enabled. To disable cell editing through the UI, set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings]' link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~allowedit.html[AllowEdit] property to False, as shown in the following example, which disables editing for all cells:
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldSettings> 
+                <igDP:FieldSettings 
+                  AllowEdit="False"/> 
+        </igDP:XamDataGrid.FieldSettings> 
+</igDP:XamDataGrid>
+----
+
+.Note
+[NOTE]
+====
+Editing cell values is not supported by all fields.
+====
+
+== How Cell Editing Works
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter], which represents the cell in the UI, looks for a ContentPresenter in its visual tree with the name "PART_EditorSite". If one is found, an appropriate link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor.html[ValueEditor] derived class is instantiated and set as the ContentPresenter's Content. This editor will start Edit mode when it is clicked or when the user pressed the F2 key, based on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~cellclickaction.html[CellClickAction] property setting.
+
+When F2 is pressed again, the editor will enter out of edit mode.
+
+You can specify the type of editor that is created and how the cell is styled using the following properties in the FieldSettings class:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editortype.html[EditorType] -- Must be set to a type that derives from ValueEditor that can effectively edit the data. For example, it wouldn't make sense to specify a link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xamdatetimeeditor.html[XamDateTimeEditor] to edit a field whose link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~datatype.html[DataType] property is set to Decimal.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editastype.html[EditAsType] -- If the EditorType property (described above) was not specified, this property is used to determine the editor type to create based on the editor type that is registered as the default for the EditAsType (see ValueEditor's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~registerdefaulteditorfortype.html[RegisterDefaultEditorForType] method). If EditAsType is not set, the field's DataType is used instead for the same purpose.
+
+.Note
+[NOTE]
+====
+The EditAsType property is useful when the underlying data is exposed as a generic type (e.g., string or object) but the cells actually contain values that represent another type (e.g., DateTime).
+====
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] -- This property is used to specify any editor-related property settings.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyleselector.html[EditorStyleSelector] -- You can provide an object here that derives from StyleSelector. Its SelectStyle method will be called for each cell so that different styles can be applied on a cell-by-cell basis.
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] class also exposes EditorType, EditAsType, and EditorStyle properties for specifying editor settings on a cell-by-cell basis. However, these properties cannot be set in XAML. They are normally set in a handler for the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event. The following example code sets the ReadOnly property on the editor for the "Salary" field's cell for DataRecords, where the "Department" is "Sales":
+
+----
+private void OnInitializeRecord(object sender, InitializeRecordEventArgs e)
+{
+        DataRecord dr = e.Record as DataRecord;
+        if (dr != null)
+        {
+                if ("Sales" == (string)dr.Cells["Department"].Value)
+                {
+                        Style style = new Style(typeof(XamCurrencyEditor));
+                        style.Setters.Add(
+                          new Setter(XamCurrencyEditor.ReadOnlyProperty, 
+                          true));
+                        dr.Cells["Salary"].EditorStyle = style;
+                }
+        }
+}
+----

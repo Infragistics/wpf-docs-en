@@ -1,0 +1,52 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-copy-options",
+    "controlName": ["xamGrid"],
+    "tags": ["Data Presentation","Grids","Selection"],
+    "guid": "4da3c0c4-71ca-4a7c-b2fb-f6872ac9406e",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.216217Z"
+}
+|metadata|
+////
+
+= Copy Options
+
+When the copy operation is enabled, you can configure whether or not to include the xamGrid columns header text corresponding to the selected cells in the copied data.
+
+The link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.clipboardsettings.html[ClipboardSettings] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.clipboardsettings~copyoptions.html[CopyOptions] property can have one of the following values of the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopyoptions.html[GridClipboardCopyOptions] enumeration:
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopyoptions.html[IncludeHeaders] - This is the default value of the CopyOptions property.
+
+If the xamGrid link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnbase~headertext.html[HeaderText] property is presented, its value will be included in the copied data. If this property is missing – the Column’s object link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnbase~key.html[Key] property value will be included.
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.gridclipboardcopyoptions.html[ExcludeHeaders] - The copy operation will not include corresponding columns header text of the selected cells.
+
+The following code shows how this property can be set in XAML file or in the code-behind.
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="xamGrid" … >
+    <ig:XamGrid.ClipboardSettings>
+        <ig:ClipboardSettings AllowCopy="True" CopyOptions="IncludeHeaders"/>
+   </ig:XamGrid.ClipboardSettings>
+</ig:XamGrid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+xamGrid.ClipboardSettings.AllowCopy = True
+xamGrid.ClipboardSettings.CopyOptions = GridClipboardCopyOptions.IncludeHeaders
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+xamGrid.ClipboardSettings.AllowCopy = true;
+xamGrid.ClipboardSettings.CopyOptions = GridClipboardCopyOptions.IncludeHeaders;
+----

@@ -1,0 +1,103 @@
+﻿////
+
+|metadata|
+{
+    "name": "shared-manual-refresh-controls-ui",
+    "tags": [],
+    "controlName": ["xamDataPresenter"],
+    "guid": "572098f8-05fa-4f57-b4aa-0de7dec0771d",  
+    "buildFlags": [],
+    "createdOn": "2015-05-08T14:18:27.9797274Z"
+}
+|metadata|
+////
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to perform a manual refresh on the control's user interface.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatapresenter-understanding-xamdatapresenter.html[About _xamDataPresenter_ ]
+|This is a group of topics providing an overview of the _xamDataPresenter_ control.
+
+| link:xamdatagrid-understanding-xamdatagrid.html[About _xamDataGrid_ ]
+|This topic introduces the _xamDataGrid_ control and various elements, on which control is composed.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref418859481, Refreshing Cell Values >>
+* <<_Ref418859490, Related Content >>
+
+[[_Ref418859481]]
+== Refreshing Cell Values
+
+=== Feature summary
+
+If the data presenter control is bound to a collection which does not raise property change notifications for its data items, e.g. if the collection does not implement the `IBindingList` interface or the data items do not implement the `INotifyPropertyChanged` interface you may need to manually refresh the user interface after changes to a data item’s properties are made.
+
+=== Methods summary
+
+The following table explains briefly what refresh tasks can be performed by the controls.
+
+[options="header", cols="a,a,a"]
+|====
+|Task|Details|Method
+
+|Refresh a single cell when you have a reference to it.
+|You can refresh a single cell by invoking a method on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] class.
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell~refreshvalue.html[RefreshValue]
+
+|Refresh a single cell when you have a reference to the related field.
+|You can refresh a single cell by invoking a method on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] class and provide the related link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] as argument.
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~refreshcellvalue.html[RefreshCellValue]
+
+|Refresh all cells in a record.
+|You can refresh all cells related to a record by invoking a method on the `DataRecord` class.
+| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~refreshcellvalues.html[RefreshCellValues]
+
+|====
+
+[[_Ref418859490]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatapresenter-iterate-through-the-records-collection.html[Iterate through the Records Collection]
+|This topic explains how to access the control's records.
+
+| link:xamdatapresenter-about-data-items-and-data-records.html[About Data Items and Data Records]
+|This topic explains the difference between DataItems and DataRecords.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/data-grid/manual-refresh-control-ui[Manual Refresh of the Control's UI]
+|This sample demonstrates how to manually refresh the control UI when bound to a data source which is not raising property change notifications for its data items. In this sample the data source is updating the book's prices constantly. You should click on the refresh button to have the control's UI updated.
+
+|====

@@ -1,0 +1,90 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdiagram-known-issues-and-limitations",
+    "tags": ["Charting","Known Issues","Section 508"],
+    "controlName": ["xamDiagram"],
+    "guid": "d934cf1f-2f59-490f-946a-33a2d0b98d94",  
+    "buildFlags": [],
+    "createdOn": "2014-06-16T09:58:34.4753648Z"
+}
+|metadata|
+////
+
+= xamDiagram Known Issues and Limitations
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains  _Infragistics XamDiagram_   known issues and limitations.
+
+== Known Issues and Limitations Summary
+
+=== Known issues and limitations summary chart
+
+The following table summarizes the known issues and limitations of  _Infragistics XamDiagram_  . Detailed explanations of all of the issues and the existing workarounds are provided after the summary table.
+
+==== Legend:
+
+image:images/Yes.png[] – Workaround available
+
+image:images/No.png[] – No known workaround
+
+image:images/Fix.png[] – Fix planned
+
+==== <<_Ref398368489, _Infragistics XamDiagram_  >>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|Applying styles through code
+|Applying styles through code is not reflected in the Navigation Pane's out of view items
+|image::images/Yes.png[]
+
+|====
+
+[[_Ref398368489]]
+== _Infragistics XamDiagram_
+
+=== Applying styles through code
+
+When applying a style during runtime, after the diagram items and their corresponding Navigation Pane representations have already been loaded, the out of view (virtualized) items will not be affected. There is no way of applying the new shape and color of the Navigation Pane items without iterating all diagram items. As we do not want do that we can suggest (for the users that want to refresh their Navigation Pane items with the proper color) to easily bring all of them into view and again return to their original view section.
+
+Workaround
+
+*In C#:*
+
+[source,csharp]
+----
+// A theme is applied through code
+Rect original = Diagram.WindowRect; // preserve original view state
+Diagram.ScaleToFit(); // bring all nodes/connections into view
+Diagram.WindowRect = original; // return to original view
+----
+
+==== Related topics:
+
+link:xamdiagram-configuring-the-visible-portion.html[Configuring the Visible Portion of the Diagram (xamDiagram)]
+
+[[_Ref367305775]]
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-configuring-the-visible-portion.html[Configuring the Visible Portion of the Diagram (xamDiagram)]
+|This topic explains how to configure the visible portion of the _xamDiagram_™ control.
+
+| link:xamdiagram-api-reference.html[API Reference]
+|This topic provides reference information about the key classes related to _Infragistics XamDiagram_ .
+
+|====

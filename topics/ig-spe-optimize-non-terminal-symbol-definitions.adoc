@@ -1,0 +1,149 @@
+﻿////
+|metadata|
+{
+    "name": "ig-spe-optimize-non-terminal-symbol-definitions",
+    "controlName": ["IG Syntax Parsing Engine"],
+    "tags": [],
+    "guid": "8dbc9208-d6b5-43e3-931e-657212ed8bdb","buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.1741027Z"
+}
+|metadata|
+////
+
+= Optimize Non-Terminal Symbol Definitions (Syntax Parsing Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to optimize your non-terminal symbol definitions in order to minimize the number of productions.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-overview.html[Syntax Parsing Engine Overview]
+|This topic provides an overview of the Syntax Parsing Engine.
+
+| link:ig-spe-non-terminal-symbols.html[Non-Terminal Symbols]
+|This topic explains a grammar’s non-terminal symbols.
+
+| link:ig-spe-defining-productions.html[Defining Productions]
+|This topic explains how to create productions for a non-terminal symbol.
+
+|====
+
+== Optimize Non-Terminal Symbol Definitions
+
+=== Overview
+
+When defining non-terminal symbols it is exceedingly easy to create rules that will inadvertently result in generating a large amount of productions internally by the parsing framework capable of diminishing the Syntax Parsing Engine’s performance.
+
+=== Example
+
+This is an example definition used in the Transact-SQL language EBNF definition:
+
+----
+SetLocalVariableStatement =
+        SetKeyword,
+        (VariableToken, [DotToken, _oneOrMoreDotSeparatedIdentifierTokens],
+            EqualsToken, (_expression | _oneOrMoreDotSeparatedIdentifierTokens)
+        | VariableToken,
+            (PlusEqualsToken
+                | MinusEqualsToken
+                | AsteriskEqualsToken
+                | SlashEqualsToken
+                | PercentEqualsToken
+                | AmpersandEqualsToken
+                | CaretEqualsToken
+                | BarEqualsToken),
+            _expression
+        | _cursorVariable, EqualsToken,
+            (_cursorVariable
+            | _cursorName
+            | (CursorKeyword,
+                [ForwardOnlyKeyword | ScrollKeyword],
+                [StaticKeyword | KeysetKeyword | DynamicKeyword | FastForwardKeyword],
+                [ReadUnderscoreOnlyKeyword | ScrollLocksKeyword | OptimisticKeyword],
+                [TypeWarningKeyword],
+                ForKeyword, SelectStatement,
+                    [ForKeyword, ((ReadKeyword, OnlyKeyword) | UpdateKeyword),
+                        [OfKeyword, ColumnNameList]]
+              )
+            )
+    ), [SemicolonToken];
+----
+
+This definition generates a non-terminal symbol with 1,228 productions because the number of the owning rules’ combinations are multiplied by the number of alternations, thus increasing the number of rules exponentially. For example, look at the following portion of the rule tree:
+
+----
+[StaticKeyword | KeysetKeyword | DynamicKeyword | FastForwardKeyword],
+----
+
+This portion represents 5 choices: you can either use (nothing), STATIC, KEYSET, DYNAMIC, or FAST_FORWARD. This means that the owning rule’s productions will be multiplied by 5.
+
+=== Solution
+
+The number of productions can be reduced by moving the “multiplier rules” out of the complex rule into their own non-terminal symbol rules.
+
+Example:
+
+----
+_AlternationRule =
+    [StaticKeyword | KeysetKeyword | DynamicKeyword | FastForwardKeyword];
+SetLocalVariableStatement =
+    SetKeyword,
+    (VariableToken, [DotToken, _oneOrMoreDotSeparatedIdentifierTokens],
+        EqualsToken, (_expression | _oneOrMoreDotSeparatedIdentifierTokens)
+    | VariableToken,
+        (PlusEqualsToken
+            | MinusEqualsToken
+            | AsteriskEqualsToken
+            | SlashEqualsToken
+            | PercentEqualsToken
+            | AmpersandEqualsToken
+            | CaretEqualsToken
+            | BarEqualsToken),
+        _expression
+    | _cursorVariable, EqualsToken,
+        (_cursorVariable
+        | _cursorName
+        | (CursorKeyword,
+            [ForwardOnlyKeyword | ScrollKeyword],
+            _AlternationRule ,
+            [ReadUnderscoreOnlyKeyword | ScrollLocksKeyword | OptimisticKeyword],
+            [TypeWarningKeyword],
+            ForKeyword, SelectStatement,
+                [ForKeyword, ((ReadKeyword, OnlyKeyword) | UpdateKeyword),
+                    [OfKeyword, ColumnNameList]]
+          )
+        )
+    ), [SemicolonToken];
+----
+
+This reduces the number of productions generated for SetLocalVariableStatement to 268, but adds 5 new productions for the _AlternationRule symbol, for a total of 273 productions. This is a significant reduction from 1,228 productions. To further reduce the number of productions apply this technique with more sub-sequences containing multiple options .
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-improve-ebnf-files-readability.html[Improve EBNF Files Readability]
+|This topic describes how to improve EBNF file readability.
+
+| link:ig-spe-writing-operator-precedence-rules.html[Writing Operator Precedence Rules]
+|This topic explains how to write operator precedence rules correctly.
+
+| link:ig-spe-use-symbolnames-constants-instead-of-strings.html[Use SymbolNames Constants Instead of Strings]
+|This topic explains the benefits of using the SymbolNames constants.
+
+|====

@@ -1,0 +1,621 @@
+﻿////
+|metadata|
+{
+    "name": "differences-between-xamgrid-and-xamdatagrid",
+    "controlName": [],
+    "tags": [],
+    "guid": "85ce80e4-6d72-45d6-854f-75e48f4cb252",
+    "buildFlags": [],
+    "createdOn": "2012-03-01T15:21:18.5752594Z"
+}
+|metadata|
+////
+
+= Differences Between xamGrid and xamDataGrid
+
+== Topic Overview
+
+This topic compares, both conceptually and through side-by-side feature comparison, the xamGrid™ and xamDataGrid™. Its purpose is to help you decide which grid to use in your application.
+
+== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref308194293,Conceptual Comparison>>
+** <<_Ref308212398,Terminology>>
+** <<_Ref308212409,Performance>>
+** <<_Ref308212414,Layout>>
+** <<_Ref308212433,Columns>>
+
+* <<FeaturesChart,Features Comparison Chart>>
+* <<xamDataGridOnly,xamDataGrid-only Features>>
+* <<xamGridOnly,xamGrid-Only Features>>
+* <<CommonFeatures,Common Features>>
+* <<RelatedTopics,Related Topics>>
+
+[[_Ref308194293]]
+== Conceptual Comparison
+
+[[_Ref308212398]]
+=== Terminology
+
+==== xamDataGrid
+
+The xamDataGrid control is part of the Infragistics Data Presenter Family set of controls. It also includes other controls such as the xamDataPresenter, xamDataCards, and xamDataCarousel. These controls take advantage of a shared foundation and API. Because the Data Presenter controls support multiple views which offer many arrangements of the records, the xamDataGrid control refers to data columns as “fields” and to data rows – as “records”.
+
+==== xamGrid
+
+The xamGrid refers to data columns as “columns” and to data rows – as “rows”.
+
+[[_Ref308212409]]
+=== Performance
+
+==== xamDataGrid
+
+The xamDataGrid has the ability to handle hundreds of thousands of records at a time and, to support that, it comes with features such as virtualization and recycling. For more information, see the link:xamdatapresenter-optimizing-performance.html[Optimizing xamDataPresenter's Performance] topic.
+
+==== xamGrid
+
+The xamGrid control was designed for high performance, allowing you to bind to many hundred thousand rows. For more information, see the link:http://download.infragistics.com/marketing/infragistics-silverlight-xamgrid-performance-whitepaper.pdf[Performance Whitepaper].
+
+[[_Ref308212414]]
+=== Layout
+
+==== xamDataGrid
+
+As part of the Data Presenter family, the xamDataGrid control supports several built in views/ arrangements of the records including:
+
+* Vertical GridView
+* Horizontal GridView
+* Carousel
+* Cards
+
+==== xamGrid
+
+The xamGrid arranges the rows in a standard vertical tabular arrangement.
+
+[[_Ref308212433]]
+=== Columns
+
+==== xamDataGrid
+
+The xamDataGrid control creates Field objects for each property/data column. There is a single Field class and, by default, an appropriate editor will be used for each associated cell based on the Field’s data type. However, this is fully customizable.
+
+The following lists the different types of fields available in xamDataGrid:
+
+* Unbound Fields – Unbound fields allow you to add fields to the xamDataGrid control that are not bound to any specific data. For more information, see the Add Unbound Fields to a DataPresenter Control topic.
+* Template Column Layout – While the xamDataGrid control does not support a specific template field layout, you do have total flexibility when it comes to arranging cells within a record. Cells can be assigned a Row, Col, RowSpan and ColumnSpan to determine their layout within a record.
+* Hierarchical Data View - The xamDataGrid automatically creates field layouts based on your data model. You can also manually define field layouts to specify which fields to display and to set properties related to those fields. For more information, see the Displaying Hierarchical Data topic.
+
+==== xamGrid
+
+The xamGrid allows you to create your own column types. For details, see the link:xamgrid-columns.html[Columns] topic.
+
+The following lists the different types of columns that are available in xamGrid:
+
+* Unbound Column – This column type allow you to add columns to the xamGrid control that are not bound to any specific data, but instead utilize a ValueConverter to display calculated values.
+
+For more information, see the link:xamgrid-unbound-column.html[Unbound Column] topic
+
+* Filler Column - This column fills any remaining space in xamGrid control. For more information, see the Filler Column topic.
+* Column Type Mappings - Columns are automatically generated based on the data type, you can override this by changing its column type mapping. For more information, see the Column Type Mappings topic.
+* Template Column Layout - A template column in xamGrid allows you to display custom content.
+
+For more information see the link:xamgrid-template-column-layout.html[Template Column Layout] topic.
+
+* Group Column - GroupColumns allows you to group multiple columns together under a single common header. For more information, see the Group Column topic.
+* Hierarchical Data View - The xamGrid uses a concept called Column Layouts to determine what columns are shown, and how those columns are positioned in the hierarchical view. You can define one or more ColumnLayout objects within the grid, allowing you to display hierarchical data structures. Each column layout is generally independent from any other defined in xamGrid. For more information, see the Define Column Layout topic.
+
+[[FeaturesChart]]
+== Features Comparison Chart
+
+The following table lists all grid features and indicates whether they are supported by each grid. The features that are available in both grids but are supported somewhat differently, are marked with an asterisk ($$*$$). You can read a more detailed description on the feature support below.
+
+[options="header", cols="a,a,a,a"]
+|====
+|[[_Hlk308190845]]Feature category|Feature|xamGrid|xamDataGrid
+
+|*xamDataGrid-only*
+|DataValueChanged and DataValueHistory events
+|No
+|Yes
+
+|
+|Vertical and Horizontal grid orientations and custom views
+|No
+|Yes
+
+|
+|Fixed Rows
+|No
+|Yes
+
+|
+|Printing
+|No
+|Yes
+
+|
+|Undo / Redo Operations
+|No
+|Yes
+
+|*xamGrid-only*
+|Conditional Formatting
+|Yes
+|No
+
+|
+|Cell Merging
+|Yes
+|No
+
+|
+|Paging
+|Yes
+|No
+
+|
+|Tooltips for Cell Values
+|Yes
+|No
+
+|*Common features*
+|Column Chooser$$*$$
+|Yes
+|Yes
+
+|
+|Column Moving$$*$$
+|Yes
+|Yes
+
+|
+|Column Resizing$$*$$
+|Yes
+|Yes
+
+|
+|Copy / Paste Support$$*$$
+|Yes
+|Yes
+
+|
+|Deferred Scrolling$$*$$
+|Yes
+|Yes
+
+|
+|Editing Data$$*$$
+|Yes
+|Yes
+
+|
+|Exporting to Excel
+|Yes
+|Yes
+
+|
+|Exporting to Word
+|Yes
+|Yes
+
+|
+|Filtering$$*$$
+|Yes
+|Yes
+
+|
+|Fixed Columns$$*$$
+|Yes
+|Yes
+
+|
+|Right to Left Support
+|Yes
+|Yes
+
+|
+|Row Selector$$*$$
+|Yes
+|Yes
+
+|
+|Rows Hovering
+|Yes
+|Yes
+
+|
+|Selection$$*$$
+|Yes
+|Yes
+
+|
+|Sorting$$*$$
+|Yes
+|Yes
+
+|
+|Summaries$$*$$
+|Yes
+|Yes
+
+|
+|Virtualization$$*$$
+|Yes
+|Yes
+
+|====
+
+[[xamDataGridOnly]]
+== xamDataGrid-Only Features
+
+The following table lists the features supported only by the xamDataGrid control.
+
+[options="header", cols="a,a"]
+|====
+|Feature Name|Feature Description
+
+|Grid orientations and custom views
+|Grid orientation (vertical or horizontal) is managed by the ViewSettings property of the xamDataGrid. Custom views can be assigned through the View property of the xamDataPresenter. The xamDataCards and xamDataCarousel controls simplify the use of those two views as well.
+
+|DataValueChanged and DataValueHistory events
+|The DataValueChanged and DataValueHistory events allow you to track the changes made to the cell values in a field over time. 
+
+For more information, see the link:xamdatapresenter-about-the-datavaluechanged-event.html[About the DataValueChanged Event] topic.
+
+|Fixed Rows
+|The xamDataGrid supports the ability to fix records to the near or far area of the grid. This feature is common across the DataPresenter family of controls. 
+
+For more information, see the link:xamdatapresenter-fix-records.html[Fix Records] topic.
+
+|Printing
+|The xamDataGrid supports printing its tabular data. This feature is common across the DataPresenter family of controls. 
+
+For more information see the link:xamdatapresenter-printing.html[Printing (xamDataPresenter)] topic.
+
+|Undo / Redo Operations
+|You can enable undo/redo operations on the xamDataGrid control. This will allow users to undo or redo the changes they make through the grid’s user interface. 
+
+For more information, see the link:xamdatapresenter-undo-operations.html[Undo / Redo Operations (xamDataPresenter)] topic.
+
+|====
+
+[[xamGridOnly]]
+== xamGrid-Only Features
+
+The following table lists the features supported only by the xamGrid control.
+
+[options="header", cols="a,a"]
+|====
+|Feature Name|Feature Description
+
+|Conditional Formatting
+|Conditional formatting allows you to test certain values, such as a column of cells in the grid, and apply specific appearances to any of those cells that match certain criteria. 
+
+For more information, see the link:xamgrid-conditional-formatting.html[Conditional Formatting] topic.
+
+|Cell Merging
+|The cell merging feature provides an alternative view of grouped data: groups are shown as merged cells as opposed to showing as collapsed group headers, which is the case with the GroupBy feature. 
+
+For more information, see the link:xamgrid-merged-cells.html[Merged Cells] topic.
+
+|Paging
+|The xamGrid control’s paging mechanism breaks data into pages. The number of pages is determined by the page size and the total number of records from the data source. The xamGrid control retrieves new data for each page as users navigate from page to page. 
+
+For more information, see the link:xamgrid-paging.html[Paging] topic.
+
+|Tooltips for Cell Values
+|You can enable Tooltips individually on per-column basis so that when the user hovers the mouse over a cell, the entire content of that cell is displayed. 
+
+For more information, see the link:xamgrid-tooltips.html[Tooltips] topic.
+
+|====
+
+[[CommonFeatures]]
+== Common Features
+
+The following table lists the features that are supported by both xamGrid and xamDataGrid. It also provides a description on how the feature is supported by each control for the purpose of outlining the differences between them. The features that are available in both grids but are supported somewhat differently, are marked with an asterisk ($$*$$).
+
+[options="header", cols="a,a,a"]
+|====
+|*Feature Name*|*xamGrid* *Feature Description*|*xamDataGrid* *Feature Description*
+
+|Column Chooser$$*$$
+|The column chooser displays within the grid. The user can hide columns using the indicator displayed on the column. 
+
+For more information, see the link:xamgrid-column-chooser.html[Column Chooser] topic.
+|The field chooser displays in a separate window and allows the user to hide/show fields either using checkboxes or by dragging from the field chooser to the grid. The field chooser User Interface (UI) is not available within the grid or fields, headers. While there is no indicator available to hide columns directly from the field header, the user can drag field headers outside of the grid to hide them. 
+
+For more information, see the link:xamdatapresenter-field-chooser.html[Field Chooser (xamDataPresenter)] topic.
+
+|Column Moving$$*$$
+|Column Moving Options: 
+
+* Indicator 
+
+* Immediate 
+
+* Disabled 
+
+For more information, see the link:xamgrid-column-moving.html[Column Moving] topic.
+|Column Moving Options: 
+
+* Indicator 
+
+* Disabled 
+
+|Column Resizing$$*$$
+|Resizing Display Options: 
+
+* Indicator 
+
+* Immediate 
+
+* Disabled 
+
+Column Sizing Options: 
+
+* Auto 
+
+* Initial Auto 
+
+* Numeric 
+
+* Size to Cell 
+
+* Size to Header 
+
+* Star 
+
+For more information, see the link:xamgrid-column-resizing.html[Column Resizing] topic.
+|Resizing Display Options: 
+
+* Indicator 
+
+* Immediate 
+
+* Deferred 
+
+* Disabled 
+
+Column Sizing Options: 
+
+* Auto 
+
+* Initial Auto 
+
+* Numeric 
+
+* Star 
+
+For more information, see the link:xamdatapresenter-field-sizing.html[Field Sizing] topic.
+
+|Copy/Paste Support$$*$$
+|Copy and paste is done through events. The user can only copy groupings of cells based on selection settings (can include column headers). 
+
+For more information, see the link:xamgrid-copy-paste-support.html[Copy- Paste support] topic.
+|The user can only copy groupings of cells based on selection settings (can include column headers). 
+
+Pasting in existing rows overwrites data in the cells and pasting into an added blank row allows for inserting one or more new records. 
+
+For more information, see the link:xamdatapresenter-clipboard-operations.html[Clipboard Operations (xamDataPresenter)] topic.
+
+|Deferred Scrolling$$*$$
+|Deferred scrolling defaults from the first row of the grid. 
+
+You can also customize the template for using while scrolling through grouped rows. 
+
+For more information, see the link:xamgrid-deferred-scrolling.html[Deferred Scrolling] topic.
+|Deferred scrolling begins when the user starts dragging the scroll thumb. A Scroll Tip appears at the point of the initial drag to indicate the record at the current scroll location. 
+
+The template used for displaying the Scroll Tip can be customized. 
+
+For more information, see the link:xamdatapresenter-optimizing-performance.html[Optimizing xamDataPresenter's Performance] topic.
+
+|Editing Data$$*$$
+|The xamGrid allows editing of cells and rows. 
+
+When row editing is enabled, cell changes aren’t committed until the whole row is completed. If the editing is cancelled, the entire row is cancelled. 
+
+The xamGrid does not allow constraints on editing; however you can use value converters to create your own. 
+
+For more information, see the link:xamgrid-editing-data.html[Editing Data] topic.
+|The xamDataGrid allows editing of cells and records. 
+
+You can control whether the edits are committed when the user moves to the next cell or the next record. 
+
+The xamDataGrid allows you to add constraints to editing of certain cells, for example, you can set the min/max ranges. 
+
+For more information, see the link:xamdatapresenter-editing-data.html[Editing Data (xamDataPresenter)] topic.
+
+|Exporting to Excel
+|Allows exporting to Excel. 
+
+For more information, see the Exporting to Excel topic.
+|Allows exporting to Excel. 
+
+For more information see the link:xamdatapresenter-exporting-to-excel.html[Exporting to Excel] topic
+
+|Exporting to Word
+|Allows exporting to Word. 
+
+For more information, see the Exporting to Word topic.
+|Allows exporting to Word . 
+
+For more information, see the link:xamdatapresenter-exporting-to-word.html[Exporting to Word] topic.
+
+|Filtering$$*$$
+|The xamGrid allows filtering through either the Filter Menu or the Filter Row: 
+
+* The Filter Menu has both operators or unique lists. 
+
+* The Filter Row has operators only. 
+
+For more information, see the link:xamgrid-filtering.html[Filtering] topic.
+|The xamDataGrid allows filtering through either the Filter Menu or the Filter Row. 
+
+The Filter Menu allows you to enter custom conditions and to filter through a range of values. You can also filter based on the column type. For example, with Date columns, you can filter on January. 
+
+For more information, see the link:xamdatapresenter-record-filtering2.html[Record Filtering (xamDataPresenter)] topic.
+
+|Fixed Columns$$*$$
+|Fixed Column options: 
+
+* Indicator 
+
+* DropArea 
+
+* Both 
+
+* Disabled 
+
+Drop Area Locations: 
+
+* Left 
+
+* Right 
+
+For more information, see the link:xamgrid-fixed-columns.html[Fixed Column] topic.
+|Fixed Column Options 
+
+* Indicator 
+
+* DropArea 
+
+* Both 
+
+* Disabled 
+
+Drop Area Locations: 
+
+* Near 
+
+* Far 
+
+The DataPresenter family of controls supports using a fixed field splitter to fix multiple fields at once. 
+
+For more information, see the link:xamdatapresenter-fixing-records.html[Records Fixing (xamDataPresenter)] topic.
+
+|Right to Left Support
+|Support for Right-to-Left (RTL) and Bi-Directional (BiDi) languages. 
+
+For more information, see the link:xamgrid-right-to-left-bidirectional-language-support.html[Right to Left Support] topic.
+|Support for Right-to-Left (RTL) and Bi-Directional (BiDi) languages. 
+
+For more information, see the link:xamdata-enabling-right-to-left-support.html[Enabling Right to Left Support] topic.
+
+|Rows Hovering
+|Row Hover types: 
+
+* Cell (default) 
+
+* None 
+
+* Row 
+
+For more information, see the link:xamgrid-change-row-hover-type.html[Change Row Hover Type] topic.
+|Row Hover types: 
+
+* Cell (default) 
+
+* None 
+
+* Row 
+
+|Selection
+|Selection Options: 
+
+* Multiple 
+
+* None 
+
+* Single 
+
+Selection is supported for cells, rows, and columns, including selection of cells and rows at the same time. 
+
+For more information, see the link:xamgrid-selection.html[Selection] topic.
+|Selection Options: 
+
+* Default 
+
+* Extended 
+
+* ExtendedAutoDrag 
+
+* None 
+
+* Range 
+
+* Single 
+
+* SingleAutoDrag 
+
+Selection is supported for cells, rows, and columns. Selection cannot be enabled for cells and rows at the same time. 
+
+For more information, see the link:xamdata-selection-overview.html[Selection Overview] topic.
+
+|Sorting
+|Sorting can be enabled or disabled. LINQ is used to sort the rows in the xamGrid control. 
+
+For more information, see the link:xamgrid-sorting.html[Sorting] topic.
+|LabelClickAction Options: 
+
+* Default 
+
+* Nothing 
+
+* SelectField 
+
+* SortByMultipleFields 
+
+* SortByMultipleFieldsTriState 
+
+* SortByOneFieldOnly 
+
+* SortByOneFieldOnlyTriState 
+
+The xamDataGrid also supports an additional sort pass on GroupBy rows. 
+
+For more information, see the link:xamdatapresenter-about-sorting.html[About Sorting] topic.
+
+|Summaries
+|The xamGrid can display a summary of the data. 
+
+For more information, see the link:xamgrid-summaries.html[Summary] topic.
+|The xamDataGrid can display a summary of the data. 
+
+The xamDataGrid integrates with the xamCalculationManager control so that the calculation results can be displayed in the summary row. 
+
+For more information, see the link:xamdatapresenter-row-summaries.html[Row Summaries (xamDataPresenter)] and the Using xamCalculationManager with xamDataGrid topic.
+
+|Virtualization
+|The xamGrid control is always virtualizing. It doesn’t offer any preload modes. 
+
+However, virtualization does not occur if a specific height and width is set. 
+
+For more information, see the link:xamgrid-virtualization.html[Virtualization] topic.
+|The xamDataGrid has the following options related to virtualization of records and/or cells: 
+
+* Recycle 
+
+* Virtualize 
+
+* Preload 
+
+* Lazy Load 
+
+For more information, see the link:xamdatapresenter-optimizing-performance.html[Optimizing xamDataPresenter's Performance] topic.
+
+|====
+
+[[RelatedTopics]]
+== Related Topics
+
+Following are some other topics you may find useful.
+
+link:xamgrid-adding-xamgrid-to-your-page.html[Getting Started with xamGrid]
+
+link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application]
+
+link:xamgrid-using-xamgrid.html[Using xamGrid]

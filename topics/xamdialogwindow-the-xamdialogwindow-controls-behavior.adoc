@@ -1,0 +1,106 @@
+﻿////
+|metadata|
+{
+    "name": "xamdialogwindow-the-xamdialogwindow-controls-behavior",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["Editing","How Do I","Layouts"],
+    "guid": "{259B9704-829A-4BBE-A515-CB4B00F095D6}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.0221104Z"
+}
+|metadata|
+////
+
+= The xamDialogWindow Control's Behavior
+
+The xamDialogWindow™ control has the following behaviors:
+
+* The xamDialogWindow control cannot be moved outside of its container
+* The xamDialogWindow control cannot be resized larger that its container
+* When the end user maximizes the xamDialogWindow control, it will fill the container. If the container’s size is dynamic and you resize it, then the xamDialogWindow control will continue to fill the space of the container.
+* The xamDialogWindow control can only gain focus over other dialog windows in the same container.
+
+Setting the xamDialogWindow control’s attached properties such as Canvas.Top, Canvas.Left, Grid.Row and Grid.Column will cause some undesirable behavior. If you want to restrict the dialog window to a container, you should set the attached properties on the container that contains the dialog.
+
+The following code demonstrates how to restrict the dialog window to the second column and the second row of the grid panel.
+
+*In XAML:*
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot" Background="White" ShowGridLines="True">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100"></ColumnDefinition>
+        <ColumnDefinition></ColumnDefinition>
+        <ColumnDefinition Width="400"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+        <RowDefinition></RowDefinition>
+        <RowDefinition Height="200"></RowDefinition>
+        <RowDefinition Height="50"></RowDefinition>
+    </Grid.RowDefinitions>
+
+    <Border Grid.Column="1" Grid.Row="1"
+        BorderBrush="Black" BorderThickness="2">
+        <ig:XamDialogWindow x:Name="Dialog1" Header="Dialog1">
+        </ig:XamDialogWindow>
+    </Border>
+</Grid>
+----
+
+You can also have multiple dialog windows restricted to the same container. This can be done by using another panel inside of the container.
+
+The following code demonstrates how to achieve this.
+
+*In XAML:*
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot" Background="White" ShowGridLines="True">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="100"></ColumnDefinition>
+        <ColumnDefinition ></ColumnDefinition>
+        <ColumnDefinition Width="400"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+    <Grid.RowDefinitions>
+        <RowDefinition></RowDefinition>
+        <RowDefinition Height="200"></RowDefinition>
+        <RowDefinition Height="50"></RowDefinition>
+    </Grid.RowDefinitions>
+
+    <Border Grid.Column="1" Grid.Row="1" BorderBrush="Black" 
+        BorderThickness="2">
+        <Grid>
+            <ig:XamDialogWindow x:Name="Dialog1">
+            </ig:XamDialogWindow>
+
+            <ig:XamDialogWindow x:Name="Dialog2">
+            </ig:XamDialogWindow>
+        </Grid>
+    </Border>
+</Grid>
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-moving-events.html[Handle Moving Events]
+
+link:xamdialogwindow-handle-window-state-changing-events.html[Handle Window State Changing Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-modal-and-modeless-dialog-windows.html[Modal and Modeless Dialog Windows]
+
+link:xamdialogwindow-position-minimized-dialog-window.html[Position Minimized Dialog Window]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-window-header-controls.html[Window Header Controls]

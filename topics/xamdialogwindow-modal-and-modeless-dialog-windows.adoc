@@ -1,0 +1,77 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdialogwindow-modal-and-modeless-dialog-windows",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["How Do I"],
+    "guid": "{F8C47CC2-7B8B-4222-924A-4B14953BE232}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.998149Z"
+}
+|metadata|
+////
+
+= Modal and Modeless Dialog Windows
+
+The xamDialogWindow control allows you to create modal or modeless dialog windows within your application.
+
+ifdef::sl[]
+* Modal dialog – This dialog window always maintains the active window status until it is closed. When a modal dialog window is opened, your end user cannot interact with any other part of the application until the dialog window is closed. This is useful, for example if an error occurs and you need your end user to correct the error before they can continue.
+
+endif::sl[]
+
+ifdef::wpf[]
+* Modal dialog – This dialog window always maintains the active dialog status in the container where it is placed until it is closed. When a modal dialog window is opened, your end user cannot interact with any other part of dialog's parent container until the dialog window is closed. This is useful, for example if an error occurs and you need your end user to correct the error before they can continue.
+
+endif::wpf[]
+
+* Modeless dialog – This dialog window allows your end user to interact with the rest of the application while it remains open. Modeless dialog windows are usually used for informational purposes and do not require a response from the end user.
+
+To set the modal type of the dialog window, you simply set the xamDialogWindow control’s link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~ismodal.html[IsModal] property.
+
+The following code demonstrates how to create a modal dialog window.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Width="600" Height="400">
+   <ig:XamDialogWindow x:Name="DialogWindow"  Width="200" Height="200"        IsModal="True" />
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+DialogWindow.IsModal = True
+----
+
+*In C#:*
+
+----
+DialogWindow.IsModal = true;
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-moving-events.html[Handle Moving Events]
+
+link:xamdialogwindow-handle-window-state-changing-events.html[Handle Window State Changing Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-position-minimized-dialog-window.html[Position Minimized Dialog Window]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-the-xamdialogwindow-controls-behavior.html[The xamDialogWindow Control's Behavior]
+
+link:xamdialogwindow-window-header-controls.html[Window Header Controls]

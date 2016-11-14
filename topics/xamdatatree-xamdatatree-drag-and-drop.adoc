@@ -1,0 +1,84 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatatree-xamdatatree-drag-and-drop",
+    "controlName": ["xamDataTree"],
+    "tags": ["Data Presentation","Editing","How Do I","Layouts","Selection"],
+    "guid": "9d521c3a-9b79-4358-b15f-427d97d2ca75",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.899113Z"
+}
+|metadata|
+////
+
+= Configuring Drag and Drop (xamDataTree)
+
+The xamDataTree™ control supports drag and drop functionality, which is based on the Infragistics Drag and Drop framework. For more information see the link:drag-and-drop-framework.html[Infragistics Drag and Drop Framework] topics. You can enable this functionality on xamDataTree, by setting the xamDataTree control’s link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~isdraggable.html[IsDraggable] and link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~isdroptarget.html[IsDropTarget] properties. You can also set these properties on a particular node layout.
+
+The following code demonstrates how to enable drag and drop.
+
+*In XAML:*
+
+----
+<ig:XamDataTree x:Name="MyTree" IsDraggable="True" IsDropTarget="True">
+    <!-- TODO: Add xamDataTree nodes -->
+</ig:XamDataTree>
+----
+
+*In Visual Basic:*
+
+----
+MyTree.IsDraggable = True
+MyTree.IsDropTarget = True
+----
+
+*In C#:*
+
+----
+MyTree.IsDraggable = true;
+MyTree.IsDropTarget = true;
+----
+
+Setting the IsDraggable property means that nodes can be dragged from the tree/node layout and setting the IsDropTarget property means that nodes can be dropped onto this tree/node layout
+
+When your end user drags a node within the tree, that node is added to the items source for the level your end user is dropping it.
+
+For example, if your tree consists of two parent nodes, which both have children, then you can move the children nodes from one parent node to the children of the other parent node.
+
+You cannot drag a parent to be a child of itself.
+
+You cannot drop a node of Type A into a collection of Type B.
+
+*Events*
+
+There are four event associated with xamDataTree as described in the following list. These events allow you to perform some custom logic during the drag and drop lifecycle.
+
+.Note:
+[NOTE]
+====
+All of the “ing” events such as NodeDraggingStart are cancellable.
+====
+
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodedragcancel_ev.html[NodeDragCancel]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodedragdrop_ev.html[NodeDragDrop]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodedragend_ev.html[NodeDragEnd]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~nodedraggingstart_ev.html[NodeDraggingStart]
+
+*Related Topics*
+
+link:xamdatatree-xamdatatree-activation.html[Activation (xamDataTree)]
+
+link:xamdatatree-active-data-item.html[Configuring Active Data Item (xamDataTree)]
+
+link:xamdatatree-xamdatatree-check-boxes.html[Configuring Check Boxes Visibility (xamDataTree)]
+
+link:xamdatatree-expanded-and-collapsed-xamdatatree-nodes.html[Configuring Expanded/Collapsed Node State (xamDataTree)]
+
+link:xamdatatree-xamdatatree-editing.html[Configuring Editing (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-connectors.html[Configuring Node Connectors Visibility (xamDataTree)]
+
+link:xamdatatree-xamdatatree-node-layouts.html[Configuring Node Layouts (xamDataTree)]
+
+link:xamdatatree-xamdatatree-selection.html[Selection (xamDataTree)]

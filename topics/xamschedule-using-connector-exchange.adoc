@@ -1,0 +1,179 @@
+﻿////
+|metadata|
+{
+    "name": "xamschedule-using-connector-exchange",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "a2cf30a3-9b48-4c55-a9b0-ddc10a0a7e67",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.9143668Z"
+}
+|metadata|
+////
+
+= Connecting xamSchedule to an Exchange Server Using the Exchange Data Connector
+
+This topic introduces and explains the use of the Exchange Data Connector, a component used to connect the xamSchedule control to an Exchange Server.
+
+The topic is organized as follows:
+
+* *Introduction*
+* *Creating an Exchange Data Connector*
+* *Connecting to an Exchange Server*
+* *Configuring Updates*
+* *Disconnecting from an Exchange Server*
+* *Related Topics*
+
+== Introduction
+
+The xamSchedule control connects to an Exchange Server using a non-visual component called Exchange Data Connector. The link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector.html[Exchange Data Connector] connects the xamSchedule to an Exchange Server residing on the same domain as the user’s machine. It also enables you to view and edit schedule data stored on the Exchange Server.
+
+== Creating an Exchange Data Connector
+
+Creating an Exchange Data Connector is easy – just instantiate it in code-behind or declare it in the XAML and attach it to the Data Manager as shown below:
+
+*In XAML:*
+[source,xaml]
+----
+<ig:XamScheduleDataManager Name="dataManager">
+    <ig:XamScheduleDataManager.DataConnector>
+        <ig:ExchangeScheduleDataConnector Name="exchangeConnector" />
+    </ig:XamScheduleDataManager.DataConnector>
+</ig:XamScheduleDataManager>
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim connector As New ExchangeScheduleDataConnector()
+Dim dataManager As New XamScheduleDataManager()
+dataManager.DataConnector = connector
+----
+
+*In C#:*
+[source,csharp]
+----
+ExchangeScheduleDataConnector connector = new ExchangeScheduleDataConnector();
+XamScheduleDataManager dataManager = new XamScheduleDataManager();
+dataManager.DataConnector = connector;
+----
+
+== Connecting to an Exchange Server
+
+To connect to an Exchange Server:
+
+[start=1]
+. *Set URL of the Exchange Server.*
++
+Create an link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings.html[ExchangeServerConnectionSettings] instance and set the Exchange Server connection URL into its link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~url.html[Url] property.
+
+[start=2]
+. *Set the Exchange Server’s version.*
++
+Set the Exchange Server version in the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~requestedserverversion.html[RequestedServerVersion] property. Set the ExchangeServerConnectionSettings instance to the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~serverconnectionsettings.html[ServerConnectionSettings] property.
+
+[start=3]
+. *Provide Exchange Server user credentials.*
++
+Add an link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeuser.html[ExchangeUser] instance with valid credentials in the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~users.html[Users] collection.
+
+[start=4]
+. *Invoke the connect method.*
++
+Example of setting up the connector and invoking the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~connect.html[Connect] method:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim users As New List(Of ExchangeUser)()
+users.Add(New ExchangeUser("user-name", "user-password", "domain"))
+connector.Users = users
+connector.ServerConnectionSettings =_
+    New ExchangeServerConnectionSettings()
+connector.ServerConnectionSettings.RequestedServerVersion =_
+    ExchangeVersion.Exchange2007_SP1
+connector.ServerConnectionSettings.Url =_
+    New Uri("https://exchange.mydomain.local/exchange.asmx")
+connector.Connect()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+List<ExchangeUser> users = new List<ExchangeUser>();
+users.Add(new ExchangeUser("user-name", "user-password", "domain"));
+connector.Users = users;
+connector.ServerConnectionSettings = new ExchangeServerConnectionSettings();
+connector.ServerConnectionSettings.RequestedServerVersion =
+    ExchangeVersion.Exchange2007_SP1;
+connector.ServerConnectionSettings.Url =
+    new Uri("https://exchange.mydomain.local/exchange.asmx");
+connector.Connect();
+----
++
+.Note:
+[NOTE]
+====
+[start=1]
+. Invoking the Connect method is non-required. The Exchange Data Connector will initiate a connection once all the needed information is set. However if you close a connection using the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~disconnect.html[Disconnect] method, you will have to invoke the Connect method in order to reconnect.
+[start=2]
+. At this writing, the following Exchange Data Servers are supported:
+
+** Exchange 2007 SP1
+** Exchange 2010
+** Exchange 2010 SP1
+
+The servers are available for selection in the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeversion.html[ExchangeVersion] enumeration.
+====
+
+[start=5]
+. *Display the activities of a specific user.*
++
+Configure the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuserid.html[CurrentUserId] property of the Data Manager. You need to specify the domain and the user name in lower case like this:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+dataManager.CurrentUserId = "domain\\user-name"
+----
++
+*In C#:*
++
+[source,csharp]
+----
+dataManager.CurrentUserId = "domain\\user-name";
+----
++
+.Note:
+[NOTE]
+====
+For more information about selecting users and calendars, refer to the link:xamschedule-using-manager-logical-currentuser.html[Setting the CurrentUser and How It Affects Control Behavior] topic. Also check the link:xamschedule-understanding-resources-calendars.html[About Resources and Calendars] topic to see how to obtain data for more than one resource’s calendar.
+====
+
+After successfully connecting to the Exchange Server, the connector will retrieve the available schedule information and the selected user activities will be displayed in all xamSchedule views attached to the Data Manager.
+
+== Configuring Updates
+
+The information is periodically updated. You have the options to either configure the update period or to force immediate data update:
+
+* *to configure the update period*, use the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollinginterval.html[PollingInterval] property
+* *to force immediate update*, use the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollforchanges.html[PollForChanges] method
+
+In addition to that, there is a property called link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~ispolling.html[IsPolling], which can be used to determine whether data has actually been obtained at the moment of invocation from the Exchange Server.
+
+== Disconnecting from an Exchange Server
+
+To disconnect from an Exchange Server, invoke the Disconnect method or clear the ServerConnectionsSettings property.
+
+== Related Topics
+
+link:xamschedule-understanding-data-connector.html[About the Data Connector]
+
+link:xamschedule-using-connector-list.html[ListScheduleConnector]
+
+link:xamschedule-using-connector-wcf.html[WCFScheduleConnector]
+
+link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]

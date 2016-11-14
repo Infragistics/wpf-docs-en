@@ -1,0 +1,67 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-merge-bing-maps-with-shapefile",
+    "controlName": ["xamMap"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{2B16B9FF-43B2-4779-B3CD-063B4B0C9908}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.1452296Z"
+}
+|metadata|
+////
+
+= Merging Bing Maps with Shapefile
+
+== Before You Begin
+
+The xamMap™ control’s link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~maptilesource.html[MapTileSource] property is used to configure the source from which geo-imagery is loaded. Please refer to the link:xamwebmap-supported-geo-imagery.html[Supported Geo-Imagery] section for a complete list of supported geo-imagery source. However, this section will focus only on BingMaps as the geo-imagery source. Because Bing Maps is a licensed web mapping service from Microsoft®, you will need to get your own credentials for Bing Maps from Microsoft's link:http://www.bing.com/maps[website].
+
+It is important to know that the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap.html[XamMap] control’s link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap~mapprojectiontype.html[MapProjectionType] property might have to be set in order to match the map projection type used by the image tile provider, otherwise, the Shapefiles being used may not align correctly with the images. In the event that your shape files do not align with the image tiles, you should try to change the xamMap control’s MapProjectionType property to any one of the available enumeration members to see if that resolves the issue. For a complete list of currently supported Map Projection Types, refer to the link:xamwebmap-understanding-xamwebmap.html[Understanding xamMap] section.
+
+== What You Will Accomplish
+
+You will load xamMap with geo-imagery from the BingMaps source and merge it with a Shapefile.
+
+image::images/XamMap_Merge_Bing_Maps_with_Shapefile_01.png[]
+
+== Follow These Steps
+
+The following XAML code assume that you have already set up your {PlatformName} project with BingMaps credentials; please refer to the link:xamwebmap-add-bing-maps-as-geo-imagery-data-source.html[Binding Bing Maps] section for more information on this.
+
+[start=1]
+. Add a link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer.html[MapLayer] with a Shapefile to the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.xammap.html[XamMap] control.
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+        <igMap:XamMap x:Name="xamMap" MapProjectionType="SphericalMercator">
+            <!-- NOTE: Bing Maps Tile Source is should be added in code behind -->
+            <igMap:XamMap.Layers>
+                <!-- Add Shapefile with semi-transparent blue brush -->
+                <igMap:MapLayer Name="mapLayer" Brushes="#661E90FF" >
+                    <igMap:MapLayer.Reader>
+                        <igMap:ShapeFileReader Uri="/../../Shapefiles/europe/eu_countries" />
+                    </igMap:MapLayer.Reader>
+                </igMap:MapLayer>
+            </igMap:XamMap.Layers>
+        </igMap:XamMap>
+----
+
+endif::wpf[]
+
+[start=2]
+. Run the application. The xamMap control will merge the geo-imagery data from BingMaps together with the Shapefile.
+
+== Related Topics
+
+link:xamwebmap-add-bing-maps-as-geo-imagery-data-source.html[Binding Bing Maps]
+
+link:xamwebmap-display-different-layer-types.html[Display Different Layer Types]
+
+link:xamwebmap-geo-imagery-integration.html[Geo-Imagery Integration]
+
+link:xamwebmap-merge-open-street-maps-with-shapefile.html[Merging Open Street Maps with Shapefile]

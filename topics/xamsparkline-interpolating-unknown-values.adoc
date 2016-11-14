@@ -1,0 +1,184 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsparkline-interpolating-unknown-values",
+    "controlName": ["xamSparkline"],
+    "tags": ["Charting","How Do I","Layouts","Tips and Tricks"],
+    "guid": "9d8f649c-f21b-4d37-ae60-219f129f1578",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.262388Z"
+}
+|metadata|
+////
+
+= Interpolating Unknown Values
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains, with code examples, how to implement interpolation of unknown values in link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}.html[xamSparkline]™.
+
+=== Required Background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+| link:xamsparkline-configuring-xamsparkline.html[Configuring xamSparkline]
+|This topic provides an overview of the possible ways to configure the _xamSparkline_ control. Links to the detailed configurations (available in separate topics) are provided as well.
+
+|====
+
+=== In This Topic
+
+This topic contains the following sections:
+
+* <<_Ref317177227,Interpolating Unknown Values – Conceptual Overview>>
+
+** <<Overview,Overview>>
+** <<_Ref317177334,Data Requirements>>
+** <<_Ref317177339,Property settings>>
+** <<_Ref317177376,Example>>
+
+* <<_Ref317177381,Interpolating Unknown Values – Code Example>>
+
+** <<_Ref317177387,Description>>
+** <<_Ref317177391,Code>>
+
+* <<_Ref317078582,Related Content>>
+
+[[_Ref317177227]]
+== Interpolating Unknown Values – Conceptual Overview
+
+=== Overview
+
+With the Interpolating Unknown Values feature,  _xamSparkline_   can detect unknown values (`Null` or `double`.`NaN``)` and render the space for the unknown values through a specified interpolation algorithm. If your data contains such values and you do not use this feature, meaning no Interpolation is specified, the unknown value will not be plotted.
+
+If you have unknown values in your data set, the Interpolating Unknown Values feature provides you with the following options:
+
+* __To interpolate the unknown values linearly__  connecting the data point before the null value point to the data point after the null value point.
+
+* __Not to plot the unknown values__  – instead, a blank point will be inserted for any null value that exists in the data collection.
+
+.Note:
+[NOTE]
+====
+For the linear interpolation option (the first one above) to work for a data point, the previous and next data points should both exist. If, for instance, the null value happens to be the first value in the collection there will be no previous point to connect to and, as a result, the null value will be presented as a blank point. The same is true if the last data point is null.
+====
+
+The Interpolating Unknown Values feature is both enabled and set (in terms of type of interpolation) by the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting] property (See the <<_Ref317177339,Property settings>> block).
+
+[[_Ref317177334]]
+
+=== Data Requirements
+
+Only `Null` or `double.NaN` values are considered unknown. The expected value types are the numeric values such as integer or double. Non-numeric values are not considered unknown.
+
+[[_Ref317177339]]
+
+=== Property settings
+
+The following table maps the xamSparkline interpolation option to the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting] property settings that deliver them.
+
+[options="header", cols="a,a"]
+|====
+|Interpolation option| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting] property setting
+
+|Linear interpolation
+|LinearInterpolate
+
+|Not to plot the unknown values
+|DontPlot
+
+|====
+
+[[_Ref317177376]]
+
+=== Example
+
+The screenshot below demonstrates a Sparkline rendered from the same data set but using different settings of the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting] property:
+
+[options="header", cols="a,a"]
+|====
+| *Property* | *Value* 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting]
+| _DontPlot_ 
+
+|====
+
+image::images/Interpolating_Unknown_Values_1.png[]
+
+[options="header", cols="a,a"]
+|====
+| *Property* | *Value* 
+
+| link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~unknownvalueplotting.html[UnknownValuePlotting]
+| _LinearInterpolate_ 
+
+|====
+
+image::images/Interpolating_Unknown_Values_2.png[]
+
+[[_Ref317177381]]
+== Interpolating Unknown Values – Code Example
+
+[[_Ref317177387]]
+
+=== Description
+
+The code below demonstrates handling unknown values using the linear interpolation option.
+
+[[_Ref317177391]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamSparkline Name="xamSparkline1" UnknownValuePlotting="LinearInterpolate"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSparkline1.UnknownValuePlotting = UnknownValuePlotting.LinearInterpolate;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSparkline1.UnknownValuePlotting = UnknownValuePlotting.LinearInterpolate
+----
+
+[[_Ref317078582]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+| link:xamsparkline-configuring-xamsparkline.html[Configuring xamSparkline]
+|This topic provides an overview of the possible ways to configure the _xamSparkline_ control. Links to the detailed configurations (available in separate topics) are provided as well.
+
+| link:xamsparkline-xamsparkline-property-reference.html[xamSparkline Property Reference]
+|This topic explains the featured properties of the _xamSparkline_ control.
+
+|====

@@ -1,0 +1,210 @@
+﻿////
+|metadata|
+{
+    "name": "xamslider-creating-a-custom-xamslider-control",
+    "controlName": ["xamSlider"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{44AFD055-D468-4A7D-8D27-6533D6EF877D}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.0603767Z"
+}
+|metadata|
+////
+
+= Creating a Custom xamSlider Control
+
+== Before You Begin
+
+The xamSlider™ control is associated with several base classes that you too can use to create your own custom sliders. You can inherit the xamSimpleSliderBase and xamRangeSlider classes so that you can create your own custom xamSlider control.
+
+This topic will demonstrate how to override the following methods to create a xamSlider control that uses Color as a value.
+
+* DoubleToValue
+* ValueToDouble
+* GetParameter
+* SupportsCommand
+
+== What You Will Accomplish
+
+You will create your own custom Color xamSlider control.
+
+== Follow these Steps
+
+[start=1]
+. Create your own custom xamSimpleSliderBase and name it ColorSlider.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Public Class ColorSlider
+    Inherits XamSimpleSliderBase(Of Color)
+    Protected Overloads Overrides Function DoubleToValue(ByVal value As
+                Double) As Color
+        Dim pixel As Integer = CInt(value)
+        'Shift int to RGBA values
+        Dim B As Byte = CByte((pixel And &HFF))
+        pixel >>= 8
+        Dim G As Byte = CByte((pixel And &HFF))
+        pixel >>= 8
+        Dim R As Byte = CByte((pixel And &HFF))
+        pixel >>= 8
+        ' alpha
+        Dim A As Byte = CByte(pixel)
+        Return Color.FromArgb(A, R, G, B)
+    End Function
+    Protected Overloads Overrides Function ValueToDouble(ByVal value As
+                 Color) As Double
+        Return (value.A << 24 Or value.R << 16 Or value.G << 8 Or value.B)
+    End Function
+    Protected Overloads Overrides Function GetParameter(ByVal source As
+                 CommandSource) As Object
+        If TypeOf source.Command Is xamSliderBaseCommandBase Then
+            Return (Me)
+        End If
+        Return (Nothing)
+    End Function
+    Protected Overloads Overrides Function SupportsCommand(ByVal command As
+                 ICommand) As Boolean
+        Return (TypeOf command Is xamSliderBaseCommandBase)
+    End Function
+End Class
+----
++
+*In C#:*
++
+[source,csharp]
+----
+public class ColorSlider : XamSimpleSliderBase<Color>
+{
+   protected override Color DoubleToValue(double value)
+   {
+      int pixel = (int)value;
+      //Shift int to RGBA values
+      byte B = (byte)(pixel & 0xFF); pixel >>= 8;
+      byte G = (byte)(pixel & 0xFF); pixel >>= 8;
+      byte R = (byte)(pixel & 0xFF); pixel >>= 8;
+      byte A = (byte)pixel; // alpha
+      return Color.FromArgb(A, R, G, B);
+   }
+   protected override double ValueToDouble(Color value)
+   {
+      return value.A << 24 | value.R << 16 | value.G << 8 | value.B;
+   }
+   protected override object GetParameter(CommandSource source)
+   {
+      if (source.Command is xamSliderBaseCommandBase)
+      {
+         return this;
+      }
+      return null;
+   }
+   protected override bool SupportsCommand(ICommand command)
+   {
+      return command is xamSliderBaseCommandBase;
+   }
+}
+----
+
+[start=2]
+. Add your custom slider to your page. Set the following properties:
++
+--
+** x:Name – MyCustomSlider
+** Width – 300
+** Height – 50
+** MinValue – Blue
+** Value – Purple
+** MaxValue – Red
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<colorSlider:ColorSlider
+  x:Name="MyCustomSlider"
+  Grid.Row="1" 
+  Width="300"
+  Height="50"  
+  MinValue="Blue"
+  Value="Purple"
+  MaxValue="Red" />
+----
+
+[start=3]
+. Add a TextBox control to your page. Set the following properties.
++
+--
+** x:Name – MyTextBox
+** Background – {Binding Value, ElementName=MyCustomSlider}
++
+This is how the custom slider is bound to your TextBox control so as the color values change on the slider, it is reflected here.
+** Converter – {Static Resource MyConverter}
++
+You need to use a converter to assign the value of the slider to the background of the TextBox control because it is of type is SolidBrushColor and the value is of type Color. The code for the converter is shown below
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<TextBox
+  Width="300" Height="100"
+  Grid.Row="0" x:Name="MyTextBox"
+  Background={StaticResource MyConverter} />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Public Class BackgroundCoverter
+    Implements IValueConverter
+    Public Function Convert(ByVal value As
+                Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object
+        Return New SolidColorBrush(DirectCast(value, Color))
+    End Function
+    Public Function ConvertBack(ByVal value As
+                Object, ByVal targetType As Type, ByVal parameter As Object, ByVal culture As CultureInfo) As Object
+        Dim brush As SolidColorBrush = TryCast(value, SolidColorBrush)
+        If brush IsNot Nothing Then
+            Return brush.Color
+        End If
+        Return Colors.White
+    End Function
+End Class
+----
++
+*In C#:*
++
+[source,csharp]
+----
+public class BackgroundCoverter : IValueConverter
+{
+   public object Convert(object value, Type targetType,
+                object parameter, CultureInfo culture)
+   {
+      return new SolidColorBrush((Color)value);
+   }
+   public object ConvertBack(object value, Type targetType,
+                object parameter, CultureInfo culture)
+   {
+      SolidColorBrush brush = value as SolidColorBrush;
+      if (brush!= null)
+      {
+         return brush.Color;
+      }
+      return Colors.White;
+   }
+}
+----
+
+[start=4]
+. Save and run your application.
+
+== Related Topics
+
+link:xamslider-adding-a-single-value-slider-to-your-application.html[Adding a Single-Value Slider to Your Application]
+
+link:xamslider-using-xamslider.html[Using xamSlider]

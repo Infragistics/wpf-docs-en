@@ -1,0 +1,92 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-about-card-settings",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts","Tips and Tricks"],
+    "guid": "{EC59D321-3A1D-4CBB-A96E-8AD3EBE220AD}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3600251Z"
+}
+|metadata|
+////
+
+= About Card Settings
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings.html[CardViewSettings] object exposes several properties that allow you to modify the layout and behavior of cards. For example, you can set the height and width of cards, the orientation of cards, the visibility of card headers, etc. For a list of commonly used properties exposed by the CardViewSettings objects, see the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardviewsettings.html[Remarks section in the API Reference Guide].
+
+Once you understand how a property exposed by the CardViewSettings object affects the layout or behavior of cards in the xamDataCards™ control, you can leverage the same knowledge when working with the xamDataPresenter control in card view. The only difference between xamDataCards and xamDataPresenter in card view is the way you access the CardViewSettings object.
+
+When using the xamDataCards control, you can access the CardViewSettings object directly through the xamDataCards link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatacards~viewsettings.html[ViewSettings] property. However, when using the xamDataPresenter control in card view, you must cast xamDataPresenter's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatapresenter~view.html[View] property to an instance of a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardview.html[CardView] object first. After casting successfully, you can access the CardViewSettings object through the CardView object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cardview~viewsettings.html[ViewSettings] property.
+
+The following example code demonstrates the same CardViewSettings properties being set, but on the xamDataCards control and the xamDataPresenter control in card view.
+
+*In XAML:*
+
+----
+<!--xamDataCards-->
+<igDP:XamDataCards Name="xamDataCards1">
+    <igDP:XamDataCards.ViewSettings>
+        <igDP:CardViewSettings ShouldCollapseEmptyCells="True" />
+    </igDP:XamDataCards.ViewSettings>
+</igDP:XamDataCards>
+<!--xamDataPresenter-->
+<igDP:XamDataPresenter Name="xamDataPresenter1">
+    <!--If you do not set the View property, xamDataPresenter automatically uses a GridView object-->
+    <igDP:XamDataPresenter.View>
+        <igDP:CardView>
+            <igDP:CardView.ViewSettings>
+                <igDP:CardViewSettings ShouldCollapseEmptyCells="True" />
+            </igDP:CardView.ViewSettings>
+        </igDP:CardView>
+    </igDP:XamDataPresenter.View>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+'xamDataCards
+Me.xamDataCards1.ViewSettings.ShouldCollapseEmptyCells = True
+'xamDataPresenter
+Dim cardView1 As CardView = TryCast(Me.xamDataPresenter1.View, CardView)
+If cardView1 IsNot Nothing Then
+    cardView1.ViewSettings.ShouldCollapseEmptyCells = True
+End If
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+//xamDataCards
+this.xamDataCards1.ViewSettings.ShouldCollapseEmptyCells = true;
+//xamDataPresenter
+CardView cardView1 = this.xamDataPresenter1.View as CardView;
+if(cardView1 != null)
+{
+    cardView1.ViewSettings.ShouldCollapseEmptyCells = true;
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-about-card-sizing.html[About Card Sizing]
+
+link:xamdatapresenter-about-repositioning-animations.html[About Repositioning Animations]
+
+link:xamdatapresenter-collapse-a-card.html[Collapse a Card]
+
+link:xamdatapresenter-collapse-an-empty-cell.html[Collapse an Empty Cell]
+
+link:xamdatapresenter-set-the-maximum-number-of-viewable-cards.html[Set the Maximum Number of Viewable Cards]
+
+link:xamdatapresenter-set-the-space-between-cards.html[Set the Space Between Cards]
+
+link:xamdatapresenter-working-with-card-headers.html[Working with Card Headers]

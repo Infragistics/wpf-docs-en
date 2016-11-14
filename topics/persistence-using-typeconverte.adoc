@@ -1,0 +1,201 @@
+﻿////
+|metadata|
+{
+    "name": "persistence-using-typeconverte",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["How Do I","Persistence"],
+    "guid": "{01DA9000-AD93-4C83-8991-324559FA6B78}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.5800384Z"
+}
+|metadata|
+////
+
+= Using PropertyNamePersistenceInfo TypeConverter property
+
+Some properties can’t be persisted by Infragistics Control Persistence Framework.
+
+Such properties are Cursor, FontWeight, FontFamily and FontStyle.
+
+You can use TypeConverter to save such properties.
+
+This example will show you how you can save and load FontFamily property. We will use two xamComboEditor components and will apply font settings of the first one to the second one.
+
+[start=1]
+. First, create converter class for the FontFamily property.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Public Class FontFamilyConverter
+    Inherits TypeConverter
+    Public Overloads Overrides Function CanConvertFrom(ByVal context As ITypeDescriptorContext, ByVal sourceType As Type) As Boolean
+        Return (sourceType Is GetType(String))
+    End Function
+
+    Public Overloads Overrides Function CanConvertTo(ByVal context As ITypeDescriptorContext, ByVal destinationType As Type) As Boolean
+        Return (destinationType Is GetType(String))
+    End Function
+
+    Public Overloads Overrides Function ConvertFrom(ByVal context As ITypeDescriptorContext, ByVal culture As System.Globalization.CultureInfo, ByVal value As Object) As Object
+        Dim obj As String = DirectCast(value, String)
+
+        If obj IsNot Nothing AndAlso obj.Length > 0 Then
+            Return New FontFamily(obj)
+        Else
+            Return New FontFamily("Verdana")
+        End If
+    End Function
+
+    Public Overloads Overrides Function ConvertTo(ByVal context As ITypeDescriptorContext, ByVal culture As System.Globalization.CultureInfo, ByVal value As Object, ByVal destinationType As Type) As Object
+        If value IsNot Nothing Then
+            Dim ff As FontFamily = DirectCast(value, FontFamily)
+            Return ff.ToString()
+        End If
+        Return Nothing
+    End Function
+End Class
+----
++
+*In C#:*
++
+[source,csharp]
+----
+public class FontFamilyConverter : TypeConverter
+{
+    public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+    {
+        return (sourceType == typeof(string));
+    }
+
+    public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+    {
+        return (destinationType == typeof(string));
+    }
+
+    public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+    {
+        string obj = (string)value;
+
+        if (obj != null && obj.Length > 0)
+            return new FontFamily(obj);
+        else
+            return new FontFamily("Verdana");
+    }
+
+    public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+    {
+        if (value != null)
+        {
+            FontFamily ff = (FontFamily)value;
+            return ff.ToString();
+        }
+        return null;
+    }
+}
+----
+
+[start=2]
+. Add created converter as static resource in UserControl resources
++
+*In XAML:*
++
+[source,xaml]
+----
+<UserControl.Resources>
+    <local:FontFamilyConverter x:Key="FontConverter" />
+</UserControl.Resources>
+----
+
+[start=3]
+. Add the first xamComboEditor control.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamComboEditor x:Name="XWComboEditorBase" 
+         IsEditable="True" Height="30" Width="300" 
+         DisplayMemberPath="FirstName" FontFamily="Arial">
+    <ig:PersistenceManager.Settings>
+        <ig:PersistenceSettings SavePersistenceOptions="OnlySpecified">
+            <ig:PersistenceSettings.PropertySettings>
+                <ig:PropertyNamePersistenceInfo
+                    PropertyName="FontFamily"
+                    TypeConverter="{StaticResource FontConverter}" />
+            </ig:PersistenceSettings.PropertySettings>
+        </ig:PersistenceSettings>
+    </ig:PersistenceManager.Settings>
+</ig:XamComboEditor>
+----
+
+[start=4]
+. We set FontFamily of the xamComboEditor to "Arial" and will apply this setting to the target xamComboEditor.
+
+[start=5]
+. This property will be the only to be saved. We bind TypeConverter property to the static resource FontConverter.
+
+[start=6]
+. Add the second xamComboEditor and two buttons to execute save and load process
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamComboEditor x:Name="XWComboEditorTarget" 
+    IsEditable="True" Height="30" Width="100" 
+    DisplayMemberPath="FirstName" />
+<Button x:Name="save" Content="save" Click="save_Click" Width="100" />
+<Button x:Name="load" Content="load" Click="load_Click" Width="100" />
+----
+
+[start=7]
+. Handle buttons’ Click events
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private ms As New MemoryStream()
+Private Sub save_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    ms = PersistenceManager.Save(XWComboEditorBase)
+End Sub
+Private Sub load_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    ms.Position = 0
+    PersistenceManager.Load(XWComboEditorTarget, ms)
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private MemoryStream ms = new MemoryStream();
+private void save_Click(object sender, RoutedEventArgs e)
+{
+    ms = PersistenceManager.Save(XWComboEditorBase);
+}
+private void load_Click(object sender, RoutedEventArgs e)
+{
+    ms.Position = 0;
+    PersistenceManager.Load(XWComboEditorTarget, ms);
+}   
+----
+
+[start=8]
+. The result will be that the FontFamily property will be applied from the target xamComboEditor.
+
+== Related Topics
+
+link:persistence-persistence-settings.html[Persistence Settings]
+
+link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties]
+
+link:persistence-persistence-groups.html[Persistence Groups]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+link:persistence-handle-persistencesaved-and-persistenceloaded-events.html[Handle PersistenceSaved and PersistenceLoaded Events]
+
+link:persistence-handle-savepropertypersistence-and-loadpropertypersistence-events.html[Handle SavePropertyPersistence and LoadPropertyPersistence Events]

@@ -1,0 +1,75 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-print-all-records-in-a-hierarchy",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Printing"],
+    "guid": "{E38B94B6-1EED-42C8-BB19-AE35AEE1DC4C}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2970125Z"
+}
+|metadata|
+////
+
+= Print All Records in a Hierarchy
+
+The WPF Reporting engine prints/exports a DataPresenter control's state exactly as-is when you invoke the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~print.html[Print] or link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~export.html[Export] method of the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object. The resulting printout or exported file is based on how your end users interact with the DataPresenter control before printing or exporting. For example, if you have a hierarchical xamDataGrid™, the WPF Reporting engine will not print child records if your end users do not expand them at run time before printing. However, you can modify this behavior, so that all records are expanded when the WPF Reporting engine prints/exports the DataPresenter control.
+
+Printing all records in a hierarchical data model is a four-step process:
+
+[start=1]
+. Instantiate a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.tabularreportview.html[TabularReportView] object.
+[start=2]
+. Set the TabularReportView object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.reportviewbase~excludeexpandedstate.html[ExcludeExpandedState] property to True.
+[start=3]
+. Set the DataPresenter's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~reportview.html[ReportView] property to your instance of the TabularReportView object.
+[start=4]
+. Create a report using the DataPresenter control and print it.
+
+The following example code demonstrates how to print all records in a hierarchy. The example code sets a xamDataGrid control's ReportView property; however, you can replace the xamDataGrid control with the xamDataPresenter™ control or the xamDataCarousel™ control.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+Dim reportView1 As New TabularReportView() With { .ExcludeExpandedState = True}
+Me.xamDataGrid1.ReportView = reportView1
+'TODO: Create a report using the xamDataGrid control and print it.
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+TabularReportView reportView1 = new TabularReportView() 
+{
+        ExcludeExpandedState = true
+};
+this.xamDataGrid1.ReportView = reportView1;
+//TODO: Create a report using the xamDataGrid control and print it.
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-printing.html[Exclude DataPresenter Settings When Printing]
+
+link:xamdatapresenter-fit-all-fields-on-a-single-page.html[Fit All Fields on a Single Page]
+
+link:xamdatapresenter-handling-events-to-customize-print-operations.html[Handling Events to Customize Print Operations]
+
+link:xamdatapresenter-repeat-field-headers-on-all-pages.html[Repeat Field Headers on All Pages]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]

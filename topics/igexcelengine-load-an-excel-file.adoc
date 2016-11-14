@@ -1,0 +1,69 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-load-an-excel-file",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","Getting Started","How Do I"],
+    "guid": "{F630174F-D7A0-4745-91E1-F2A8B643B4EB}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7647061Z"
+}
+|metadata|
+////
+
+= Loading an Excel File (Infragistics Excel Engine)
+
+In addition to creating Microsoft® Excel® files, the Infragistics Excel Engine can also read them. You can create a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook.html[Workbook] object from an existing Excel file, make some changes, and save a new file containing the modified workbook. When you read an Excel file using the Workbook object's static link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~load.html[Load] method, a Workbook object is created and its object model is populated with all the features supported by the Excel object library. Cell values and formats, as well as workbook and worksheet options are all accessible and modifiable from the parsed workbook.
+
+The following example code demonstrates how to load an existing workbook. You should replace "filename.xls" with the name of an existing Excel file.
+
+*In Visual Basic:*
+[source, vb]
+----
+Imports Infragistics.Documents.Excel
+...
+' Load workbook with data
+Dim workbook1 As Workbook = Workbook.Load("filename.xls")
+' Comment for a cell
+workbook1.ActiveWorksheet.Rows(1).Cells(0).Comment = New WorksheetCellComment() With { _
+    .Text = New FormattedString("Comment for a cell")
+}
+----
+
+*In C#:*
+[source, csharp]
+----
+using Infragistics.Documents.Excel;
+...
+// Load workbook with data
+Workbook workbook1 = Workbook.Load("filename.xls");
+// Comment for a cell
+workbook1.ActiveWorksheet.Rows[1].Cells[0].Comment = new WorksheetCellComment
+{
+    Text = new FormattedString("Comment for a cell")
+};
+----
+
+== Related Topics
+
+link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-save-a-workbook.html[Saving a Workbook (Infragistics Excel Engine)]
+
+link:igexcelengine-format-a-cell.html[Formatting a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-copy-a-cells-format.html[Copying a Cell's Format (Infragistics Excel Engine)]
+
+link:igexcelengine-reference-cells-and-regions.html[Referencing Cells and Regions (Infragistics Excel Engine)]
+
+link:igexcelengine-merge-cells.html[Merging Cells (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-formula-to-a-cell.html[Adding a Formula to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-add-a-comment-to-a-cell.html[Adding a Comment to a Cell (Infragistics Excel Engine)]
+
+link:igexcelengine-disable-editing-of-a-worksheet.html[Disabling Editing of a Worksheet (Infragistics Excel Engine)]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]

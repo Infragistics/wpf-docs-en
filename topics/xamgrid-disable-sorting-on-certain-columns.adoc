@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-disable-sorting-on-certain-columns",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Sorting"],
+    "guid": "{1879CFB0-7008-480D-906B-EFF656DE7ECD}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.6871857Z"
+}
+|metadata|
+////
+
+= Disable Sorting on Certain Columns
+
+You can disable sorting on certain columns on xamGrid™, even though you have enabled sorting on the entire grid. For example if you have a fixed column you may not want your end users to sort on this column.
+
+To achieve this, you simply set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object’s link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~issortable.html[IsSortable] property to false, as demonstrated in the following code snippet.
+
+*In XAML:*
+
+----
+<ig:TextColumn Key="ProductID" IsSortable="/>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+...
+Dim UnsortableColumn As Column = Me.MyGrid.Columns.DataColumns("ProductName")
+UnsortableColumn.IsSortable = False
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+Column UnsortableColumn = this.MyGrid.Columns.DataColumns["ProductName"];
+UnsortableColumn.IsSortable = false;
+----
+
+== *Related Topics*
+
+link:xamgrid-sorting.html[Sorting]
+
+link:xamgrid-multi-column-sorting.html[Multi-Column Sorting]
+
+link:xamgrid-remove-sort-indicator.html[Remove Sort Indicator]
+
+link:xamgrid-sorting-events.html[Sorting Events]
+
+link:xamgrid-custom-sort.html[Custom Sort]
+
+pick:[win-rt=" link:bb45cdbe-7149-49bc-a63a-1a77676c6986[Touch Support]"]

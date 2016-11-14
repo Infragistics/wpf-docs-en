@@ -1,0 +1,232 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsparkline-xamsparkline-data-binding",
+    "controlName": ["xamSparkline"],
+    "tags": ["Charting","Data Binding"],
+    "guid": "3b2b2088-98d2-46fc-84a1-86397c679f73",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.2363484Z"
+}
+|metadata|
+////
+
+= xamSparkline Data Binding
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains, with code examples, how to bind the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}.html[xamSparkline]™ control to data.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref317187002,Data Binding – Conceptual Overview>>
+
+** <<_Ref317187009,Overview>>
+** <<_Ref317187012,Property settings>>
+
+* <<_Ref317187018,Data Binding – Code Examples>>
+* <<_Ref317187132,Related Content>>
+
+[[_Ref317187002]]
+== Data Binding – Conceptual Overview
+
+[[_Ref317187009]]
+
+=== Overview
+
+The  _xamSparkline_   control requires one-dimensional data. The data set must contain at least two  _numeric_  fields. If these data type requirements are not met  _xamSparkline_   renders a blank chart (no error is returned). The text in the data source fields can be used to display the first and the last label on the X axis.
+
+As a minimum, _xamSparkline_   requires the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~itemssource.html[ItemsSource] property which is used to bind the control to an instance of the data collection and the link:{ApiPlatform}controls.charts.xamsparkline.v{ProductVersion}~infragistics.controls.charts.xamsparkline~valuememberpath.html[ValueMemberPath] property to identify what data to should be displayed.
+
+[[_Ref317187012]]
+
+=== Property settings
+
+The following table lists the data binding property settings.
+
+[options="header", cols="a,a"]
+|====
+|Property name|Property setting
+
+| _ItemsSource_ 
+| _{Binding Source={StaticResource resource key name}}_ 
+
+| _ValueMemberPath_ 
+| _field name_ 
+
+|====
+
+[[_Ref317187018]]
+
+== Code Example: Data Binding
+
+=== Description
+
+The following code demonstrates the data binding.
+
+=== Explanation
+
+*In XAML:*
+
+[source,xaml]
+----
+<UserControl
+    xmlns:igSparkline="http://schemas.infragistics.com/xaml"
+    xmlns:local="clr-namespace:SL_SparklineDemo">
+    <UserControl.Resources>
+        <local:TestData x:Key="testdata"/> 
+    </UserControl.Resources>
+     <igSparkline:XamSparkline 
+          Name="xamSparkline1
+         ItemsSource="{Binding Source={StaticResource testdata}}"
+         ValueMemberPath="Value"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamSparkline1.ItemsSource = new TestData();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamSparkline1.ItemsSource = New TestData()
+----
+
+In the following (C#) data model the  _n_   stands for any numeric value.
+
+*In C#:*
+
+[source,csharp]
+----
+public class TestData : ObservableCollection<TestDataItem>
+    {
+        public TestData()
+        {
+           Add(new TestDataItem { Label = "Label1", Value = n });
+     Add(new TestDataItem { Label = "Label2", Value = n });
+     Add(new TestDataItem { Label = "Label3", Value = n });
+     Add(new TestDataItem { Label = "Label4", Value = -n });
+     Add(new TestDataItem { Label = "Label5", Value = n });
+     Add(new TestDataItem { Label = "Label6", Value = -n });
+     Add(new TestDataItem { Label = "Label7", Value = n });
+     Add(new TestDataItem { Label = "Label8", Value = n });
+     Add(new TestDataItem { Label = "Label9", Value = n });
+        }
+    }
+public class TestDataItem : INotifyPropertyChanged
+    {
+        private string _label;
+        public string Label
+        {
+            get { return _label; }
+            set { _label = value; RaisePropertyChanged("Label"); }
+        }
+        private double ?_value;
+        public double ?Value
+        {
+            get { return _value; }
+            set { _value = value; RaisePropertyChanged("Value"); }
+        }
+        private void RaisePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new   PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+----
+
+In the following (VB) data model the  _n_   stands for any numeric value.
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class TestData
+   Inherits ObservableCollection(Of TestDataItem)
+      Public Sub New()
+      Add(New TestDataItem() With {.Label = "Label1", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label2", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label3", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label4", .Value = -n})
+      Add(New TestDataItem() With {.Label = "Label5", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label6", .Value = -n})
+      Add(New TestDataItem() With {.Label = "Label7", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label8", .Value = n})
+      Add(New TestDataItem() With {.Label = "Label9", .Value = n})
+   End Sub
+End Class
+Public Class TestDataItem
+      Implements INotifyPropertyChanged
+      Private _label As String
+      Public Property Label() As String
+            Get
+                  Return _label
+            End Get
+            Set
+                  _label = value
+                  RaisePropertyChanged("Label")
+            End Set
+      End Property
+      Private _value As System.Nullable(Of Double)
+      Public Property Value() As System.Nullable(Of Double)
+            Get
+                  Return _value
+            End Get
+            Set
+                  _value = value
+                  RaisePropertyChanged("Value")
+            End Set
+      End Property
+      Private Sub RaisePropertyChanged(propertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+      End Sub
+      Public Event PropertyChanged As PropertyChangedEventHandler
+End Class
+----
+
+[[_Ref317187132]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsparkline-xamsparkline-overview.html[xamSparkline Overview]
+|This topic provides an overview of the _xamSparkline_ control, its benefits, and the supported chart types.
+
+| link:xamsparkline-configuring-xamsparkline.html[Configuring xamSparkline]
+|This topic provides an overview of the possible ways to configure the _xamSparkline_ control. Links to the detailed configurations (available in separate topics) are provided as well.
+
+| link:xamsparkline-xamsparkline-property-reference.html[xamSparkline Property Reference]
+|This topic explains the featured properties of the _xamSparkline_ control.
+
+|====

@@ -1,0 +1,104 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-sorting-unbound-columns",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","Sorting","Styling"],
+    "guid": "d8e707ef-7d73-435e-afa5-76839e2f1728",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.3241911Z"
+}
+|metadata|
+////
+
+= Sorting Unbound Columns
+
+You can sort unbound columns as long as you have an IValueConverter hooked up. However, sorting an unbound column is not as fast and efficient as sorting a normal column, because every cell needs to be evaluated before it is sorted. To achieve the normal level of performance, you should hook up an IComparer to the Columns.SortComparer property. This is the same as creating a custom sort on an existing column. For more information, see the link:xamgrid-custom-sort.html[Custom Sort] topic.
+
+The following code demonstrates how to set the SortComparer on an unbound column.
+
+*In XAML:*
+
+----
+<!-- Add a namespace declaration for the ValueConverter to the opening UserControl tag -->
+<!-- Add a resource for the converter and sort comparer -->
+<UserControl.Resources>
+   <helper:TotalUnitsConverter x:Key="TotalUnitsConverter"/>
+   <helper:MySortComparer x:Key="MySortComparer"/>
+</UserControl.Resources>
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamGrid Grid.Row="0" x:Name="MyDataGrid" AutoGenerateColumns=">
+      <ig:XamGrid.Columns>
+         <ig:TextColumn Key="ProductID"/>
+         <ig:TextColumn Key="ProductName"/>
+         <ig:TextColumn Key="UnitPrice"/>
+         <ig:TextColumn Key="UnitsInStock"/>
+         <ig:TextColumn Key="UnitsOnOrder"/>
+         <!-- Create an unbound column, hooking it up to the ValueConverter and a SortComparer -->
+         <ig:UnboundColumn Key="Total Units" ValueConverter="{StaticResource TotalUnitsConverter}" SortComparer="{StaticResource MySortComparer}" IsSortable="True"/>
+      </ig:XamGrid.Columns>
+   </ig:XamGrid>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Dim MyColumn As New UnboundColumn() 
+MyColumn.Key = "Total Units" 
+MyColumn.ValueConverter = New TotalUnitsConverter()
+MyColumn.SortComparer = New MySortComparer()
+Me.MyDataGrid.Columns.Add(MyColumn)
+----
+
+*In C#:*
+
+----
+this.MyDataGrid.Columns.Add(new UnboundColumn() { Key = "Total Units", ValueConverter = new TotalUnitsConverter(), SortComparer = new MySortComparer() });         
+----
+
+The following code is the IComparer that is used in the above example.
+
+ifdef::wpf[]
+
+*In Visual Basic:*
+
+----
+Public Class MySortComparer
+Inherits IComparer
+   Public Function Compare(ByVal x As Product, ByVal y As Product) As Integer
+      Dim x1 As Integer = (x.UnitsInStock + x.UnitsOnOrder)
+      Dim y1 As Integer = (y.UnitsInStock + y.UnitsOnOrder)
+      Return x1.CompareTo(y1)
+   End Function
+End Class
+----
+
+endif::wpf[]
+
+ifdef::wpf[]
+
+*In C#:*
+
+----
+public class MySortComparer : IComparer<Product> 
+{
+   public int Compare(Product x, Product y)
+   {
+      int x1 = x.UnitsInStock + x.UnitsOnOrder;
+      int y1 = y.UnitsInStock + y.UnitsOnOrder;
+      return x1.CompareTo(y1);
+   }
+ }
+----
+
+endif::wpf[]
+
+*Related Topics*
+
+link:xamgrid-unbound-column.html[Unbound Column]
+
+link:xamgrid-itemtemplate-binding.html[ItemTemplate Binding]
+
+link:xamgrid-editing-unbound-columns.html[Editing Unbound Columns]

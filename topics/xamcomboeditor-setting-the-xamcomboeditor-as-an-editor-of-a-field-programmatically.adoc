@@ -1,0 +1,217 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcomboeditor-setting-the-xamcomboeditor-as-an-editor-of-a-field-programmatically",
+    "controlName": ["xamComboEditor"],
+    "tags": ["How Do I"],
+    "guid": "{D9E6AB77-B21C-4968-BF2E-376DE7065A02}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.1049781Z"
+}
+|metadata|
+////
+
+= Setting the xamComboEditor as an Editor of a Field Programmatically
+
+== Before You Begin
+
+You can use xamComboEditor™ to present your end users with a drop-down list of items within a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] of xamDataGrid™. The recommended approach to populating xamComboEditor for use within xamDataGrid is to create the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxitemsprovider.html[ComboBoxItemsProvider] object as a resource and then reference it using a markup extension. This pattern will keep overhead to a minimum by reusing a single instance of the ComboBoxItemsProvider object within a Field of xamDataGrid.
+
+== What You Will Accomplish
+
+You will set the editor of a Field to xamComboEditor using procedural code.
+
+== Follow these Steps
+
+[start=1]
+. Attach an event handler for xamDataGrid's FieldLayoutInitialized event.
+
+*In XAML:*
+
+----
+...
+<igDP:XamDataGrid … FieldLayoutInitialized="XamDataGrid1_FieldLayoutInitialized" />
+...
+----
+
+[start=2]
+. Create a Resources section in your Window.
+
+*In XAML:*
+
+----
+...
+<Window.Resources>
+</Window.Resources>
+...
+----
+
+[start=3]
+. Add a ComboBoxItemsProvider to the Resources section and give it a key so that you can reference it later.
+
+*In XAML:*
+
+----
+...
+<igEditors:ComboBoxItemsProvider x:Key="cbipRatings">
+        <!--TODO: Add ComboBoxDataItems here-->
+</igEditors:ComboBoxItemsProvider>
+...
+----
+
+[start=4]
+. Add five link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.comboboxdataitem.html[ComboBoxDataItem] objects to the Items collection of the ComboBoxItemsProvider object.
+
+You will need to set the DisplayText property and Value property of each ComboBoxDataItem object. The DisplayText property will determine the text that the end user will see and the Value property will determine the value that is stored in the Cell's Value property as well as the underlying data model.
+
+*In XAML:*
+
+----
+...
+<igEditors:ComboBoxItemsProvider.Items>
+        <igEditors:ComboBoxDataItem DisplayText="5 Stars" Value="5 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="4 Stars" Value="4 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="3 Stars" Value="3 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="2 Stars" Value="2 Stars" />
+        <igEditors:ComboBoxDataItem DisplayText="1 Star" Value="1 Star" />
+</igEditors:ComboBoxItemsProvider.Items>
+...
+----
+
+[start=5]
+. Add using/Imports directives in your code-behind.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+Imports Infragistics.Windows.Editors
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+using Infragistics.Windows.Editors;
+----
+
+[start=6]
+. Create a method that will handle the FieldLayoutInitialized event.
+
+*In Visual Basic:*
+
+----
+Private Sub XamDataGrid1_FieldLayoutInitialized(ByVal sender As Object, _
+  ByVal e As _
+  Infragistics.Windows.DataPresenter.Events.FieldLayoutInitializedEventArgs) 
+End Sub
+----
+
+*In C#:*
+
+----
+private void XamDataGrid1_FieldLayoutInitialized(object sender, 
+  Infragistics.Windows.DataPresenter.Events.FieldLayoutInitializedEventArgs e)
+{
+}
+----
+
+[start=7]
+. Create an instance of an `UnboundField` object in the FieldLayoutInitialized event handler.
+
+You should set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fielditem~name.html[Name] property so that you can use it as a key to index into the Fields collection. You can also set the Label property to display text in the header above the Field.
+
+*In Visual Basic:*
+
+----
+Dim uField as New UnboundField()
+uField.Name = "rating"
+uField.Label = "Rating"
+----
+
+*In C#:*
+
+----
+UnboundField uField = new UnboundField();
+uField.Name = "rating";
+uField.Label = "Rating";
+----
+
+[start=8]
+. Add the UnboundField object to the Fields collection of the FieldLayout.
+
+*In Visual Basic:*
+
+----
+e.FieldLayout.Fields.Add(uField)
+----
+
+*In C#:*
+
+----
+e.FieldLayout.Fields.Add(uField);
+----
+
+[start=9]
+. Create an instance of a Style object that targets the xamComboEditor.
+
+*In Visual Basic:*
+
+----
+Dim xamComboEditorStyle As New Style(GetType(XamComboEditor))
+----
+
+*In C#:*
+
+----
+Style xamComboEditorStyle = new Style(typeof(XamComboEditor));
+----
+
+[start=10]
+. Create an instance of a Setter that sets the ItemsProviderProperty property of xamComboEditor to the ComboBoxItemsProvider resource you created in step three.
+
+*In Visual Basic:*
+
+----
+Dim itemsProviderSetter As New Setter(XamComboEditor.ItemsProviderProperty, Me.FindResource("cbipRatings"))
+----
+
+*In C#:*
+
+----
+Setter itemsProviderSetter = new Setter(XamComboEditor.ItemsProviderProperty, this.FindResource("cbipRatings"));
+----
+
+[start=11]
+. Add the Setter object to the Setters collection of the Style object you created in step nine.
+
+*In Visual Basic:*
+
+----
+xamComboEditorStyle.Setters.Add(itemsProviderSetter)
+----
+
+*In C#:*
+
+----
+xamComboEditorStyle.Setters.Add(itemsProviderSetter);
+----
+
+[start=12]
+. Set the EditorStyle property of the FieldSettings object off the UnboundField to the Style you just created.
+
+*In Visual Basic:*
+
+----
+uField.Settings.EditorStyle = xamComboEditorStyle
+----
+
+*In C#:*
+
+----
+uField.Settings.EditorStyle = xamComboEditorStyle;
+----
+
+[start=13]
+. Run the project. Click in a Cell in the Field labeled 'Rating' to edit the Cell's value using the xamComboEditor control.

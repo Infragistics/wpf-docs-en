@@ -1,0 +1,167 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-sampledatautil",
+    "controlName": [],
+    "tags": ["Sample Data Source"],
+    "guid": "5d6050a5-0bd1-49c6-b90a-497485b1219f",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.3820588Z"
+}
+|metadata|
+////
+
+= SampleDataUtil
+
+*In Visual Basic:*
+
+----
+Imports System.Data
+Imports System.Data.SqlClient
+Public NotInheritable Class SampleDataUtil
+    Private Sub New()
+    End Sub
+    'This method assumes that you have the Northwind sample database installed 
+    'This method will return a flat DataSet with Customer information from the Northwind database. 
+    Public Shared Function GetCustomers(ByVal serverAddress As String) As DataSet
+        Dim connectionString As String = String.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress)
+        Dim customerDataSet As New DataSet("Northwind")
+        'Create a SqlConnection. 
+        Using conn As New SqlConnection(connectionString)
+            'Create the select Command that will retrieve all fields in the Customers table. 
+            Dim customerSelectCommand As New SqlCommand("SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax FROM Customers", conn)
+            'Create a data adapter using the Command object created above. 
+            Dim customerAdapter As New SqlDataAdapter(customerSelectCommand)
+            Try
+                'Fill the DataSet. 
+                customerAdapter.Fill(customerDataSet, "Customers")
+            Catch e As Exception
+                'Silently fail if something goes wrong and write the exception message to the debug output window. 
+                System.Diagnostics.Debug.WriteLine(e.Message)
+            End Try
+        End Using
+        Return customerDataSet
+    End Function
+    'This method assumes that you have the Northwind sample database installed. 
+    'This method will return a hierarchical DataSet with Customer/Orders information from the Northwind database. 
+    Public Shared Function GetCustomersOrders(ByVal serverAddress As String) As DataSet
+        Dim connectionString As String = String.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress)
+        'Initialize the DataSet with Customer data. 
+        Dim customerOrderDataSet As DataSet = GetCustomers(serverAddress)
+        Using conn As New SqlConnection(connectionString)
+            Dim orderSelectCommand As New SqlCommand("SELECT OrderID, CustomerID, EmployeeID, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry FROM Orders", conn)
+            Dim orderAdapter As New SqlDataAdapter(orderSelectCommand)
+            Try
+                orderAdapter.Fill(customerOrderDataSet, "Orders")
+                'After filling the Orders DataTable, add a DataRelation between the Customers DataTable and the Orders DataTable. 
+                customerOrderDataSet.Relations.Add("Customer_Orders", customerOrderDataSet.Tables("Customers").Columns("CustomerID"), customerOrderDataSet.Tables("Orders").Columns("CustomerID"))
+            Catch e As Exception
+                System.Diagnostics.Debug.WriteLine(e.Message)
+            End Try
+        End Using
+        Return customerOrderDataSet
+    End Function
+    'This method assumes that you have the Northwind sample database installed 
+    'This method will return the top 10 products that are in stock 
+    Public Shared Function GetTop10ProductsInStock(ByVal serverAddress As String) As DataSet
+        Dim connectionString As String = String.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress)
+        Dim top10ProductsDataSet As New DataSet("Northwind")
+        Using conn As New SqlConnection(connectionString)
+            Dim productSelectCommand As New SqlCommand("SELECT TOP 10 UnitsInStock, ProductID FROM Products ORDER BY UnitsInStock DESC", conn)
+            Dim productAdapter As New SqlDataAdapter(productSelectCommand)
+            Try
+                productAdapter.Fill(top10ProductsDataSet, "Products")
+            Catch e As Exception
+                System.Diagnostics.Debug.WriteLine(e.Message)
+            End Try
+        End Using
+        Return top10ProductsDataSet
+    End Function
+End Class
+----
+
+*In C#:*
+
+----
+using System;
+using System.Data;
+using System.Data.SqlClient;
+namespace IGDocumentation
+{
+    public static class SampleDataUtil
+    {
+        //This method assumes that you have the Northwind sample database installed
+        //This method will return a flat DataSet with Customer information from the Northwind database.
+        public static DataSet GetCustomers(string serverAddress)
+        {
+            string connectionString = string.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress);
+            DataSet customerDataSet = new DataSet("Northwind");
+            //Create a SqlConnection.
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                //Create the select Command that will retrieve all fields in the Customers table.
+                SqlCommand customerSelectCommand = new SqlCommand("SELECT CustomerID, CompanyName, ContactName, ContactTitle, Address, City, Region, PostalCode, Country, Phone, Fax FROM Customers", conn);
+                //Create a data adapter using the Command object created above.
+                SqlDataAdapter customerAdapter = new SqlDataAdapter(customerSelectCommand);
+                try
+                {
+                    //Fill the DataSet.
+                    customerAdapter.Fill(customerDataSet, "Customers");
+                }
+                catch (Exception e)
+                {
+                    //Silently fail if something goes wrong and write the exception message to the debug output window.
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                }
+            }
+            return customerDataSet;
+        }
+        //This method assumes that you have the Northwind sample database installed.
+        //This method will return a hierarchical DataSet with Customer/Orders information from the Northwind database.
+        public static DataSet GetCustomersOrders(string serverAddress)
+        {
+            string connectionString = string.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress);
+            //Initialize the DataSet with Customer data.
+            DataSet customerOrderDataSet = GetCustomers(serverAddress);
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand orderSelectCommand = new SqlCommand("SELECT OrderID, CustomerID, EmployeeID, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, ShipCity, ShipRegion, ShipPostalCode, ShipCountry FROM Orders", conn);           
+                SqlDataAdapter orderAdapter = new SqlDataAdapter(orderSelectCommand);
+                try
+                {
+                    orderAdapter.Fill(customerOrderDataSet, "Orders");
+                    //After filling the Orders DataTable, add a DataRelation between the Customers DataTable and the Orders DataTable.
+                    customerOrderDataSet.Relations.Add("Customer_Orders", customerOrderDataSet.Tables["Customers"].Columns["CustomerID"], customerOrderDataSet.Tables["Orders"].Columns["CustomerID"]);
+                }
+                catch(Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                }
+            }
+            return customerOrderDataSet;
+        }
+        //This method assumes that you have the Northwind sample database installed
+        //This method will return the top 10 products that are in stock
+        public static DataSet GetTop10ProductsInStock(string serverAddress)
+        {
+            string connectionString = string.Format("Data Source={0}; Initial Catalog=Northwind; Integrated Security=True", serverAddress);
+            DataSet top10ProductsDataSet = new DataSet("Northwind");
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand productSelectCommand = new SqlCommand("SELECT TOP 10 UnitsInStock, ProductID FROM Products ORDER BY UnitsInStock DESC", conn);
+                SqlDataAdapter productAdapter = new SqlDataAdapter(productSelectCommand);
+                try
+                {
+                    productAdapter.Fill(top10ProductsDataSet, "Products");
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.Message);
+                }
+            }
+            return top10ProductsDataSet;
+        }
+    }
+}
+----

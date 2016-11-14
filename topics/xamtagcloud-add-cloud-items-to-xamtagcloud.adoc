@@ -1,0 +1,88 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtagcloud-add-cloud-items-to-xamtagcloud",
+    "controlName": ["xamTagCloud"],
+    "tags": ["How Do I"],
+    "guid": "{594429C7-710D-4EF8-8140-70FAE12C0D71}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.5663655Z"
+}
+|metadata|
+////
+
+= Add Cloud Items to xamTagCloud
+
+You can add any object to the xamTagCloud™ control’s Items collection. However, if you want to enable all of the xamTagCloud’s functionality, you must add XamTagCloudItem objects to its Items collection.
+
+Setting the link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagclouditem.html[XamTagCloudItem] object’s link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.controls.menus.xamtagclouditem~weight.html[Weight] and Content properties determines the tags in the cloud and the size of each individual tag item.
+
+However, if you bind xamTagCloud to a different data source, you can set the Weight and Content properties as demonstrated in the link:xamtagcloud-binding-xamtagcloud-to-data.html[Binding xamTagCloud to Data Using Procedural Code] topic.
+
+The following example demonstrates how to add items to xamTagCloud.
+
+*In XAML:*
+
+----
+<ig:XamTagCloud MaxScale="5" MinScale="1" x:Name="tagCloud">
+   <ig:XamTagCloudItem Content = "Silverlight" Weight = "10" />
+   <ig:XamTagCloudItem Content = "ASP.Net" Weight = "2" />
+   <ig:XamTagCloudItem Content = "WPF" Weight = "5" />
+   <ig:XamTagCloudItem Content = "Window Forms" Weight = "5" />
+   <ig:XamTagCloudItem Content = ".NET" Weight = "7" />
+   …
+</ig:XamTagCloud>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Menus
+…
+Dim cloudItem1 As New XamTagCloudItem With {.Content = "Silverlight", .Weight = 10}
+tagCloud.Items.Add(cloudItem1)
+Dim cloudItem2 As New XamTagCloudItem With {.Content = "ASP.NET", .Weight = 2}
+tagCloud.Items.Add(cloudItem2)
+Dim cloudItem3 As New XamTagCloudItem With {.Content = "WPF", .Weight = 5}
+tagCloud.Items.Add(cloudItem3)
+Dim cloudItem4 As New XamTagCloudItem With {.Content = "Windows Forms", .Weight = 5}
+tagCloud.Items.Add(cloudItem4)
+Dim cloudItem5 As New XamTagCloudItem With {.Content = ".NET", .Weight = 7}
+tagCloud.Items.Add(cloudItem5)
+…
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Menus;
+…
+XamTagCloudItem cloudItem1 = new XamTagCloudItem { Content = "Silverlight", Weight = 10 };
+tagCloud.Items.Add(cloudItem1);
+XamTagCloudItem cloudItem2 = new XamTagCloudItem { Content = "ASP.NET", Weight = 2 };
+tagCloud.Items.Add(cloudItem2);
+XamTagCloudItem cloudItem3 = new XamTagCloudItem { Content = "WPF", Weight = 5 };
+tagCloud.Items.Add(cloudItem3);
+XamTagCloudItem cloudItem4 = new XamTagCloudItem { Content = "Windows Forms", Weight = 5 };
+tagCloud.Items.Add(cloudItem4);
+XamTagCloudItem cloudItem5 = new XamTagCloudItem { Content = ".NET", Weight = 7 };
+tagCloud.Items.Add(cloudItem5);
+…
+----
+
+image::images/SL_xamTagCloud_About_xamTagCloud_01.png[Add Cloud Items to xamTagCloud]
+
+== *Related Topics*
+
+link:xamtagcloud-add-navigation-uris-to-cloud-items2.html[Add Navigation URIs to Cloud Items]
+
+link:xamtagcloud-add-spaces-between-cloud-items.html[Add Spaces Between Cloud Items]
+
+link:xamtagcloud-xamtagcloud-events.html[xamTagCloud Events]
+
+link:xamtagcloud-setting-minimum-and-maximum-scale-values.html[Setting Minimum and Maximum Scale Values]
+
+link:xamtagcloud-smooth-scaling.html[Smooth Scaling]
+
+link:xamtagcloud-working-with-scalebreaks-collection.html[Working with ScaleBreaks Collection]

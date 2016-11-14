@@ -1,0 +1,108 @@
+﻿////
+|metadata|
+{
+    "name": "xamschedule-using-manager-working-hours",
+    "controlName": ["xamSchedule"],
+    "tags": ["Appointments","How Do I","Recurrences","Scheduling"],
+    "guid": "61f573f8-f8d8-479f-8748-5f889dd2c5d7",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.7213268Z"
+}
+|metadata|
+////
+
+= Working Hours
+
+The "working hours" functionality defines one or more periods of the day that may be considered working or business hours. By default the working hours are set to the period of 9 a.m. to 5 p.m., but the working hours function supports multiple ranges in case the working hours are not a single contiguous block of time.
+
+The working hours are resolved per resource for a specific date and therefore may be specified at various levels. The following is an overview of the working hour resolution in order of precedence:
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource] $$->$$ DaySettingsOverrides[] $$->$$ DaySettings
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] $$->$$ Settings $$->$$ DaySettingsOverrides[] $$->$$ DaySettings
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource] $$->$$ DaysOfWeek[] $$->$$ DaySettings
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] $$->$$ Settings $$->$$ DaysOfWeek[] $$->$$ DaySettings
+
+The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~workinghours.html[WorkingHours] properties are collections of link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.timerange.html[TimeRange] instances. TimeRange is a custom structure that exposes two TimeSpan properties – link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.timerange~start.html[Start] time and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.timerange~end.html[End] time. Working hours are only considered for days that are marked as working days, so link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettings~isworkday.html[IsWorkDay] should be set when using the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.daysettings.html[DaySettings] objects described above. Similarly the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings.html[xamScheduleDataManager’s Settings] object has a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~workdays.html[WorkDays] property which is a flagged enumeration defining the default days of the week that are considered to be working days. This property defaults to Monday through Friday.
+
+The following is an example of setting the work days for the week and then changing the default working hours for all resources:
+
+*In XAML:*
+[source,xaml]
+----
+<ig:XamScheduleDataManager x:Name="dataManager">
+    <ig:XamScheduleDataManager.Settings>
+        <ig:ScheduleSettings WorkDays="Monday, Wednesday, Friday">
+            <ig:ScheduleSettings.WorkingHours>
+                <ig:WorkingHoursCollection>
+                    <ig:TimeRange Start="08:00" End="12:00" />
+                    <ig:TimeRange Start="13:00" End="17:00" />
+                </ig:WorkingHoursCollection>
+            </ig:ScheduleSettings.WorkingHours>
+        </ig:ScheduleSettings>
+    </ig:XamScheduleDataManager.Settings>
+</ig:XamScheduleDataManager>
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim range1 As New TimeRange() With { _
+    .Start = New TimeSpan(8, 0, 0), _
+    .[End] = New TimeSpan(12, 0, 0) _
+}
+
+Dim range2 As New TimeRange() With { _
+    .Start = New TimeSpan(13, 0, 0), _
+    .[End] = New TimeSpan(17, 0, 0) _
+}
+
+If dataManager.Settings Is Nothing Then
+    dataManager.Settings = New ScheduleSettings()
+End If
+
+If dataManager.Settings.WorkingHours Is Nothing Then
+    dataManager.Settings.WorkingHours = New WorkingHoursCollection()
+End If
+
+dataManager.Settings.WorkingHours.Add(range1)
+dataManager.Settings.WorkingHours.Add(range2)
+----
+
+*In C#:*
+[source,csharp]
+----
+TimeRange range1 = new TimeRange()
+{
+    Start = new TimeSpan(8, 0, 0),
+    End = new TimeSpan(12, 0, 0)
+};
+
+TimeRange range2 = new TimeRange()
+{
+    Start = new TimeSpan(13, 0, 0),
+    End = new TimeSpan(17, 0, 0)
+};
+
+if (dataManager.Settings == null)
+    dataManager.Settings = new ScheduleSettings();
+    
+if (dataManager.Settings.WorkingHours == null)
+    dataManager.Settings.WorkingHours = new WorkingHoursCollection();
+    
+dataManager.Settings.WorkingHours.Add(range1);
+dataManager.Settings.WorkingHours.Add(range2);
+----
+
+The "work days" and "working hours" information affects the views in a couple of ways. The working hours affect the display of timeslots within the Day and Schedule views. Timeslots that contain working hours of working days have a different background than non-working timeslots.
+
+The working hours may also affect the days and times that are displayed. For example, in Month view the ShowWorkingDaysOfWeekOnly may be set to true to hide non-working days of the week. In Day and Schedule view, the ShowWorkingHoursOnly may be set to True to hide timeslots that do not contain working hours. Note: for Day view the timeslot times are unioned so that there are no holes in the UI; thus non-working timeslots may be visible in some days when displaying multiple days that contain different working hour information. The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview~workingdayssource.html[WorkingDaySource] (Month view) and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~workinghourssource.html[WorkingHoursSource] (Day/Schedule view) determine whether the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuser.html[CurrentUser] or all the resources currently visible are considered when determining which days/times are considered working hours.
+
+*Note:* The WorkingHours are considered floating times and therefore the hours are relative to a given timezone. For example, when resolving which timeslots for the Day and Schedule views are displayed as working time, the working hours are relative to the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~primarytimezoneid.html[PrimaryTimeZoneId] of the Resource that is the currently selected Resource in the containing CalendarGroup. If the PrimaryTimeZoneId is not specified then the times are relative to the local time zone.
+
+== Related Topics
+
+link:xamschedule-understanding-data-manager.html[About the Data Manager]
+
+link:xamschedule-understanding-views.html[About the xamSchedule views]
+
+link:xamschedule-using-manager-logical-day.html[Logical Day and Timeslots]

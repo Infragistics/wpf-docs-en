@@ -1,0 +1,143 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-scheduling-project-from-start-or-finish-date",
+    "controlName": ["xamGantt"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "4bb89c7b-5298-421f-bb42-b275f8566279",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.3011254Z"
+}
+|metadata|
+////
+
+= Scheduling a Project from Start or Finish Date
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how the  _xamGantt™_   control calculates the project’s and tasks’ dates based upon the project’s start or finish date.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-binding-arbitrary-tasks-collection-listbackedproject.html[Binding to Arbitrary Tasks Collection Using ListBackedProject]
+|This topic describes how the _xamGantt_ control is bound to an arbitrary tasks collection via ListBackedProject.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334818613, Scheduling a Project From a Start or Finish Date >>
+* <<_Ref334818619, Related Content >>
+
+** <<_Ref334818626,Topics>>
+** <<_Ref334818631,Samples>>
+
+[[_Ref334818613]]
+== Scheduling a Project from a Start or Finish Date
+
+=== Overview
+
+By default, project scheduling using the  _xamGantt_   control begins with its start date. In this case, the scheduling engine calculates the tasks dates as well as the project finish date according to the project start date.
+
+In case with a specified project finish date, configures the engine to calculate the tasks dates and the project start date according to the project’s finish date.
+
+To achieve this, set the `Project` `IsScheduledFromStart` property to `false` and the `Project` `Finish` property to the finish date of type DateTime.
+
+.Note
+[NOTE]
+====
+The scheduling from a project start or project finish date determines the default constraint type of the newly inserted tasks through the  _xamGantt_   control user interface.
+
+If scheduling a project from its start date - the newly created tasks have constraint type = AsSoonAsPossible
+
+If scheduling a project from its finish date - the newly created tasks have constraint type = AsLateAsPossible
+
+The change in the scheduling mode affects the constraints of the existing summary tasks if their constraint type is invalid. This means that the, As Soon As Possible constraint is an invalid summary constraint in projects with their schedule based upon the finish and As Late as Possible constraints, which are invalid for projects scheduled from the start.
+====
+
+=== Property settings
+
+The following table maps the desired configuration to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Schedule the project from its start date
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isscheduledfromstart.html[IsScheduledFromStart]
+|`True`
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~start.html[Start]
+|`DateTime` value
+
+|Schedule the project from its finish date
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isscheduledfromstart.html[IsScheduledFromStart]
+|`False`
+
+|
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~finish.html[Finish]
+|`DateTime` value
+
+|====
+
+=== Example
+
+The example below demonstrates how to schedule a project from its finish date:
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:ListBackedProject x:Name="dataProvider" 
+                      TaskItemsSource="{Binding Tasks}"
+                      Finish="8/9/2012" 
+                      IsScheduledFromStart=">
+----
+
+[[_Ref334818619]]
+== Related Content
+
+[[_Ref334818626]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-project-configuration-overview.html[Project Configuration Overview]
+|This topic gives an overview of the _xamGantt_ Project class and its configurable aspects.
+
+| link:xamgantt-calculating-explicitly-a-project.html[Calculating Explicitly Project]
+|This topic explains how a project is explicitly calculated in the _xamGantt_ control.
+
+|====
+
+[[_Ref334818631]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/schedule-a-project-from-start-finish-date[Schedule a Project From Start/Finish Date]"] pick:[wpf=" link:{SamplesURL}/gantt/schedule-a-project-from-start-finish-date[Schedule a Project From Start/Finish Date]"] 
+|This sample demonstrates how to schedule a project from a start/finish date and the _xamGantt_ control handles the start/finish tasks dates accordingly.
+
+|====

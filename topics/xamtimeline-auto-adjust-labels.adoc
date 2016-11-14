@@ -1,0 +1,124 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-auto-adjust-labels",
+    "controlName": ["xamTimeline"],
+    "tags": ["Data Presentation","Getting Started","How Do I"],
+    "guid": "75cd6ed7-7c0e-48c9-aa1d-8024ae214a26",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1664073Z"
+}
+|metadata|
+////
+
+= Auto Adjust Labels
+
+== Purpose
+
+This topic outlines the Auto-Adjust feature of the labels and tick marks on the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeline]™ control when zooming in on a certain section of the data.
+
+== Required background
+
+The table below lists the required background prerequisites for this topic.
+
+[options="header", cols="a,a"]
+|====
+|Background type|Content
+
+|Concepts
+|You need to be familiar with the following concepts: 
+
+Define data for xamTimeline, or bind the control to your existing data with a DateTime type field 
+
+The AutoRange property must be set to true (true by default) 
+
+|Topics
+|You need to first read the following topics: 
+
+link:xamtimeline-understanding-xamwebtimeline.html[Understanding Timeline] 
+
+link:xamtimeline-binding-to-data-with-xamtimeline.html[Data Binding]
+
+|====
+
+The AutoRange setting as shown here is optional. It is true by default.
+
+*In XAML:*
+
+----
+<ig:XamTimeline.Axis>
+     <ig:DateTimeAxis AutoRange="True" />
+</ig:XamTimeline.Axis>
+----
+
+== Auto-Adjust Labels
+
+== Introduction
+
+The link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeLine] control includes the capability to automatically adjust the labels and tick marks on the timeline based on the zoom level on the selected time segment of the data. For example:
+
+* When Timeline displays Year unit type:
+
+After zooming the tick marks will display the Months.
+
+* When Timeline displays Month unit type:
+
+After zooming the tick marks will display the Days.
+
+* When Timeline displays Day unit type:
+
+After zooming the tick marks will display the Hours.
+
+== Preview
+
+Following is a preview of the before and after zooming results:
+
+Before zooming, the control shows the days of the month labels on the timeline:
+
+image::images/xamTimeline_Auto-Adjust_Labels_01.png[]
+
+After zooming in on a few days the control Auto-Adjusts the labels to show hours:
+
+image::images/xamTimeline_Auto-Adjust_Labels_02.png[]
+
+== Conclusion:
+
+Auto-Adjust feature can be disabled by setting the AutoRange=False on the axis of the timeline control, which requires defining the Minimum, Maximum, and Unit properties with specific range. For example:
+
+*In XAML:*
+
+----
+<ig:XamTimeline.Axis>
+   <ig:DateTimeAxis 
+       AutoRange=" Minimum="2011/05/01" Maximum="2012/05/01" Unit="1" />
+</ig:XamTimeline.Axis>
+----
+
+*In C#:*
+
+----
+DateTimeAxis dt_axis = new DateTimeAxis();
+dt_axis.AutoRange = false;
+dt_axis.Minimum = DateTime.Parse("2012/01/01");
+dt_axis.Maximum = DateTime.Parse("2012/05/01");
+dt_axis.Unit = 1;
+this.xamTimeLine.Axis = dt_axis;
+----
+
+*In Visual Basic:*
+
+----
+Dim dt_axis As New DateTimeAxis()
+dt_axis.AutoRange = False
+dt_axis.Minimum = DateTime.Parse("2012/01/01")
+dt_axis.Maximum = DateTime.Parse("2012/05/01")
+dt_axis.Unit = 1
+Me.xamTimeLine.Axis = dt_axis
+----
+
+== Related Topics
+
+link:xamtimeline-understanding-xamwebtimeline.html[Understanding Timeline]
+
+link:xamtimeline-binding-to-data-with-xamtimeline.html[Data Binding]

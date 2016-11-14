@@ -1,0 +1,63 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamslider-retrieve-the-thumb-values",
+    "controlName": ["xamSlider"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{D7A28210-6E62-4C80-B12E-57761FB770C4}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.0793796Z"
+}
+|metadata|
+////
+
+= Retrieve the Thumb Values
+
+You can retrieve the value of the thumb on your single value sliders by using the link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamsimplesliderbase`1~thumb.html[Thumb] property.
+
+You can retrieve the value of a thumb on your range sliders by accessing the link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamrangeslider`1~thumbs.html[Thumbs] collection.
+
+Since the xamSlider™ control does inherit from ItemsControl, the thumbs can only be accessed by the index. They cannot be accessed by the name of the thumb.
+
+The following code demonstrates how to retrieve the thumb values.
+
+*In Visual Basic:*
+
+----
+' Single Value Slider
+Dim SingleValueSliderValue As Double = Me.xamNumericSlider1.Thumb.Value
+' Range Slider
+Dim RangeSliderValue As Double = Me.xamNumericRangeSlider1.Thumbs(0).Value
+' Single Value Date Time Slider
+Dim SingleValueDateTimeSlider As DateTime = Me.xamDateTimeSlider1.Thumb.Value
+' Accessing the first thumb on a date time range slider
+Dim RangeDateTimeSlider As DateTime = Me.xamDateTimeRangeSlider1.Thumbs(0).Value
+' Accessing the second thumb on a date time range slider
+Dim RangeDateTimeSlider1 As DateTime = Me.xamDateTimeRangeSlider1.Thumbs(1).Value
+----
+
+*In C#:*
+
+----
+// Single Value Slider
+double SingleValueSliderValue = this.xamNumericSlider1.Thumb.Value;
+// Accessing the first thumb on a range slider
+double RangeSliderValue = this.xamNumericRangeSlider1.Thumbs[0].Value;
+// Accessing the third thumb on a range slider
+double RangeSliderValue = this.xamNumericRangeSlider1.Thumbs[2].Value;
+// Single Value Date Time Slider
+DateTime SingleValueDateTimeSlider = this.xamDateTimeSlider1.Thumb.Value;
+// Accessing the first thumb on a date time range slider
+DateTime RangeDateTimeSlider = this.xamDateTimeRangeSlider1.Thumbs[0].Value;
+// Accessing the second thumb on a date time range slider
+DateTime RangeDateTimeSlider1 = this.xamDateTimeRangeSlider1.Thumbs[1].Value;
+----
+
+== Related Topics
+
+* link:xamslider-interaction-modes.html[Interaction Modes]
+* link:xamslider-xamslider-thumbs.html[xamSlider Thumbs]
+* link:xamslider-xamslider-tick-marks.html[Tick Marks]
+* link:xamslider-value-tick-marks.html[Value Tick Marks]
+* link:xamslider-programmatically-add-or-remove-thumbs-at-runtime.html[Programmatically Add or Remove Thumbs at Runtime]

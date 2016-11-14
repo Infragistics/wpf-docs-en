@@ -1,0 +1,68 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-format-datetime-values",
+    "controlName": ["xamTimeline"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{69F0A671-6808-4D14-AE57-11544BD5C73B}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.0434008Z"
+}
+|metadata|
+////
+
+= Format Date Time Values
+
+The xamTimeline™ component allows you to format the DateTime values of the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries] object according to what unit you are displaying. For example, if your values are ordered by minutes, you may want to display just the time or if they are ordered by year, you may want to display just the year. This is easily achieved by using the xamTimeline control’s properties that are designed to format values based on the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis~unittype.html[UnitType]. For a list of these properties, see link:xamtimeline-about-formatting-xamwebtimeline.html[About Formatting xamTimeline].
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows you how to style xamTimeline so that it displays a particular format for both the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventtitle.html[EventTitle] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.axislabel.html[AxisLabel] objects when the UnitType is set to Months.
+
+*In XAML:*
+
+----
+<UserControl.Resources>
+    <!--Style for Axis Label-->
+    <Style x:Key="rscAxisLabelStyle" TargetType="ig:AxisLabel">
+        <Setter Property="MonthsUnitStringFormat" Value="{}{0:MMM}" />
+    </Style>
+</UserControl.Resources>
+<Grid x:Name="LayoutRoot">
+    <ig:XamTimeline x:Name="xamTimeline"  
+                         Width="1000" Height="580" Margin="15">
+        <!-- Set Axis object's Unit Type and Label Style -->
+        <ig:XamTimeline.Axis>
+            <ig:DateTimeAxis Minimum="01/01/2012" Maximum="04/01/2013"
+                               LabelStyle="{StaticResource rscAxisLabelStyle}"
+                               AutoRange=" UnitType="Months" Unit="1"/>
+        </ig:XamTimeline.Axis>
+        <ig:XamTimeline.Series>
+            <ig:DateTimeSeries Title="Date Time Series"
+                                 Position="TopOrLeft">
+                <!--TODO: Add Date Time Entries  -->
+                <ig:DateTimeSeries.Entries>
+                    <ig:DateTimeEntry Time="04/01/2012" Title="Date Time Entry 1" 
+                                        Details="Details Time Entry 1"/>
+                    <ig:DateTimeEntry Time="06/01/2012" Title="Date Time Entry 2" 
+                                        Details="Details Time Entry 2"/>
+                    <ig:DateTimeEntry Time="08/01/2012" Title="Date Time Entry 3" 
+                                        Details="Details Time Entry 3"/>
+                    <ig:DateTimeEntry Time="10/01/2012" Title="Date Time Entry 3" 
+                                        Details="Details Time Entry 4"/>
+                    <ig:DateTimeEntry Time="12/01/2012" Title="Date Time Entry 3" 
+                                        Details="Details Time Entry 5"/>
+                </ig:DateTimeSeries.Entries>
+            </ig:DateTimeSeries>
+        </ig:XamTimeline.Series>
+    </ig:XamTimeline>
+</Grid>
+----
+
+image::images/XamTimeline_Format_Date_Time_Values_01.png[]
+
+== Related Topics
+
+link:xamtimeline-about-formatting-xamwebtimeline.html[About Formatting xamTimeline]
+
+link:xamtimeline-format-numeric-time-values.html[Format Numeric Time Values]
+
+link:xamtimeline-format-point-and-span-values.html[Format Point and Span Values]

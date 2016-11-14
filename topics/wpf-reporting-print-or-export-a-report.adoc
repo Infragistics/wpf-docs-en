@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-reporting-print-or-export-a-report",
+    "controlName": ["IG WPF Reporting"],
+    "tags": ["Reporting"],
+    "guid": "{747AB415-915E-4553-8FA9-6697BE1B1F70}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.9087349Z"
+}
+|metadata|
+////
+
+= Print or Export a Report
+
+After you create a report, you can print or export the report by calling the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object's link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~print.html[Print] or link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~export.html[Export] method, respectively. If you are printing or exporting xamDataPresenter™, xamDataGrid™, or xamDataCarousel™, the WPF Reporting engine will automatically paginate the contents of the control and print it in a tabular format.
+
+== Printing and Paging
+
+If you want to print or export controls that do not fit on a single page, you have the following three options:
+
+* link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.iembeddedvisualpaginator.html[IEmbeddedVisualPaginator] interface - Create a class that implements this interface and pass a reference to the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.embeddedvisualreportsection.html[EmbeddedVisualReportSection] object's constructor.
+* link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.iembeddedvisualpaginatorfactory.html[IEmbeddedVisualPaginatorFactory] interface - You can implement this interface on a custom control to make the EmbeddedVisualReportSection object use the control's paging implementation.
+* Scaling - You can horizontally scale your content to fit on a single page by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsettings.html[ReportSetting] object's link:{ApiPlatform}v{ProductVersion}~infragistics.windows.reporting.reportsettings~horizontalpaginationmode.html[HorizontalPaginationMode] property to Scale. However, any content that extends beyond the bottom of the page will not be printed or exported.
+
+The following example code demonstrates how to print or export a report. The example code assumes you already have a Report object named report1.
+
+*In Visual Basic:*
+
+----
+report1.Print()
+'You can uncomment the line below to export the report instead of printing it:
+'report1.Export(OutputFormat.XPS, "c:\\Report1.xps")
+----
+
+*In C#:*
+
+----
+report1.Print();
+//You can uncomment the line below to export the report instead of printing it:
+//report.Export(OutputFormat.XPS, "c:\\Report1.xps");
+----
+
+== Related Topics
+
+link:wpf-reporting-understanding-wpf-reporting.html[About WPF Reporting]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-align-content-to-the-top-of-a-page.html[Align Content to the Top of a Page]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]

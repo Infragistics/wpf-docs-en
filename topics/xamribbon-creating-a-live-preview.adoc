@@ -1,0 +1,266 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-creating-a-live-preview",
+    "controlName": ["xamRibbon"],
+    "tags": ["Application Blocks","Data Presentation","How Do I","Selection"],
+    "guid": "{82D6BD53-75E4-4A97-8340-0D76143CC2E5}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1581847Z"
+}
+|metadata|
+////
+
+= Creating a Live Preview
+
+
+
+== Before You Begin
+
+Microsoft® Office® 2007's Gallery control allows you to preview a change to your document when you hover over an item in the Gallery. This feature allows you to view the effect that a particular item will have on your document without committing the changes of the effect until you select the item. If you take your mouse off the Gallery item without clicking it, the document will revert to the currently selected item in the Gallery.
+
+== What You Will Accomplish
+
+You will handle the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool~itemselected_ev.html[ItemSelected] and link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool~itemactivated_ev.html[ItemActivated] events of a link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool.html[GalleryTool] to create a live preview that will change the background color of a TextBox control.
+
+== Follow these Steps
+
+[start=1]
+. Add a GalleryTool to xamRibbon™ and name it galleryTool1.
+
+.. Attach an event handler to the GalleryTool for the ItemSelected event.
+
+The ItemSelected event will fire whenever you click on a link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.galleryitem.html[GalleryItem]. The GalleryTool can only have one selected item at a time.
+.. Attach an event handler to the GalleryTool for the ItemActivated event.
+
+The ItemActivated event will fire whenever you hover over a GalleryItem. You can set the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool~activationinitialactiondelay.html[ActivationInitialActionDelay] property and the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool~activationactiondelay.html[ActivationActionDelay] property to control the timing between user action and the GalleryTool raising the ItemActivated event.
+
+*In XAML:*
+
+----
+...
+<igRibbon:MenuTool ShouldDisplayPreview="True">
+        <igRibbon:GalleryTool ItemSelected="GalleryTool_ItemSelected" 
+          ItemActivated="GalleryTool_ItemActivated">
+        </igRibbon:GalleryTool>
+</igRibbon:MenuTool>
+...
+----
+
+[start=2]
+. Add four GalleryItems to the GalleryTool.
+
+*In XAML:*
+
+----
+...
+<igRibbon:GalleryTool.Items>
+        <!--Default GalleryItem selection-->
+        <igRibbon:GalleryItem IsSelected="True" Key="itemWhite" 
+          Image="imageWhite.png" />
+        <igRibbon:GalleryItem Key="itemRed" Image="imageRed.png" />
+        <igRibbon:GalleryItem Key="itemBlue" Image="imageBlue.png" />
+        <igRibbon:GalleryItem Key="itemGreen" Image="imageGreen.png" />
+</igRibbon:GalleryTool.Items>
+...
+----
+
+[start=3]
+. Add a .NET Framework TextBox control to your Window and name it textBox1.
+
+*In XAML:*
+
+----
+...
+<TextBox Text="Hello World" Name="textBox1" />
+...
+----
+
+[start=4]
+. Place using/imports directives in your code-behind.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+----
+
+[start=5]
+. Create a helper method named GetBackground that accepts a GalleryItem as a parameter and returns a Brush object. You will call this method in the ItemSelected and ItemActivated event handlers.
+
+*In Visual Basic:*
+
+----
+...
+Private Function GetBackground(ByVal item As GalleryItem) As Brush 
+        Select Case item.Key 
+                Case "RedItem" 
+                        Return Brushes.Red 
+                Case "BlueItem" 
+                        Return Brushes.Blue 
+                Case "GreenItem" 
+                        Return Brushes.Green 
+                Case "WhiteItem" 
+                        Return Brushes.White 
+        End Select
+Return Nothing 
+End Function 
+...
+----
+
+*In C#:*
+
+----
+...
+private Brush GetBackground(GalleryItem item)
+{
+        switch (item.Key)
+        {
+                case "RedItem":
+                        return Brushes.Red;
+                case "BlueItem":
+                        return Brushes.Blue;
+                case "GreenItem":
+                        return Brushes.Green;
+                case "WhiteItem":
+                        return Brushes.White;
+        }
+        return null;
+}
+...
+----
+
+[start=6]
+. Create a method to handle the GalleryTool's ItemSelected event if a method stub has not been created for you.
+
+The ItemSelected event will fire whenever a user clicks a GalleryItem. Programmatically setting the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.galleryitem~isselected.html[IsSelected] property of a GalleryItem or the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.gallerytool~selecteditem.html[SelectedItem] property of the GalleryTool will also fire this event.
+
+*In Visual Basic:*
+
+----
+Private Sub GalleryTool_ItemSelected(ByVal sender As Object, _
+  ByVal e As GalleryItemEventArgs) 
+        'TODO: Set the TextBox control's Background property to the 
+        'return value of the GetBackground method
+End Sub
+----
+
+*In C#:*
+
+----
+private void GalleryTool_ItemSelected(object sender, 
+  GalleryItemEventArgs e)
+{
+        //TODO: Set the TextBox control's Background property to the 
+        //return value of the GetBackground method
+}
+----
+
+[start=7]
+. In the ItemSelected event handler, set the TextBox control's Background property to the return value of the GetBackground method.
+
+Once the end user makes a selection in the GalleryTool, there is no way for them to clear the selection without selecting a different GalleryItem. The ramification of this behavior is that there will always be a selected GalleryItem once the end user has made an initial selection. The only way that you can clear the selection is to programmatically set the GalleryTool's SelectedItem property to null.
+
+*In Visual Basic:*
+
+----
+...
+Me.TextBox1.Background = GetBackground(e.Item)
+...
+----
+
+*In C#:*
+
+----
+...
+this.TextBox1.Background = GetBackground(e.Item);
+...
+----
+
+[start=8]
+. Create a method to handle the GalleryTool's ItemActivated event if a method stub has not been created for you.
+
+The ItemActivated event will fire whenever a user hovers over a GalleryItem. When the user deactivates a GalleryItem by moving the mouse out of the GalleryTool, this event will fire again and the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.events.galleryitemeventargs~item.html[Item] property of the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.events.galleryitemeventargs.html[GalleryItemEventArgs] object will be null. If the Item property is null, you will have to revert the TextBox's Background property to the GalleryItem that the user originally selected.
+
+*In Visual Basic:*
+
+----
+...
+Private Sub GalleryTool_ItemActivated(ByVal sender As Object, _
+  ByVal e As GalleryItemEventArgs) 
+        'TODO: Set the TextBox control's Background property to the 
+        'return value of the GetBackground method.
+End Sub
+...
+----
+
+*In C#:*
+
+----
+...
+private void GalleryTool_ItemActivated(object sender, 
+  GalleryItemEventArgs e)
+{
+        //TODO: Set the TextBox control's Background property to the 
+        //return value of the GetBackground method.
+}
+...
+----
+
+[start=9]
+. In the ItemActivated event handler, check the Item property of the GalleryItemEventArgs object to see if it is null. If the Item property is null, you can call the GetBackground method and pass in the SelectedItem property of the GalleryTool; otherwise, call the GetBackground method and pass in the Item property of the GalleryItemEventArgs object.
+
+In this example, a default GalleryItem was selected in step two; therefore, it is safe to assume that the SelectedItem property will always have a value. If you are programmatically de-selecting a GalleryItem, make sure to check for null values before passing in the SelectedItem property to the GetBackground method.
+
+*In Visual Basic:*
+
+----
+...
+If e.Item is Nothing
+        'If the Item property is null, call the GetBackground method 
+        'and pass in the GalleryTool's SelectedItem property.
+        Me.TextBox1.Background = GetBackground(Me.galleryTool1.SelectedItem)
+Else
+        'otherwise, simply call the GetBackground method and pass 
+        'in the Item property.
+        Me.TextBox1.Background = GetBackground(e.Item)
+End If
+...
+----
+
+*In C#:*
+
+----
+...
+if (e.Item == null)
+{
+        //If the Item property is null, call the GetBackground method 
+        //and pass in the GalleryTool's SelectedItem property.
+        this.TextBox1.Background = GetBackground(this.galleryTool1.SelectedItem);
+}
+else
+{
+        //otherwise, simply call the GetBackground method and pass 
+        //in the Item property.
+        this.TextBox1.Background = GetBackground(e.Item);
+}
+...
+----
+
+[start=10]
+. Run the project. Hover over a GalleryItem and you will see the background of the TextBox control change color. If you move the mouse over other GalleryItems, the TextBox's background color will change accordingly. If you move your mouse off the GalleryTool, the TextBox's background will revert to the selected GalleryItem.
+
+== Related Topics
+
+link:xamribbon-add-a-galleryitem-to-a-gallerytool.html[Add a GalleryItem to a GalleryTool]
+
+link:xamribbon-add-a-gallerytool-to-a-ribbongroup.html[Add a GalleryTool to a RibbonGroup]
+
+link:xamribbon-create-groups-of-galleryitems.html[Create Groups of GalleryItems]

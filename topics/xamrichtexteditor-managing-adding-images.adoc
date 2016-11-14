@@ -1,0 +1,255 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-adding-images",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "dc65076a-0fce-4a0a-8b1b-726979484c01",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.514306Z"
+}
+|metadata|
+////
+
+= Adding Images (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to create images using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from the developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref365983369,Introduction>>
+* <<_Ref365983373,ImageNode Class Key Features>>
+* <<_Ref365983376,RichTextImage Class Key Features>>
+* <<_Ref365983381,RichTextImageTransform Class Key Features>>
+* <<_Ref365983384,Related Content>>
+
+[[_Ref365983369]]
+== Introduction
+
+=== Images summary
+
+The  _xamRichTextEditor_   control supports images of different formats in its document’s content. The images are represented by an link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode_members.html[ImageNode], which can only be added to the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.runnode_members.html[RunNode]. The following tree shows the structure of a paragraph with an image:
+
+[start=1]
+. link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]
+
+.. `RunNode`
+
+... `ImageNode`
+
+The following image formats are supported: BMP, DIB, EMF, GIF, JPEG, PNG, TIFF and WMF.
+
+.Note
+[NOTE]
+====
+GIF and TIFF images will be lost when saving the rich document’s content to RTF format in Silverlight. WMF and EMF formats are supported for round-tripping purposes only. They will be rendered by the  _xamRichTextEditor_   as default image icons.
+====
+
+[[_Ref365983373]]
+== ImageNode Class Key Features
+
+=== Overview
+
+This class represents an image in the document’s node hierarchy. It provides methods for specifying crop and margin.
+
+=== Key features
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use:|And set it to:
+
+|Load an image
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~image.html[Image] property
+|An instance of type `RichTextImage`
+
+|Load an image
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~imageuri.html[ImageUri] property
+|A string specifying the location of the image file to load. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+If the `Image` property is also specified then this property will be ignored. 
+
+====
+
+|Crop the image
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~cropping.html[Cropping] property
+|An instance of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.rectoffsets.html[RectOffsets] specified as percentage offsets from each edge. For example, setting the Left and Right properties to 10 each would crop out 20% of the image rendering only the middle 80%. Negative values are allowed and will result in padding around the image.
+
+|Set margins on the image
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~rendereffectsmargin.html[RenderEffectsMargin] property
+|An instance of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextmargin.html[RichTextMargin] 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+In most scenarios it is best not to set this property, especially if stretch and/or rotate transforms are being set thru the Transform property or if cropping is specified. If `RenderEffectsMargin` is left to null the appropriate margins will be calculated by the layout engine automatically. However, in this case, this property will remain null. 
+
+====
+
+|Set advanced image transformation
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~transform.html[Transform] property
+|An instance of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimagetransform.html[RichTextImageTransform] that exposes properties to stretch, rotate and/or flip the image horizontally and/or vertically
+
+|Set or obtain the image size
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.imagenode~rendersize.html[RenderSize] property
+|Set or obtain its value of type link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextsize.html[RichTextSize]. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+If stretch and/or rotate transforms are being set thru the Transform property or if cropping is specified it is best to leave this property set to null. If left to null the appropriate render size will be calculated by the layout engine and this property will be updated automatically. 
+
+====
+
+|====
+
+[[_Ref365983376]]
+== RichTextImage Class Key Features
+
+=== Overview
+
+This class represents the image data. Its constructor can create an instance from a byte array. This class also provides static methods for creating instances from a stream or file location.
+
+=== Key features
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use:|And:
+
+|Create a `RichTextImage` from byte array
+|The constructor of the class
+|Provide the byte array
+
+|Create a `RichTextImage` from data stream
+|The pick:[wpf=" link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimage~createfrom(stream,richtextimageformat).html[CreateFrom]"] pick:[sl=" link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimage~createfrom.html[CreateFrom]"] method
+|Provide a stream
+
+ifdef::wpf[]
+|Create a `RichTextImage` from a file location
+|The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimage~createfrom(string,nullable%7brichtextimageformat%7d).html[CreateFrom] method
+|Provide the file location as string
+endif::wpf[]
+
+|====
+
+[[_Ref365983381]]
+== RichTextImageTransform Class Key Features
+
+=== Overview
+
+This class represents the transformations which will be applied to the image at document render time.
+
+=== Key features
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Flip the image horizontally
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimagetransform~fliphorizontally.html[FlipHorizontally]
+|true
+
+|Flip the image vertically
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimagetransform~flipvertically.html[FlipVertically]
+|true
+
+|Rotate the image
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimagetransform~rotationangle.html[RotationAngle]
+|A value of type float representing the rotation’s angle. A negative value rotates the image to the left and a positive value rotates it to the right.
+
+|Stretch the image horizontally and/or vertically
+| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextimagetransform~stretchsize.html[StretchSize]
+|A value of type `RichTextSize`, which contains the stretch width and height. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+After you set a stretch size for an image the sizes specified in the `RenderSize` property are ignored. 
+
+====
+
+|====
+
+[[_Ref365983384]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-adding-text.html[Adding Text]
+|This topic provides information on how to create text using the _xamRichTextEditor_ from a developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-hyperlinks.html[Adding Hyperlinks]
+|This topic provides information on how to create hyperlinks using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-lists.html[Adding Lists]
+|This topic provides information on how to create lists using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-tables.html[Adding Tables]
+|This topic provides information on how to use the _xamRichTextEditor_ to create tables from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-images-in-code[Defining Images in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-images-in-code[Defining Images in Code]"] 
+|This sample demonstrates adding of images in code.
+
+|====

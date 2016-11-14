@@ -1,0 +1,51 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtreemap-about-value-mapping",
+    "controlName": ["xamTreemap"],
+    "tags": ["How Do I"],
+    "guid": "52be0e13-9ffd-4e2d-98ee-3919353b5cbd",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.8983919Z"
+}
+|metadata|
+////
+
+= About xamTreemap Value Mapping
+
+== Before You Begin
+
+The purpose of a treemap is to visually represent the value of each node in comparison to other nodes. Relative differences in value may also be emphasized by changes in color, font size or node opacity.
+
+The xamTreemap™ control allows you to manipulate the properties of each node according to its value rank among other nodes.
+
+== Example
+
+Here is an instance of the link:xamtreemap-colormapper.html[ColorMapper] object in XAML. Note that ColorMapper (and other Value Mappers) can only be applied to nodes that have been bound by link:xamtreemap-about-node-binding.html[Node Binders].
+
+*In XAML:*
+
+----
+<ig:ColorMapper 
+        ValueTypeName="Manufacturer"
+        ValuePath="Revenue"
+        TargetProperty="Fill"
+        MappingMode="AllNodes"
+        From="Red"
+        To="Green" />
+----
+
+== Understanding the Example
+
+In this example, the ColorMapper affects all nodes of type Manufacturer. These nodes will be ranked according to their Revenue, and each node's Fill property will be set according to its rank. Specifically, bottom-ranked nodes will be more red, and top-ranked nodes will be more green.
+
+Note that ColorMapper (and other Value Mappers) may be applied to all nodes of a particular type (MappingMode="AllNodes"), or only to leaf nodes (MappingMode="LeafNodesOnly").
+
+For information on other types of Value Mappers, see the Value Mappers topic. The xamTreemap control can apply several different Value Mappers simultaneously.
+
+== Related Topics
+
+link:xamtreemap-value-mappers.html[Value Mappers]
+
+link:xamtreemap-about-node-binding.html[About xamTreemap Node Binding]

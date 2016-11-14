@@ -1,0 +1,41 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-reset-a-cells-value-history",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Tips and Tricks"],
+    "guid": "{8B06C7BC-D57E-460F-833A-4BAE4A4CC6FE}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3100151Z"
+}
+|metadata|
+////
+
+= Reset a Cell's Value History
+
+You can reset a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cell.html[Cell] object's value history by calling a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~resetdatavaluehistory.html[ResetDataValueHistory] method. You can also reset the value history of multiple cells in a DataPresenter control by calling the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager.html[RecordManager] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordmanager~resetdatavaluehistory.html[ResetDataValueHistory] method. In addition to resetting the value history of cells in a DataPresenter control, you can also retrieve the value history of a cell by calling a DataRecord object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~getdatavaluehistory.html[GetDataValueHistory] method.
+
+The following example code demonstrates how to reset the value history of all cells in a DataPresenter control. The code assumes you have a DataPresenter control named xamDataPresenter1.
+
+*In Visual Basic:*
+
+----
+Me.xamDataPresenter1.RecordManager.ResetDataValueHistory(True)
+'If you have a reference to a DataRecord object named dataRecord1 and you want to reset the value history of a single cell, use the code below and substitute "salary" with the name of a field in your DataPresenter control.
+dataRecord1.ResetDataValueHistory("salary")
+----
+
+*In C#:*
+
+----
+this.xamDataPresenter1.RecordManager.ResetDataValueHistory(true);
+//If you have a reference to a DataRecord object named dataRecord1 and you want to reset the value history of a single cell, use the code below and substitute "salary" with the name of a field in your DataPresenter control.
+dataRecord1.ResetDataValueHistory("salary");
+----
+
+== Related Topics
+
+link:xamdatapresenter-about-the-datavaluechanged-event.html[About the DataValueChanged Event]
+
+link:xamdatapresenter-enable-data-value-change-tracking.html[Enable Data-Value Change Tracking]

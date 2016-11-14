@@ -1,0 +1,192 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-in-2013-volume-2",
+    "controlName": ["Breaking Changes"],
+    "tags": [],
+    "guid": "3ca7ced6-049d-468d-b921-6477bdcc8b11",  
+    "buildFlags": [],
+    "createdOn": "2013-09-19T10:13:46.1163679Z"
+}
+|metadata|
+////
+
+= Breaking Changes in 2013 Volume 2
+
+== Topic Overview
+
+=== Purpose
+
+This topic lists the breaking changes in the {ProductName} product introduced with the release of 2013 Volume 2.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref365980207,Breaking Changes in API in 2013 Volume 2>>
+* <<_Ref366056686,Infragistics Excel Engine>>
+
+** <<_Ref366058237,Changes in interfaces namespaces>>
+** <<_Ref367116958,Compile time error in the custom implementations of the IPackage interface>>
+** <<_Ref366058268,Project compilation fails if a reference to Documents.Core library is not included>>
+
+* <<_Ref366069346,xamDataChart>>
+
+** <<_Ref366069369,Fixed Spelling Mistake>>
+
+[[_Ref365980207]]
+== Breaking Changes in API in 2013 Volume 2
+
+=== Breaking changes summary chart
+
+The following table summarizes the breaking changes in the controls’ API. Detailed explanations of all of the issues and provides the existing workarounds following the summary table.
+
+==== Legend:
+
+[cols="a,a"]
+|====
+|image::images/Yes.png[]
+|Workaround available
+
+|image::images/No.png[]
+|No known workaround
+
+|image::images/Fix.png[]
+|Fix planned
+
+|====
+
+==== Infragistics Excel Engine
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref366058237,Changes in interfaces namespaces>>
+|Moved some of the Excel Engine interfaces to another namespace.
+|image::images/Yes.png[]
+
+|<<_Ref367116958,Compile time error in the custom implementations of the IPackage interface>>
+|Implement the new IPackage interface method GetRelationship in your custom implementation.
+|image::images/Yes.png[]
+
+|<<_Ref366058268,Project compilation fails if a reference to Documents.Core library is not included>>
+|Add an additional reference to a project that uses the Excel Engine to compile correctly.
+|image::images/Yes.png[]
+
+|====
+
+==== xamDataChart
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|Fixed spelling error in the CrossHair's VerticalLineVisibilty and HorizontalLineVisibilty
+|Fixed the spelling mistake change from VerticalLineVisibilty and HorizontalLineVisibilty to VerticalLineVisibility and HorizontalLineVisibility
+|image::images/Yes.png[]
+
+|====
+
+[[_Ref366056686]]
+== Infragistics Excel Engine
+
+[[_Ref366058237]]
+
+=== Changes in interfaces namespaces
+
+Moved the following interfaces to different namespace.
+
+Workaround
+
+.Note
+[NOTE]
+====
+In order to resolve the breaking changes in your application, change the old namespace to the new one.
+====
+
+==== Interface IPackage
+
+[options="header", cols="a,a"]
+|====
+|*Previous* *namespace*|*New* *namespace*
+
+|Infragistics.Documents.Excel
+|Infragistics.Documents.Core.Packaging
+
+|====
+
+==== Interface IPackageFactory
+
+[options="header", cols="a,a"]
+|====
+|*Previous* *namespace*|*New* *namespace*
+
+|Infragistics.Documents.Excel
+|Infragistics.Documents.Core.Packaging
+
+|====
+
+==== Interface IPackagePart
+
+[options="header", cols="a,a"]
+|====
+|*Previous* *namespace*|*New* *namespace*
+
+|Infragistics.Documents.Excel
+|Infragistics.Documents.Core.Packaging
+
+|====
+
+==== Interface IPackageRelationship
+
+[options="header", cols="a,a"]
+|====
+|*Previous* *namespace*|*New* *namespace*
+
+|Infragistics.Documents.Excel
+|Infragistics.Documents.Core.Packaging
+
+|====
+
+==== Enumeration RelationshipTargetMode
+
+[options="header", cols="a,a"]
+|====
+|*Previous* *namespace*|*New* *namespace*
+
+|Infragistics.Documents.Excel
+|Infragistics.Documents.Core.Packaging
+
+|====
+
+[[_Ref367116958]]
+
+=== Compile time error in the custom implementations of the IPackage interface
+
+A new method link:{ApiPlatform}documents.core.v{ProductVersion}~infragistics.documents.core.packaging.ipackage~getrelationship.html[GetRelationship] was added to the link:{ApiPlatform}documents.core.v{ProductVersion}~infragistics.documents.core.packaging.ipackage_members.html[IPackage] interface in 2013 Volume 2 release.
+
+As a result of this change, every IPackage interface custom implementation will throw a compile time error that does not implement interface member 'Infragistics.Documents.Core.Packaging.IPackage.GetRelationship(string)'.
+
+Workaround
+
+.Note
+[NOTE]
+====
+In order to resolve this compile time error, implement the new method Infragistics.Documents.Core.Packaging.IPackage.GetRelationship(string) in your IPackage custom implementation.
+====
+
+[[_Ref366058268]]
+
+=== Project compilation fails if a reference to Documents.Core library is not included
+
+A project that uses the Infragistics Excel Engine will not compile correctly if a reference to the Documents.Core library is not included in the project references.
+
+Workaround
+
+.Note
+[NOTE]
+====
+Add the {ApiPlatform}Documents.Core.v{ProductVersion}.dll to the project.
+====

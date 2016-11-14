@@ -1,0 +1,187 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-addingtabletoworksheet",
+    "tags": ["How Do I"],
+    "controlName": ["IG Excel Engine"],
+    "guid": "e4d280b9-8b8c-4171-a360-1e5b7a1e888d",
+    "buildFlags": [],
+    "createdOn": "2015-06-29T11:55:18.8938998Z"
+}
+|metadata|
+////
+
+= Adding a Table to a Worksheet (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides procedural instructions on how to add a worksheet table to a worksheet using the Infragistics Excel Engine.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+|In this section you will find information that will help you to better understand the object model and the functionalities of the _Infragistics Excel Engine_ .
+
+| link:igexcelengine-creating-a-workbook.html[Creating a Workbook (Infragistics Excel Engine)]
+|In order to get you up and running as quickly as possible with the _Infragistics Excel Engine_, this topic provides procedural instructions on how to create a workbook.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref423013928, Adding a Table to a Worksheet >>
+* <<_Ref423094435, Alter Table Columns and Rows >>
+* <<_Ref423013938, Related Content >>
+
+[[_Ref423013928]]
+== Adding a Table to a Worksheet
+
+=== Introduction
+
+The worksheet tables are a related data in the worksheet formatted in rows and columns. The data in a worksheet table can be managed independently from the data in the other rows and columns of the worksheet. Worksheet tables in the Infragistics Excel Engine are represented by the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable.html[WorksheetTable] class and are added in the worksheet's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~tables.html[Tables] collection. This procedure demonstrates how to add a worksheet table to a worksheet.
+
+=== Prerequisites
+
+To complete the procedure, you need the following:
+
+An initialized workbook with at least one worksheet named "ws".
+
+=== Overview
+
+Following is a conceptual overview of the process:
+
+1. Invoke the Add method of the Worksheet’s Tables collection
+
+2. Specify table’s region
+
+3. Specify if the table data contains headers
+
+4. Specify table’s style (optional)
+
+=== Steps
+
+The following steps demonstrate how to add a table to a worksheet.
+
+=== 1. Invoke the Add method of the Worksheet’s Tables collection
+
+Invoke the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablecollection~add.html[Add] method of the Worksheet’s `Tables` collection. The next steps provide more information regarding the method’s arguments.
+
+=== 2. Specify table’s region
+
+As first argument specify the region which should be occupied by the table. For example: "F16:T29". If your data have headers include the header cells in the region too.
+
+=== 3. Specify if the table data contains headers
+
+As second argument specify if the specified region contains cells which should be used as table headers. Set this argument to `true` if there are header cells in the region.
+
+=== 4. Specify table’s style (optional)
+
+As third and optional argument you can specify a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettablestyle.html[WorksheetTableStyle] object to apply on the table.
+
+[[_Ref382317785]]
+
+=== Full code
+
+The following code demonstrates how to add a worksheet table (which occupies the region "F16:T29" and has header cells in the top cells of this region) to the `Tables` collection of a worksheet named "ws".
+
+*In Visual Basic:*
+[source,vb]
+----
+Dim wt As WorksheetTable = Me.ws.Tables.Add("F16:T29", True)
+----
+
+*In C#:*
+[source,csharp]
+----
+WorksheetTable wt = this.ws.Tables.Add("F16:T29", true);
+----
+
+.Note
+[NOTE]
+====
+You can use the reference returned by the `Add` method to operate with the worksheet table. For example you may set a table name, obtain its regions or provide sort settings.
+====
+
+[[_Ref423094435]]
+== Alter Table Columns and Rows
+
+=== Altering columns and rows summary
+
+The following table explains briefly the altering operations you may perform over the columns and rows of a worksheet table and maps them to the methods that configure them.
+
+[options="header", cols="a,a,a"]
+|====
+|Altering operation|Details|Method
+
+|[[_Hlk356484826]] 
+
+Insert column(s)
+|This method is used to insert one or more column(s).
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~insertcolumns(int32,int32).html[InsertColumns]
+
+|Insert data row(s)
+|This method is used to insert one or more data row(s)
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~insertdatarows.html[InsertDataRows]
+
+|Delete column(s)
+|This method is used to delete one or more column(s)
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~deletecolumns.html[DeleteColumns]
+
+|Delete data row(s)
+|This method is used to delete one or more data row(s).
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~deletedatarows.html[DeleteDataRows]
+
+|Set new table range
+|This method is used to assign a new cells' region to a `WorksheetTable` object. For example if you have a `WorksheetTable` object assigned to the cells' region C26:G32 you can reassign the `WorksheetTable` object to cells' region J6:O15 by invoking: 
+
+*In Visual Basic:*
+[source,vb]
+---- 
+worksheetTable.Resize("J6:O15")
+---- 
+
+*In C#:*
+[source,csharp]
+---- 
+worksheetTable.Resize("J6:O15");
+---- 
+
+The cells' region at location C26:G32 will retain their content and styling, but will not be associated with the `WorksheetTable` object any more.
+| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable~resize.html[Resize]
+
+|====
+
+[[_Ref423013938]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-filtering-tables.html[Filtering Tables (Infragistics Excel Engine)]
+|This topic describes how to filter columns in exported tables.
+
+| link:igexcelengine-preserving-table-formatting-when-loading-excel-files.html[Preserving Table Formatting When Loading Excel Files (Infragistics Excel Engine)]
+|This topic demonstrates how you can preserve table formatting when loading Microsoft Excel files.
+
+| link:igexcelengine-sorting-tables.html[Sorting Tables (Infragistics Excel Engine)]
+|This topic describes how to sort columns in exported tables.
+
+| link:igexcelengine-support-named-tables-in-an-excel-spreadsheet.html[Supporting Named Tables in a Worksheet (Infragistics Excel Engine)]
+|This topic describes the creating and accessing of named tables.
+
+|====

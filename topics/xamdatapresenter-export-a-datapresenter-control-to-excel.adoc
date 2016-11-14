@@ -1,0 +1,274 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-export-a-datapresenter-control-to-excel",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Exporting"],
+    "guid": "{6F642B9B-51EB-440F-B24B-4F25C7921997}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1959923Z"
+}
+|metadata|
+////
+
+= Export a DataPresenter Control to Excel
+
+This topic explains how to implement data export to Excel using the xamDataPresenter™ control.
+
+== Introduction
+
+The DataPresenter controls can export data in Microsoft® Excel® format using the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter.html[DataPresenterExcelExporter] class. The DataPresenterExcelExporter class encapsulates all the work of creating a workbook, iterating DataPresenter rows/cells, and setting worksheet cell values.
+
+The DataPresenterExcelExporter class is not a visual element; therefore, you cannot add it to your window's visual tree. However, if you want to instantiate a DataPresenterExcelExporter object in XAML, you can add it to your window's resource dictionary.
+
+.Note
+[NOTE]
+====
+Due to the richness in styling available to the DataPresenter control, the DataPresenterExcelExporter object does not export a DataPresenter control's styles to Excel. You can, however, format the resulting worksheet by accessing the Infragistics' Excel Engine objects directly or by applying formats before exporting.
+====
+
+== Requirements
+
+To be able to export data, you need the following references added to your project (in the Solution Explorer):
+
+* {ApiPlatform}v{ProductVersion}.dll
+* {ApiPlatform}Editors.v{ProductVersion}.dll
+* {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+* {ApiPlatform}Documents.Excel.v{ProductVersion}.dll
+* {ApiPlatform}DataPresenter.ExcelExporter.v{ProductVersion}.dll
+
+== Overview
+
+Conceptual overview of the export procedure:
+
+[start=1]
+. Adding the grid
+
+[start=2]
+. Adding the Export button
+
+[start=3]
+. Adding the xamDataPresenter control
+
+[start=4]
+. Adding using/Imports directives to the code-behind
+
+[start=5]
+. (Conditional) Adding an event handler for the Button’s Click event
+
+[start=6]
+. Instantiating a DataPresenterExcelExporter object
+
+[start=7]
+. Calling the export method
+
+[start=8]
+. (Optional) Verify your implementation
+
+== Steps
+
+[start=1]
+. *Add the grid.*
++
+Add a Grid panel with two RowDefinition objects to your window:
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition />
+    </Grid.RowDefinitions>
+    <!--TODO: Add a Button control-->
+    <!--TODO: Add a xamDataPresenter control-->
+</Grid>
+----
+
+[start=2]
+. *Add the Export button.*
++
+Add a Button control to the first row in the Grid panel and configure it as follows:
++
+--
+** Set the button’s Content property to Export DataPresenter.
+** Attach an event handler to the button’s Click event.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<Button Content="Export DataPresenter" Click="Button_Click" />
+----
+
+[start=3]
+. *Add the xamDataPresenter control.*
++
+Add a xamDataPresenter control to the second row in the Grid panel and configure its properties as follows:
++
+--
+** the Name property – to xamDataPresenter1.
+** the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property – to True.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+</igDP:XamDataPresenter>
+----
+
+[start=4]
+. *Add using/Imports directives to the code-behind.*
++
+Open the code-behind and place using/Imports directives in your code-behind so that you will not have to type the fully qualified name of a member. If you want to add an instance of a DataPresenterExcelExporter object to your window's resource dictionary instead of instantiating it in code, you will need to add an XML namespace declaration.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igExcelExporter="http://infragistics.com/ExcelExporter"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.DataPresenter.ExcelExporter
+Imports Infragistics.Documents.Excel
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.DataPresenter.ExcelExporter;
+using Infragistics.Documents.Excel;
+----
+
+[start=5]
+. (Conditional) *Add an event handler for the Button control's Click event.*
++
+If a method stub has not been created for you, you will need to add an event handler for the Button control's Click event:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+    'TODO: Instantiate a DataPresenterExcelExporter object
+    'TODO: Call the DataPresenterExcelExporter object's Export method
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+    //TODO: Instantiate a DataPresenterExcelExporter object
+    //TODO: Call the DataPresenterExcelExporter object's Export method
+}
+----
+
+[start=6]
+. *Instantiate a DataPresenterExcelExporter object.*
++
+If you are instantiating it in XAML, you can add it to your window's resource dictionary.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Window.Resources>
+    <igExcelExporter:DataPresenterExcelExporter x:Key="excelExporter1" />
+</Window.Resources>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim exporter As New DataPresenterExcelExporter()
+' If you added the DataPresenterExcelExporter object to your
+' window's resource dictionary, use these lines of code:
+' Dim exporter As DataPresenterExcelExporter = _
+'     DirectCast(Me.Resources("excelExporter1"), DataPresenterExcelExporter)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+DataPresenterExcelExporter exporter = new DataPresenterExcelExporter();
+// If you added the DataPresenterExcelExporter object to your
+// window's resource dictionary, use these lines of code:
+// DataPresenterExcelExporter exporter =
+//     (DataPresenterExcelExporter)this.Resources["excelExporter1"];
+----
+
+[start=7]
+. *Call the export method.*
++
+You can choose between two methods – link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~export.html[Export] and link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously. The file extension of the exported file should match the target Excel version (.xlsx for Excel 2007/2010 or .xls for Excel 97/2003).
++
+--
+* to export the data synchronously:
++
+Call the DataPresenterExcelExporter object's Export method:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+exporter.Export(Me.xamDataPresenter1, "xamDataPresenter1.xlsx", WorkbookFormat.Excel2007)   
+----
++
+*In C#:*
++
+[source,csharp]
+----
+exporter.Export(this.xamDataPresenter1, "xamDataPresenter1.xlsx", WorkbookFormat.Excel2007);
+----
+* to export the data asynchronously:
++
+Call the DataPresenterExcelExporter object's ExportAsync to export the data asynchronously:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+exporter.ExportAsync(Me.xamDataPresenter1, "xamDataPresenter1.xlsx", WorkbookFormat.Excel2007)   
+----
++
+*In C#:*
++
+[source,csharp]
+----
+exporter.ExportAsync(this.xamDataPresenter1, "xamDataPresenter1.xlsx", WorkbookFormat.Excel2007);
+----
+--
++
+.Notes on asynchronous export
+[NOTE]
+====
+. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportinterval.html[AsyncExportInterval] property.
+. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportended_ev.html[ExportEnded] event.
+====
+
+[start=8]
+. (Conditional) *Verify your implementation.*
++
+Run your project and then click the Export button. This will export the xamDataPresenter control to Excel.
+
+== Related Topics
+
+link:xamdatapresenter-apply-formats-for-exporting.html[Apply Formats for Exporting]
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-exporting.html[Exclude DataPresenter Settings when Exporting]
+
+link:xamdatapresenter-handle-exporting-events.html[Handle Exporting Events]

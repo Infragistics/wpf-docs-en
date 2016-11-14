@@ -1,0 +1,89 @@
+﻿////
+|metadata|
+{
+    "name": "creating-an-objectdataprovider",
+    "controlName": [],
+    "tags": [],
+    "guid": "{B7E419E2-39B2-47AF-9E24-656947012C12}",
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-02-01T16:01:19.6138357Z"
+}
+|metadata|
+////
+
+= Creating an ObjectDataProvider
+
+== Before You Begin
+
+In order to bind a collection to a control in Microsoft® Windows® Presentation Foundation, the collection must implement the IEnumerable interface. If you meet this requirement, you can bind the collection to any data bound control using procedural code. In addition, you can declaratively bind your collection to a control using the ObjectDataProvider.
+
+This topic does not cover binding the ObjectDataProvider to any specific control; however, you will need to use the ObjectDataProvider created in this topic for control specific tasks. For information on binding a control to the ObjectDataProvider you created in this topic, use the links provided at the end of this topic.
+
+== What You Will Accomplish
+
+This topic shows you how to set up an ObjectDataProvider. The Extensible Application Markup Language (XAML) shown to set up the ObjectDataProvider is written generically enough that it is control-independent.
+
+The ObservableCollection used in this example is a collection of Car objects. The link:resources-car-business-logic.html[CarsBusinessLogic] class is available for you in C# and VB.NET language to download and use in your project while working through this sample.
+
+.Note
+[NOTE]
+====
+The ObservableCollection class file that is available for you to download is not discussed in this topic, as it is beyond the scope of this topic.
+====
+
+== Follow these Steps
+
+[start=1]
+. Add the CarsBusinessLogic class to your project.
+
+[start=2]
+. Add an XML namespace for the CarsBusinessLogic class as an attribute to the opening tags of your Window or Page.
++
+*In XAML:*
++
+[source,xaml]
+----
+<!--
+If you are using Visual Basic, replace the XML namespace mapping for the CarsBusinessLogic class with the root namespace of your project.
+-->
+xmlns:Cars="clr-namespace:IGDocumentation"
+----
+
+[start=3]
+. Add a Resources section to your Window or Page.
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<Window.Resources>
+        <!--TODO: Add an ObjectDataProvider here-->
+</Window.Resources>
+...
+----
+
+[start=4]
+. Add an ObjectDataProvider to the Resources section that you added in step three.
++
+--
+.. Key - Set the Key property to CarData. You can use this Key to reference the data provider later.
+.. ObjectType - Set the ObjectType property to '{x:Type Cars:CarsBusinessLogic}'. The data provider will instantiate an object based on the ObjectType property.
+.. MethodName - Set the MethodName property to 'GetCars'. The data provider will call this method after instantiating the object. The ObjectDataProvider is not limited to returning a collection of objects. You can also specify a method that returns a DataSet or a DataTable.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<ObjectDataProvider x:Key="CarData" ObjectType="{x:Type Cars:CarsBusinessLogic}" MethodName="GetCars" />
+...
+----
+
+[start=5]
+. Running your application at this time will just display an empty Window. You will have to add a control to the Window and bind the ObjectDataProvider that you created in this topic to the control in order to see the results. Use the links provided below to bind the ObjectDataProvider to a specific control.
+
+== Related Topics
+
+link:xamcomboeditor-bind-xamcomboeditor-to-a-collection.html[Bind xamComboEditor to a Collection]

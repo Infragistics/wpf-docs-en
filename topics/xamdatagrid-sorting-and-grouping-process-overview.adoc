@@ -1,0 +1,102 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatagrid-sorting-and-grouping-process-overview",
+    "controlName": ["xamDataGrid"],
+    "tags": ["Getting Started","Grouping","Sorting"],
+    "guid": "9b51be52-3019-4305-8309-4933e800af25",
+    "buildFlags": [],
+    "createdOn": "2013-02-26T13:58:19.5161465Z"
+}
+|metadata|
+////
+
+= Sorting and Grouping Process Overview (xamDataGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes those actions performed by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatagrid.html[ _xamDataGrid™_  ]  __control__  _’_  s internal comparer for sorting and grouping processes.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-understanding-xamdatagrid.html[About xamDataGrid]
+|This topic introduces the _xamDataGrid_ control and various elements, on which control is composed.
+
+| link:xamdatagrid-grouping-overview.html[Grouping Overview]
+|This topic gives an overview of the grouping functionality of xamDataGrid™. This feature allows users to group data into more readable and navigable way.
+
+| link:xamdatagrid-sorting-overview.html[Sorting Overview]
+|This topic gives an overview of sorting functionality of _xamDataGrid_ . _xamDataGrid_ display and handles the sorting for you. Your users can sort columns by clicking the column headers, allowing them to view the grid data in the order they want.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref340243334, Sorting and Grouping Process Overview >>
+
+* <<_Ref335407927, Related Content >>
+
+[[_Ref340243334]]
+== Sorting and Grouping Process Overview
+
+=== Sorting and Grouping process
+
+By default, an optimized internal comparer sorts all of the  _xamDataGrid_   link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]s. The remainder of this topic provides additional information about the control’s optimizations made with this release along with a detailed description of the process.
+
+.Note
+[NOTE]
+====
+You cannot use the following process if the `GroupByEvaluationMode` property on `FieldLayoutSettings` is set to `UseCollectionView,` or the `SortEvaluationMode` property is set to either `Manual` or `UseCollectionView`.
+====
+
+The internal comparer performs the following:
+
+[start=1]
+. It creates an array of individual field comparers and caches other relatable information inside its constructor. The field comparers are sequenced within the array in the following order:
+
+.. First, all of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~sortedfields.html[SortedFields] collection’s grouped fields (they are the high-order criteria) using their `IGroupByEvaluator` link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~sortcomparer.html[SortComparer] objects. If any of these is `Null`, then that field will use either the `SortComparer` or the default comparer.
+.. Next, all of the `SortedFields` collection’s non-grouped fields using either the field’s `SortComparer` or the default comparer.
+.. Finally, all of the `SortedFields` collection’s grouped fields, appearing only once in the collection (in other words they were not added in again in step ‘b’) being appended to the end again. This time ignoring the `IGroupByEvaluator.SortComparer` and instead uses either the field’s `SortComparer` or the default comparer.
+.. If any of the field comparers from step ‘b’ or step’ ‘c’ are unnecessary (that is `IGroupByEvaluator.SortComparer` returned `Null`), then those comparers are not added to the array a second time. Instead, this is where the control performs its other array pruning optimizations thus avoiding any unnecessary overhead during the sort.
+
+[start=2]
+. In its Compare method, implementation selects the high-order field comparer’s (index 0 in the array) as the first field comparer to process.
+[start=3]
+. If calling the field comparer’s Compare method returns anything other than a 0 processing ends and returns that value.
+[start=4]
+. Otherwise, the field comparer returns a 0 to indicate that the 2 `DataRecord`s are equal as far as that comparer is concerned; it increases the array index and checks the next field comparer by repeating steps 3 and 4.
+[start=5]
+. If all of the field sort comparers in the array return 0, indicating that they are all equal, the control uses the relative indexes of the associated Data Items in the Data Source for the final comparison. Additionally, it caches the Data Item indices to avoid repeatedly performing the `IndexOf` operation on the data source to query the data item index during the comparison process.
+[start=6]
+. Creates the appropriate link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecord]s to contain any grouped fields after sorting. If possible, the optimized logic attempts to reuse any existing `GroupByRecord`s.
+[start=7]
+. Finally specifying a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~groupbycomparer.html[GroupByComparer] for a grouped field using the associated `GroupByRecord`s as part of a second sort pass.
+
+[[_Ref335407927]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-user-interaction-sorting-records.html[User Interaction when Sorting and Grouping Records]
+|This topic describes user interactions for sorting records when _xamDataGrid_ records are grouped.
+
+| link:xamdatagrid-using-xamdatagrid.html[Using xamDataGrid]
+|This topic is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by _xamDataGrid_ control.
+
+|====

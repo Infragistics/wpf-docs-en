@@ -1,0 +1,101 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-editing-the-carouselpanelitem-template",
+    "controlName": [],
+    "tags": [],
+    "guid": "384a040b-0859-4a37-ab20-5594964c8ede",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4210561Z"
+}
+|metadata|
+////
+
+= Editing the CarouselPanelItem Template
+
+*In XAML:*
+
+----
+<Style TargetType="{x:Type igw:CarouselPanelItem}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type igw:CarouselPanelItem}">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="*"/>
+                  <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="{TemplateBinding ItemHorizontalScrollBarVisibility}" VerticalScrollBarVisibility="{TemplateBinding ItemVerticalScrollBarVisibility}">
+                  <Viewbox HorizontalAlignment="Center" x:Name="ViewBox" VerticalAlignment="Bottom">
+                    <Grid x:Name="itemContentHolder">
+                      <Border x:Name="itemContentHolderBackground" Background="#00000000" 
+                              BorderBrush="Tomato" BorderThickness="1"/>
+                      <ContentControl Margin="0,0,0,0" x:Name="itemContent" Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                    </Grid>
+                  </Viewbox>
+                </ScrollViewer>
+                <Canvas IsHitTestVisible=" Visibility="{Binding Path=ReflectionVisibility, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type igw:XamCarouselPanel}}}" Margin="0,2,0,0" Width="{Binding Path=ActualWidth, ElementName=ScrollViewer}" Height="{Binding Path=ActualHeight, ElementName=ScrollViewer}" Grid.Row="1">
+                  <Canvas.OpacityMask>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                      <GradientStop Color="Tomato" Offset="0"/>
+                      <GradientStop Color="#00000000" Offset="0.8"/>
+                    </LinearGradientBrush>
+                  </Canvas.OpacityMask>
+                  <Canvas.Background>
+                    <VisualBrush Opacity="0.3" AlignmentX="Center" AlignmentY="Bottom" Stretch="None" Visual="{Binding ElementName=ScrollViewer}">
+                      <VisualBrush.RelativeTransform>
+                        <TransformGroup>
+                          <MatrixTransform Matrix="1,0,0,-1,0,0"/>
+                          <TranslateTransform Y="1"/>
+                        </TransformGroup>
+                      </VisualBrush.RelativeTransform>
+                    </VisualBrush>
+                  </Canvas.Background>
+                </Canvas>
+              </Grid>
+              <ControlTemplate.Triggers>
+                <MultiTrigger>
+                  <MultiTrigger.Conditions>
+                    <Condition Property="IsFirstItem" Value="True"/>
+                    <Condition Property="IsListContinuous" Value="True"/>
+                  </MultiTrigger.Conditions>
+                  <Setter Property="BorderThickness" TargetName="itemContentHolderBackground" Value="4,4,4,4"/>
+                  <Setter Property="BorderBrush" TargetName="itemContentHolderBackground" Value="#FFFFFF00"/>
+                  <Setter Property="Margin" TargetName="itemContent" Value="4,4,4,4"/>
+                </MultiTrigger>
+                <MultiTrigger>
+                  <MultiTrigger.Conditions>
+                    <Condition Property="IsLastItem" Value="True"/>
+                    <Condition Property="IsListContinuous" Value="True"/>
+                  </MultiTrigger.Conditions>
+                  <Setter Property="BorderThickness" TargetName="itemContentHolderBackground" Value="4,4,4,4"/>
+                  <Setter Property="BorderBrush" TargetName="itemContentHolderBackground" Value="#FF00FFFF"/>
+                  <Setter Property="Margin" TargetName="itemContent" Value="4,4,4,4"/>
+                </MultiTrigger>
+                <Trigger Property="IsSelected" Value="True">
+                  <Setter Property="Background" TargetName="itemContentHolderBackground">
+                    <Setter.Value>
+                      <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="sc#1, 0.303573549, 0.303573549, 0.303573549" Offset="1"/>
+                        <GradientStop Color="sc#1, 0.9095203, 0.9095203, 0.9095203" Offset="0"/>
+                      </LinearGradientBrush>
+                    </Setter.Value>
+                  </Setter>
+                  <Setter Property="Margin" TargetName="itemContent" Value="4,4,4,4"/>
+                </Trigger>
+                <Trigger Property="AutoScaleItemContentsToFit" Value="True">
+                  <Setter Property="HorizontalScrollBarVisibility" TargetName="ScrollViewer" Value="Hidden"/>
+                  <Setter Property="VerticalScrollBarVisibility" TargetName="ScrollViewer" Value="Hidden"/>
+                  <Setter Property="Stretch" TargetName="ViewBox" Value="Uniform"/>
+                  <Setter Property="StretchDirection" TargetName="ViewBox" Value="Both"/>
+                  <Setter Property="Width" TargetName="ViewBox" Value="{Binding Path=ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ScrollContentPresenter}}}"/>
+                  <Setter Property="Height" TargetName="ViewBox" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ScrollContentPresenter}}}"/>
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+----
+

@@ -1,0 +1,55 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-reporting-modify-the-page-layout-of-a-report",
+    "controlName": ["IG WPF Reporting"],
+    "tags": ["Reporting"],
+    "guid": "{2191F8D0-C2DE-4963-BB1A-400D366CE1BC}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.9067345Z"
+}
+|metadata|
+////
+
+= Modify the Page Layout of a Report
+
+You can programmatically modify page layout settings when you print or export a report. Most of the time, you do not have to modify page layout settings since your end users can modify them through the print dialog. However, you can set page layout properties off the link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report~reportsettings.html[ReportSettings] property of a link:{ApiPlatform}reporting.v{ProductVersion}~infragistics.windows.reporting.report.html[Report] object if you are printing or exporting a report without displaying a print dialog or if you want to override default page layout settings.
+
+The following example code demonstrates how to modify the page layout of a report. The example code sets a one-inch margin on all sides and scales the content horizontally so it fits on a single page.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Reporting
+...
+Dim report1 As New Report()
+report1.ReportSettings.Margin = new Thickness(96)
+report1.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Scale
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Reporting;
+...
+Report report1 = new Report();
+report1.ReportSettings.Margin = new Thickness(96);
+report1.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Scale;
+...
+----
+
+== Related Topics
+
+link:wpf-reporting-understanding-wpf-reporting.html[About WPF Reporting]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-align-content-to-the-top-of-a-page.html[Align Content to the Top of a Page]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]

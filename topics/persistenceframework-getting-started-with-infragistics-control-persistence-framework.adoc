@@ -1,0 +1,204 @@
+﻿////
+|metadata|
+{
+    "name": "persistenceframework-getting-started-with-infragistics-control-persistence-framework",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["Getting Started","Persistence"],
+    "guid": "ffd7c9ee-5103-4a99-9ce8-7ba27104a275",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.6390335Z"
+}
+|metadata|
+////
+
+= Getting Started with Infragistics Control Persistence Framework
+
+== Before You Begin
+
+The main purpose of the Infragistics Control Persistence Framework is to provide a unified API that allows you to save and load a control’s state. You can store a single control’s settings or the settings of multiple controls when using groups.
+
+== What You Will Accomplish
+
+This topic will walk you through how to get started with the Infragistics Control Persistence Framework. You will implement functionality for saving and loading the xamDialogWindow control settings. These settings will be stored in isolated storage.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ project
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+.. {ApiPlatform}v{ProductVersion}.dll
+.. {ApiPlatform}Persistence.v{ProductVersion}.dll
+.. {ApiPlatform}Controls.Interactions.XamDialogWindow.v{ProductVersion}.dll
+
+[start=3]
+. Add the following namespace
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+[start=4]
+. There is a xamDialogWindow control and two buttons on the page. The controls are placed into two rows of a Grid container.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot">
+   <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+ 
+   </Grid.RowDefinitions>
+   <!-- Add more elements -->
+</Grid>
+---- 
+
+[start=5]
+. Add  the xamDialogWindow control 
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamDialogWindow x:Name="myDialog" Height="200" Width="300" 
+    IsMoveable="True" IsResizable="True" RestrictInContainer="True"   
+    StartupPosition="Center" Grid.Row="0" />
+----
+
+[start=6]
+. Add the two buttons in the StackPanel container
++
+*In XAML:*
++
+[source,xaml]
+----
+<StackPanel Orientation="Horizontal" Grid.Row="1">
+    <Button x:Name="BtnSave" Click="BtnSave_Click" Height="22" Width="100" Content="Save" />
+    <Button x:Name="BtnLoad" Click="BtnLoad_Click" Height="22" Width="100" Content="Load" />
+</StackPanel>
+----
+
+[start=7]
+. Add the following using/Import directives so that you don’t have to type out a member’s fully qualified name.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports System.IO
+Imports System.IO.IsolatedStorage
+Imports Infragistics 
+Imports Infragistics.Controls.Interactions
+Imports Infragistics.Persistence
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using System.IO;
+using System.IO.IsolatedStorage; 
+using Infragistics;
+using Infragistics.Controls.Interactions;
+using Infragistics.Persistence;
+----
+
+[start=8]
+. In the code behind, add functionality to save the xamDialogWindow control’s properties and to handle BtnSave_Click event.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private fileName As String = "tempFile"
+Private Sub BtnSave_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+' Save xamDialogWindow settings into a MemoryStream
+Dim memoryStream As MemoryStream = PersistenceManager.Save(myDialog)
+' Obtains user-scoped isolated storage for use by an application
+Using iso As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+    If iso.FileExists(fileName) Then
+        iso.DeleteFile(fileName)
+    End If
+    Using stream As New IsolatedStorageFileStream(fileName, FileMode.OpenOrCreate, iso)
+       ' Write file in the isolated storage
+       stream.Write(memoryStream.ToArray(),0,CInt(memoryStream.Length))
+    End Using
+End Using
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private const string fileName = "tempFile";
+private void BtnSave_Click(object sender, RoutedEventArgs e)
+{
+   // Save xamDialogWindow settings into a MemoryStream
+   MemoryStream memoryStream = PersistenceManager.Save(myDialog);
+   // Obtains user-scoped isolated storage for use by an application
+   using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
+   {
+      if (iso.FileExists(fileName))
+         iso.DeleteFile(fileName);
+      using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(fileName, FileMode.OpenOrCreate, iso))
+      {
+         // Write file in the isolated storage
+         stream.Write(memoryStream.ToArray(), 0, (int)memoryStream.Length);
+      }
+   }
+}
+----
+
+[start=9]
+. Add functionality to load the xamDialogWindow control’s properties and to handle the BtnLoad_Click event.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub BtnLoad_Click(ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+Using iso As IsolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication()
+    If iso.FileExists(fileName) Then
+        Using stream As New IsolatedStorageFileStream(fileName, FileMode.OpenOrCreate, iso)
+            PersistenceManager.Load(myDialog, stream)
+        End Using
+    End If
+End Using
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void BtnLoad_Click(object sender, RoutedEventArgs e)
+{
+    using (IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication())
+    {
+        if (iso.FileExists(fileName))
+        {
+            using (IsolatedStorageFileStream stream = new IsolatedStorageFileStream(fileName, FileMode.OpenOrCreate, iso))
+            {
+                PersistenceManager.Load(myDialog, stream);
+            }
+        }   
+    }
+}
+----
+
+[start=10]
+. Save and run your application. You can save the xamDialogWindow properties by pressing the Save button; afterwards, you can resize and/or move the xamDialogWindow and click the Load button to restore the previous state of the control.
+
+== Related Topics
+
+link:persistence-about-ig-control-persistence-framework.html[About Infragistics Control Persistence Framework]
+
+link:persistence-using-ig-control-persistence-framework.html[Using Infragistics Control Persistence Framework]

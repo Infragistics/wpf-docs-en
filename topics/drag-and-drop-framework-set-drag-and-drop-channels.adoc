@@ -1,0 +1,54 @@
+﻿////
+
+|metadata|
+{
+    "name": "drag-and-drop-framework-set-drag-and-drop-channels",
+    "controlName": ["IG Drag and Drop Framework"],
+    "tags": ["Data Presentation","Getting Started","How Do I"],
+    "guid": "{0767BD66-A402-4D10-8494-5B19E57A9B2C}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.6780338Z"
+}
+|metadata|
+////
+
+= Set Drag and Drop Channels
+
+You can determine what items can be dragged and where they can be dropped using the drag and drop framework. You can specify that only certain items can be dragged to certain areas or that certain items can be dragged to multiple areas. The drag and drop framework is very flexible and allows you to create your own relationships between the items to be dragged and the drop areas. You could create one-to-one, one-to-many, many-to-one or many-to-many relationships. This can be done by setting the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource.html[DragSource] object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~dragchannels.html[DragChannels] property and the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget.html[DropTarget] object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget~dropchannels.html[DropChannels] property.
+
+For example, if your application contains a shopping cart, an item list and a garbage bin, you can set the drag and drop behavior to only allow your end users to drag items from the item list into the shopping cart, and items from the shopping cart into the garbage bin, and restrict any other combinations.
+
+The following code demonstrates how to set an image to be dragged to various drop areas.
+
+*In XAML:*
+
+----
+<Border>
+   <Image Source="/Images/select.png" Stretch="Fill">
+      <ig:DragDropManager.DragSource>
+        <ig:DragSource IsDraggable="True"
+          DragChannels="ChannelA, ChannelB, ChannelC" Drop="DragSource_Drop">
+        </ig:DragSource>
+     </ig:DragDropManager.DragSource>
+  </Image>
+</Border>
+----
+
+The following code demonstrates how to set the drop area.
+
+*In XAML:*
+
+----
+<StackPanel x:Name="TargetPanel" Background="White" Orientation="Vertical">
+   <ig:DragDropManager.DropTarget>
+      <ig:DropTarget IsDropTarget="True" DropChannels="ChannelA">
+      </ig:DropTarget>
+   </ig:DragDropManager.DropTarget>
+</StackPanel>
+----
+
+== Related Topics
+
+link:drag-and-drop-framework-ig-drag-and-drop-framework-events.html[Infragistics Drag and Drop Framework Events]
+
+link:drag-and-drop-framework-set-custom-cursors-for-different-drag-and-drop-situations.html[Set Custom Cursors for Different Drag and Drop Situations]

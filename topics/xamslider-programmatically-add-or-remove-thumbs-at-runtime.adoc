@@ -1,0 +1,88 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamslider-programmatically-add-or-remove-thumbs-at-runtime",
+    "controlName": ["xamSlider"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{5E6A3351-BF08-4052-B110-83805617DED7}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.0733754Z"
+}
+|metadata|
+////
+
+= Programmatically Add or Remove Thumbs at Runtime
+
+You can display thumbs on the xamSlider™ control to your end user, for more information see the link:xamslider-xamslider-thumbs.html[xamSlider Thumbs] topics. However, you can also allow your end users to add thumbs by clicking on the track or remove thumbs by selecting a thumb and deleting it by clicking a delete button as shown in this topic.
+
+Programmatically adding and removing thumbs at runtime is achieved by adding or removing the thumbs to or from the slider’s link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamrangeslider`1~thumbs.html[Thumbs] collection.
+
+The following code demonstrates how to achieve this and assumes the following:
+
+* You have a xamNumericRangeSlider control on your page with the link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.controls.editors.xamsliderbase`1~trackclick_ev.html[TrackClick] event set up
+* You have a Button control on your page with the Click event set up
+
+*In Visual Basic:*
+
+----
+' When your end user clicks on the track, a new thumb will be added at that location.
+Private Sub xamNumericRangeSlider_TrackClick(ByVal sender As System.Object, ByVal e As TrackClickEventArgs(Of System.Double))
+   ' When your end user clicks on the track, a new thumb will be added at that location.
+   ' Define new thumb
+   Dim thumb As xamSliderNumericThumb = New xamSliderNumericThumb
+   'Set the thumb's value to the area where your end user clicked
+   thumb.Value = e.Value
+   'Add to the Slider's Thumbs collection
+   Me.xamNumericRangeSlider1.Thumbs.Add(thumb)
+   ' Set the thumb to be active
+   Me.xamNumericRangeSlider1.ActiveThumb = thumb
+End Sub
+' When your end user clicks on the Button, the current active thumb will be deleted
+Private Sub Button_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+   ' Ensure there is an active thumb
+   If (Not (Me.xamNumericRangeSlider1.ActiveThumb) Is Nothing) Then
+      ' Remove the active thumb from the Slider's Thumbs collection
+      Me.xamNumericRangeSlider1.Thumbs.Remove(Me.xamNumericRangeSlider1.ActiveThumb)
+   End If
+End Sub
+----
+
+*In C#:*
+
+----
+// When your end user clicks on the track, a new thumb will be added at that location.
+void xamNumericSlider_TrackClick(object sender, TrackClickEventArgs<double> e)
+{
+   // Define new thumb
+   xamSliderNumericThumb thumb = new xamSliderNumericThumb();
+   // Set the thumb's value to the area where your end user clicked
+   thumb.Value = e.Value;
+   // Add to the Slider's Thumbs collection
+   this.xamNumericRangeSlider1.Thumbs.Add(thumb);
+   // Set the thumb to be active
+   this.xamNumericRangeSlider1.ActiveThumb = thumb;
+}
+// When your end user clicks on the Button, the current active thumb will be deleted
+private void Button_Click(object sender, RoutedEventArgs e)
+{
+   // Ensure there is an active thumb
+   if (this.xamNumericRangeSlider1.ActiveThumb != null)
+   {
+      // Remove the active thumb from the Slider's Thumbs collection
+      this.xamNumericRangeSlider1.Thumbs.Remove(this.xamNumericRangeSlider1.ActiveThumb);
+   }
+}
+----
+
+== Related Topics
+
+link:xamslider-interaction-modes.html[Interaction Modes]
+
+link:xamslider-xamslider-thumbs.html[Thumbs]
+
+link:xamslider-xamslider-tick-marks.html[xamSlider Tick Marks]
+
+link:xamslider-value-tick-marks.html[Value Tick Marks]
+
+link:xamslider-retrieve-the-thumb-values.html[Retrieve the Thumb Values]

@@ -1,0 +1,166 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtreemap-wpf-bind-xamtreemap-to-ado.net-entity-data-model",
+    "controlName": ["xamTreemap"],
+    "tags": [],
+    "guid": "3fe10b9c-57f3-49a4-a7f1-e46d4cd087ba",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.8853917Z"
+}
+|metadata|
+////
+
+= Bind xamTreemap to ADO.NET Entity Data Model
+
+== What You Will Accomplish
+
+In this article you will learn how to bind the xamTreemap™ control to an *ADO.NET Entity Data Model* .
+
+== Follow These Steps
+
+[start=1]
+. Create a new Windows Presentation Foundation Application in Visual Studio 2010 named WpfTreemapDemo.
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_01.png[]
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}DataVisualization.v{ProductVersion}.dll
+** {ApiPlatform}Controls.Charts.XamTreemap.v{ProductVersion}.dll
+
+[start=3]
+. Right-click on your project and select *Add* > *New Item* .
+[start=4]
+. Create a new ADO.NET Entity Data Model named TreemapModel.
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_02.png[]
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_03.png[]
+
+[start=5]
+. Choose your database. For this sample we are going to connect to a sample database – AdventureWorks2008.
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_04.png[]
+
+[start=6]
+. Select the tables you need. For this sample we are going to work with ProductCategory, ProductSubcategory and Product.
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_05.png[]
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_06.png[]
+
+These tables linked together will produce a hierarchical data source which we will pass to the xamTreemap control. Visual Studio automatically creates navigation properties from which we will use:
+
+** ProductCategory.ProductSubcategories
+** ProductSubcategory.Products
+
+[start=7]
+. Edit MainWindow.xaml:
+
+*In XAML:*
+
+----
+<Window x:Class="WpfTreemapDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ig="http://schemas.infragistics.com/xaml"
+        Loaded="MainWindow_Loaded"
+        Title="MainWindow">
+    <Window.Resources>
+        <!--The data source for the xamTreemap control-->
+        <CollectionViewSource x:Key="ProductCategoriesViewSource" />
+    </Window.Resources>
+    <Grid DataContext="{StaticResource ProductCategoriesViewSource}">
+        <ig:XamTreemap x:Name="Treemap"
+                       ItemsSource="{Binding}">
+            <ig:XamTreemap.NodeBinders>
+                <!--Binder for the ProductCategory items-->
+                <ig:NodeBinder TextPath="Name"
+                               TargetTypeName="ProductCategory"
+                               ItemsSourcePath="ProductSubcategories" />
+                <!--Binder for the ProductSubcategory items-->
+                <ig:NodeBinder TextPath="Name"
+                               TargetTypeName="ProductSubcategory"
+                               ItemsSourcePath="Products" />
+                <!--Binder for the Product items-->
+                <ig:NodeBinder TextPath="Name"
+                               ValuePath="StandardCost"
+                               TargetTypeName="Product" />
+            </ig:XamTreemap.NodeBinders>
+        </ig:XamTreemap>
+    </Grid>
+</Window>
+----
+
+[start=8]
+. In the code-behind file for MainWindow.xaml add:
+
+*In Visual Basic:*
+
+----
+Imports System.Data.Objects
+Class MainWindow
+    Private Sub Window_Loaded _
+        (ByVal sender As System.Object, ByVal e As System.Windows.RoutedEventArgs)
+        Dim adventureWorks2008Entities As New AdventureWorks2008Entities()
+        'Get an instance of the CollectionViewSource resource from MainWindow.xaml
+        Dim productCategoriesViewSource As CollectionViewSource =
+            DirectCast(Me.FindResource("ProductCategoriesViewSource"), CollectionViewSource)
+        'Create a new query for the ProductCategory items
+        Dim productCategoriesQuery As ObjectQuery(Of WpfTreemapDemo.ProductCategory) =
+            adventureWorks2008Entities.ProductCategories
+        'Execute the query
+        productCategoriesViewSource.Source =
+            productCategoriesQuery.Execute(MergeOption.AppendOnly)
+    End Sub
+End Class
+----
+
+*In C#:*
+
+----
+using System.Data.Objects;
+using System.Windows;
+using System.Windows.Data;
+namespace WpfTreemapDemo
+{
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            AdventureWorks2008Entities adventureWorks2008Entities 
+                = new AdventureWorks2008Entities();
+            //Get an instance of the CollectionViewSource resource from MainWindow.xaml
+            CollectionViewSource productCategoriesViewSource = 
+                (CollectionViewSource)(this.FindResource("ProductCategoriesViewSource"));
+            //Create a new query for the ProductCategory items
+            ObjectQuery<WpfTreemapDemo.ProductCategory> productCategoriesQuery =
+                adventureWorks2008Entities.ProductCategories;
+            //Execute the query
+            productCategoriesViewSource.Source =
+                productCategoriesQuery.Execute(MergeOption.AppendOnly);
+        }
+    }
+}
+----
+
+[start=9]
+. Execute your application.
+
+image::images/xamTreemap_WPF_Bind_xamTreeMap_to_ADO.NET_Entity_Data_Model_07.png[]
+
+== Related Topics
+
+link:xamtreemap-data-binding.html[Data Binding]
+
+link:xamtreemap-node-binders.html[Node Binders]
+
+link:xamtreemap-value-mappers.html[Value Mappers]

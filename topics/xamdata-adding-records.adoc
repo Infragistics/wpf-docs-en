@@ -1,0 +1,33 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-adding-records",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing"],
+    "guid": "{5F61A12B-C6C7-48B9-8F28-5C4A0F0B7939}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.4878507Z"
+}
+|metadata|
+////
+
+= Adding Records
+
+By default, the DataPresenter does not provide a UI for adding records. To turn on the UI for adding records set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings.html[FieldLayoutSettings]' link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowaddnew.html[AllowAddNew] property to True. You can also specify the location of the new record by using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~addnewrecordlocation.html[AddNewRecordLocation] property, as shown in the example code below:
+
+----
+<igDP:XamDataGrid> 
+        <igDP:XamDataGrid.FieldLayoutSettings> 
+                <igDP:FieldLayoutSettings 
+                  AllowAddNew="True" 
+                  AddNewRecordLocation="OnTopFixed"/> 
+        </igDP:XamDataGrid.FieldLayoutSettings> 
+</igDP:XamDataGrid>
+----
+
+.Note
+[NOTE]
+====
+Adding records is supported only if the data source implements the IBindingList interface and returns True from its AllowNew property. Adding records is not supported in all views (e.g., Carousel view).
+====

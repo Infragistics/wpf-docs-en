@@ -1,0 +1,78 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-add-a-toolhorizontalwrappanel-to-a-ribbongroup",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Grouping","How Do I"],
+    "guid": "{AD0539B5-9528-4172-8956-41FD52B09C44}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1211773Z"
+}
+|metadata|
+////
+
+= Add a ToolHorizontalWrapPanel to a RibbonGroup
+
+
+
+The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.toolhorizontalwrappanel.html[ToolHorizontalWrapPanel] arranges its tools into rows based on the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.toolhorizontalwrappanel~minrows.html[MinRows] and link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.toolhorizontalwrappanel~maxrows.html[MaxRows] property values. The ToolHorizontalWrapPanel tries to fit all of its tools into the minimum number of rows; however, if the tools will not fit in the minimum number of rows, the ToolHorizontalWrapPanel uses an extra row to rearrange its tools. The ToolHorizontalWrapPanel never decreases the number of rows below the value of the MinRows property nor does it increase the number of rows above the value of the MaxRows property.
+
+.Note
+[NOTE]
+====
+If you set the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~maximumsizeproperty.html[MaximumSize] attached property on a tool to link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbontoolsizingmode.html[ImageAndTextLarge], that tool will be placed at the beginning of the panel in its own column and will not be resized by the panel.
+====
+
+The default layout panel that a link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup.html[RibbonGroup] uses to arrange tools is the link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.toolverticalwrappanel.html[ToolVerticalWrapPanel]. If you want the functionality of a ToolHorizontalWrapPanel, you have to add an instance of a ToolHorizontalWrapPanel to the RibbonGroup before you add any tools.
+
+*In XAML:*
+
+----
+...
+<igRibbon:RibbonGroup Name="group1" Caption="Group 1">
+        <igRibbon:ToolHorizontalWrapPanel>
+                <igRibbon:ButtonTool 
+                        Id="btnTool1" 
+                        Caption="Button Tool 1" />
+        <!--TODO: Add more Ribbon tools here-->
+        </igRibbon:ToolHorizontalWrapPanel>
+</igRibbon:RibbonGroup>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim horizontalWrapPanel As New ToolHorizontalWrapPanel() 
+Me.group1.Items.Add(horizontalWrapPanel) 
+Dim btnTool1 As New ButtonTool() 
+btnTool1.Id = "btnTool1" 
+btnTool1.Caption = "Button Tool 1" 
+horizontalWrapPanel.Children.Add(btnTool1) 
+'TODO: Add more Ribbon tools to the ToolHorizontalWrapPanel's Children collection
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+ToolHorizontalWrapPanel horizontalWrapPanel = new ToolHorizontalWrapPanel();
+this.group1.Items.Add(horizontalWrapPanel);
+ButtonTool btnTool1 = new ButtonTool();
+btnTool1.Id = "btnTool1";
+btnTool1.Caption = "Button Tool 1";
+horizontalWrapPanel.Children.Add(btnTool1);
+//TODO: Add more Ribbon tools to the ToolHorizontalWrapPanel's Children collection.
+...
+----
+
+== Related Topics
+
+link:xamribbon-add-tools-to-a-buttongroup.html[Add Tools to a ButtonGroup]
+
+link:xamribbon-specify-a-sortorder-for-tools-in-a-toolhorizontalwrappanel.html[Specify a SortOrder for Tools in a ToolHorizontalWrapPanel]

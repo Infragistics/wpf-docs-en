@@ -1,0 +1,165 @@
+﻿////
+|metadata|
+{
+    "name": "persistence-handle-persistencesaved-and-persistenceloaded-events",
+    "controlName": ["IG Control Persistence Framework"],
+    "tags": ["Events","Persistence"],
+    "guid": "{F27B9249-269F-4A71-9E78-392C8BDFB658}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.6190326Z"
+}
+|metadata|
+////
+
+= Handle PersistenceSaved and PersistenceLoaded Events
+
+The link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~persistencesaved_ev.html[PersistenceSaved] and link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceevents~persistenceloaded_ev.html[PersistenceLoaded] events allow you to customize the persistence process. These events are fired only after all properties are saved or loaded.
+
+The PersistenceSaved event handler can be used to notify the application that the save process has completed. At this point, an indicator or a message can be displayed to inform your end user that this step was performed successfully.
+
+The PersistenceLoaded event handler can notify your end user that the loading of the control's settings has been completed. If there are exceptions during the load process, they can be caught and reported via the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceloadedeventargs.html[PersistenceLoadedEventArgs] event argument’s link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistenceloadedeventargs~propertyexceptions.html[PropertyExceptions] property. If the load process has completed successfully, a notification can be displayed.
+
+The following example will show you how to register and use events for a link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] object.
+
+[start=1]
+. Add a TextBox control named 'txtAccountName' in your XAML file.
+
+[start=2]
+. Add two buttons to execute the saving and loading process.
+
+[start=3]
+. Add the following in your page class in code-behind:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim memoryStream As New MemoryStream()
+Dim settings As New PersistenceSettings()
+' Counter for the saved properties
+Dim SavedPropertiesCount As Integer = 0
+----
++
+*In C#:*
++
+[source,csharp]
+----
+MemoryStream memoryStream = new MemoryStream();
+PersistenceSettings settings = new PersistenceSettings();
+// Counter for the saved properties
+int SavedPropertiesCount = 0;
+----
+
+[start=4]
+. Add the following code in the page constructor after the InitializeComponent method:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+' Registers events will be raised while saving and loading persistence group
+AddHandler settings.Events.SavePropertyPersistence, AddressOf Events_SavePropertyPersistence
+AddHandler settings.Events.PersistenceSaved, AddressOf Events_PersistenceSaved
+AddHandler settings.Events.PersistenceLoaded, AddressOf Events_PersistenceLoaded
+----
++
+*In C#:*
++
+[source,csharp]
+----
+// Registers events will be raised while saving and loading persistence group
+settings.Events.SavePropertyPersistence +=
+    new EventHandler<SavePropertyPersistenceEventArgs>(Events_SavePropertyPersistence);
+settings.Events.PersistenceSaved +=
+    new EventHandler<PersistenceSavedEventArgs>(Events_PersistenceSaved);
+settings.Events.PersistenceLoaded +=
+    new EventHandler<PersistenceLoadedEventArgs>(Events_PersistenceLoaded);
+----
+
+[start=5]
+. Add events handlers:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub BtnSave_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    memoryStream = PersistenceManager.Save(txtAccountName, settings)
+End Sub
+
+Private Sub Events_PersistenceSaved(ByVal sender As Object, ByVal e As PersistenceSavedEventArgs)
+    ' Notification for the save process completion
+    MessageBox.Show("Save process completed for " & SavedPropertiesCount.ToString() & " properties.")
+End Sub
+
+Private Sub BtnLoad_Click(ByVal sender As Object, ByVal e As RoutedEventArgs)
+    memoryStream.Position = 0
+    PersistenceManager.Load(txtAccountName, memoryStream, settings)
+End Sub
+
+Private Sub Events_PersistenceLoaded(ByVal sender As Object, ByVal e As PersistenceLoadedEventArgs)
+    Dim excCount As Integer = e.PropertyExceptions.Count
+    If excCount > 0 Then
+        For Each details As PropertyPersistenceExceptionDetails In e.PropertyExceptions
+        MessageBox.Show(("The property " & details.PropertyInfo.Name & " has invalid value.") + details.Exception.Message.ToString())
+        Next
+    End If
+End Sub
+
+Private Sub Events_SavePropertyPersistence(ByVal sender As Object, ByVal e As SavePropertyPersistenceEventArgs)
+    ' Count the properties being saved
+    SavedPropertiesCount += 1
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void BtnSave_Click(object sender, RoutedEventArgs e)
+{
+    memoryStream = PersistenceManager.Save(txtAccountName, settings);
+}
+
+private void Events_PersistenceSaved(object sender, PersistenceSavedEventArgs e)
+{
+    // Notification for the save process completion
+    MessageBox.Show("Save process completed for " + SavedPropertiesCount.ToString() + " properties.")
+}
+
+private void BtnLoad_Click(object sender, RoutedEventArgs e)
+{
+    memoryStream.Position = 0;
+    PersistenceManager.Load(txtAccountName, memoryStream, settings);
+}
+
+void Events_PersistenceLoaded(object sender, PersistenceLoadedEventArgs e)
+{
+    int excCount = e.PropertyExceptions.Count;
+    if (excCount > 0)
+    {
+        foreach (PropertyPersistenceExceptionDetails details in e.PropertyExceptions)
+        {
+            MessageBox.Show("The property " + details.PropertyInfo.Name + " has invalid value." + details.Exception.Message.ToString())
+        }
+    }
+}
+
+void Events_SavePropertyPersistence(object sender, SavePropertyPersistenceEventArgs e)
+{
+    // Count the properties being saved
+    ++SavedPropertiesCount;
+} 
+----
+
+*Related Topics*
+
+link:persistence-persistence-settings.html[Persistence Settings]
+
+link:persistence-exclude-specific-control-properties.html[Exclude Specific Control Properties]
+
+link:persistence-persistence-groups.html[Persistence Groups]
+
+link:persistence-persisting-specific-control-properties.html[Persisting Specific Control Properties]
+
+link:persistence-using-typeconverte.html[Using PropertyNamePersistenceInfo TypeConverter Property]

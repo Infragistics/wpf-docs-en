@@ -1,0 +1,327 @@
+﻿////
+|metadata|
+{
+    "name": "reswash-adding",
+    "controlName": ["Resource Washer"],
+    "tags": ["How Do I","Styling","Templating"],
+    "guid": "24025438-a4a0-4a12-9b81-0f30d2515261",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.2574036Z"
+}
+|metadata|
+////
+
+= Adding Resource Washer to Your Page
+
+== Topic Overview
+
+== Purpose
+
+This topic demonstrates how to add a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher.html[ResourceWasher]™ component to your application and use it for washing the colors defined in your resources.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:reswash-about.html[About Resource Washer]
+* link:reswash-using.html[Using Resource Washer]
+
+== ResourceWasher Configuration Overview
+
+== Control configuration chart
+
+The table below lists some of the configurable behaviors of the ResourceWasher component.
+
+[cols="a,a,a"]
+|====
+|*Configurable behavior*
+|*Configuration details*
+|*Configuration properties*
+
+|<<Adding,Adding ResourceWasher component to an application>>
+|Steps needed to add a ResourceWasher control to an application.
+|none
+
+|<<Modifying,Modifying the ResourceWasher>>
+|Configure the component.
+|link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~washcolor.html[WashColor] Property 
+
+link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~autowash.html[AutoWash] Property 
+
+link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~washmode.html[WashMode] Property 
+
+link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~sourcedictionary.html[SourceDictionary] Property 
+
+link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~setwashgroup.html[WashGroup] Property
+
+|====
+
+[[Adding]]
+== Adding ResourceWasher to an application
+
+. *Add the Infragistics namespace.*
+
+.. *Add required references*
++
+In order to use a ResourceWasher in your application you must add the {ApiPlatform}v{ProductVersion}.dll assembly to your project.
+
+.. *Add the Infragistics namespace*
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xamlThemes"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.Themes
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.Themes;
+----
+
+. Adding ResourceWasher component to an application.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim resourceWasher As ResourceWasher = New ResourceWasher()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+ResourceWasher resourceWasher = new ResourceWasher();
+----
+
+[[Modifying]]
+== Modifying the ResourceWasher
+
+The following table maps the desired configurations to property settings. The properties are directly accessed from the ResourceWasher class.
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And set it to…*
+
+|<<WashColor,Define the color that used in washing resources>>
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~washcolor.html[WashColor]
+|A System.Windows.Media.Color of your choosing
+
+|<<AutoWash,Set the moment the washing process will start>>
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~autowash.html[AutoWash]
+|A Boolean that determines if the process will start automatically
+
+|<<WashMode,Set the type of the color change applied>>
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~washmode.html[WashMode]
+|An enum value of type WashMode
+
+|<<SourceDictionary,Set the source dictionary to be used in the process>>
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~sourcedictionary.html[SourceDictionary]
+|A dictionary that contains the resources to be washed
+
+|<<WashGroups,Use different wash colors and modes for different elements in one dictionary>>
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.themes.resourcewasher~washgroups.html[WashGroups]
+|A WashGroupCollection object
+
+|====
+
+== Modifying the ResourceWasher details
+
+[[WashColor]]
+[start=1]
+. *Define the color that used in washing resources.*
++
+An important part of setting up the ResourceWasher component is to set the color used in the process:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher WashColor="[your color]" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+resourceWasher.WashColor = [your color]
+----
++
+*In C#:*
++
+[source,csharp]
+----
+resourceWasher.WashColor = [your color];
+----
+
+[[AutoWash]]
+[start=2]
+. *Set the moment the washing process will start.*
++
+If you want the resources to be processed immediately after they are loaded then you set the AutoWash property to true:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher AutoWash="True" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+resourceWasher.AutoWash = True
+----
++
+*In C#:*
++
+[source,csharp]
+----
+resourceWasher.AutoWash = true;
+----
++
+If you want to start the washing process manually, set the AutoWash property to false and call the WashResources method in your code:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+resourceWasher.WashResources()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+resourceWasher.WashResources();
+----
++
+[[WashMode]]
+[start=3]
+. *Set the type of the color change applied.*
++
+There are two methods for color washing supported by the ResourceWasher – HueSaturationReplacement and SoftLightBlend. Set the WashMode property of the ResourceWasher to the method of your choice:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher WashMode="SoftLightBlend" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+resourceWasher.WashMode = WashMode.SoftLightBlend
+----
++
+*In C#:*
++
+[source,csharp]
+----
+resourceWasher.WashMode = WashMode.SoftLightBlend;
+----
+
+[[SourceDictionary]]
+[start=4]
+. *Set the source dictionary to be used in the process*
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher.SourceDictionary>
+    <ig:ResourceWasher Source="[your dictionary]" />
+<ig:ResourceWasher.SourceDictionary>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+resourceWasher.SourceDictionary = [your dictionary]
+----
++
+*In C#:*
++
+[source,csharp]
+----
+resourceWasher.SourceDictionary = [your dictionary];
+----
+
+[[WashGroups]]
+[start=5]
+. *Use different wash colors and modes for different elements in one dictionary.*
++
+In order to wash different elements with different wash setting (or exclude some elements from washing), you must define elements in groups using the attached property ig:ResourceWasher.WashGroup. In order to exclude a group from washing you can set the ig:ResourceWasher.IsExcludedFromWash to true:
++
+*In XAML:*
++
+[source,xaml]
+----
+<Page.Resources>
+    <SolidColorBrush x:Key="Background1" Color="Wheat"
+        ig:ResourceWasher.WashGroup="WashGroup1"
+        ig:ResourceWasher.IsExcludedFromWash="False" />        
+    <SolidColorBrush x:Key="Background2" Color="BlueViolet"          
+        ig:ResourceWasher.WashGroup="WashGroup2"                 
+        ig:ResourceWasher.IsExcludedFromWash="False" />        
+    <SolidColorBrush x:Key="Background3" Color="Honeydew"
+        ig:ResourceWasher.WashGroup="WashGroup3"
+        ig:ResourceWasher.IsExcludedFromWash="True" />        
+    <SolidColorBrush x:Key="Background4" Color="Orange"
+        ig:ResourceWasher.WashGroup="WashGroup4"
+        ig:ResourceWasher.IsExcludedFromWash="False" />
+</Page.Resources>
+----
++
+Once the wash groups are defined in the resources you can add them in a WashGroupCollection and set it to the component's WashGroups property:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:ResourceWasher WashColor="Red"> 
+   <ig:ResourceWasher.WashGroups>  
+      <ig:WashGroupCollection>   
+         <!--This one will be washed in Red-->   
+         <ig:WashGroup Name="WashGroup1" />   
+         <!--This one will override the Red and will be washed in Blue-->   
+         <ig:WashGroup Name="WashGroup2" WashColor="Blue" />   
+         <!--This one will NOT be washed at all because it is defined as IsExcludedFromWash="True"-->   
+         <ig:WashGroup Name="WashGroup3" />   
+         <!--WashGroup4 will be washed in red as it is a part of the ResourceDictionary
+         being Washed-->  
+      </ig:WashGroupCollection> 
+   </ig:ResourceWasher.WashGroups>
+</ig:ResourceWasher>
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+link:reswash-about.html[About Resource Washer]
+
+link:reswash-using.html[Using Resource Washer]

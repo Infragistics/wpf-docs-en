@@ -1,0 +1,333 @@
+﻿////
+|metadata|
+{
+    "name": "developers-guide-ui-automation-support",
+    "controlName": [],
+    "tags": ["Events","How Do I","Section 508"],
+    "guid": "3c39826b-d7cb-487c-8868-ab24cac4ab6d",
+    "buildFlags": ["wpf","sl"],
+    "createdOn": "2012-01-30T15:17:19.591601Z"
+}
+|metadata|
+////
+
+= UI Automation Support
+
+The {ProductName} suite of controls fully support Microsoft® UI Automation. The UI Automation framework allows for assistive technology products, such as screen readers, to access the UI elements of applications and provide this information to end users with disabilities.
+
+Another key use of UI Automation is automated testing; the framework allows test scripts to access and interact with the UI elements.
+
+For more information about UI Automation, see this Microsoft link:http://msdn.microsoft.com/en-us/library/ms747327.aspx[website].
+
+The {ProductName} UI controls support UI Automation in the following ways:
+
+* Each of the controls has peer classes that derive from the AutomationPeer class.
+
+The following code shows the xamRadialGauge™ control's GaugeAutomationPeer.
+
+*In Visual Basic:*
+[source,vb]
+----
+Public Class GaugeAutomationPeer
+    Inherits FrameworkElementAutomationPeer
+----
+
+*In C#:*
+[source,cs]
+----
+public class GaugeAutomationPeer : FrameworkElementAutomationPeer
+----
+
+* Each of the control's peer classes override the Core methods and implement appropriate UI automated patterns. For more information on Control Patterns, see this Microsoft link:http://msdn.microsoft.com/en-us/library/ms743073.aspx[website].
+* Each of the {ProductName} UI controls overrides the OnCreateAutomationPeer method. The following example demonstrates the xamRadialGauge control.
+
+*In Visual Basic:*
+[source,vb]
+----
+Protected Overrides Function OnCreateAutomationPeer() As AutomationPeer
+    Return New GaugeAutomationPeer(Me)
+End Function
+----
+
+*In C#:*
+[source,cs]
+----
+protected override AutomationPeer OnCreateAutomationPeer()
+{
+   return new GaugeAutomationPeer(this);
+}
+----
+
+* The automation clients raise automation events that notify their changing states or properties. For more information on UI Automation Events, see this Microsoft link:http://msdn.microsoft.com/en-us/library/ms748252.aspx[website]. The following code demonstrates the event handler for the event that is raised when the Value of xamRadialGauge's Needle is changed.
+
+*_In the peer class_*
+
+*In Visual Basic:*
+[source,vb]
+----
+Public Sub New(needle As RadialGaugeNeedle)
+    MyBase.New(needle)
+    Me.Needle = needle
+    Me.Needle.ValueChanged += New EventHandler(Of ValueChangedEventArgs)(AddressOf Needle_ValueChanged)
+End Sub
+Private Sub Needle_ValueChanged(sender As Object, e As ValueChangedEventArgs)
+    Me.RaiseValueChangedEvent(e.NewValue)
+End Sub
+Private Sub RaiseValueChangedEvent(newValue As Double)
+    If ListenerExists(AutomationEvents.PropertyChanged) Then
+        Me.RaisePropertyChangedEvent(RangeValuePatternIdentifiers.ValueProperty, 0.0, newValue)
+    End If
+End Sub
+----
+
+*In C#:*
+[source,cs]
+----
+public RadialGaugeNeedleAutomationPeer(RadialGaugeNeedle needle)
+:
+    base(needle)
+{
+    this.Needle = needle;
+    this.Needle.ValueChanged += 
+        new EventHandler<ValueChangedEventArgs>(Needle_ValueChanged);
+}
+private void Needle_ValueChanged(object sender, ValueChangedEventArgs e)
+{
+    this.RaiseValueChangedEvent(e.NewValue);
+}
+private void RaiseValueChangedEvent(double newValue)
+{
+    if (ListenerExists(AutomationEvents.PropertyChanged))
+    {
+        this.RaisePropertyChangedEvent
+          (RangeValuePatternIdentifiers.ValueProperty, 0.0, newValue);
+    }
+}
+----
+
+*_In the Client Application_*
+
+*In Visual Basic:*
+[source,vb]
+----
+' Create a new instance for EventHandler for the PropertyChanged event
+Dim valueEvent As New AutomationPropertyChangedEventHandler(AddressOf SampleEventHandler)
+' Add EventHandler for PropertyChanged event for the Value property
+Automation.AddAutomationPropertyChangedEventHandler(needleElement, TreeScope.Subtree, valueEvent, RangeValuePattern.ValueProperty)
+' The EventHandler
+Private Sub SampleEventHandler(sender As Object, e As AutomationPropertyChangedEventArgs)
+    If e.[Property] = RangeValuePattern.ValueProperty Then
+        MessageBox.Show([String].Format("New value = {0}", e.NewValue))
+    End If
+End Sub
+----
+
+*In C#:*
+[source,cs]
+----
+// Create a new instance for EventHandler for the PropertyChanged event
+AutomationPropertyChangedEventHandler valueEvent = 
+    new AutomationPropertyChangedEventHandler(SampleEventHandler);
+// Add EventHandler for PropertyChanged event for the Value property
+Automation.AddAutomationPropertyChangedEventHandler
+    (needleElement, TreeScope.Subtree, valueEvent, RangeValuePattern.ValueProperty);
+// The EventHandler
+private void SampleEventHandler(object sender, AutomationPropertyChangedEventArgs e)
+{
+    if (e.Property == RangeValuePattern.ValueProperty)
+    {
+        MessageBox.Show(String.Format("New value = {0}", e.NewValue));
+    }
+}
+----
+
+* Applications such as UISpy (for more information, see this link:http://msdn.microsoft.com/en-us/library/ms727247.aspx[website]) and custom automation clients can access Infragistics components in {PlatformName} applications.
+
+Click on the following API links to see each control's automation peer classes.
+
+** link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.automation.peers.editors_namespace.html[Editors]
+** link:{ApiPlatform}controls.barcodes.v{ProductVersion}~infragistics.controls.barcodes.automationpeers_namespace.html[xamBarcode]
+** link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.automationpeers_namespace.html[xamBulletGraph]
+** link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamDialogWindow]
+** link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamGrid]
+** link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamSlider]
+** link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.automationpeers_namespace.html[xamDataChart]
+** link:{ApiPlatform}controls.charts.xamgauge.v{ProductVersion}~infragistics.controls.charts.automationpeers_namespace.html[xamGauge]
+** link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.automationpeers_namespace.html[xamMap]
+** link:{ApiPlatform}controls.menus.xammenu.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamMenu]
+** link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.automationpeers_namespace.html[xamPivotGrid]
+** link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamPropertyGrid]
+** link:{ApiPlatform}controls.editors.xamslider.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamSlider]
+** link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamSpellChecker]
+** link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamSyntaxEditor]
+** link:{ApiPlatform}v{ProductVersion}~infragistics.automationpeers_namespace.html[xamTabControl]
+** link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamTileManager]
+** link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.automationpeers_namespace.html[xamTimeline]
+** link:{ApiPlatform}controls.menus.xamtagcloud.v{ProductVersion}~infragistics.automationpeers_namespace.html[xamTagCloud]
+** link:{ApiPlatform}controls.charts.xamtreemap.v{ProductVersion}~infragistics.controls.charts.automationpeers_namespace.html[xamTreemap]
+
+== Example
+
+The following example demonstrates how automation clients can access {ProductName} components using custom automation clients.
+
+The following is a simple {PlatformName} application with a xamRadialGauge.
+
+*In XAML:*
+[source,xaml]
+----
+<UserControl x:Class="UIAutomationSample.MainPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ig="http://schemas.infragistics.com/xaml">
+    <Grid x:Name="LayoutRoot">
+        <ig:XamRadialGauge>
+            <ig:XamRadialGauge.Scales>
+                <ig:RadialGaugeScale StartValue="0"
+                                     EndValue="100"
+                                     Interval="10"
+                                     StartAngle="135"
+                                     EndAngle="405">
+                    <ig:RadialGaugeScale.LabelGroups>
+                        <ig:RadialGaugeLabelGroup />
+                    </ig:RadialGaugeScale.LabelGroups>
+                    <ig:RadialGaugeScale.Needles>
+                        <ig:RadialGaugeNeedle Value="50" AutomationProperties.AutomationId="RadialNeedle" />
+                    </ig:RadialGaugeScale.Needles>
+                </ig:RadialGaugeScale>
+            </ig:XamRadialGauge.Scales>
+        </ig:XamRadialGauge>
+    </Grid>
+</UserControl>
+----
+
+*_WPF Automation Client:_*
+
+*In XAML:*
+[source,xaml]
+----
+<Window x:Class="WpfAutomationClient.Window"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Automation Clien Window"
+        Height="300"
+        Width="300">
+    <StackPanel>
+        <TextBlock Text="Automation ID:" FontWeight="Bold" />
+        <TextBox x:Name="txtAutomationId" Text="RadialNeedle" />
+        <Button x:Name="btnAutomate" Click="btnAutomate_Click" 
+                Content="Connect" Margin="0,15,0,0" />
+        <TextBlock Text="Status:" FontWeight="Bold"
+                   Margin="0,15,0,0" />
+        <TextBlock x:Name="lblStatus" Text="Disconnected" />
+    </StackPanel>
+</Window>
+----
+
+Implementation of the event handler, which searches the sample {PlatformName} application for Radial Gauge Needle instances with the specified AutomationId. When it finds one, it sets its value to 20.
+
+*In Visual Basic:*
+[source,vb]
+----
+Private Sub btnAutomate_Click(sender As Object, e As RoutedEventArgs)
+    Dim process__1 As Process = Process.GetProcessesByName("iexplore").FirstOrDefault()
+    If process__1 Is Nothing Then
+        lblStatus.Text = "Interned Explorer is not running."
+        Return
+    End If
+    Dim browserInstance As AutomationElement = AutomationElement.FromHandle(process__1.MainWindowHandle)
+    Dim automationId As [String] = txtAutomationId.Text.Trim()
+    Dim treeWalker As New TreeWalker(New PropertyCondition(AutomationElement.AutomationIdProperty, automationId))
+    Dim needleElement As AutomationElement = treeWalker.GetFirstChild(browserInstance)
+    If needleElement Is Nothing Then
+        lblStatus.Text = "Can't find a Radial Gauge Needle."
+        Return
+    End If
+    Dim pattern As RangeValuePattern = TryCast(needleElement.GetCurrentPattern(RangeValuePattern.Pattern), RangeValuePattern)
+    If pattern Is Nothing Then
+        lblStatus.Text = "RangeValuePattern is not implemented."
+        Return
+    End If
+    pattern.SetValue(20)
+    lblStatus.Text = "Radial Gauge Needle Changed."
+End Sub
+----
+
+*In C#:*
+[source,cs]
+----
+private void btnAutomate_Click(object sender, RoutedEventArgs e)
+{
+    Process process = Process.GetProcessesByName("iexplore").FirstOrDefault();
+    if (process == null)
+    {
+        lblStatus.Text = "Interned Explorer is not running.";
+        return;
+    }
+    AutomationElement browserInstance = 
+        AutomationElement.FromHandle(process.MainWindowHandle);
+    String automationId = txtAutomationId.Text.Trim();
+    TreeWalker treeWalker = new TreeWalker(
+        new PropertyCondition
+         (AutomationElement.AutomationIdProperty, automationId));
+    AutomationElement needleElement = treeWalker.GetFirstChild(browserInstance);
+    if (needleElement == null)
+    {
+        lblStatus.Text = "Can't find a Radial Gauge Needle.";
+        return;
+    }
+    RangeValuePattern pattern = needleElement.GetCurrentPattern
+        (RangeValuePattern.Pattern) as RangeValuePattern;
+    if (pattern == null)
+    {
+        lblStatus.Text = "RangeValuePattern is not implemented.";
+        return;
+    }
+    pattern.SetValue(20);
+    lblStatus.Text = "Radial Gauge Needle Changed.";
+}
+----
+
+== Example
+
+The following example demonstrates how to use the test automation peer classes via the Infragistics unit test framework, based on WebAii for ASP.Net.
+
+*In Visual Basic:*
+[source,vb]
+----
+<TestMethod> _
+<Description("Validates the existance of a Radial Gauge Needle's RangeValuePattern.")> _
+Public Sub Validate_RadialNeedle_RangeValuePattern()
+    ' Create a Radial Gauge.
+    Dim myRadialGauge As XamRadialGauge = LoadRadialGaugeProperties()
+    ' Get the Radial Gauge's Needle.
+    Dim needle As RadialGaugeNeedle = myRadialGauge.Scales(0).Needles(0)
+    Me.UIThread.[Do](Function() 
+        Dim peer As RadialGaugeNeedleAutomationPeer = DirectCast(RadialGaugeNeedleAutomationPeer.CreatePeerForElement(needle), RadialGaugeNeedleAutomationPeer)
+        Dim rangeValueProvider As IRangeValueProvider = DirectCast(peer.GetPattern(PatternInterface.RangeValue), IRangeValueProvider)
+        Assert.IsNotNull(rangeValueProvider)
+    End Function)
+    Thread.Sleep(1000)
+End Sub
+----
+
+*In C#:*
+[source,cs]
+----
+[TestMethod]
+[Description("Validates the existance of a Radial Gauge Needle's RangeValuePattern.")]
+public void Validate_RadialNeedle_RangeValuePattern()
+{
+    // Create a Radial Gauge.
+    XamRadialGauge myRadialGauge = LoadRadialGaugeProperties();
+    // Get the Radial Gauge's Needle.
+    RadialGaugeNeedle needle = myRadialGauge.Scales[0].Needles[0];
+    this.UIThread.Do(() =>
+    {
+        RadialGaugeNeedleAutomationPeer peer =  (RadialGaugeNeedleAutomationPeer)RadialGaugeNeedleAutomationPeer.CreatePeerForElement
+(needle);
+        IRangeValueProvider rangeValueProvider = (IRangeValueProvider)peer.GetPattern(PatternInterface.RangeValue);
+        Assert.IsNotNull(rangeValueProvider);
+    });
+    Thread.Sleep(1000);
+}
+----

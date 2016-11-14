@@ -1,0 +1,141 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcomboeditor-bind-xamcomboeditor-to-a-dataset",
+    "controlName": ["xamComboEditor"],
+    "tags": ["How Do I"],
+    "guid": "{CEE8AA60-7B8B-40EC-84C5-0E17E4D1939E}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.0869781Z"
+}
+|metadata|
+////
+
+= Bind xamComboEditor to a DataSet
+
+== Before You Begin
+
+You can bind xamComboEditor™ to several different data sources, including a DataSet. If you want to bind xamComboEditor to a DataSet using Extensible Application Markup Language (XAML), you can create an ObjectDataProvider that returns a DataSet instead of a collection of business objects. The XAML declaration required for this implementation would be very similar to the XAML declaration for link:xamcomboeditor-bind-xamcomboeditor-to-a-collection.html[binding xamComboEditor to a collection]. However, to cut down on redundant information, the steps below will use procedural code to bind xamComboEditor to a DataSet.
+
+You will have to link:creating-a-flat-dataset.html[Create a Flat DataSet] if you want to follow the examples in the steps below.
+
+== What You Will Accomplish
+
+You will declaratively create a xamComboEditor control and a ComboBoxItemsProvider object using XAML. You will then write procedural code to bind xamComboEditor to a DataSet.
+
+== Follow these Steps
+
+[start=1]
+. Add a xamComboEditor to your Window and name it.
+
+*In XAML:*
+
+----
+...
+<igEditors:XamComboEditor Name="xamComboEditor1" VerticalAlignment="Top">
+</igEditors:XamComboEditor>
+...
+----
+
+[start=2]
+. Add a ComboBoxItemsProvider to xamComboEditor.
+
+The xamComboEditor will not create an instance of a ComboBoxItemsProvider object automatically. You have to either declare a ComboBoxItemsProvider in XAML or set xamComboEditor's ItemsProvider property to an instance of a ComboBoxItemsProvider in the code-behind.
+
+*In XAML:*
+
+----
+...
+<igEditors:XamComboEditor.ItemsProvider>
+        <igEditors:ComboBoxItemsProvider />
+</igEditors:XamComboEditor.ItemsProvider>
+...
+----
+
+[start=3]
+. Attach an event handler for the Loaded event of your Window.
+
+*In XAML:*
+
+----
+<Window … Loaded="Window_Loaded" ...>
+----
+
+[start=4]
+. In the code-behind, create a method named 'Window_Loaded' to handle the Window's Load event.
+
+*In Visual Basic:*
+
+----
+Private Sub Window_Loaded(ByVal sender As Object, ByVal e As RoutedEventArgs) 
+            'TODO: Set the data source of your controls here
+End Sub
+----
+
+*In C#:*
+
+----
+private void Window_Loaded(object sender, RoutedEventArgs e)
+{
+            //TODO: Set the data source of your controls here
+}
+----
+
+[start=5]
+. Set the ItemsSource property of the ItemsProvider object to the DefaultView property of the first Table in the flat DataSet.
+
+You can set properties of the ItemsProvider object because you set the ItemsProvider property of xamComboEditor to a new instance of a ComboBoxItemsProvider object in XAML. If you had not done so, you would have to set the ItemsProvider property of xamComboEditor to an instance of a ComboBoxItemsProvider before setting any properties off the ItemsProvider object.
+
+*In Visual Basic:*
+
+----
+...
+Me.xamComboEditor1.ItemsProvider.ItemsSource = Me.exampleDataSet.Tables(0).DefaultView
+...
+----
+
+*In C#:*
+
+----
+...
+this.xamComboEditor1.ItemsProvider.ItemsSource = this.exampleDataSet.Tables[0].DefaultView;
+...
+----
+
+[start=6]
+. Set the DisplayMemberPath property of the ComboBoxItemsProvider object to the string ContactName.
+
+The DisplayMemberPath property determines the display value as well as the value that is stored in the Text property of xamComboEditor.
+
+*In Visual Basic:*
+
+----
+itemsProvider1.DisplayMemberPath = "ContactName"
+----
+
+*In C#:*
+
+----
+itemsProvider1.DisplayMemberPath = "ContactName";
+----
+
+[start=7]
+. Set the ValuePath property of the ComboBoxItemsProvider object to the string CustomerID.
+
+The ValuePath property determines the value that is stored in the Value property of xamComboEditor. If the ValuePath property points to a property or DataColumn that has a data type of string, there is no need to set the ValueType property of xamComboEditor explicitly. If the ValueType property is not set, it will default to a data type of string.
+
+*In Visual Basic:*
+
+----
+itemsProvider1.ValuePath = "CustomerID"
+----
+
+*In C#:*
+
+----
+itemsProvider1.ValuePath = "CustomerID";
+----
+
+[start=8]
+. Run the project and click on the xamComboEditor control to display a drop-down list of customers from the Northwind database.

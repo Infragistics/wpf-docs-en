@@ -1,0 +1,49 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtreemap-about-node-binding",
+    "controlName": ["xamTreemap"],
+    "tags": ["Charting","Data Binding","How Do I"],
+    "guid": "106b97a2-b481-4da0-8a30-e94d5c2ffe68",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.891392Z"
+}
+|metadata|
+////
+
+= About xamTreemap Node Binding
+
+== Before You Begin
+
+The xamTreemap™ control displays hierarchical (tree-structured) data as a set of nested nodes. Each branch of the tree is given a treemap node, which is then tiled with smaller nodes representing sub-branches.
+
+When you pass data to the xamTreemap control, it needs to understand the data and know which nodes to display. This is done using link:{ApiPlatform}controls.charts.xamtreemap.v{ProductVersion}~infragistics.controls.charts.nodebinder.html[Node Binders].
+
+== Example
+
+Here is an example of a NodeBinder defined using XAML code:
+
+*In XAML:*
+
+----
+<ig:NodeBinder 
+        TargetTypeName="Manufacturer"
+        ValuePath="Revenue" 
+        TextPath="Name" 
+        ItemsSourcePath="Products" />
+----
+
+== Understanding the Example
+
+The NodeBinder from the example will tell the xamTreemap control to create nodes for all Manufacturer items from the data source. The size of the nodes will depend on the Revenue property of each item. The Name of each Manufacturer will be displayed as a header for each node. The xamTreemap control will display the Products of each Manufacturer as child items (a NodeBinder has to be defined for the Product items).
+
+Note that if you don’t specify an ItemsSourcePath, the xamTreemap control won’t look for any child nodes.
+
+In some scenarios the child elements of a hierarchical data source are of the same type as the parent element (nesting of like types). In this case one NodeBinder specified for this type will manage the nesting of the items.
+
+== Related Topics
+
+link:xamtreemap-node-binders.html[Node Binders]
+
+link:xamtreemap-about-value-mapping.html[About xamTreemap Value Mapping]

@@ -1,0 +1,313 @@
+﻿////
+
+|metadata|
+{
+    "name": "igexcelengine-creating-excel-named-table-code-example",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["How Do I"],
+    "guid": "b956527a-7a86-4671-b403-cacbee719fec",  
+    "buildFlags": [],
+    "createdOn": "2012-03-28T14:18:06.7744333Z"
+}
+|metadata|
+////
+
+= Creating Named Table Code Example (Infragistics Excel Engine)
+
+=== Description
+
+The code below returns a Workbook object, containing a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheettable_members.html[WorksheetTable] named  _Patients_  . This table is used in several code examples.
+
+=== Code
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports System.Collections.Generic
+Imports Infragistics.Documents.Excel
+Namespace ExcelDefaultFont
+    Public Class ExcelExampleTable
+        Public Shared Function CreateExampleWorkbook() As Workbook
+            Dim workbook As Workbook = New Infragistics.Documents.Excel.Workbook(Infragistics.Documents.Excel.WorkbookFormat.Excel2007)
+            Dim worksheet As Worksheet = workbook.Worksheets.Add("WorksheetSorting")
+            ' Add data to worksheet for column header
+            worksheet.Rows(0).Cells(0).Value = "First Name"
+            worksheet.Rows(0).Cells(1).Value = "Last Name"
+            worksheet.Rows(0).Cells(2).Value = "DOB"
+            worksheet.Rows(0).Cells(3).Value = "YOB"
+            worksheet.Rows(0).Cells(4).Value = "Acceptance Date"
+            worksheet.Rows(0).Cells(5).Value = "Severity"
+            worksheet.Columns(2).Width = 3000
+            worksheet.Columns(4).Width = 3000
+            ' Fill example data
+            Dim patients As List(Of Patient) = GetExamplePatients()
+            Dim currentRow As Integer = 1
+            Dim worksheetRow As Infragistics.Documents.Excel.WorksheetRow
+            For Each patient As Patient In patients
+                Dim currentCell As Integer = 0
+                worksheetRow = worksheet.Rows(currentRow)
+                worksheetRow.Cells(currentCell).Value = patient.FirstName
+                worksheetRow.Cells(System.Threading.Interlocked.Increment(currentCell)).Value = patient.LastName
+                worksheetRow.Cells(System.Threading.Interlocked.Increment(currentCell)).Value = DateTime.Parse(patient.DOB.ToShortDateString())
+                worksheetRow.Cells(System.Threading.Interlocked.Increment(currentCell)).Value = Integer.Parse(patient.DOB.Year.ToString())
+                worksheetRow.Cells(System.Threading.Interlocked.Increment(currentCell)).Value = DateTime.Parse(patient.AcceptanceDate.ToShortDateString())
+                worksheetRow.Cells(System.Threading.Interlocked.Increment(currentCell)).Value = patient.Severity
+                currentRow += 1
+            Next
+            Dim region As New Infragistics.Documents.Excel.WorksheetRegion(worksheet, 0, 0, (currentRow - 1), 5)
+            Dim table As Infragistics.Documents.Excel.WorksheetTable = region.FormatAsTable(True)
+            table.Name = "Patients"
+            Return workbook
+        End Function
+        Private Shared Function GetExamplePatients() As List(Of Patient)
+            Dim patients As New List(Of Patient)()
+            patients.Add(New Patient() With {
+             .FirstName = "John",
+             .LastName = "Rizzo",
+             .DOB = New DateTime(1964, 1, 20),
+             .AcceptanceDate = New DateTime(2012, 4, 17),
+             .Severity = "Low"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Arnie", 
+             .LastName = "Smith",
+             .DOB = New DateTime(1958, 4, 7),
+             .AcceptanceDate = New DateTime(2012, 1, 8),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "John",
+             .LastName = "Young",
+             .DOB = New DateTime(1967, 11, 22),
+             .AcceptanceDate = New DateTime(2012, 11, 14),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Jack",
+             .LastName = "Cruz",
+             .DOB = New DateTime(1981, 3, 27),
+             .AcceptanceDate = New DateTime(2012, 5, 25),
+             .Severity = "Medium"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Rose",
+             .LastName = "Burns",
+             .DOB = New DateTime(1978, 7, 7),
+             .AcceptanceDate = New DateTime(2012, 6, 2),
+             .Severity = "Low"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "June", 
+             .LastName = "Lewis", 
+             .DOB = New DateTime(1979, 2, 1),
+             .AcceptanceDate = New DateTime(2012, 11, 2),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Scott",
+             .LastName = "Jones",
+             .DOB = New DateTime(1982, 6, 5),
+             .AcceptanceDate = New DateTime(2012, 12, 6),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Moses",
+             .LastName = "Perez",
+             .DOB = New DateTime(1961, 5, 26),
+             .AcceptanceDate = New DateTime(2012, 3, 26),
+             .Severity = "Low"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Duncan",
+             .LastName = "Copper",
+             .DOB = New DateTime(1961, 10, 13),
+             .AcceptanceDate = New DateTime(2012, 4, 16),
+             .Severity = "Medium"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Derek",
+             .LastName = "Pierce",
+             .DOB = New DateTime(1954, 4, 17),
+             .AcceptanceDate = New DateTime(2012, 8, 25),
+             .Severity = "Low"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Tim",
+             .LastName = "Stevens",
+             .DOB = New DateTime(1957, 10, 21),
+             .AcceptanceDate = New DateTime(2012, 2, 3),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Donna",
+             .LastName = "Collins",
+             .DOB = New DateTime(1984, 8, 7),
+             .AcceptanceDate = New DateTime(2012, 9, 13),
+             .Severity = "High"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "James",
+             .LastName = "Manning",
+             .DOB = New DateTime(1954, 9, 20),
+             .AcceptanceDate = New DateTime(2012, 8, 13),
+             .Severity = "Low"
+            })
+            patients.Add(New Patient() With {
+             .FirstName = "Jose",
+             .LastName = "Dotel",
+             .DOB = New DateTime(1945, 10, 23),
+             .AcceptanceDate = New DateTime(2012, 4, 11),
+             .Severity = "Low"
+            })
+            Return patients
+        End Function
+        Public Class Patient
+            Public Property FirstName() As String
+                Get
+                    Return m_FirstName
+                End Get
+                Set(value As String)
+                    m_FirstName = Value
+                End Set
+            End Property
+            Private m_FirstName As String
+            Public Property LastName() As String
+                Get
+                    Return m_LastName
+                End Get
+                Set(value As String)
+                    m_LastName = Value
+                End Set
+            End Property
+            Private m_LastName As String
+            Public Property DOB() As DateTime
+                Get
+                    Return m_DOB
+                End Get
+                Set(value As DateTime)
+                    m_DOB = Value
+                End Set
+            End Property
+            Private m_DOB As DateTime
+            Public Property AcceptanceDate() As DateTime
+                Get
+                    Return m_AcceptanceDate
+                End Get
+                Set(value As DateTime)
+                    m_AcceptanceDate = Value
+                End Set
+            End Property
+            Private m_AcceptanceDate As DateTime
+            Public Property Severity() As String
+                Get
+                    Return m_Severity
+                End Get
+                Set(value As String)
+                    m_Severity = Value
+                End Set
+            End Property
+            Private m_Severity As String
+        End Class
+    End Class
+End Namespace
+----
+
+*In C#:*
+
+[source,csharp]
+----
+Code
+using System;
+using System.Collections.Generic;
+using Infragistics.Documents.Excel;
+namespace ExcelDefaultFont
+{
+    public class ExcelExampleTable
+    {
+        public static Workbook CreateExampleWorkbook()
+        {
+            Workbook workbook = new Infragistics.Documents.Excel.Workbook(Infragistics.Documents.Excel.WorkbookFormat.Excel2007);
+            Worksheet worksheet = workbook.Worksheets.Add("WorksheetSorting");
+            // Add data to worksheet for column header
+            worksheet.Rows[0].Cells[0].Value = "First Name";
+            worksheet.Rows[0].Cells[1].Value = "Last Name";
+            worksheet.Rows[0].Cells[2].Value = "DOB";
+            worksheet.Rows[0].Cells[3].Value = "YOB";
+            worksheet.Rows[0].Cells[4].Value = "Acceptance Date";
+            worksheet.Rows[0].Cells[5].Value = "Severity";
+            worksheet.Columns[2].Width = 3000;
+            worksheet.Columns[4].Width = 3000;
+            // Fill example data
+            List<Patient> patients = GetExamplePatients();
+            int currentRow = 1;
+            Infragistics.Documents.Excel.WorksheetRow worksheetRow;
+            foreach (Patient patient in patients)
+            {
+                int currentCell = 0;
+                worksheetRow = worksheet.Rows[currentRow];
+                worksheetRow.Cells[currentCell].Value = patient.FirstName;
+                worksheetRow.Cells[++currentCell].Value = patient.LastName;
+                worksheetRow.Cells[++currentCell].Value = DateTime.Parse(patient.DOB.ToShortDateString());
+                worksheetRow.Cells[++currentCell].Value = int.Parse(patient.DOB.Year.ToString());
+                worksheetRow.Cells[++currentCell].Value = DateTime.Parse(patient.AcceptanceDate.ToShortDateString());
+                worksheetRow.Cells[++currentCell].Value = patient.Severity;
+                currentRow++;
+            }
+            Infragistics.Documents.Excel.WorksheetRegion region = new Infragistics.Documents.Excel.WorksheetRegion(worksheet, 0, 0, (currentRow - 1), 5);
+            Infragistics.Documents.Excel.WorksheetTable table = region.FormatAsTable(true);
+            table.Name = "Patients";
+            return workbook;
+        }
+        private static List<Patient> GetExamplePatients()
+        {
+            List<Patient> patients = new List<Patient>();
+            patients.Add(new Patient { FirstName = "John", LastName = "Rizzo", DOB = new DateTime(1964, 1, 20), AcceptanceDate = new DateTime(2012, 4, 17), Severity = "Low" });
+            patients.Add(new Patient { FirstName = "Arnie", LastName = "Smith", DOB = new DateTime(1958, 4, 7), AcceptanceDate = new DateTime(2012, 1, 8), Severity = "High" });
+            patients.Add(new Patient { FirstName = "John", LastName = "Young", DOB = new DateTime(1967, 11, 22), AcceptanceDate = new DateTime(2012, 11, 14), Severity = "High" });
+            patients.Add(new Patient { FirstName = "Jack", LastName = "Cruz", DOB = new DateTime(1981, 3, 27), AcceptanceDate = new DateTime(2012, 5, 25), Severity = "Medium" });
+            patients.Add(new Patient { FirstName = "Rose", LastName = "Burns", DOB = new DateTime(1978, 7, 7), AcceptanceDate = new DateTime(2012, 6, 2), Severity = "Low" });
+            patients.Add(new Patient { FirstName = "June", LastName = "Lewis", DOB = new DateTime(1979, 2, 1), AcceptanceDate = new DateTime(2012, 11, 2), Severity = "High" });
+            patients.Add(new Patient { FirstName = "Scott", LastName = "Jones", DOB = new DateTime(1982, 6, 5), AcceptanceDate = new DateTime(2012, 12, 6), Severity = "High" });
+            patients.Add(new Patient { FirstName = "Moses", LastName = "Perez", DOB = new DateTime(1961, 5, 26), AcceptanceDate = new DateTime(2012, 3, 26), Severity = "Low" });
+            patients.Add(new Patient { FirstName = "Duncan", LastName = "Copper", DOB = new DateTime(1961, 10, 13), AcceptanceDate = new DateTime(2012, 4, 16), Severity = "Medium" });
+            patients.Add(new Patient { FirstName = "Derek", LastName = "Pierce", DOB = new DateTime(1954, 4, 17), AcceptanceDate = new DateTime(2012, 8, 25), Severity = "Low" });
+            patients.Add(new Patient { FirstName = "Tim", LastName = "Stevens", DOB = new DateTime(1957, 10, 21), AcceptanceDate = new DateTime(2012, 2, 3), Severity = "High" });
+            patients.Add(new Patient { FirstName = "Donna", LastName = "Collins", DOB = new DateTime(1984, 8, 7), AcceptanceDate = new DateTime(2012, 9, 13), Severity = "High" });
+            patients.Add(new Patient { FirstName = "James", LastName = "Manning", DOB = new DateTime(1954, 9, 20), AcceptanceDate = new DateTime(2012, 8, 13), Severity = "Low" });
+            patients.Add(new Patient { FirstName = "Jose", LastName = "Dotel", DOB = new DateTime(1945, 10, 23), AcceptanceDate = new DateTime(2012, 4, 11), Severity = "Low" });
+            return patients;
+        }
+        public class Patient
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public DateTime DOB { get; set; }
+            public DateTime AcceptanceDate { get; set; }
+            public string Severity { get; set; }
+        }
+    }
+}
+----
+
+[[_Ref319940501]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-using-the-infragistics-excel-engine.html[Using the Infragistics Excel Engine]
+|This section is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by the Infragistics Excel Engine.
+
+| link:igexcelengine-filtering-tables.html[Filtering Tables (Excel Engine)]
+|This topic describes how to filter columns in exported tables. Columns in a table can be filtered by calling one of the Appy…Filter methods on the WorksheetTableColumn.
+
+| link:igexcelengine-sorting-tables.html[Sorting Tables (Excel Library)]
+|This topic describes how to sort columns in exported tables. Columns in a table can be sorted by applying a sort condition to the `WorksheetTableColumn.SortCondition` property.
+
+|====

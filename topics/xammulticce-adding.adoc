@@ -1,0 +1,504 @@
+﻿////
+|metadata|
+{
+    "name": "xammulticce-adding",
+    "controlName": ["xamMultiColumnComboEditor"],
+    "tags": ["Editing","Filtering","Getting Started","How Do I","Selection"],
+    "guid": "5090f3f0-fad8-4597-960d-8aa7257441d9",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.5512535Z"
+}
+|metadata|
+////
+
+= Adding xamMultiColumnComboEditor to Your Page
+
+== Topic Overview
+
+== Purpose
+
+This topic demonstrates how to add a xamMultiColumnComboEditor™ control to your application and use some of its properties.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:xammulticce-about.html[About xamMultiColumnComboEditor]
+* link:xammulticce-using.html[Using xamMultiColumnComboEditor]
+
+== Configuration Overview
+
+The following table lists some of the configurable behaviors of the xamMultiColumnComboEditor control.
+
+[cols="a,a,a"]
+|====
+|*Configurable behavior*
+|*Configuration details*
+|*Configuration properties*
+
+|<<Adding,Adding xamMultiColumnComboEditor to an application>>
+|Steps needed to add a xamMultiColumnComboEditor control to an application.
+|none
+
+|<<Populating,Populating xamMultiColumnComboEditor with items>>
+|Load xamMultiColumnComboEditor with items.
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemssource.html[ItemsSource Property]
+
+|<<Modifying,Modifying the xamMultiColumnComboEditor>>
+|Configure some of the main properties of the control.
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor~autogeneratecolumns.html[AutoGenerateColumns Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~displaymemberpath.html[DisplayMemberPath Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor~columns.html[Columns Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~allowmultipleselection.html[AllowMultipleSelection Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~checkboxvisibility.html[CheckBoxVisibility Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~dropdownbuttondisplaymode.html[DropDownButtonDisplayMode Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor~selecteditemsresetbuttonvisibilityproperty.html[SelectedItemsResetButtonVisibility]
+
+|<<Using,Using the xamMultiColumnComboEditor>>
+|Get the control’s selected items.
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selecteditems.html[SelectedItems Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selecteditem.html[SelectedItem Property] 
+
+link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectedindex.html[SelectedIndex Property]
+
+|====
+
+== Adding xamMultiColumnComboEditor to an application
+
+[[Adding]]
+
+[start=1]
+. *Add the Infragistics namespace.*
+
+.. *Add required references*
++
+In order to add a xamMultiColumnComboEditor to your application you must add the {ApiPlatform}v{ProductVersion}.dll, {ApiPlatform}DataManager.v{ProductVersion}.dll and the {ApiPlatform}Controls.Editors.XamComboEditor.v{ProductVersion}.dll assemblies to your project.
+.. *Add the Infragistics namespace*
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Editors
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Editors;
+----
+
+[start=2]
+. *Add a xamMultiColumnComboEditor control.*
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Dim multiColumnCombo As XamMultiColumnComboEditor = New XamMultiColumnComboEditor()
+----
++
+*In C#:*
++
+[source, csharp]
+----
+XamMultiColumnComboEditor multiColumnCombo = new XamMultiColumnComboEditor();
+----
+
+== Populating xamMultiColumnComboEditor with items
+
+[[Populating]]
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And set it to…*
+
+|Populate xamMultiColumnComboEditor with items
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemssource.html[ItemsSource Property]
+|An IEnumerable data source
+
+|====
+
+[start=1]
+. *Set the ItemSource property*
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor ItemsSource="[your IEnumerable source]"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.ItemsSource = "[your IEnumerable source]"
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.ItemsSource = "[your IEnumerable source]";
+----
+
+== Modifying the XamMultiColumnComboEditor
+
+[[Modifying]]
+
+The following table maps the desired configurations to property settings. The properties are directly accessed from the xamMultiColumnComboEditor control.
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And set it to…*
+
+|<<AutoGenerateColumns,Let the control to generate the columns>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor~autogeneratecolumns.html[AutoGenerateColumns Property]
+|A Boolean value of your choosing
+
+|<<DisplayMemberPath,Set which column value is displayed when the dropdown is closed>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~displaymemberpath.html[DisplayMemberPath Property]
+|The name of the chosen property
+
+|<<Columns,Define the columns displayed in the dropdown of the control (when AutoGenerateColumns is set to False)>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor~columns.html[Columns Property]
+|A Collection of ComboColumns
+
+|<<AllowMultipleSelection,Allow the user to select more than one item in the control>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~allowmultipleselection.html[AllowMultipleSelection Property]
+|A Boolean value of your choosing
+
+|<<CheckBoxVisibility,Display check boxes in front of every item>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~checkboxvisibility.html[CheckBoxVisibility Property]
+|A System.Windows.Visibility of your choosing
+
+|====
+
+== Modifying the XamMultiColumnComboEditor details
+
+[start=1]
+. *Let the control to generate the columns.*
++
+[[AutoGenerateColumns]]
+An important part of setting up the xamMultiColumnComboEditor control is to generate the columns. You can let the control generate the columns automatically by:
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor AutoGenerateColumns="True"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.AutoGenerateColumns = True
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.AutoGenerateColumns = true;
+----
+
+[start=2]
+. *Set which column value is displayed when the dropdown is closed.*
++
+[[DisplayMemberPath]]
+In order to define the property used by the control to display the selected items, set the DisplayMemberPath property of the control equal to the property name.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor DisplayMemberPath="[Property Name]"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.DisplayMemberPath = "[Property Name]"
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.DisplayMemberPath = "[Property Name]";
+----
+
+[start=3]
+. *Define the columns displayed in the dropdown of the control (when AutoGenerateColumns is set to False).*
++
+[[Columns]]
+If you want to choose and arrange the columns in the control manually, set the AutoGenerateColumns property to false and then set the Columns Collection for the xamMultiColumnComboEditor control:
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor.Columns>
+        <ig:TextComboColumn Key="ContactName"/>
+        <ig:TextComboColumn Key="Company"/>
+</ig:XamMultiColumnComboEditor.Columns>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.AutoGenerateColumns = False
+Dim colContactName = New TextComboColumn()
+Dim colCompany = New TextComboColumn()
+colContactName.Key = "ContactName"
+colCompany.Key = "Company"
+multiColumnCombo.Columns.Add(colConactName)
+multiColumnCombo.Columns.Add(colCompany)
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.AutoGenerateColumns = false;
+var colContactName = new TextComboColumn();
+var colCompany = new TextComboColumn();
+colContactName.Key = "ContactName";
+colCompany.Key = "Company";
+multiColumnCombo.Columns.Add(colContactName);
+multiColumnCombo.Columns.Add(colCompany);
+----
+
+[start=4]
+. *Allow the user to select more than one item in the control.*
++
+[[AllowMultipleSelection]]
+If you want to let the user to select more than one item from the xamMultiColumnComboEditor, set the AllowMultipleSelection property to true.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor AllowMultipleSelection="True"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.AllowMultipleSelection = True
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.AllowMultipleSelection = true;
+----
+
+[start=5]
+. *Display checkboxes in front of every item.*
++
+[[CheckBoxVisibility]]
+If you want to let the user to select more than one item from the xamMultiColumnComboEditor, set the AllowMultipleSelection property to true.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor CheckBoxVisibility="Visible"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.CheckBoxVisibility = System.Windows.Visibility.Visible
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.AllowMultipleSelection = System.Windows.Visibility.Visible;
+----
+
+== Using the xamMultiColumnComboEditor
+
+[[Using]]
+
+The selected items can be retrieved by using the following:
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And …*
+
+|<<SelectedItems,Get the selected items collection>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selecteditems.html[SelectedItems Property]
+|Get the ObservableCollection<object> of selected items 
+
+|<<SelectedItem,Get or Set the selected item>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selecteditem.html[SelectedItem Property]
+|Set/Get an item from your data model
+
+|<<SelectedIndex,Get or Set the selected index>>
+| link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectedindex.html[SelectedIndex Property]
+|Set/Get the index of the selected item
+
+|====
+
+== Using the XamMultiColumnComboEditor details
+
+[start=1]
+. *Get all the selected items collection.*
++
+[[SelectedItems]]
+When the AllowMultipleSelection property is set to true, you can retrieve the selected items collection by accessing the SelectedItems property:
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Dim selItems = multiColumnCombo.SelectedItems
+----
++
+*In C#:*
++
+[source, csharp]
+----
+var selItems =  multiColumnCombo.SelectedItems;
+----
+
+[start=2]
+. *Get or Set the selected item*
++
+[[SelectedItem]]
+.. *Get a selected item*
++
+When the AllowMultipleSelection property is set to false you can get the selected item by accessing the SelectedItem property:
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Dim selItem = multiColumnCombo.SelectedItem
+----
++
+*In C#:*
++
+[source, csharp]
+----
+int selItem = multiColumnCombo.SelectedItem;
+----
+
+.. *Set a selected item*
++
+When the AllowMultipleSelection property is set to false you can set the selected item by assigning an instance of an item from the data source collection equal to the SelectedItem property:
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor SelectedItem="[an item from the data model]"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.SelectedItem = [an item from the data model]
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.SelectedItem = [an item from the data model];
+----
+
+[start=3]
+. *Get or Set the selected index*
++
+[[SelectedIndex]]
+.. *Get a selected index*
++
+You can get the selected index by accessing the SelectedIndex property:
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Dim selIndex = multiColumnCombo.SelectedIndex
+----
++
+*In C#:*
++
+[source, csharp]
+----
+int selIndex = multiColumnCombo.SelectedIndex;
+----
+
+.. *Set a selected index*
++
+You can set the selected index by assigning an index value to the SelectedIndex property:
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamMultiColumnComboEditor SelectedIndex="[your index value]"/>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+multiColumnCombo.SelectedIndex = [your index value]
+----
++
+*In C#:*
++
+[source, csharp]
+----
+multiColumnCombo.SelectedIndex = [your index value];
+----
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+link:xammulticce-about.html[About xamMultiColumnComboEditor]
+
+link:xammulticce-configuring-xammulticolumncomboeditor.html[Configuring xamMultiColumnComboEditor]

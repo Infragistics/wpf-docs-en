@@ -1,0 +1,77 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-modifying-the-skew-effect-of-items-on-a-path",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts","Tips and Tricks"],
+    "guid": "{408903E0-5ED8-42B8-B201-068554145CF3}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2690069Z"
+}
+|metadata|
+////
+
+= Modifying the Skew Effect of Items on a Path
+
+The xamDataPresenter's™ Carousel View can skew items on the path. You can set the skewing effect on either the X or Y axis independently. Similar to other Path effects (Opacity, Scale, Z-Order), the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings] object exposes the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.skewanglexeffectstopcollection.html[SkewAngleXStopEffectCollection] and link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.skewangleyeffectstopcollection.html[SkewAngleYStopEffectCollection]. In addition, also similar to the other effects, you need to set the direction of the effect as either Horizontal, Vertical, or UseItemPath for both the X and Y skew by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~skewanglexeffectstopdirectionproperty.html[SkewAngleXEffectStopDirection] and link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~skewangleyeffectstopdirectionproperty.html[SkewAngleYEffectStopDirection] properties. The skew's values deal with the rotation of an object and are valid from -360 to +360.
+
+.Note
+[NOTE]
+====
+This topic assumes you have completed the tasks in link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application], and have read link:xamdatapresenter-about-carouselview.html[About CarouselView].
+====
+
+== Modifying the Skew-X
+
+The following code skews objects along the X axis in relation to the path. The first link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.skewanglexeffectstop.html[SkewAngleXEffectStop] is skewing Records 25 degrees at the beginning of the path (offset 0). Records at the half way point (offset .5) are not skewed. Records at the end of the path (offset 1) are skewed -25 degrees.
+
+*In XAML:*
+
+----
+<igDP:CarouselView.ViewSettings>
+    <igWindows:CarouselViewSettings SkewAngleXEffectStopDirection="UseItemPath"
+          UseSkewing="True">
+        <igWindows:CarouselViewSettings.SkewAngleXEffectStops>
+            <igWindows:SkewAngleXEffectStopCollection>
+                <igWindows:SkewAngleXEffectStop Offset="0" Value="25" />
+                <igWindows:SkewAngleXEffectStop Offset=".5" Value="0" />
+                <igWindows:SkewAngleXEffectStop Offset="1" Value="-25" />
+            </igWindows:SkewAngleXEffectStopCollection>
+        </igWindows:CarouselViewSettings.SkewAngleXEffectStops>
+    </igWindows:CarouselViewSettings>
+</igDP:CarouselView.ViewSettings>
+----
+
+image::images/xamDataCarousel_Modifying_the_Skew_Effects_of_Items_on_xamDataCarousels_Path_01.png[modifying the skew-x effects of items on xamdatapresenter's path ]
+
+== Modifying the Skew-Y
+
+The following code skews objects along the Y axis in relation to the path. The first link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.skewangleyeffectstop.html[SkewAngleYEffectStop] skews Records 10 degrees at the beginning of the path (offset 0). Records at the half-way point (offset .5) are not skewed. Records at the end of the path (offset 1) are skewed -10 degrees.
+
+*In XAML:*
+
+----
+<igDP:CarouselView.ViewSettings>
+    <igWindows:CarouselViewSettings SkewAngleYEffectStopDirection="UseItemPath" 
+          UseSkewing="True">
+        <igWindows:CarouselViewSettings.SkewAngleYEffectStops>
+            <igWindows:SkewAngleYEffectStopCollection>
+                <igWindows:SkewAngleYEffectStop Offset="0" Value="10" />
+                <igWindows:SkewAngleYEffectStop Offset=".5" Value="0" />
+                <igWindows:SkewAngleYEffectStop Offset="1" value="-10" />
+            </igWindows:SkewAngleYEffectStopCollection>
+        </igWindows:CarouselViewSettings.SkewAngleYEffectStops>
+    </igWindows:CarouselViewSettings>
+</igDP:CarouselView.ViewSettings>
+----
+
+image::images/xamDataCarousel_Modifying_the_Skew_Effects_of_Items_on_xamDataCarousels_Path_02.png[modifying the skew-y effects of items xamdatapresenter's path]
+
+== Related Topics
+
+link:xamcarousel-overview-of-path-effects.html[Overview of Path Effects]
+
+link:xamdatapresenter-modifying-the-opacity-effect-of-items-on-a-path.html[Modifying the Opacity Effect of Items on a Path]
+
+link:xamdatapresenter-modifying-the-scale-of-elements-on-a-path.html[Modifying the Scale of Elements on a Path]

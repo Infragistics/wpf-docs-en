@@ -1,0 +1,49 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-about-the-datavaluechanged-event",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Events"],
+    "guid": "{C7D0B7AC-E4E2-4382-A12C-C39BDE508087}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0609653Z"
+}
+|metadata|
+////
+
+= About the DataValueChanged Event
+
+You can track the changes made to the cell values in a field by setting a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~datavaluechangednotificationsactive.html[DataValueChangedNotificationsActive] property to True. When you enable this feature on a field, the DataPresenter controls will raise the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~datavaluechanged_ev.html[DataValueChanged] event and the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializecellvaluepresenter_ev.html[InitializeCellValuePresenter] events for the cells in that field.
+
+== The DataValueChanged Event
+
+A DataPresenter control will raise the DataValueChanged event under the following circumstances:
+
+[start=1]
+. You are tracking data-value changes on a Field object by setting its FieldSettings object's DataValueChangedNotificationsActive property to True.
+[start=2]
+. A cell's value changes in the field that is tracking data value changes.
+[start=3]
+. The DataPresenter control has allocated a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] object for the cell whose value has changed. If you want a DataPresenter control to raise the DataValueChanged event even if it has not allocated a DataRecord object, you must set its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~recordloadmode.html[RecordLoadMode] property to PreloadRecords and set the FieldSettings object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~datavaluechangedscope.html[DataValueChangedScope] property to AllAllocatedRecords.
+
+The DataPresenter controls pass in a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.datavaluechangedeventargs.html[DataValueChangedEventArgs] object to the DataValueChanged event handler. You can use the properties exposed by the DataValueChangedEventArgs object to highlight a cell when its value changes. The DataValueChangedEventArgs object exposes the following properties:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.datavaluechangedeventargs~cellvaluepresenter.html[CellValuePresenter] - This property gives you a reference to the CellValuePresenter object that is used to display the cell's value. This property may return NULL if the cell is not in view and the DataRecord object for the cell has not been allocated.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.datavaluechangedeventargs~valuehistory.html[ValueHistory] - This property is a list of data-value changes where the most recent change is stored in the 0th index. By default, the number of data value changes is set to 1. However, you can modify the number of changes kept in a cell's data-value history by setting a FieldSettings object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~datavaluechangedhistorylimit.html[DataValueChangedHistoryLimit] property. If you set the DataValueChangedHistoryLimit property to 0, the ValueHistory property will be NULL.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.datavaluechangedeventargs~field.html[Field] - The Field object that the cell belongs to.
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.datavaluechangedeventargs~record.html[Record] – The DataRecord object that the cell belongs to.
+
+== The InitializeCellValuePresenter Event
+
+When you enable data-value change tracking for a field, a DataPresenter control will fire the InitializeCellValuePresenter event when it attaches a CellValuePresenter object to a cell in that field. You can use the InitializeCellValuePresenterEventArgs object's IsNew property to determine if the CellValuePresenter is a new or recycle instance a CellValuePresenter object.
+
+== Performance Implications
+
+You should only track data value changes on fields that require tracking. Enabling this feature on all fields in a DataPresenter control and keeping too many changes in the cell's data-value history may adversely affect your application's performance.
+
+== Related Topics
+
+link:xamdatapresenter-enable-data-value-change-tracking.html[Enable Data-Value Change Tracking]
+
+link:xamdatapresenter-reset-a-cells-value-history.html[Reset a Cell's Value History]

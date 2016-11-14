@@ -1,0 +1,76 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-format-point-and-span-values",
+    "controlName": ["xamTimeline"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{367B1897-1F1A-427C-8209-BE650C20DDBB}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.0574013Z"
+}
+|metadata|
+////
+
+= Format Point and Span Values
+
+You can format the labels for point and span values to any text using the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventcontrol~pointstringformat.html[PointStringFormat] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.eventcontrol~spanstringformat.html[SpanStringFormat] properties. The default display is the title of the event followed by the time in brackets [].
+
+.Note:
+[NOTE]
+====
+Curly braces ('{' and '}') in XAML are special characters for markup extensions. If the first value of a string needs to be a curly brace, an empty set of curly braces must be used as an escape sequence. This allows the text following the empty set of curly braces to be taken as a literal value.
+====
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows you how to display custom text for a span and remove the brackets for point values.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <Style x:Key="rscEventTitleFormatStyle" TargetType="ig:EventTitle">
+            <Setter Property="PointStringFormat" Value="{}{0}" />
+            <Setter Property="SpanStringFormat" Value="{}[Years {0} - {1}]" />
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White">
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="400" Margin="25">
+            <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3200" Maximum="2600" 
+                                      AutoRange=" Unit="400" 
+                                      ShowLabels="True" ShowThumb="True" 
+                                      ShowMajorTickMarks="True"/>
+            </ig:XamTimeline.Axis>
+            <!-- Set Data in Timeline Series -->
+            <ig:XamTimeline.Series>
+                <!-- Historic Events -->
+                <ig:NumericTimeSeries Title="Historic Empires" Fill="Red" Position="TopOrLeft"
+                                        EventTitleStyle="{StaticResource rscEventTitleFormatStyle}" >
+                    <!--TODO: Add Numeric Time Entries -->
+                    <ig:NumericTimeSeries.Entries>
+                        <ig:NumericTimeEntry Time="-2575" Title="Pyramid"/>
+                        <ig:NumericTimeEntry Time="250" Title="Mayan Empire"  
+                          Duration="650" Details="Duration 250 AD – 900 AD"/>
+                        <ig:NumericTimeEntry Time="600" Title="Chichen Itza"/>
+                        <ig:NumericTimeEntry Time="-2650" Title="Egypt Empire"
+                          Duration="2000" Details="Duration 2650 BC – 650 BC"/>
+                        <ig:NumericTimeEntry Time="1402" Title="Spanish Empire"
+                          Duration="311" Details="Duration 1402 BC – 1713 BC"/>
+                    </ig:NumericTimeSeries.Entries>
+                </ig:NumericTimeSeries>
+            </ig:XamTimeline.Series>
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Format_Numeric_Point_And_Span_Values_01.png[]
+
+== Related Topics
+
+link:xamtimeline-about-formatting-xamwebtimeline.html[About Formatting xamTimeline]
+
+link:xamtimeline-format-datetime-values.html[Format Date Time Values]
+
+link:xamtimeline-format-numeric-time-values.html[Format Numeric Time Values]

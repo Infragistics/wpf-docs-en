@@ -1,0 +1,104 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatagrid-creating-of-sample-listcollectionview-code-example",
+    "controlName": ["xamDataGrid"],
+    "tags": ["Calculations","Grids","Grouping","Sample Data Source"],
+    "guid": "cd268196-471f-4324-ae25-ac1f68dddcd0",  
+    "buildFlags": [],
+    "createdOn": "2012-09-12T13:44:54.5544044Z"
+}
+|metadata|
+////
+
+= xamDataGrid Creating Of Sample ListCollectionView Code Example
+
+=== Description
+
+In code example below, the `Utils` class has a method called `CreateDataSource`, which returns ListCollectionView, populated with sample `Item` class objects. The Item class definition is available in the link:xamdatagrid-item-class-code-example.html[Item class code example].
+
+=== Code
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Namespace ExternalOperations
+      Public NotInheritable Class Utils
+            Private Sub New()
+            End Sub
+            Public Shared Function CreateDataSource(itemCount As Integer) As IEnumerable
+                  Dim items As New BindingList(Of Item)()
+                  Dim r As New Random()
+                  Dim now As DateTime = DateTime.Now
+                  For i As Integer = 0 To itemCount - 1
+                        Dim item As New Item() With { 
+                              .A = "a" & r.[Next](100),
+                              .B = "b" & r.[Next](100),
+                              .DateField = now.AddDays(r.[Next](100)).[Date], 
+                              .IntField = r.[Next](200), 
+                              .FloatField = CSng(r.NextDouble() * r.[Next](1000)), 
+                              .DoubleField = r.NextDouble() * r.[Next](1000), 
+                              .DecimalField = CDec(r.NextDouble() * r.[Next](1000)) 
+                        }
+                        items.Add(item)
+                  Next
+                  Dim lcv As New ListCollectionView(items)
+                  Return lcv
+            End Function
+      End Class
+End Namespace
+----
+
+*In C#:*
+
+[source,csharp]
+----
+namespace ExternalOperations
+{
+    public static class Utils
+    {
+        public static IEnumerable CreateDataSource(int itemCount)
+        {
+            BindingList<Item> items = new BindingList<Item>();
+            Random r = new Random();
+            DateTime now = DateTime.Now;
+            for (int i = 0; i < itemCount; i++)
+            {
+                Item item = new Item
+                {
+                    A = "a" + r.Next(100),
+                    B = "b" + r.Next(100),
+                    DateField = now.AddDays(r.Next(100)).Date,
+                    IntField = r.Next(200),
+                    FloatField = (float)(r.NextDouble() * r.Next(1000)),
+                    DoubleField = r.NextDouble() * r.Next(1000),
+                    DecimalField = (decimal)(r.NextDouble() * r.Next(1000))
+                };
+                items.Add(item);
+            }
+            ListCollectionView lcv = new ListCollectionView(items);
+            return lcv;
+        }  
+    }
+}
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdatagrid-grouping.html[External grouping]
+|This topic explains how to use external grouping with _XamDataGrid_ .
+
+| link:xamdatagrid-external-summary-calculations.html[External summary calculations]
+|This topic explains the external summary calculation feature of _xamDataGrid_ _™_ and provides sample code to demonstrate its features.
+
+|====

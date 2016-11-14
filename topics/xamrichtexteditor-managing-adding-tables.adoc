@@ -1,0 +1,180 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-adding-tables",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "2433051d-6c7c-499a-ac47-4da9efd5a330",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5203067Z"
+}
+|metadata|
+////
+
+= Adding Tables (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to use the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ to create tables from the developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref364244625,Introduction to Tables>>
+* <<_Ref364244630,Related Content>>
+
+[[_Ref364244625]]
+== Introduction to Tables
+
+=== Table summary
+
+The  _xamRichTextEditor_   supports tables, constructed using a table node, holding the row nodes, which in their place are holding cell nodes to display data in a grid format. Use the table cells as containers for other rich content like paragraphs, images and even other tables.
+
+The following tree diagram shows the node’s hierarchy of a table with three columns and two rows using the appropriate types:
+
+[start=1]
+. link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablenode_members.html[TableNode]
+
+.. link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablerownode_members.html[TableRowNode]
+
+... link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.tablecellnode_members.html[TableCellNode]
+
+.... link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]
+
+... `TableCellNode`
+
+.... `ParagraphNode`
+
+... `TableCellNode`
+
+.... `ParagraphNode`
+
+.. `TableRowNode`
+
+... `TableCellNode`
+
+.... `ParagraphNode`
+
+... `TableCellNode`
+
+.... `ParagraphNode`
+
+... `TableCellNode`
+
+.... `ParagraphNode`
+
+.Note
+[NOTE]
+====
+There must be at least one `ParagraphNode` or `TableNode` in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of each `TableCellNode`.
+====
+
+You can create the above structure directly in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.nodebase~childnodes.html[ChildNodes] collection of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentbodynode_members.html[DocumentBodyNode] or use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~inserttable.html[InsertTable] method of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument], which conveniently creates the structure for you and returns a reference to the root table node.
+
+=== Example
+
+The following code snippet demonstrates how to insert a table with three columns and two rows into the beginning of a document (at offset 0), iterate over the structure and put some content in it:
+
+*In C#:*
+
+[source,csharp]
+----
+string error = null;
+TableNode tn = this.xamRichTextEditor1.Document.InsertTable(0, 3, 2, out error);
+if (error == null)
+{
+    int cRow = 1;
+    foreach (TableRowNode trn in tn.ChildNodes)
+    {
+        int cCell = 1;
+        foreach (TableCellNode tcn in trn.ChildNodes)
+        {
+            ParagraphNode pn = tcn.ChildNodes[0] as ParagraphNode;
+            pn.SetText(string.Format("Row {0}, Cell {1}", cRow, cCell));
+            cCell++;
+        }
+        cRow++;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim [error] As String = Nothing
+Dim tn As TableNode = Me.xamRichTextEditor1.Document.InsertTable(0, 3, 2, [error])
+If [error] Is Nothing Then
+      Dim cRow As Integer = 1
+      For Each trn As TableRowNode In tn.ChildNodes
+            Dim cCell As Integer = 1
+            For Each tcn As TableCellNode In trn.ChildNodes
+                  Dim pn As ParagraphNode = TryCast(tcn.ChildNodes(0), ParagraphNode)
+                  pn.SetText(String.Format("Row {0}, Cell {1}", cRow, cCell))
+                  cCell += 1
+            Next
+            cRow += 1
+      Next
+End If
+----
+
+[[_Ref364244630]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-adding-text.html[Adding Text]
+|This topic provides information on how to create text using the _xamRichTextEditor_ from a developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-hyperlinks.html[Adding Hyperlinks]
+|This topic provides information on how to create hyperlinks using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-lists.html[Adding Lists]
+|This topic provides information on how to create lists using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-images.html[Adding Images]
+|This topic provides information on how to create images using the _xamRichTextEditor_ from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-tables-in-code[Defining Tables in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-tables-in-code[Defining Tables in Code]"] 
+|This sample demonstrates the creation of tables in code.
+
+|====

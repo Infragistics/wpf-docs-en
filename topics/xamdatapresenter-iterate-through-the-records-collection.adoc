@@ -1,0 +1,111 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-iterate-through-the-records-collection",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","How Do I"],
+    "guid": "{9A0AF8B1-C486-43BD-8A16-3EA0A8919E51}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2339999Z"
+}
+|metadata|
+////
+
+= Iterate through the Records Collection
+
+The DataPresenter family of controls exposes a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~records.html[Records] collection that contains the root-level link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] or link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecord] objects. Each DataRecord object and GroupByRecord object exposes a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~childrecords.html[ChildRecords] collection that contains its child records. You can iterate through this nested structure of records using a recursive method; however, you should familiarize yourself with the different types of records you may encounter.
+
+== GroupByRecord
+
+A GroupByRecord object represents a grouping of records.
+
+Each GroupByRecord object exposes a ChildRecords collection that can contain either DataRecord objects or GroupByRecord objects but not both.
+
+== DataRecord
+
+A DataRecord object represents a data item in your data source. For example, if you are binding to a collection of Customer items, each DataRecord object represents a single Customer item in your collection.
+
+Each DataRecord object exposes a ChildRecords collection that contains link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.expandablefieldrecord.html[ExpandableFieldRecord] objects.
+
+== ExpandableFieldRecord
+
+An ExpandableFieldRecord object represents a property of your data item that returns a nested collection of objects. For example, if you are binding to a collection of customer data items that expose an Orders collection, the ExpandableFieldRecord object represents the Orders collection property.
+
+Each ExpandableFieldRecord object exposes a ChildRecords collection that contains DataRecord objects.
+
+The following example code demonstrates how to iterate through the records collection.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+'You can call the IterateRecords method using the following line of code: 
+'IterateRecords(Me.xamDataPresenter1.Records)
+Public Sub IterateRecords(ByVal records As RecordCollectionBase) 
+    For Each rec As Record In records 
+        If rec.RecordType = RecordType.GroupByField OrElse rec.RecordType = RecordType.GroupByFieldLayout Then 
+            Dim groupRecord As GroupByRecord = DirectCast(rec, GroupByRecord) 
+            'TODO: Add logic to process the group by record
+            If groupRecord.HasChildren Then 
+                IterateRecords(groupRecord.ChildRecords) 
+            End If          
+        ElseIf rec.RecordType = RecordType.DataRecord Then 
+            Dim dataRecord As DataRecord = DirectCast(rec, DataRecord) 
+            'TODO: Add logic to process the data record
+            If dataRecord.HasChildren Then 
+                IterateRecords(dataRecord.ChildRecords) 
+            End If 
+        ElseIf rec.RecordType = RecordType.ExpandableFieldRecord Then 
+            Dim expandableRecord As ExpandableFieldRecord = DirectCast(rec, ExpandableFieldRecord) 
+            'TODO: Add logic to process the expandable field record
+            If expandableRecord.HasChildren Then 
+                IterateRecords(expandableRecord.ChildRecords) 
+            End If 
+        End If 
+    Next
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+//You can call the IterateRecords method using the following line of code: 
+//IterateRecords(this.xamDataPresenter1.Records);
+public void IterateRecords(RecordCollectionBase records)
+{
+    foreach (Record rec in records)
+    {
+        if (rec.RecordType == RecordType.GroupByField || rec.RecordType == RecordType.GroupByFieldLayout)
+        {
+            GroupByRecord groupRecord = (GroupByRecord)rec;
+            //TODO: Add logic to process the group by record
+            if (groupRecord.HasChildren)
+                IterateRecords(groupRecord.ChildRecords);
+        }
+        else if (rec.RecordType == RecordType.DataRecord)
+        {
+            DataRecord dataRecord = (DataRecord)rec;
+            //TODO: Add logic to process the data record
+            if (dataRecord.HasChildren)
+                IterateRecords(dataRecord.ChildRecords);
+        }
+        else if (rec.RecordType == RecordType.ExpandableFieldRecord)
+        {
+            ExpandableFieldRecord expandableRecord = (ExpandableFieldRecord)rec;
+            //TODO: Add logic to process the expandable field record
+            if (expandableRecord.HasChildren)
+                IterateRecords(expandableRecord.ChildRecords);
+        }
+    }
+}
+----
+
+== Related Topics
+
+link:xamdatapresenter-about-data-items-and-data-records.html[About Data Items and Data Records]
+
+link:xamdatapresenter-add-items-manually-to-a-datapresenter-control.html[Add Items Manually to a DataPresenter Control]

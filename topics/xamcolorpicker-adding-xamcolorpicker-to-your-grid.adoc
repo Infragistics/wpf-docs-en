@@ -1,0 +1,85 @@
+﻿////
+|metadata|
+{
+    "name": "xamcolorpicker-adding-xamcolorpicker-to-your-grid",
+    "controlName": ["xamColorPicker"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "82b058dd-1144-42f6-a2e5-d7c10f75dd09",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.6840961Z"
+}
+|metadata|
+////
+
+= Adding xamColorPicker to Your Grid
+
+== Before You Begin
+
+The xamColorPicker™ control is a simple editor control that allows your end users to select a color value from a pre-defined palette of colors.
+
+== What You Will Accomplish
+
+This topic will demonstrate how to add a xamColorPicker control to your DataGrid control using XAML.
+
+== Follow These Steps
+
+[start=1]
+. Create a {PlatformName} project.
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+.. {ApiPlatform}v{ProductVersion}.dll
+.. {ApiPlatform}Controls.Editors.XamColorPicker.v{ProductVersion}.dll
+.. {ApiPlatform}Controls.Editors.XamSlider.v{ProductVersion}.dll
+
+[start=3]
+. Add the following namespace declarations for xamColorPicker and Windows.Controls:
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+xmlns:msd="clr-namespace:System.Windows.Controls;
+    assembly=System.Windows.Controls.Data"
+----
+
+[start=4]
+. Add a DataGrid Control to your page. Set the following:
++
+--
+.. x:Name - MyDataGrid
+.. In the Columns collection add a template column
+.. In the DataTemplate add a xamColorPicker control with Width - 40
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<msd:DataGrid x:Name="MyDataGrid" AutoGenerateColumns=">
+  <msd:DataGrid.Columns>
+    <msd:DataGridTemplateColumn CanUserSort=">
+      <msd:DataGridTemplateColumn.CellTemplate>
+        <DataTemplate>
+          <ig:XamColorPicker x:Name="MyColorPicker"
+                             DerivedPalettesCount="10"
+                             Width="40" />
+        </DataTemplate>
+      </msd:DataGridTemplateColumn.CellTemplate>
+    </msd:DataGridTemplateColumn>
+  </msd:DataGrid.Columns>
+</msd:DataGrid>
+----
+
+[start=5]
+. You can bind the property SelectedColor to the appropriate path of your DataGrid's data source.
+
+== Related Topics
+
+link:xamcolorpicker-about-xamcolorpicker.html[About xamColorPicker]
+
+link:xamcolorpicker-adding-xamcolorpicker-to-your-page.html[Adding xamColorPicker to Your Page]
+
+link:xamcolorpicker-using-xamcolorpicker.html[Configuring xamColorPicker]

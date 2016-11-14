@@ -1,0 +1,149 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-restrict-a-tiles-size",
+    "controlName": ["xamTileManager"],
+    "tags": ["How Do I"],
+    "guid": "2e0d94bd-bcc2-43b3-bada-d2cd7849de35",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.6883717Z"
+}
+|metadata|
+////
+
+= Restrict a XamTile's Size
+
+The link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager.html[xamTileManager]™ allows you to restrict a tile's size based on its state. The link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings.html[NormalModeSettings] object exposes a link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~tileconstraints.html[TileConstraints] property that you can use to restrict the height and width of tiles in normal mode. The link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings.html[MaximizedModeSettings] object exposes link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~maximizedtileconstraints.html[MaximizedTileConstraints], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedtileconstraints.html[MinimizedTileConstraints] and link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings~minimizedexpandedtileconstraints.html[MinimizedExpandedTileConstraints] properties that you can use to restrict the height and width of tiles in maximized, minimized and minimized-expanded mode, respectively.
+
+When you set a NormalModeSettings or MaximizedModeSettings object's properties, the settings apply to all tiles. However, if you want granular control over each tile's constraints, you can set constraints directly on a link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile.html[XamTile] object by setting xamTileManager's attached link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~constraintsproperty.html[Constraints], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~constraintsmaximizedproperty.html[ConstraintsMaximized], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~constraintsminimizedproperty.html[ConstraintsMinimized] and link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~constraintsminimizedexpandedproperty.html[ConstraintsMinimizedExpanded] properties. You can use this approach also for adding items that derive from the DependencyObject class.
+
+The size constraints take precedence over all the other size-related settings. Neither xamTileManager nor your end users will be able to resize a tile beyond its constraints. If a xamTileManager feature requires the control to resize a tile, the size constraints will affect the behavior of that feature. For example, if you set the NormalModeSettings object's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~showalltiles.html[ShowAllTiles] property to True and you set minimum size constraints, xamTileManager may not be able to fit all the tiles into the viewable area since the tiles cannot be resized past the tile constraints.
+
+The following example code demonstrates how to restrict a tile's size using the tile constraints.
+
+*In XAML:*
+
+----
+<ig:XamTileManager Name="xamTileManager1">
+    <ig:XamTileManager.NormalModeSettings>
+        <ig:NormalModeSettings>
+            <ig:NormalModeSettings.TileConstraints>
+                <ig:TileConstraints 
+                    PreferredHeight="300" 
+                    PreferredWidth="300" 
+                    MaxHeight="400" 
+                    MaxWidth="400" 
+                    MinWidth="200" 
+                    MinHeight="200" />
+                </ig:NormalModeSettings.TileConstraints>
+        </ig:NormalModeSettings>
+    </ig:XamTileManager.NormalModeSettings>
+    <ig:XamTileManager.MaximizedModeSettings>
+        <ig:MaximizedModeSettings>
+            <ig:MaximizedModeSettings.MinimizedTileConstraints>
+                <ig:TileConstraints MaxHeight="100" MinHeight="100" />
+            </ig:MaximizedModeSettings.MinimizedTileConstraints>
+            <ig:MaximizedModeSettings.MinimizedExpandedTileConstraints>
+                <ig:TileConstraints MaxHeight="200" MinHeight="100" />
+            </ig:MaximizedModeSettings.MinimizedExpandedTileConstraints>
+        </ig:MaximizedModeSettings>
+    </ig:XamTileManager.MaximizedModeSettings>
+    <!-- TODO: Add tiles here-->
+</ig:XamTileManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Layouts
+...
+Dim normTileConstraints As New TileConstraints With _
+    {.PreferredWidth = 300, .PreferredHeight = 300, .MinHeight = 200, .MinWidth = 200, MaxHeight = 400, .MaxWidth = 400}
+Dim minTileConstraints As New TileConstraints With _
+    {.MaxHeight = 100, .MaxWidth = 100}
+Dim minExpTileConstraints As New TileConstraints With _
+    {.MaxHeight = 200, .MaxWidth = 100}
+If Me.xamTileManager.MaximizedModeSettings Is Nothing Then
+    Me.xamTileManager1.MaximizedModeSettings = New MaximizedModeSettings()
+End If
+If Me.xamTileManager1.NormalModeSettings Is Nothing Then
+    Me.xamTileManager1.NormalModeSettings = New NormalModeSettings()
+End If
+Me.xamTileManager1.NormalModeSettings.TileConstraints = _
+    normTileConstraints
+Me.xamTileManager1.MaximizedModeSettings.MinimizedTileConstraints = _
+    minTileConstraints
+Me.xamTileManager1.MaximizedModeSettings.MinimizedExpandedTileConstraints = _
+    minExpTileConstraints
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Layouts;
+...
+TileConstraints normTileConstraints = new TileConstraints
+{
+    PreferredWidth = 300,
+    PreferredHeight = 300,
+    MinHeight = 200,
+    MinWidth = 200,
+    MaxHeight = 400,
+    MaxWidth = 400
+};
+TileConstraints minTileConstraints = new TileConstraints
+{
+    MaxHeight = 100,
+    MinHeight = 100
+};
+TileConstraints minExpTileConstraints = new TileConstraints
+{
+    MaxHeight = 200,
+    MinHeight = 100
+};
+if (this.xamTileManager1.MaximizedModeSettings == null)
+{
+    this.xamTileManager1.MaximizedModeSettings =
+        new MaximizedModeSettings();
+}
+if (this.xamTileManager1.NormalModeSettings == null)
+{
+    this.xamTileManager1.NormalModeSettings =
+        new NormalModeSettings();
+}
+this.xamTileManager1.NormalModeSettings.TileConstraints =
+    normTileConstraints;
+this.xamTileManager1.MaximizedModeSettings.MinimizedTileConstraints =
+    minTileConstraints;
+this.xamTileManager1.MaximizedModeSettings.MinimizedExpandedTileConstraints =
+    minExpTileConstraints;
+...
+----
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

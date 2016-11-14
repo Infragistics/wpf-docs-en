@@ -1,0 +1,393 @@
+﻿////
+|metadata|
+{
+    "name": "igexcelengine-retrieving-the-cell-text-as-displayed-in-excel-get-cell-text",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Exporting","How Do I"],
+    "guid": "55e35af6-75bf-49ca-a578-96d4bbf32540",
+    "buildFlags": [],
+    "createdOn": "2012-03-29T07:22:42.1924497Z"
+}
+|metadata|
+////
+
+= Retrieving the Cell Text as Displayed in Excel (Infragistics Excel Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to determine the text that would be displayed in Microsoft Excel® cell given the cell’s value, format string, column width, and worksheet options. You can determine the cell text using the `WorksheetCell` 's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~gettext.html[GetText] method.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Introduction,Introduction>>
+* <<_Get_Text_Method_Overloads,GetText Method Overloads>>
+* <<_Code_Examples_Overview,Code Examples Overview>>
+* <<_Code_Example_GetText_as_it_depends_from_format_strings_applied_to_cell,Code Example: GetText as it depends on format strings applied to cell>>
+* <<_Code_Example_GetText_as_it_depends_from_column_width,Code Example: GetText as it depends on column width>>
+* <<_Code_Example_GetText_as_it_depends_from_ShowFormulasInCell_option,Code Example: GetText as it depends on ShowFormulasInCell option>>
+* <<_Related_Content,Related Content>>
+
+[[_Introduction]]
+== Introduction
+
+Text displayed in a cell depends on several factors, other than the actual cell value. Below is a summary of those factors:
+
+=== Format string
+The format string determines how the value of cell is converted to text and what literal character should be displayed with the formatted value. You can find more detailed information about format codes link:igexcelengine-format-a-cell.html[here].
+
+=== Column Width
+The amount of horizontal space available in a cell plays a big part in how the value is displayed to the user. 
+
+Displayed text can be different depending on varying column widths. 
+
+When displaying numbers and using format string containing “General” or “@”, there are various formats which are tried to find a formatting which fits the cell width. 
+
+[options="header", cols="a,a"] 
+
+|==== 
+
+|Format|Description 
+
+|Normal Value 
+
+|Number is displayed as it would be if there is unlimited amount of space. 
+
+|Remove decimal digits 
+
+|Decimal digits will be removed one at a time until a format is found which fits. 
+
+So a value of 12345.6789 will be reduced to the following formats until one fits: 12345.679, 12345.68, 12345.7, and 12346. 
+
+This will stop when the first significant digit is the only one left, so for example value like 0.0001234567890 can only be reduced to 0.0001. 
+
+|Scientific, 5 decimal digits 
+
+|Number is displayed in the form of 0.00000E+00, such as 1.23457E+09, or 1.23457E-04 
+
+|Scientific, 4 decimal digits 
+
+|Number is displayed in the form of 0.0000E+00, such as 1.2346E+09, or 1.23456E-04 
+
+|Scientific, 3 decimal digits 
+
+|Number is displayed in the form of 0.000E+00, such as 1.235E+09, or 1.235E-04 
+
+|Scientific, 2 decimal digits 
+
+|Number is displayed in the form of 0.00E+00, such as 1.23E+09, or 1.23E-04 
+
+|Scientific, 1 decimal digits 
+
+|Number is displayed in the form of 0.0E+00, such as 1.2E+09, or 1.2E-04 
+
+|Scientific, 0 decimal digits 
+
+|Number is displayed in the form of 0E+00, such as 1E+09, or 1E-04 
+
+|Rounded value 
+
+|If the first significant digit is in the decimal potion of the number, the value will be rounded to the nearest integer value. 
+
+So for a value 0.0001234567890, it will be rounded to 0, and the displayed text in cell will be 0. 
+
+|Hash marks 
+
+|If no condensed version of the number can be displayed, hashes (#) will be repeated through the width of the cell. 
+
+|Empty string 
+
+|If no hash marks can fit in the cell, an empty string will be returned as displayed cell text. 
+
+|==== 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+If the format string for numeric value does not contain *General* or *@*, there are only the following stages of resizing: 
+
+Normal value 
+
+Hash marks 
+
+Empty string 
+
+==== 
+
+If a text is used in the cell, the cell displayed text will always be full value, regardless of whether it is cut off or not in the cell. 
+
+.Note 
+
+[NOTE] 
+
+==== 
+
+The only time when this is not the case is when padding characters are used in format string. Then the value will be displayed as all hash marks when there is not enough room for the text. 
+
+====
+
+=== Worksheet Options
+You can set `DisplayOptions` link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.displayoptions~showformulasincells.html[ShowFormulasInCells] property in code or in Microsoft Excel by: File $$->$$ Options $$->$$ Advanced $$->$$ Display options for this worksheet $$->$$ Show formulas in cells instead of their calculated results. 
+
+When this option is turned On, formulas are displayed in cells instead of their results, and format strings and cell widths are ignored. Text values display as if their format string were *@*, non-integral numeric values display as if their format string were *0.0* and integral numeric values display as if their format string were *0*. 
+
+Additionally, if the value cannot fit, it will not display as all hashes. Display text will still return its full text as the cell text, even though it may not be fully seen.
+
+
+
+[[_Get_Text_Method_Overloads]]
+== GetText Method Overloads
+
+=== Method overloads
+
+The cell text is exposed by the new `GetText` method. The parameter-less overload returns the cell text seen in the Microsoft Excel UI. The other overloads takes a link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.textformatmode.html[TextFormatMode] enumeration value, with the following values:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| _AsDisplayed_ 
+|This is equivalent to calling the parameter-less overload of GetText
+
+| _IgnoreCellWidth_ 
+|Formats the cell text without condensing it or including repeat padding characters.
+
+|====
+
+[[_Code_Examples_Overview]]
+== Code Examples Overview
+
+=== Overview
+
+The following table lists the code examples included in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|GetText depends on Format Strings Applied to Cell
+|Returns a textual representation of the `GetText` methods depending on the format strings, applied on the cell.
+
+|GetText as it depends on column width
+|Returns a textual representation of the `GetText` methods depending on the column width.
+
+|GetText as it depends on ShowFormulasInCell option
+|Returns a textual representation of the `GetText` methods depending on the `ShowFormulasInCell` worksheet option.
+
+|====
+
+[[_Code_Example_GetText_as_it_depends_from_format_strings_applied_to_cell]]
+== Code Example: GetText Depends On Format Strings Applied to Cell
+
+=== Description
+
+The return value of the `GetText` methods depends on format strings, applied to the cell.
+
+The code in this example loads a Workbook and creates an instance of the Worksheet `DifferentFormats`. It accesses the display text of cells in region A1:A8 using `GetText` method. Results are shown in a Message Box.
+
+=== Prerequisites
+
+You need the following entities for the purposes of this example:
+
+* An Excel file named Book3.xlsx with a worksheet saved on your C hard drive, at C:\
+* Worksheet name set to `DifferentFormats`
+
+Value `1234567890` in cells from A1 to A8. Each cell has a different cell formatting, as shown on screen-shot below.
+
+image::images/ExcelEngine_Get_Cell_Text_1.png[]
+
+=== Code
+
+*In Visual Basic:*
+[source,vb]
+----
+' Load a Workbook
+Dim workBook As Infragistics.Documents.Excel.Workbook = Infragistics.Documents.Excel.Workbook.Load("C:\Book3.xlsx")
+Dim worksheet As Infragistics.Documents.Excel.Worksheet = workBook.Worksheets("DifferentFormats")
+Dim sb As New StringBuilder()
+' Loop over cells with different formats sets and show the GetText() method return values
+Dim i As Integer = 0
+While i < 8
+      sb.AppendLine([String].Format("{0} " & vbTab & vbTab & " {1}", worksheet.Rows(i).Cells(1).GetText(), worksheet.Rows(i).Cells(0).GetText()))
+      i += 1
+End While
+MessageBox.Show(sb.ToString())
+----
+
+*In C#:*
+[source,csharp]
+----
+// Load a Workbook
+Infragistics.Documents.Excel.Workbook workBook = Infragistics.Documents.Excel.Workbook.Load("C:\\Book3.xlsx");
+Infragistics.Documents.Excel.Worksheet worksheet = workBook.Worksheets["DifferentFormats"];
+StringBuilder sb = new StringBuilder();
+// Loop over cells with different formats sets and show the GetText() method return values
+for (int i = 0; i < 8; i++)
+{
+    sb.AppendLine(String.Format("{0} \t\t {1}", 
+        worksheet.Rows[i].Cells[1].GetText(), 
+        worksheet.Rows[i].Cells[0].GetText()));
+}
+MessageBox.Show(sb.ToString());
+----
+
+[[_Code_Example_GetText_as_it_depends_from_column_width]]
+== Code Example: GetText Depends On Column Width
+
+=== Description
+
+Returns the value of the `GetText` methods depending on column width.
+
+The code in this example loads a Workbook and creates an instance of the Worksheet `DifferentWidths`. It accesses the display text of cells in region A1:E2 using `GetText` method. Results are shown in a Message Box.
+
+=== Prerequisites
+
+You need the following entities for the purposes of this example:
+
+* An Excel file named Book3.xlsx with a worksheet saved on your C hard drive, at C:\
+* Worksheet name set to `DifferentWidths`
+* Value `1234567890` in cells from A1 to E1 and value `0.0001234567890` in cells A2 to E2. Column widths are different for each column, set as shown in the screenshot below.
+
+image::images/ExcelEngine_Get_Cell_Text_2.png[]
+
+=== Code
+
+*In Visual Basic:*
+[source,vb]
+----
+' Load a Workbook
+Dim workBook As Infragistics.Documents.Excel.Workbook = Infragistics.Documents.Excel.Workbook.Load("C:\Book3.xlsx")
+Dim worksheet As Infragistics.Documents.Excel.Worksheet = workBook.Worksheets("DifferentWidths")
+Dim sb As New StringBuilder()
+' Loop over cells with different width sets and show the GetText() method return values
+Dim i As Integer = 0
+While i < 5
+      sb.AppendLine([String].Format("{0} " & vbTab & vbTab & " {1}", worksheet.Rows(1).Cells(i).GetText(), worksheet.Rows(0).Cells(i).GetText()))
+      i += 1
+End While
+MessageBox.Show(sb.ToString())
+----
+
+*In C#:*
+[source,csharp]
+----
+// Load a Workbook
+Infragistics.Documents.Excel.Workbook workBook = Infragistics.Documents.Excel.Workbook.Load("C:\\Book3.xlsx");
+Infragistics.Documents.Excel.Worksheet worksheet = workBook.Worksheets["DifferentWidths"];
+StringBuilder sb = new StringBuilder();
+// Loop over cells with different width sets and show the GetText() method return values
+for (int i = 0; i < 5; i++)
+{
+    sb.AppendLine(String.Format("{0} \t\t {1}", 
+        worksheet.Rows[1].Cells[i].GetText(), 
+        worksheet.Rows[0].Cells[i].GetText()));
+}
+MessageBox.Show(sb.ToString());
+----
+
+[[_Code_Example_GetText_as_it_depends_from_ShowFormulasInCell_option]]
+== Code Example: GetText Depends On the ShowFormulasInCell Property
+
+=== Description
+
+Returns the value of the `GetText` methods depending on the `ShowFormulasInCell` worksheet option.
+
+The code in this example loads a Workbook and creates an instance of the Worksheet `Formulas`. Then, Worksheet property `ShowFormulasInCell` is set to `true`. The code accesses the displayed text of cells in region B1:B5 using `GetText` method. Results are shown in a Message Box.
+
+=== Preview
+
+The following screenshot is a preview of the final result.
+
+image::images/ExcelEngine_Get_Cell_Text_3.png[]
+
+=== Prerequisites
+
+You need the following entities for the purposes of this example:
+
+* An Excel file named Book3.xlsx with a worksheet saved on your C hard drive
+* Worksheet name set to `Formulas`
+* Random numbers in cells A1:A5
+* Random functions in cells B1:B5.
+
+.Note
+[NOTE]
+====
+For this particular example “=A1$$*$$5”, “=COUNT(A1:A5)”, “=SUM(A1:A5)”, “=AVERAGE(A1:A5)”, and “=LOG(A5)” were used to produce the result on the screen-shot.
+====
+
+image::images/ExcelEngine_Get_Cell_Text_4.png[]
+
+=== Code
+
+*In Visual Basic:*
+[source,vb]
+----
+' Load a Workbook
+Dim workBook As Infragistics.Documents.Excel.Workbook = Infragistics.Documents.Excel.Workbook.Load("C:\Book3.xlsx")
+Dim worksheet As Infragistics.Documents.Excel.Worksheet = workBook.Worksheets("Formulas")
+' Turn On Worksheet options for showing formulas instead of formula results
+worksheet.DisplayOptions.ShowFormulasInCells = True
+Dim sb As New StringBuilder()
+' Loop over cells with different width sets and show the GetText() method return values
+Dim i As Integer = 0
+While i < 5
+      sb.AppendLine(worksheet.Rows(i).Cells(1).GetText())
+      i += 1
+End While
+MessageBox.Show(sb.ToString())
+----
+
+*In C#:*
+[source,csharp]
+----
+// Load a Workbook
+Infragistics.Documents.Excel.Workbook workBook = Infragistics.Documents.Excel.Workbook.Load("C:\\Book3.xlsx");
+Infragistics.Documents.Excel.Worksheet worksheet = workBook.Worksheets["Formulas"];
+// Turn On Worksheet options for showing formulas instead of formula results
+worksheet.DisplayOptions.ShowFormulasInCells = true;
+StringBuilder sb = new StringBuilder();
+// Loop over cells with different width sets and show the GetText() method return values
+for (int i = 0; i < 5; i++)
+{
+    sb.AppendLine(worksheet.Rows[i].Cells[1].GetText());
+}
+MessageBox.Show(sb.ToString());
+----
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:igexcelengine-format-a-cell.html[Formatting a Cell (Infragistics Excel Engine)]
+|The Infragistics Excel Engine allows you to customize the look and behavior of a cell.
+
+| link:igexcelengine-using-the-infragistics-excel-engine.html[Using the Infragistics Excel Engine]
+|This section is your gateway to important task-based information that will help you to effectively use the various features and functionalities provided by the Infragistics Excel Engine.
+
+|====
+
+=== Resources
+
+The following material (available outside the Infragistics family of content) provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Title|Purpose
+
+| link:http://office.microsoft.com/en-us/excel-help/create-or-delete-a-custom-number-format-HP001216503.aspx[Create or delete custom number format]
+|Microsoft Office Excel provides many built-in number formats, but if these do not meet your needs, you can customize a built-in number format to create your own. To learn more about how to change number format codes, you may want to review the guidelines for customizing a number format before you get started.
+
+|====

@@ -1,0 +1,43 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-changing-the-column-headers-style",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Layouts","Styling"],
+    "guid": "{9FDE68A2-6A8D-4DE6-804B-1ED72FB6C944}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1109753Z"
+}
+|metadata|
+////
+
+= Changing the Column Headers Style
+
+Column headers tend to be one of the most commonly styled elements in a grid.
+
+image::images/xamDataGrid_Changing_the_Column_Headers_Style_01.png[default xamdatapresenter column headers]
+
+The xamDataPresenter's™ Grid View allows you to style column headers by creating a style that targets the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.labelpresenter.html[LabelPresenter] class. The XAML example code below changes the LabelPresenter's background and foreground color. This style would be used by all xamDataPresenter instances contained in the element whose resource section this style is placed in. This occurs because there is no Key assigned to the style.
+
+*In XAML:*
+
+----
+<Style TargetType="{x:Type igDP:LabelPresenter}">
+        <Setter Property="Background">
+                <Setter.Value>
+                        <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FF8790AD" Offset="0"/>
+                                <GradientStop Color="#FF424759" Offset="0.5"/>
+                                <GradientStop Color="#FF505DA3" Offset="0.5"/>
+                                <GradientStop Color="#FF2D2DDE" Offset="1"/>
+                        </LinearGradientBrush>
+                </Setter.Value>
+        </Setter>
+        <Setter Property="Foreground" Value="#FFDACA1E"/>
+</Style>
+----
+
+By simply placing the above XAML example code inside the Grid.Resources section (see link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application]), you'll get something similar to the following.
+
+image::images/xamDataGrid_Changing_the_Column_Headers_Style_02.png[custom styled xamdatapresenter column headers]

@@ -1,0 +1,68 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-style-axis-thumb",
+    "controlName": ["xamTimeline"],
+    "tags": ["How Do I","Styling"],
+    "guid": "{8691D130-9A1C-4D3E-A3BE-1A4C330D3810}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:22:00.1134103Z"
+}
+|metadata|
+////
+
+= Styling Axis Thumb
+
+The link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.axisthumb.html[Thumb] is the slider part of the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.timelineaxis.html[Axis] and displays detailed information for an event that it is placed on. Customizing the Thumb requires setting a style through the Axis.
+
+The following xaml code shows how to change the color and size of the Thumb.
+
+*In XAML:*
+
+----
+    <UserControl.Resources>
+        <!-- Styles for Axis -->
+        <Style x:Key="rscAxisThumbStyle" TargetType="ig:AxisThumb">
+            <Setter Property="Width" Value="12" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Canvas.ZIndex" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ig:AxisThumb">
+                        <Border Background="Red" BorderBrush="Black" 
+                                BorderThickness="1" CornerRadius="5" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot" Background="White" >
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="480" Margin="25">
+            <!-- Set Axis properties -->
+            <ig:XamTimeline.Axis>
+                <ig:NumericTimeAxis Minimum="-3200" Maximum="2600" 
+                                      AutoRange=" Unit="400" 
+                                      ShowLabels="True" ShowThumb="True" 
+                                      ThumbStyle="{StaticResource rscAxisThumbStyle}"/>
+            </ig:XamTimeline.Axis>
+            <!-- TODO: Add Numeric/Date Series ... -->
+        </ig:XamTimeline>
+    </Grid>
+----
+
+image::images/XamTimeline_Style_Axis_Thumb_01.png[]
+
+== Related Topics
+
+link:xamtimeline-style-the-axis.html[Styling Axis]
+
+link:xamtimeline-style-the-axis-pane.html[Styling Axis Pane]
+
+link:xamtimeline-style-the-axis-label.html[Styling Axis Label]
+
+link:xamtimeline-style-major-and-minor-grid-lines.html[Styling Major and Minor Grid Lines]
+
+link:xamtimeline-style-major-and-minor-tick-marks.html[Styling Major and Minor Tick Marks]

@@ -1,0 +1,213 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-projectdatahelper",
+    "controlName": ["xamGantt"],
+    "tags": ["Sample Data Source"],
+    "guid": "771333e7-259d-4746-a809-87e08f669434",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.2501628Z"
+}
+|metadata|
+////
+
+= ProjectDataHelper
+
+== Code Example: Project Data Helper
+
+=== Description
+
+This code represents a helper class that provide sample project data for the  _xamGantt™_   control.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+using Infragistics.Controls.Schedules;
+public class ProjectDataHelper
+{
+    public static Project GenerateProjectData()
+    {
+        // Create a Project instance
+        Project project = new Project();
+        // Create a project root ProjectTask
+        ProjectTask rootTask = new ProjectTask
+        {
+            TaskName = "Project Summary Task",
+            IsManual = false
+        };
+        // Add the root task to the project
+        project.RootTask.Tasks.Add(rootTask);
+        // Dates in xamGantt are stored in UTC
+        DateTime startTime = DateTime.Today.ToUniversalTime();
+        // Add ProjectTask subtasks to the root project task
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Planning",
+            IsManual = false,
+            Start = startTime,
+            Duration = TimeSpan.FromHours(8),
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Documenting",
+            IsManual = false,
+            Start = startTime,
+            // Configure task duration
+            ManualDuration = ProjectDuration.FromFormatUnits(2, ProjectDurationFormat.Days),
+            // Set a task constraint
+            ConstraintDate = DateTime.Today.AddDays(3).ToUniversalTime(),
+            ConstraintType = ProjectTaskConstraintType.FinishNoLaterThan,
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Creating Demo Application",
+            IsManual = false,
+            Start = startTime,
+            ManualDuration = ProjectDuration.FromFormatUnits(3, ProjectDurationFormat.Days),
+            ConstraintType = ProjectTaskConstraintType.MustStartOn,
+            ConstraintDate = DateTime.Today.AddDays(2).ToUniversalTime(),
+            IsEstimated = true,
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Collecting Feedback",
+            IsManual = false,
+            Start = startTime,
+            ManualDuration = ProjectDuration.FromFormatUnits(1, ProjectDurationFormat.Days),
+            IsEstimated = true,
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Designing",
+            IsManual = false,
+            Start = startTime,
+            ManualDuration = ProjectDuration.FromFormatUnits(5, ProjectDurationFormat.Days),
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Development",
+            IsManual = true,
+            // Manual tasks may have free text for Start and Finish date
+            ManualStart = new ManualDateTime("Still In Discussion"),
+            ManualDuration = ProjectDuration.FromFormatUnits(10, ProjectDurationFormat.Days),
+            ManualFinish = new ManualDateTime("Not Defined Yet"),
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Testing",
+            IsManual = true,
+            Start = startTime,
+            ManualDuration = ProjectDuration.FromFormatUnits(7, ProjectDurationFormat.Days),
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Bug Fixing",
+            IsManual = true,
+            Start = startTime,
+            ManualDuration = ProjectDuration.FromFormatUnits(4, ProjectDurationFormat.Days),
+        });
+        rootTask.Tasks.Add(new ProjectTask
+        {
+            TaskName = "Project Complete",
+            IsManual = false,
+            Start = startTime,
+            // Set a milestone
+            IsMilestone = true
+        });
+        return project;
+    }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Imports Infragistics.Controls.Schedules
+Public Class ProjectDataHelper
+    Public Shared Function GenerateProjectData() As Project
+        ' Create a Project instance
+        Dim project As New Project()
+        ' Create a project root ProjectTask
+        Dim rootTask As New ProjectTask() With {
+            .TaskName = "Project Summary Task",
+            .IsManual = False
+        }
+        ' Add the root task to the project
+        project.RootTask.Tasks.Add(rootTask)
+        ' Dates in xamGantt are stored in UTC
+        Dim startTime As DateTime = DateTime.Today.ToUniversalTime()
+        ' Add ProjectTask subtasks to the root project task
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Planning",
+            .IsManual = False,
+            .Start = startTime,
+            .Duration = TimeSpan.FromHours(8)
+        })
+        ' Configure task duration
+        ' Set task constraint
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Documenting",
+            .IsManual = False,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(2, ProjectDurationFormat.Days),
+            .ConstraintDate = DateTime.Today.AddDays(3).ToUniversalTime(),
+            .ConstraintType = ProjectTaskConstraintType.FinishNoLaterThan
+        })
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Creating Demo Application",
+            .IsManual = False,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(3, ProjectDurationFormat.Days),
+            .ConstraintType = ProjectTaskConstraintType.MustStartOn,
+            .ConstraintDate = DateTime.Today.AddDays(2).ToUniversalTime(),
+            .IsEstimated = True
+        })
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Collecting Feedback",
+            .IsManual = False,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(1, ProjectDurationFormat.Days),
+            .IsEstimated = True
+        })
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Designing",
+            .IsManual = False,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(5, ProjectDurationFormat.Days)
+        })
+        ' Manual tasks may have free text for Start and Finish date
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Development",
+            .IsManual = True,
+            .ManualStart = New ManualDateTime("Still In Discussion"),
+            .ManualDuration = ProjectDuration.FromFormatUnits(10, ProjectDurationFormat.Days),
+            .ManualFinish = New ManualDateTime("Not Defined Yet")
+        })
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Testing",
+            .IsManual = True,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(7, ProjectDurationFormat.Days)
+        })
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Bug Fixing",
+            .IsManual = True,
+            .Start = startTime,
+            .ManualDuration = ProjectDuration.FromFormatUnits(4, ProjectDurationFormat.Days)
+        })
+        ' Set a milestone
+        rootTask.Tasks.Add(New ProjectTask() With {
+            .TaskName = "Project Complete",
+            .IsManual = False,
+            .Start = startTime,
+            .IsMilestone = True
+        })
+        Return project
+    End Function
+End Class
+----

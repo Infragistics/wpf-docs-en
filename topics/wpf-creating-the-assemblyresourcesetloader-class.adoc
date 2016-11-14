@@ -1,0 +1,142 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-creating-the-assemblyresourcesetloader-class",
+    "controlName": [],
+    "tags": ["Styling"],
+    "guid": "{1E626526-5C1D-4BCA-AF0C-3598B196DE04}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:33:32.0580397Z"
+}
+|metadata|
+////
+
+= Creating the AssemblyResourceSetLoader Class
+
+This topic is fourth in a multi-part walkthrough that continues from link:wpf-creating-a-style-groups-resourcedictionary-files.html[Creating a Style Group's ResourceDictionary Files]. This topic explains how to register each style group's ResourceSet with the AssemblyResourceSetLoader class. This object registers and loads the ResourceSets when the ThemePack's assembly is referenced in a project.
+
+[start=1]
+. Right click the MyThemePack project in the Solution Explorer, click Add on the pop-up menu, and then click Class on the sub-menu.
+[start=2]
+. In the Add New Item dialog box, name the class "ThemesOrangePeelAssemblyResourceSetLoader." Click Add.
+[start=3]
+. Before you start writing any code, you should place using/Imports directives at the top of your class file so you don't need to always type out a member's fully qualified name.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows
+Imports Infragistics.Windows.Themes
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows;
+using Infragistics.Windows.Themes;
+----
+
+[start=4]
+. Change the default namespace to "MyThemePack.ResourceSets.OrangePeel."
+[start=5]
+. This class derives from the AssemblyResourceSetLoader class.
+
+*In Visual Basic:*
+
+----
+Public Class ThemesOrangePeelAssemblyResourceSetLoader
+        Inherits AssemblyResourceSetLoader
+        ...
+End Class
+----
+
+*In C#:*
+
+----
+class ThemesOrangePeelAssemblyResourceSetLoader : AssemblyResourceSetLoader
+{
+        ...
+}
+----
+
+[start=6]
+. Any class that derives from AssemblyResourceSetLoader class must override the OnRegisterResourceSets method.
+
+*In Visual Basic:*
+
+----
+...
+Protected Overloads Overrides Sub OnRegisterResourceSets(ByVal groupingName As String) 
+        ...
+End Sub 
+...
+----
+
+*In C#:*
+
+----
+...
+protected override void OnRegisterResourceSets(string groupingName)
+{
+        ...
+}
+...
+----
+
+[start=7]
+. Using the Instance method created in the style group's class file, register the style group in the OnRegisterResourceSets method. The following code registers the Instance with the AssemblyResourceSetLoader.
+
+*In Visual Basic:*
+
+----
+...
+If groupingName Is Nothing Then 
+        'ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Primitives.Instance); 
+        'ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Editors.Instance); 
+    ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.DataPresenter.Instance) 
+Else 
+    Select Case groupingName 
+        Case "Primitives"
+                        'ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Primitives.Instance); 
+                        Exit Select 
+        Case "DataPresenter"
+                ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.DataPresenter.Instance) 
+            Exit Select 
+        Case "Editors" 
+                        'ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Editors.Instance); 
+                Exit Select 
+    End Select 
+End If 
+...
+----
+
+*In C#:*
+
+----
+...
+if (groupingName == null)
+{
+        //ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Primitives.Instance);
+        //ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Editors.Instance);
+        ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.DataPresenter.Instance);
+}
+else
+{
+        switch (groupingName)
+        {
+                case "Primitives":
+                        //ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Primitives.Instance);
+                        break;
+                case "DataPresenter":
+                        ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.DataPresenter.Instance);
+                        break;
+                case "Editors":
+                        //ThemesOrangePeelAssemblyResourceSetLoader.RegisterResourceSet(OrangePeel.Editors.Instance);
+                        break;
+        }
+}
+...
+----
+
+The final step in creating a ThemePack is modifying the AssemblyInfo file. Learn about these modifications in link:wpf-modifying-the-assemblyinfo-file.html[Modifying the AssemblyInfo File].

@@ -1,0 +1,303 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-xamgantt-custom-project-view-code-example",
+    "controlName": [],
+    "tags": [],
+    "guid": "c1698085-6c5a-4fb1-97bb-4b7cd12e9222",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4710617Z"
+}
+|metadata|
+////
+
+= Custom Project View Code Example
+
+=== Description
+
+This code example presents a `CustomProjectView` class. This class is used to create custom definition for  _xamGantt_   project column.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomProjectView : INotifyPropertyChanged
+    {
+        #region Member Vars
+        private string key;
+        private string sortedColumns;
+        private string tableKey;
+        private bool? areCriticalTasksHighlighted;
+        private bool? areSummaryTasksVisible;
+        private bool? isOutlineStructurePreservedWhenSorting;
+        private bool? isSlackVisible;
+        private string timescale;
+        private string nonWorkingTimeHighlightStyle;
+        #endregion // Member Vars
+        #region Public Properties
+        public string Key
+        {
+            get { return key; }
+            set
+            {
+                if (key != value)
+                {
+                    key = value;
+                    this.OnPropertyChanged("Key");
+                }
+            }
+        }
+        public string SortedColumns
+        {
+            get { return sortedColumns; }
+            set
+            {
+                if (sortedColumns != value)
+                {
+                    sortedColumns = value;
+                    this.OnPropertyChanged("SortedColumns");
+                }
+            }
+        }
+        public string TableKey
+        {
+            get { return tableKey; }
+            set
+            {
+                if (tableKey != value)
+                {
+                    tableKey = value;
+                    this.OnPropertyChanged("TableKey");
+                }
+            }
+        }
+        public bool? AreCriticalTasksHighlighted
+        {
+            get { return areCriticalTasksHighlighted; }
+            set
+            {
+                if (areCriticalTasksHighlighted != value)
+                {
+                    areCriticalTasksHighlighted = value;
+                    this.OnPropertyChanged("AreCriticalTasksHighlighted");
+                }
+            }
+        }
+        public bool? AreSummaryTasksVisible
+        {
+            get { return areSummaryTasksVisible; }
+            set
+            {
+                if (areSummaryTasksVisible != value)
+                {
+                    areSummaryTasksVisible = value;
+                    this.OnPropertyChanged("AreSummaryTasksVisible");
+                }
+            }
+        }
+        public string NonWorkingTimeHighlightStyle
+        {
+            get { return nonWorkingTimeHighlightStyle; }
+            set
+            {
+                if (nonWorkingTimeHighlightStyle != value)
+                {
+                    nonWorkingTimeHighlightStyle = value;
+                    this.OnPropertyChanged("NonWorkingTimeHighlightStyle");
+                }
+            }
+        }
+        public bool? IsOutlineStructurePreservedWhenSorting
+        {
+            get { return isOutlineStructurePreservedWhenSorting; }
+            set
+            {
+                if (isOutlineStructurePreservedWhenSorting != value)
+                {
+                    isOutlineStructurePreservedWhenSorting = value;
+                    this.OnPropertyChanged("IsOutlineStructurePreservedWhenSorting");
+                }
+            }
+        }
+        public bool? IsSlackVisible
+        {
+            get { return isSlackVisible; }
+            set
+            {
+                if (isSlackVisible != value)
+                {
+                    isSlackVisible = value;
+                    this.OnPropertyChanged("IsSlackVisible");
+                }
+            }
+        }
+        public string Timescale
+        {
+            get { return timescale; }
+            set
+            {
+                if (timescale != value)
+                {
+                    timescale = value;
+                    this.OnPropertyChanged("Timescale");
+                }
+            }
+        }
+        #endregion // Public Properties
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion // INotifyPropertyChanged
+    }
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomProjectView
+      Implements INotifyPropertyChanged
+      #Region "Member Vars"
+      Private m_key As String
+      Private m_sortedColumns As String
+      Private m_tableKey As String
+      Private m_areCriticalTasksHighlighted As System.Nullable(Of Boolean)
+      Private m_areSummaryTasksVisible As System.Nullable(Of Boolean)
+      Private m_isOutlineStructurePreservedWhenSorting As System.Nullable(Of Boolean)
+      Private m_isSlackVisible As System.Nullable(Of Boolean)
+      Private m_timescale As String
+      Private m_nonWorkingTimeHighlightStyle As String
+      #End Region
+      #Region "Public Properties"
+      Public Property Key() As String
+            Get
+                  Return m_key
+            End Get
+            Set
+                  If m_key <> value Then
+                        m_key = value
+                        Me.OnPropertyChanged("Key")
+                  End If
+            End Set
+      End Property
+      Public Property SortedColumns() As String
+            Get
+                  Return m_sortedColumns
+            End Get
+            Set
+                  If m_sortedColumns <> value Then
+                        m_sortedColumns = value
+                        Me.OnPropertyChanged("SortedColumns")
+                  End If
+            End Set
+      End Property
+      Public Property TableKey() As String
+            Get
+                  Return m_tableKey
+            End Get
+            Set
+                  If m_tableKey <> value Then
+                        m_tableKey = value
+                        Me.OnPropertyChanged("TableKey")
+                  End If
+            End Set
+      End Property
+      Public Property AreCriticalTasksHighlighted() As System.Nullable(Of Boolean)
+            Get
+                  Return m_areCriticalTasksHighlighted
+            End Get
+            Set
+                  If m_areCriticalTasksHighlighted <> value Then
+                        m_areCriticalTasksHighlighted = value
+                        Me.OnPropertyChanged("AreCriticalTasksHighlighted")
+                  End If
+            End Set
+      End Property
+      Public Property AreSummaryTasksVisible() As System.Nullable(Of Boolean)
+            Get
+                  Return m_areSummaryTasksVisible
+            End Get
+            Set
+                  If m_areSummaryTasksVisible <> value Then
+                        m_areSummaryTasksVisible = value
+                        Me.OnPropertyChanged("AreSummaryTasksVisible")
+                  End If
+            End Set
+      End Property
+      Public Property NonWorkingTimeHighlightStyle() As String
+            Get
+                  Return m_nonWorkingTimeHighlightStyle
+            End Get
+            Set
+                  If m_nonWorkingTimeHighlightStyle <> value Then
+                        m_nonWorkingTimeHighlightStyle = value
+                        Me.OnPropertyChanged("NonWorkingTimeHighlightStyle")
+                  End If
+            End Set
+      End Property
+      Public Property IsOutlineStructurePreservedWhenSorting() As System.Nullable(Of Boolean)
+            Get
+                  Return m_isOutlineStructurePreservedWhenSorting
+            End Get
+            Set
+                  If m_isOutlineStructurePreservedWhenSorting <> value Then
+                        m_isOutlineStructurePreservedWhenSorting = value
+                        Me.OnPropertyChanged("IsOutlineStructurePreservedWhenSorting")
+                  End If
+            End Set
+      End Property
+      Public Property IsSlackVisible() As System.Nullable(Of Boolean)
+            Get
+                  Return m_isSlackVisible
+            End Get
+            Set
+                  If m_isSlackVisible <> value Then
+                        m_isSlackVisible = value
+                        Me.OnPropertyChanged("IsSlackVisible")
+                  End If
+            End Set
+      End Property
+      Public Property Timescale() As String
+            Get
+                  Return m_timescale
+            End Get
+            Set
+                  If m_timescale <> value Then
+                        m_timescale = value
+                        Me.OnPropertyChanged("Timescale")
+                  End If
+            End Set
+      End Property
+      #End Region
+      #Region "INotifyPropertyChanged"
+      Public Event PropertyChanged As PropertyChangedEventHandler
+      Public Sub OnPropertyChanged(propertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+      End Sub
+      #End Region
+End Class
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-code-example-creating-view-for-xamgantt-using-custom-classes.html[Code Example Creating View for xamGantt using Custom Classes]
+|You can create custom classes for project columns, project tables and project views and use those classes to customize xamGantt appearance.
+
+|====

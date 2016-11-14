@@ -1,0 +1,150 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-ribbon-tool-events",
+    "controlName": ["xamRibbon"],
+    "tags": ["Editing","Events","Selection"],
+    "guid": "{63619358-56C3-434A-A025-D9A3F02225D8}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.2021935Z"
+}
+|metadata|
+////
+
+= Ribbon Tool Events
+
+
+
+The tools included with the xamRibbon™ control have several common events:
+
+* *Cloned* - This event is invoked when a copy of an instance of a tool is made. For example, when an instance of a tool is added to the Quick Access Toolbar by the end user using the right-click menu. This is a bubble event that is raised from the tool being cloned.
+* *CloneDiscarded* - This event is invoked when a cloned instance of a tool is released and no longer used by the ribbon. For example, when an instance of a tool is removed from the Quick Access Toolbar. This is a bubble event and is raised from the tool being discarded.
+
+In addition, tools may expose their own custom events. The following is a list of the more commonly used events for the various tool types:
+
+[options="header", cols="a,a"]
+|====
+|ToolType|Tool Specific Events
+
+|GalleryTool
+|ItemActivated 
+
+ItemClicked 
+
+ItemSelected
+
+|MenuTool
+|Checked 
+
+Click 
+
+Unchecked
+
+|MenuToolBase
+|Opened 
+
+Opening 
+
+Closed
+
+|ButtonTool
+|Click
+
+|ToggleButtonTool
+|Click 
+
+Checked 
+
+Indeterminate 
+
+Unchecked
+
+|TextEditorTool 
+
+ComboEditorTool
+|ValueChanged 
+
+TextChanged 
+
+EditModeStarting 
+
+EditModeStarted 
+
+EditModeEnding 
+
+EditModeEnded
+
+|ComboEditorTool
+|DropDownOpened 
+
+DropDownClosed
+
+|====
+
+All of the events mentioned above are defined as Bubble events; therefore, they may be handled at the Tool or from any ancestor element. For example, you can handle the event on the tool itself:
+
+*In XAML:*
+
+----
+<igRibbon:XamRibbon>
+        <igRibbon:XamRibbon.Tabs>
+                <igRibbon:RibbonTabItem Header="Home">
+                        <igRibbon:RibbonGroup Caption="Clipboard">
+                                <igRibbon:ButtonTool Id="PasteButton" 
+                                  Caption="Paste" Click="OnPasteButtonClick"/>
+                        </igRibbon:RibbonGroup>
+                </igRibbon:RibbonTabItem>
+        </igRibbon:XamRibbon.Tabs>
+</igRibbon:XamRibbon>
+----
+
+The C# code for handling this event might look something like the following:
+
+*In C#:*
+
+----
+private void OnPasteButtonClick(object sender, RoutedEventArgs e)
+{
+        // perform paste action
+}
+----
+
+Or you can handle it further up the element ancestor chain. For example, you could handle the event at the Ribbon itself:
+
+*In XAML:*
+
+----
+<igRibbon:XamRibbon igRibbon:ButtonTool.Click="OnButtonToolClick">
+        <igRibbon:XamRibbon.Tabs>
+                <igRibbon:RibbonTabItem Header="Home">
+                        <igRibbon:RibbonGroup Caption="Clipboard">
+                                <igRibbon:ButtonTool Id="PasteButton" 
+                                  Caption="Paste"/>
+                        </igRibbon:RibbonGroup>
+                </igRibbon:RibbonTabItem>
+        </igRibbon:XamRibbon.Tabs>
+</igRibbon:XamRibbon>
+----
+
+The C# code for handling this event might look something like the following:
+
+*In C#:*
+
+----
+private void OnButtonToolClick(object sender, RoutedEventArgs e)
+{
+        // perform action
+}
+----
+
+If you prefer, you may also add handlers for the events in code. E.g.:
+
+*In C#:*
+
+----
+this.AddHandler(ButtonTool.ClickEvent, 
+  new RoutedEventHandler(OnButtonToolClick));
+----
+
+Of the previous approaches, it is best to hook the event of the tool directly. In this way, the method that is used to catch the event can be specific to the action associated with that tool. If you catch the event at a higher level, then you will need to set the Id or Name so that you have some means of identifying the tool for which the event is being raised so you know what action to take.

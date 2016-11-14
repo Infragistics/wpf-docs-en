@@ -1,0 +1,97 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-improving-horizontal-scrolling-using-cellcontrolgenerationmode",
+    "tags": ["How Do I","Virtualization"],
+    "controlName": ["xamGrid"],
+    "guid": "79fe2df6-f18d-4b54-8abe-787525be6b41",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.6222093Z"
+}
+|metadata|
+////
+
+= Improving Horizontal Scrolling Using CellControlGenerationMode Property
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how the horizontal scrolling can be improved if many columns are displayed in the  _xamGrid™_   control.
+
+=== Required background
+
+The following topic is a prerequisite to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgrid-virtualization.html[Virtualization]
+|This topic describes the virtualization in the _xamGrid_ control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref386041089,Configuring Smooth Horizontal Scrolling>>
+* <<_Ref386041093,Related Content>>
+
+[[_Ref386041089]]
+== Configuring Smooth Horizontal Scrolling
+
+[[_Hlk368069110]]
+
+=== Overview
+
+It is essential for the virtualization process that the visual elements are only created when they are in view in the  _xamGrid_   control.
+
+By default, a link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.cellcontrol_members.html[CellControl] instance is created when a cell comes into view and this instance is used only for this particular cell and it is never recycled. The same behavior is achieved if the `CellControlGenerationMode` is set to `Virtualize`.
+
+If the `CellControlGenerationMode` is set to `Recycle`, the `CellControl` instances are recycled and reused by the cells in the same row when a horizontal scrolling is performed.
+
+=== Property settings
+
+The following table maps the desired configuration to the property settings that manage it.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Recycle and reuse the `CellControl` instances by the cells in the same row when scrolling.
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~cellcontrolgenerationmode.html[CellControlGenerationMode]
+| link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.cellcontrolgenerationmode.html[Recycle]
+
+|====
+
+[[_Hlk337817761]]
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGrid x:Name="dataGrid" ItemsSource="{Binding Path=Customers}" CellControlGenerationMode="Recycle" />
+----
+
+[[_Ref386041093]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgrid-control-the-virtualization-process.html[Control the Virtualization Process]
+|This topic describes how to control the virtualization process in the xamGrid control.
+
+|====

@@ -1,0 +1,96 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-setting-fixed-columns-programmatically",
+    "controlName": ["xamGrid"],
+    "tags": ["Grids","How Do I","Layouts"],
+    "guid": "{CA9484CF-F85B-42BA-BEBD-278822876B02}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.7871623Z"
+}
+|metadata|
+////
+
+= Setting Fixed Columns Programmatically
+
+ifdef::sl,wpf[]
+Your end users can pin or unpin columns on xamGrid™ by either dragging the column to a drop location or using the indicator in the column’s header (depending on your settings, for more information see the link:xamgrid-fixed-columns.html[Enable Fixed Columns] topic).
+endif::sl,wpf[]
+
+ifdef::win-rt[]
+Your end users can pin or unpin columns on xamGrid™ by either dragging the column to a drop location or using the column menu (depending on your settings, for more information see the link:xamgrid-fixed-columns.html[Enable Fixed Columns] topic).
+endif::win-rt[]
+
+However, you can also set programmatically fixed columns to be displayed to your end user.
+
+There are two collections for fixed columns:
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.fixedcolumnsettings~fixedcolumnsleft.html[FixedColumnsLeft] – This collection is for the fixed columns on the left-hand side of xamGrid
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.fixedcolumnsettings~fixedcolumnsright.html[FixedColumnsRight] – This collection is for the fixed columns on right hand-side of xamGrid
+
+To fix columns, you simply add the required columns to the fixed columns collection. You can also unpin a column by removing it from the fixed columns collection.
+
+The following code demonstrates how to achieve this.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+...
+'Add a column to the left-hand side fixed column collection
+Dim DisplayAsFixedColumn As Column = Me.MyGrid.Columns.DataColumns("ProductName")      
+Me.MyGrid.FixedColumnSettings.FixedColumnsLeft.Add(DisplayAsFixedColumn)
+'Remove a column from the left-hand side fixed column collection
+Me.MyGrid.FixedColumnSettings.FixedColumnsLeft.Remove(DisplayAsFixedColumn)
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+//Add a column to the left-hand side fixed column collection
+Column DisplayAsFixedColumn = this.MyGrid.Columns.DataColumns["ProductName"];       
+this.MyGrid.FixedColumnSettings.FixedColumnsLeft.Add(DisplayAsFixedColumn);
+//Remove a column from the left-hand side fixed column collection
+this.MyGrid.FixedColumnSettings.FixedColumnsLeft.Remove(DisplayAsFixedColumn);
+----
+
+You can use the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~isfixable.html[IsFixable] property to set fixed columns. The IsFixable property of the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column.html[Column] object determines if the column is fixed.
+
+The following code demonstrates how to fix a column using the IsFixable property.
+
+*In XAML:*
+
+----
+<ig:TextColumn Key="ProductID" IsFixable="True"/>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Grids
+...
+Dim ColumnNotFixable As Column = Me.MyGrid.Columns.DataColumns("ProductID")
+ColumnNotFixable.IsFixable = True
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Grids;
+...
+Column ColumnNotFixable = this.MyGrid.Columns.DataColumns["ProductID"];
+ColumnNotFixable.IsFixable = true;
+----
+
+== *Related Topics*
+
+link:xamgrid-fixed-columns.html[Fixed Columns]
+
+link:xamgrid-setting-the-drop-area-location.html[Setting the Drop Area Location]
+
+link:xamgrid-fixed-column-events.html[Fixed Column Events]
+
+pick:[win-rt=" link:bb45cdbe-7149-49bc-a63a-1a77676c6986[Touch Support]"]

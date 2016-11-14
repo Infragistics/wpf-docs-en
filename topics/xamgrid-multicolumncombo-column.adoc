@@ -1,0 +1,193 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-multicolumncombo-column",
+    "controlName": ["xamGrid"],
+    "tags": ["Data Presentation","Grids","Layouts"],
+    "guid": "c25379f4-3fb0-48a6-9bc8-c2aa6a9789ee",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.5981981Z"
+}
+|metadata|
+////
+
+= MultiColumnCombo Column
+
+=== Purpose
+
+This topic introduces the MultiColumnCombo column type available in the xamGrid™ control. It also demonstrates how to use the column within the xamGrid control.
+
+=== Required background
+
+The following table lists the topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|_Topic_|_Purpose_
+
+| link:xamgrid-define-column-layout.html[Define Column Layout]
+|This topic describes how to create columns with the xamGrid control.
+
+|====
+
+== Introduction
+
+=== MultiColumnCombo column summary
+
+The MultiColumnCombo column is column type that displays multiple columns in a drop down list. It allows users to edit the cell value of the xamGrid control by selecting a value from a pre-populated drop-down list of items. The difference between the MultiColumnCombo column and the ComboBoxEditor column is that MultiColumnCombo can display more information for each data item, using multiple grid-like columns.
+
+=== Requirements summary chart
+
+The following table summarizes the requirements for adding the MultiColumnCombo column to the xamGrid control.
+
+[options="header", cols="a,a"]
+|====
+|Requirement|Description
+
+|Reference to the {ApiPlatform}Controls.Editors.XamComboEditor.v{ProductVersion}
+|{ProductName} assembly containing the XamComboEditor control.
+
+|Reference to the {ApiPlatform}Controls.Grids.MultiColumnComboColumn.v{ProductVersion}
+|{ProductName} assembly containing the XamMultiColumComboEditor control.
+
+|====
+
+== Configuring the MultiColumnCombo Column- Conceptual Overview
+
+=== Overview
+
+The MultiColumnCombo column is added to the xamGrid in the same way as any other type of column: you choose between adding the column manually and automatically (depending on the datasource) by setting the link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~autogeneratecolumns.html[AutoGenerateColumns] property of MultiColumnCombo:
+
+*  _False_   – The MultiColumnCombo type of column is added manually.
+*  _True_   – Columns will be generated automatically based on the data source.
+
+=== Property settings
+
+The following table maps the desired configuration/behaviors to property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set it to:
+
+|Set the data source
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~itemssource.html[ItemsSource]
+|An IEnumerable data source
+
+|Let the column generate the columns
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~autogeneratecolumns.html[AutoGenerateColumns]
+|
+* _True_ – columns will be generated automatically based on the data source 
+
+* _False_ – Add the columns manually 
+
+|Set which value is displayed when the dropdown is closed
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~displaymemberpath.html[DisplayMemberPath]
+|A key from the ItemsSource
+
+|Define the columns displayed in the dropdown of the control (if AutoGenerateColumns is set to _False_ )
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~columns.html[Columns]
+|A collection of ComboColumns
+
+|Set the selected value of the dropdown
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~selectedvaluepath.html[SelectedValuePath]
+|A key from the ItemsSource that is used as the value of the selected item of the dropdown
+
+|====
+
+== Configuring the MultiColumnCombo Column- Code Example
+
+=== Description
+
+This example demonstrates how to add a MultiColumnCombo column to the xamGrid control and set its key properties. It will also demonstrate how to add column types to the drop down list of items. You can add columns such as:
+
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.imagecombocolumn_members.html[ImageComboColumn]
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.checkboxcombocolumn_members.html[CheckboxComboColumn]
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.datecombocolumn_members.html[DateComboColumn]
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.textcombocolumn_members.html[TextComboColumn]
+
+The screenshot below demonstrates how the MultiColumnCombo looks in the xamGrid control as a result of the following settings:
+
+[options="header", cols="a,a"]
+|====
+|Property|Value
+
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~itemssource.html[ItemsSource]
+|StaticResource customerlist
+
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~autogeneratecolumns.html[AutoGenerateColumns]
+|False
+
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~displaymemberpath.html[DisplayMemberPath]
+|ContactName
+
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~selectedvaluepath.html[SelectedValuePath]
+|CustomerId
+
+| link:{ApiPlatform}controls.grids.multicolumncombocolumn.v{ProductVersion}~infragistics.controls.grids.multicolumncombocolumn~columns.html[Columns]
+|Added collection of ComboColumns, such as, ImageComboColumn and TextComboColumn
+
+|====
+
+image::images/xamGrid_MultiColumnCombo_01.png[]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGrid x:Name="dataGrid"
+            AutoGenerateColumns="
+            ColumnWidth="*">
+   <ig:XamGrid.Columns>
+      <!--Add MultiColumnComboColumn-->
+      <ig:MultiColumnComboColumn Key="CustomerId" x:Name="customerList"
+                                 ItemsSource="{StaticResource customerList}"
+                                 AutoGenerateColumns="
+                                 DisplayMemberPath="ContactName"
+                                 SelectedValuePath="CustomerId">
+       <!--Add Combo Columns to Columns collection-->
+       <ig:MultiColumnComboColumn.Columns>
+            <ig:ImageComboColumn Key="ImagePath"
+                                 MaximumWidth="60"
+                                 ImageWidth="50" >
+            </ig:ImageComboColumn>
+            <ig:TextComboColumn Key="ContactName" />
+            <ig:TextComboColumn Key="Company" />
+         </ig:MultiColumnComboColumn.Columns>
+      </ig:MultiColumnComboColumn>
+   </ig:XamGrid.Columns>
+</ig:XamGrid>
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgrid-columns.html[Columns]
+|This section describes the different Columns available within the xamGrid control
+
+| link:xammulticolumncomboeditor.html[xamMultiColumnComboEditor]
+|This topic contains information about the xamMultiColumnComboEditor control
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/grid/#/multicolumncomboeditor-columns[MultiColumnComboEditor Columns]"] pick:[wpf=" link:{SamplesURL}/grid/multicolumncomboeditor-columns[MultiColumnComboEditor Columns]"] 
+|This sample demonstrates how to add the MultiColumnCombo column to your xamGrid control.
+
+|====

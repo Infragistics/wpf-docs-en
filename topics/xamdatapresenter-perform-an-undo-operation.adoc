@@ -1,0 +1,62 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-perform-an-undo-operation",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{59C3E994-52FC-44C1-A609-287290127F59}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2840099Z"
+}
+|metadata|
+////
+
+= Perform an Undo Operation
+
+The DataPresenter controls map their undo and redo operations to common keyboard shortcuts found in many operating systems. For example, the DataPresenter controls map their undo operation to the 'CTRL + Z' keyboard shortcut. However, you can also perform undo/redo operations in code or XAML by executing the following commands exposed by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands.html[DataPresenterCommands] class:
+
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~undo.html[Undo]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresentercommands~redo.html[Redo]
+
+The following example code demonstrates how to perform an undo operation. You must enable undo operations and perform an action on the DataPresenter control in order to enable the undo command.
+
+*In XAML:*
+
+----
+<Button 
+    Content="Undo Action" 
+    Command="{x:Static igDP:DataPresenterCommands.Undo}" 
+    CommandTarget="{Binding ElementName=xamDataPresenter1}" />
+<!--You must enable undo operations to enable the undo/redo commands-->
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True" IsUndoEnabled="True">
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter
+...
+'TODO: Place this code in an event handler such as a Button's Click event
+Me.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.Undo)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter;
+...
+//TODO: Place this code in an event handler such as a Button's Click event
+this.xamDataPresenter1.ExecuteCommand(DataPresenterCommands.Undo);
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-enable-undo-operations.html[Enable Undo Operations]
+
+link:xamdatapresenter-limit-the-undo-history.html[Limit the Undo History]
+
+link:xamdatapresenter-about-restoring-deleted-records.html[About Restoring Deleted Records]

@@ -1,0 +1,238 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-scheduledata",
+    "controlName": [],
+    "tags": ["Data Binding"],
+    "guid": "ce28e1f9-5b91-4245-acd4-a3d044d98ff9",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.2470108Z"
+}
+|metadata|
+////
+
+= ScheduleData
+
+*In Visual Basic:*
+
+----
+Imports System.Collections.ObjectModel
+Imports Infragistics.Controls.Schedules
+----
+
+...
+
+[source]
+----
+Public Class ScheduleData
+#Region "Members"
+#Region "Resources"
+    Private Shared m_resources As ObservableCollection(Of Resource)
+    Public Shared ReadOnly Property Resources() As ObservableCollection(Of Resource)
+        Get
+            If m_resources Is Nothing Then
+                m_resources = CreateResources()
+            End If
+            Return m_resources
+        End Get
+    End Property
+    Private Shared Function CreateResources() As ObservableCollection(Of Resource)
+        Dim resourcesCollection As New ObservableCollection(Of Resource)()
+        Dim resource As New Resource()
+        resource.Id = "resource1"
+        resource.Name = "resourceName"
+        resourcesCollection.Add(resource)
+        Return resourcesCollection
+    End Function
+#End Region
+#Region "Calendars"
+    Private Shared m_calendars As ObservableCollection(Of ResourceCalendar)
+    Public Shared ReadOnly Property Calendars() As ObservableCollection(Of ResourceCalendar)
+        Get
+            If m_calendars Is Nothing Then
+                m_calendars = CreateCalendars()
+            End If
+            Return m_calendars
+        End Get
+    End Property
+    Private Shared Function CreateCalendars() As ObservableCollection(Of ResourceCalendar)
+        Dim calendarsCollection As New ObservableCollection(Of ResourceCalendar)()
+        Dim resourceCalendar As New ResourceCalendar()
+        resourceCalendar.Id = "calendar1"
+        resourceCalendar.OwningResourceId = "resource1"
+        calendarsCollection.Add(resourceCalendar)
+        Return calendarsCollection
+    End Function
+#End Region
+#Region "Appointments"
+    Private Shared m_appointments As ObservableCollection(Of Appointment)
+    Public Shared ReadOnly Property Appointments() As ObservableCollection(Of Appointment)
+        Get
+            If m_appointments Is Nothing Then
+                m_appointments = CreateAppointments()
+            End If
+            Return m_appointments
+        End Get
+    End Property
+    Private Shared Function CreateAppointments() As ObservableCollection(Of Appointment)
+        Dim appointments As New ObservableCollection(Of Appointment)()
+        Dim appointment1 As New Appointment()
+        appointment1.Id = "Appointment1"
+        appointment1.OwningCalendarId = "calendar1"
+        appointment1.OwningResourceId = "resource1"
+        appointment1.Subject = "Morning meeting"
+        appointment1.Description = "Morning meeting"
+        appointment1.Start = DateTime.Today.AddHours(8).AddMinutes(30).ToUniversalTime()
+        appointment1.End = DateTime.Today.AddHours(9).AddMinutes(45).ToUniversalTime()
+        appointments.Add(appointment1)
+        Dim appointment2 As New Appointment()
+        appointment2.Id = "Appointment2"
+        appointment2.OwningCalendarId = "calendar1"
+        appointment2.OwningResourceId = "resource1"
+        appointment2.Subject = "Lunch"
+        appointment2.Description = "Lunch"
+        appointment2.Start = DateTime.Today.AddHours(12).ToUniversalTime()
+        appointment2.End = DateTime.Today.AddHours(12).AddMinutes(30).ToUniversalTime()
+        appointments.Add(appointment2)
+        Dim appointment3 As New Appointment()
+        appointment3.Id = "Appointment3"
+        appointment3.OwningCalendarId = "calendar1"
+        appointment3.OwningResourceId = "resource1"
+        appointment3.Subject = "Coffee break"
+        appointment3.Description = "Coffee break"
+        appointment3.Start = DateTime.Today.AddHours(14).ToUniversalTime()
+        appointment3.End = DateTime.Today.AddHours(14).AddMinutes(15).ToUniversalTime()
+        appointments.Add(appointment3)
+        Dim appointment4 As New Appointment()
+        appointment4.Id = "Appointment4"
+        appointment4.OwningCalendarId = "calendar1"
+        appointment4.OwningResourceId = "resource1"
+        appointment4.Subject = "Business meeting"
+        appointment4.Description = "Business meeting"
+        appointment4.Start = DateTime.Today.AddHours(14).AddMinutes(15).ToUniversalTime()
+        appointment4.End = DateTime.Today.AddHours(18).AddMinutes(0).ToUniversalTime()
+        appointments.Add(appointment4)
+        Return appointments
+    End Function
+#End Region
+#End Region
+End Class
+----
+
+*In C#:*
+
+----
+using System;
+using System.Collections.ObjectModel;
+using Infragistics.Controls.Schedules;
+public class ScheduleData
+{
+    #region Members
+    #region Resources
+    private static ObservableCollection<Resource> resources;
+    public static ObservableCollection<Resource> Resources
+    {
+        get
+        {
+            if (resources == null)
+                resources = CreateResources();
+            return resources;
+        }
+    }
+    private static ObservableCollection<Resource> CreateResources()
+    {
+        return new ObservableCollection<Resource>
+        {
+            new Resource
+            {
+                Id = "resource1",
+                Name = "resourceName"
+            }
+        };
+    }
+    #endregion Resources
+    #region Calendars
+    private static ObservableCollection<ResourceCalendar> calendars;
+    public static ObservableCollection<ResourceCalendar> Calendars
+    {
+        get
+        {
+            if (calendars == null)
+                calendars = CreateCalendars();
+            return calendars;
+        }
+    }
+    private static ObservableCollection<ResourceCalendar> CreateCalendars()
+    {
+        return new ObservableCollection<ResourceCalendar>
+        {
+            new ResourceCalendar
+            {
+                Id = "calendar1",
+                OwningResourceId="resource1"
+            }
+        };
+    }
+    #endregion Calendars
+    #region Appointments
+    private static ObservableCollection<Appointment> appointments;
+    public static ObservableCollection<Appointment> Appointments
+    {
+        get
+        {
+            if (appointments == null)
+                appointments = CreateAppointments();
+            return appointments;
+        }
+    }
+    private static ObservableCollection<Appointment> CreateAppointments()
+    {
+        return new ObservableCollection<Appointment>
+        {
+            new Appointment
+            {
+                Id = "Appointment1",
+                OwningCalendarId = "calendar1",
+                OwningResourceId = "resource1",
+                Subject = "Morning meeting",
+                Description = "Morning meeting",
+                Start=DateTime.Today.AddHours(8).AddMinutes(30).ToUniversalTime(),
+                End = DateTime.Today.AddHours(9).AddMinutes(45).ToUniversalTime(),
+            },
+            new Appointment
+            {
+                Id = "Appointment2",
+                OwningCalendarId = "calendar1",
+                OwningResourceId = "resource1",
+                Subject = "Lunch",
+                Description = "Lunch",
+                Start = DateTime.Today.AddHours(12).ToUniversalTime(),
+                End= DateTime.Today.AddHours(12).AddMinutes(30).ToUniversalTime(),
+                },
+            new Appointment
+            {
+                Id = "Appointment3",
+                OwningCalendarId = "calendar1",
+                OwningResourceId = "resource1",
+                Subject = "Coffee break",
+                Description = "Coffee break",
+                Start = DateTime.Today.AddHours(14).ToUniversalTime(),
+                End= DateTime.Today.AddHours(14).AddMinutes(15).ToUniversalTime(),
+            },
+            new Appointment
+            {
+                Id = "Appointment4",
+                OwningCalendarId = "calendar1",
+                OwningResourceId = "resource1",
+                Subject = "Business meeting",
+                Description = "Business meeting",
+                Start = DateTime.Today.AddHours(14).AddMinutes(15).ToUniversalTime(),
+                End= DateTime.Today.AddHours(18).AddMinutes(00).ToUniversalTime(),
+            }
+        };
+    }
+    #endregion Appointments
+    #endregion Members
+    }
+----

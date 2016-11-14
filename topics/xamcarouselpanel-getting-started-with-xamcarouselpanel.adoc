@@ -1,0 +1,197 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcarouselpanel-getting-started-with-xamcarouselpanel",
+    "controlName": ["xamCarouselPanel"],
+    "tags": ["Getting Started","How Do I"],
+    "guid": "{CFFF1B95-74C8-4392-BD7E-8B6FBF099493}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.0747681Z"
+}
+|metadata|
+////
+
+= Adding xamCarouselPanel to Your Page
+
+This topic will walk you through, from the beginning, the necessary steps to create xamCarouselPanel™.
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window or Page project.
+[start=2]
+. Before you start writing any code, you should place using/Imports directives in your code-behind so you don't need to always type out a member's fully qualified name.
+
+*In XAML:*
+
+----
+xmlns:igWindows="http://infragistics.com/Windows"
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Controls
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Controls;
+----
+
+[start=3]
+. If you are going to use the code-behind to add the xamCarouselPanel - create a method (explained later in this topic) that the form will call when loaded. In the opening Page or Window tag of the XAML file, place the following.
+
+*In XAML:*
+
+----
+Loaded="Samp_Loaded"
+----
+
+[start=4]
+. Assign a name to the Page or Window's Grid so it will be available for adding the xamCarouselPanel from code-behind.
+
+*In XAML:*
+
+----
+<Grid Name="myGrid">
+        ...
+</Grid>
+----
+
+[start=5]
+. Add the xamCarouselPanel and images in it's ChildElements collection either using XAML ot code-behind.
+
+*In XAML:*
+
+----
+<Grid>
+    <igWindows:XamCarouselPanel x:Name="XamCarouselPanel1">
+            <Image Width="51" Height="51" Source="..\..\images\image1.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image2.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image3.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image4.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image5.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image6.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image7.png" />
+            <Image Width="51" Height="51" Source="..\..\images\image8.png" />
+    </igWindows:XamCarouselPanel>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Sub Samp_Loaded(ByVal o As Object, ByVal e As RoutedEventArgs)
+        ' Create an instance of XamCarouselPanel
+        Dim myxamCarouselPanel As New XamCarouselPanel()
+        ' Supply it with a name
+        myxamCarouselPanel.Name = "XamCarouselPanel1"
+        ' Create several instances of images and assign them to the 
+        ' XamCarouselPanel's ChildElements collection
+        Dim myImage1 As New Image()
+        myImage1.Height = 100
+        myImage1.Width = 100
+        Dim myBitmapImage1 As New BitmapImage()
+        myBitmapImage1.BeginInit()
+        Dim myUri1 As New Uri(App.Current.StartupUri.OriginalString.ToString() + _
+          "..\..\..\images\image1.png")
+        myBitmapImage1.UriSource = myUri1
+        myBitmapImage1.DecodePixelHeight = 100
+        myBitmapImage1.DecodePixelWidth = 100
+        myBitmapImage1.EndInit()
+        myImage1.Source = myBitmapImage1
+        myxamCarouselPanel.ChildElements.Add(myImage1)
+        Dim myImage2 As New Image()
+        myImage2.Height = 100
+        myImage2.Width = 100
+        Dim myBitmapImage2 As New BitmapImage()
+        myBitmapImage2.BeginInit()
+        Dim myUri2 As New Uri(App.Current.StartupUri.OriginalString.ToString() + _
+          "..\..\..\images\image2.png")
+        myBitmapImage2.UriSource = myUri2
+        myBitmapImage2.DecodePixelHeight = 100
+        myBitmapImage2.DecodePixelWidth = 100
+        myBitmapImage2.EndInit()
+        myImage2.Source = myBitmapImage2
+        myxamCarouselPanel.ChildElements.Add(myImage2)
+        Dim myImage3 As New Image()
+        myImage3.Height = 100
+        myImage3.Width = 100
+        Dim myBitmapImage3 As New BitmapImage()
+        myBitmapImage3.BeginInit()
+        Dim myUri3 As New Uri(App.Current.StartupUri.OriginalString.ToString() + _
+          "..\..\..\images\image3.png")
+        myBitmapImage3.UriSource = myUri3
+        myBitmapImage3.DecodePixelHeight = 100
+        myBitmapImage3.DecodePixelWidth = 100
+        myBitmapImage3.EndInit()
+        myImage3.Source = myBitmapImage3
+        myxamCarouselPanel.ChildElements.Add(myImage3)
+        ' Add the newly created XamCarouselPanel to the Grid Panel's 
+        ' Children collection
+        myGrid.Children.Add(myxamCarouselPanel)
+End Sub
+----
+
+*In C#:*
+
+----
+void Samp_Loaded(object o, RoutedEventArgs e)
+{
+        // Create an instance of XamCarouselPanel
+        XamCarouselPanel myxamCarouselPanel
+          = new XamCarouselPanel();
+        // Supply it with a name
+        myxamCarouselPanel.Name = "XamCarouselPanel1";
+        // Create several instances of images and assign them to the 
+        // XamCarouselPanel's ChildElements collection
+        Image myImage1 = new Image();
+        myImage1.Height = 51;
+        myImage1.Width = 51;
+        BitmapImage myBitmapImage1 = new BitmapImage();
+        myBitmapImage1.BeginInit();
+        myBitmapImage1.UriSource = new Uri(
+          Application.Current.StartupUri.OriginalString.ToString() + 
+          @"..\..\images\image1.png");
+        myBitmapImage1.DecodePixelHeight = 51;
+        myBitmapImage1.DecodePixelWidth = 51;
+        myBitmapImage1.EndInit();
+        myImage1.Source = myBitmapImage1;
+        myxamCarouselPanel.ChildElements.Add(myImage1);
+        Image myImage2 = new Image();
+        myImage2.Height = 51;
+        myImage2.Width = 51;
+        BitmapImage myBitmapImage2 = new BitmapImage();
+        myBitmapImage2.BeginInit();
+        myBitmapImage2.UriSource = new Uri(
+          Application.Current.StartupUri.OriginalString.ToString() +
+          @"..\..\images\image2.png");
+        myBitmapImage2.DecodePixelHeight = 51;
+        myBitmapImage2.DecodePixelWidth = 51;
+        myBitmapImage2.EndInit();
+        myImage2.Source = myBitmapImage2;
+        myxamCarouselPanel.ChildElements.Add(myImage2);
+        Image myImage3 = new Image();
+        myImage3.Height = 51;
+        myImage3.Width = 51;
+        BitmapImage myBitmapImage3 = new BitmapImage();
+        myBitmapImage3.BeginInit();
+        myBitmapImage3.UriSource = new Uri(
+          Application.Current.StartupUri.OriginalString.ToString() +
+          @"..\..\images\image3.png");
+        myBitmapImage3.DecodePixelHeight = 51;
+        myBitmapImage3.DecodePixelWidth = 51;
+        myBitmapImage3.EndInit();
+        myImage3.Source = myBitmapImage3;
+        myxamCarouselPanel.ChildElements.Add(myImage3);
+        // Add the newly created XamCarouselPanel to the Grid Panel's 
+        // Children collection
+        myGrid.Children.Add(myxamCarouselPanel);
+}
+----
+
+[start=6]
+. Build and run the project. You can change the number of items displayed at any one time by modifying the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~itemsperpage.html[ItemsPerPage] property. For more information on doing this, see link:xamcarouselpanel-limiting-the-number-of-items-viewed-on-xamcarouselpanels-path.html[Limiting the Number of Items Viewed on xamCarouselPanel's Path].
+
+image::images/xamCarouselPanel_Creating_xamCarouselPanel_in_XAML_01.png[xamcarouselpanel that results from above steps and xaml]

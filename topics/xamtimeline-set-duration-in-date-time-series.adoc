@@ -1,0 +1,53 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtimeline-set-duration-in-date-time-series",
+    "controlName": ["xamTimeline"],
+    "tags": ["API","Application Scenarios","How Do I"],
+    "guid": "{9DCA8A3F-8E3E-4B47-82EA-7DB262D3A76F}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.9183939Z"
+}
+|metadata|
+////
+
+= Set Duration in Date Time Series
+
+If an event for a link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeseries.html[DateTimeSeries] occurs for an extended period of time, you can represent this as a time span in xamTimeline™. This is done by setting the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeentry~duration.html[Duration] property of the DateTime entry to a TimeSpan value.
+
+This example assumes that you know how to setup your project for Infragistics link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[XamTimeline] control. The following xaml code shows you how to display time spans for DateTime entries in xamTimeline. The code defines link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis~minimum.html[Minimum] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis~maximum.html[Maximum] values as well as the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.timelineaxis~unit.html[Unit] and link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis~unittype.html[UnitType] properties on the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.datetimeaxis.html[DateTimeAxis] object so that your end-users may easily interpret the data.
+
+*In XAML:*
+
+----
+        <ig:XamTimeline x:Name="xamTimeline"  
+                             Width="1000" Height="380" Margin="15">
+            <ig:XamTimeline.Series>
+                <!-- Add Date Time Entries -->
+                <ig:DateTimeSeries Title="CNN TV GUIDE" Position="TopOrLeft" Fill="Red">
+                    <ig:DateTimeSeries.Entries>
+                        <ig:DateTimeEntry Time="12/21/2012 6:00 AM" Duration="2:55:00" Title="CNN Sunday Morning"/>
+                        <ig:DateTimeEntry Time="12/21/2012 9:00 AM" Duration="3:30:00" Title="State of the Union"/>
+                        <ig:DateTimeEntry Time="12/21/2012 1:00 PM" Duration="1:55:00" Title="CNN GPS"/>
+                        <ig:DateTimeEntry Time="12/21/2012 3:00 PM" Duration="2:45:00" Title="YOUR $"/>
+                        <ig:DateTimeEntry Time="12/21/2012 6:00 PM" Duration="2:55:00" Title="CNN Newsroom"/>
+                        <ig:DateTimeEntry Time="12/21/2012 9:00 PM" Duration="1:00:00" Title="AC360"/>
+                    </ig:DateTimeSeries.Entries>
+                </ig:DateTimeSeries>
+            </ig:XamTimeline.Series>
+            <!-- Set Axis object's Minimum/Maximum and UnitType -->
+            <ig:XamTimeline.Axis>
+                <ig:DateTimeAxis Minimum="12/21/2012 4:00 AM" Maximum="12/21/2012 11:00 PM"
+                                   AutoRange=" UnitType="Hours" Unit="2"/>
+            </ig:XamTimeline.Axis>
+        </ig:XamTimeline>
+----
+
+image::images/XamTimeline_Set_Duration_In_Date_Time_Series_01.png[]
+
+== Related Topics
+
+link:xamtimeline-about-date-time-series.html[About DateTimeSeries]
+
+link:xamtimeline-display-date-time-series.html[Displaying DateTimeSeries]

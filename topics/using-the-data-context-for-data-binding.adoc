@@ -1,0 +1,59 @@
+﻿////
+
+|metadata|
+{
+    "name": "using-the-data-context-for-data-binding",
+    "controlName": [],
+    "tags": [],
+    "guid": "{AA95C760-5E3F-429B-BA39-DEAF435FE396}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-02-01T16:01:19.6228366Z"
+}
+|metadata|
+////
+
+= Using the Data Context for Data Binding
+
+The Data Context is a new concept in Microsoft® Windows® Presentation Foundation, that works hand and hand with Data Binding to provide trees of elements with access to a specific set of data. When set on an element, the DataContext property (defined on FrameworkElement) provides a context for data binding on that element and all descendant elements. Any Binding statement that appears on these elements will use the specified DataContext to resolve the Binding's value.
+
+For instance, if you have multiple controls on a page, and you want each control to bind to the same piece of data, you can set the DataContext property on an element that is an ancestor of all the controls (e.g., the root element of the Window), then specify bindings on properties of those controls that bind to specific pieces of data in the DataContext. When a DataContext is specified on an element, it serves as the context for data bindings on all descendant elements unless a new DataContext is set on a descendant element. In this case, the new DataContext will serve as the context for all the data bindings on that element and its descendants.
+
+In this topic, we make use of an XmlDataProvider that we are going to assign to a xamDataGrid™, and a xamDataCarousel™.
+
+[start=1]
+. Create a Windows Presentation Foundation Window or Page project.
+[start=2]
+. For easier access to xamDataGrid, place the following namespace declaration within the opening Page or Window tag.
+
+*In XAML:*
+
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+----
+
+[start=3]
+. Define an XmlDataProvider which references the link:resources-orders.html[Orders] XML file. Place the XAML code below within the Page's Resources. We place this definition in the Page's Resources section because we are going to set the Data Context of a StackPanel We couldn't make this definition in the StackPanel's Resources section because it would cause an exception. This exception would occur because WPF walks up the Visual Tree to find things. Since we are referencing the XmlDataProvider through its key on the StackPanel, the program would walk up from the StackPanel. So if we would have tried to define the XmlDataProvider inside the StackPanel's Resources section, it would not find the XmlDataProvider because its a child of the StackPanel, not a parent.
+
+*In XAML:*
+
+----
+<Page.Resources>
+        <XmlDataProvider Source="../Data/Orders.xml" 
+          x:Key="OrderData" XPath="/Orders" />
+</Page.Resources>
+----
+
+[start=4]
+. Create an instance of XamDataGrid and XamDataCarousel, name them, and set their link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~datasource.html[DataSource] property to an XPath query to retrieve the data collection from the XML file. The following XAML code defines a DataContext binding to the XmlDataProvider defined in the previous step, and shows the initialization of xamDataGrid and xamDataCarousel.
+
+*In XAML:*
+
+----
+<StackPanel DataContext="{Binding Source={StaticResource OrderData}}">
+        <igDP:XamDataGrid x:Name="XamDataGrid1" DataSource="{Binding XPath=Order}"/>
+        <igDP:XamDataCarousel x:Name="XamDataCarousel1" DataSource="{Binding XPath=Order}"/>
+</StackPanel>
+----
+
+[start=5]
+. Build and run the project. You should see a data bound xamDataGrid on the top, and a xamDataCarousel on the bottom.

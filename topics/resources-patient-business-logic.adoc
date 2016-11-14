@@ -1,0 +1,220 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-patient-business-logic",
+    "controlName": [],
+    "tags": [],
+    "guid": "99e066c5-2a95-4f85-96ee-64ba5ea3bf2b",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.3590559Z"
+}
+|metadata|
+////
+
+= Patient Business Logic
+
+*In Visual Basic:*
+
+----
+Imports System.ComponentModel
+Imports System.Collections.ObjectModel
+Namespace Binding_to_a_Collection
+Public Class PatientBusinessLogic
+    Public Function GetPatients() As ObservableCollection(Of Patient)
+        Dim patients As New ObservableCollection(Of Patient)()
+        Dim p As New Patient("David", 160, 70, 105, 70)
+        patients.Add(p)
+        p = New Patient("George", 145, 66, 111, 77)
+        patients.Add(p)
+        p = New Patient("John", 190, 71, 90, 60)
+        patients.Add(p)
+        Return patients
+    End Function
+End Class
+Public Class Patient
+    Implements INotifyPropertyChanged
+    Private patient_name As String
+    Public Property Name() As String
+        Get
+            Return patient_name
+        End Get
+        Set(ByVal value As String)
+            If patient_name <> value Then
+                patient_name = value
+                NotifyPropertyChanged("Name")
+            End If
+        End Set
+    End Property
+    Private patient_height As Integer
+    Public Property Height() As Integer
+        Get
+            Return patient_height
+        End Get
+        Set(ByVal value As Integer)
+            If patient_height <> value Then
+                patient_height = value
+                NotifyPropertyChanged("Height")
+            End If
+        End Set
+    End Property
+    Private patient_weight As Integer
+    Public Property Weight() As Integer
+        Get
+            Return patient_weight
+        End Get
+        Set(ByVal value As Integer)
+            If patient_weight <> value Then
+                patient_weight = value
+                NotifyPropertyChanged("Weight")
+            End If
+        End Set
+    End Property
+    Private patient_systolic_pressure As Integer
+    Public Property SystolicPressure() As Integer
+        Get
+            Return patient_systolic_pressure
+        End Get
+        Set(ByVal value As Integer)
+            If patient_systolic_pressure <> value Then
+                patient_systolic_pressure = value
+                NotifyPropertyChanged("SystolicPressure")
+            End If
+        End Set
+    End Property
+    Private patient_diastolic_pressure As Integer
+    Public Property DiastolicPressure() As Integer
+        Get
+            Return patient_diastolic_pressure
+        End Get
+        Set(ByVal value As Integer)
+            If patient_diastolic_pressure <> value Then
+                patient_diastolic_pressure = value
+                NotifyPropertyChanged("DiastolicPressure")
+            End If
+        End Set
+    End Property
+    Public Sub New(ByVal name As String, ByVal weight As Integer, ByVal height As Integer, ByVal systolicPressure As Integer, ByVal diastolicPressure As Integer)
+        Me.Name = name
+        Me.Weight = weight
+        Me.Height = height
+        Me.SystolicPressure = systolicPressure
+        Me.DiastolicPressure = diastolicPressure
+    End Sub
+#Region "INotifyPropertyChanged Members"
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+#End Region
+    Private Sub NotifyPropertyChanged(ByVal propertyName As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+    End Sub
+End Class
+End Namespace
+----
+
+*In C#:*
+
+----
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+namespace Binding_to_a_Collection
+{
+    public class PatientBusinessLogic
+    {
+        public ObservableCollection<Patient> GetPatients()
+        {
+            ObservableCollection<Patient> patients = new ObservableCollection<Patient>();
+            Patient p = new Patient("David", 160, 70, 105, 70);
+            patients.Add(p);
+            p = new Patient("George", 145, 66, 111, 77);
+            patients.Add(p);
+            p = new Patient("John", 190, 71, 90, 60);
+            patients.Add(p);
+            return patients;
+        }
+    }
+    public class Patient : INotifyPropertyChanged
+    {
+        private string patient_name;
+        public string Name
+        {
+            get { return patient_name; }
+            set
+            {
+                if (patient_name != value)
+                {
+                    patient_name = value;
+                    NotifyPropertyChanged("Name");
+                }
+            }
+        }
+        private int patient_height;
+        public int Height
+        {
+            get { return patient_height; }
+            set
+            {
+                if (patient_height != value)
+                {
+                    patient_height = value;
+                    NotifyPropertyChanged("Height");
+                }
+            }
+        }
+        private int patient_weight;
+        public int Weight
+        {
+            get { return patient_weight; }
+            set
+            {
+                if (patient_weight != value)
+                {
+                    patient_weight = value;
+                    NotifyPropertyChanged("Weight");
+                }
+            }
+        }
+        private int patient_systolic_pressure;
+        public int SystolicPressure
+        {
+            get { return patient_systolic_pressure; }
+            set
+            {
+                if (patient_systolic_pressure != value)
+                {
+                    patient_systolic_pressure = value;
+                    NotifyPropertyChanged("SystolicPressure");
+                }
+            }
+        }
+        private int patient_diastolic_pressure;
+        public int DiastolicPressure
+        {
+            get { return patient_diastolic_pressure; }
+            set
+            {
+                if (patient_diastolic_pressure != value)
+                {
+                    patient_diastolic_pressure = value;
+                    NotifyPropertyChanged("DiastolicPressure");
+                }
+            }
+        }
+        public Patient(string name, int weight, int height, int systolicPressure, int diastolicPressure)
+        {
+            this.Name = name;
+            this.Weight = weight;
+            this.Height = height;
+            this.SystolicPressure = systolicPressure;
+            this.DiastolicPressure = diastolicPressure;
+        }
+        #region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
+        #endregion
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
+----

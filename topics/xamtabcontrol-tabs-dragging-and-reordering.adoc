@@ -1,0 +1,197 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtabcontrol-tabs-dragging-and-reordering",
+    "tags": ["Editing","Events","Layouts"],
+    "controlName": ["xamTabControl"],
+    "guid": "2d6b37f7-d233-461c-9288-e2dd182bfb9b",  
+    "buildFlags": [],
+    "createdOn": "2016-01-27T09:08:03.5299997Z"
+}
+|metadata|
+////
+
+= Tabs Dragging and Reordering (xamTabControl)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to configure the tabs dragging feature which can be used to reorder tabs.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamtabcontrol-about-xamtabcontrol.html[About xamTabControl]
+|In this section you'll find information that will help you to better understand the functionalities of _xamTabControl_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref441475022, Introduction >>
+* <<_Ref441479516, Tab Dragging Configuration Summary >>
+* <<_Ref441477017, Handling Associated Events >>
+* <<_Ref441479555, Related Content >>
+
+[[_Ref441475022]]
+== Introduction
+
+=== Dragging and reordering summary
+
+The link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol.html[ _xamTabControl_  ] allows the user to reorder the tabs by dragging them at a new position. This feature is disabled by default. The following screenshot demonstrates the process of moving the "Page Layout" tab to a new location between the "References" and "Mailing" tabs.
+
+image::images/xamTabControl_DnD.png[]
+
+[[_Ref441479516]]
+== Tab Dragging Configuration Summary
+
+=== Tab dragging configuration summary
+
+The tab dragging feature supports two modes of tab dragging:
+
+*  *Deferred*  – while dragging a tab its new position is indicated by a floating representation and two insertion arrows.
+*  *Immediate*  – while dragging a tab, the whole tab area is constantly reordered to visualize the new tab position.
+
+.Note
+[NOTE]
+====
+
+If the tab dragging mode is set to  *Immediate*  it will resolve to  *Deferred*  in case the tabs are rendered on multiple rows.
+====
+
+.Note
+[NOTE]
+====
+
+The tab dragging is not possible if the `ItemsSource` property is set to a read-only collection.
+====
+
+=== Tab dragging configuration summary chart
+
+The following table explains briefly the configurable aspects of the  _xamTabControl's_   tab dragging feature and maps its configurable aspects to the properties and events that configure them.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Property/Events
+
+|Enable or Disable Tab Dragging
+|To enable tab dragging set this property to a value of type link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabdragmode.html[TabDragMode] different than `TabDragMode.None`.
+| link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~tabdragmode.html[TabDragMode]
+
+|Configure Dragging Mode
+|Set this property to either `TabDragMode.Deferred` or `TabDragMode.Immediate`.
+|`TabDragMode`
+
+|<<_Ref441477017,Handling Associated Events>>
+|You can use these events to get notified when the user performs certain drag operations.
+|
+* link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~tabdragstarted_ev.html[TabDragStarted] 
+
+* link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~tabdragging_ev.html[TabDragging] 
+
+* link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~tabdragcompleted_ev.html[TabDragComplete] 
+
+|====
+
+[[_Ref441477017]]
+== Handling Associated Events
+
+=== Overview
+
+You can attach handlers to the following events to get notification when various operations are performed by the user.
+
+=== Property settings
+
+The following table maps the user operations to the event that is raised.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this event:|Abilities of the event arguments object:
+
+|Get notified when tab dragging starts
+|`TabDragStarted`
+|
+* Obtain the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.events.tabitemeventargs~tab.html[Tab] that was dragged 
+
+* Obtain the associated link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.events.tabitemeventargs~item.html[Item] from the underlying data source 
+
+|Get notified on each mouse move while tab dragging
+|`TabDragging`
+|
+* Cancel the dragging event 
+
+* Obtain the potential link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.events.tabdraggingeventargs~droptargettab.html[DropTargetTab] 
+
+* Obtain the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.events.tabdraggingeventargs~droplocation.html[DropLocation] (relative to the drop target tab) 
+
+* Obtain the `Tab` that was dragged 
+
+* Obtain the associated `Item` from the underlying data source 
+
+|Get notified when a tab dragging completes
+|`TabDragComplete`
+|
+* Obtain the `Tab` that was dragged 
+
+* Obtain the associated `Item` from the underlying data source 
+
+|====
+
+.Note
+[NOTE]
+====
+The `Item` property of the event argument object contains the item from the underlying data source bound to the control. If the tabs are defined in XAML the `Item` property will be `null`.
+====
+
+[[_Ref441479555]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamtabcontrol-add-a-tab-to-xamtabcontrol.html[Add a Tab to xamTabControl]
+|This topic describes how you can add a tab to a xamTabControl and work with TabItem and TabItemEx objects.
+
+| link:xamtabcontrol-add-content-to-a-tab.html[Add Content to a Tab]
+|This topic describes how you can add content to a tab in xamTabControl.
+
+| link:xamtabcontrol-close-a-tab.html[Close a Tab]
+|This topic describes how you can close a tab in xamTabControl.
+
+| link:xamtabcontrol-enable-multiple-tab-rows.html[Enable Multiple Tab Rows]
+|This topic describes how you can modify tab layouts and create multiple rows.
+
+| link:xamtabcontrol-removing-a-closed-tab.html[Removing a Closed Tab]
+|This topic describes how you can handle the TabItemEx object's Closed event and remove the TabItemEx object from xamTabControl's Items collection.
+
+| link:xamtabcontrol-select-a-tab.html[Select a Tab]
+|This topic describes how you can select a tab in XAML and in code-behind.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/tab-control/tabs-dragging[Tabs Dragging]
+|This sample demonstrates how you can drag tabs to reorder them.
+
+|====

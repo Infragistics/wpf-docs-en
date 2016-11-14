@@ -1,0 +1,100 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-activities-tasks",
+    "controlName": ["xamSchedule"],
+    "tags": ["Scheduling"],
+    "guid": "6f293f9f-4e93-4f65-9149-8354c4514e6d",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.7983221Z"
+}
+|metadata|
+////
+
+= Tasks
+
+The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Task] entity is one of the activity types that XamSchedule control supports. It is very similar to an appointment entity, but has some differences that will be discussed in this article.
+
+== Creation
+
+The Task creation can happen in two scenarios. In the first scenario, a developer defines a task entity in XAML or code. A Task differs from an link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment] in that it has a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task~percentcomplete.html[PercentComplete] property but does not have a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment~location.html[Location] property. As the name PercentComplete suggests, this property is for storing the progress made for the task and expects an integer value.
+
+*In XAML:*
+
+----
+<ig:Task
+    Id="t1"
+    OwningCalendarId="cal1"
+    OwningResourceId="own1"
+    Start="9/9/2010 9:12:00"
+    End="9/9/2010 11:42:00" 
+    Subject="Appointment 1"
+    Description="My first Task in XAML"
+    PercentComplete="75"/>
+----
+
+*In Visual Basic:*
+
+----
+Dim task = New Infragistics.Controls.Schedules.Task() With { _
+    Key .Id = "t1", _
+    Key .OwningCalendarId = "cal1", _
+    Key .OwningResourceId = "own1", _
+    Key .Start = New DateTime(2010, 9, 9).AddHours(9).AddMinutes(12).
+        ToUniversalTime(), _
+    Key .[End] = New DateTime(2010, 9, 9).AddHours(9).AddMinutes(42).
+        ToUniversalTime(), _
+    Key .Subject = "Task1 1", _
+    Key .Description = "My first Task in XAML", _
+    Key .PercentComplete = 75 _
+}
+----
+
+*In C#:*
+
+----
+var task = new Infragistics.Controls.Schedules.Task 
+{
+    Id = "t1",
+    OwningCalendarId = "cal1",
+    OwningResourceId = "own1",
+    Start = new DateTime(2010,9,9).AddHours(9).AddMinutes(12).
+        ToUniversalTime(),
+    End = new DateTime(2010,9,9).AddHours(9).AddMinutes(42).
+        ToUniversalTime(),
+    Subject = "Task1 1",
+    Description = "My first Task in XAML",
+    PercentComplete = 75
+};
+----
+
+*Note:* Task start/end times are specified as UTC times. For more information see link:xamschedule-using-timezone-support.html[TimeZone Support].
+
+In the second scenario, the data from a custom entity is bound to the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~taskitemssource.html[TaskItemsSource] of the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] and the Task Bindings are supplied. Based on that information ListScheduleDataConnector creates the Task Entities and passes them to the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamDataManager].
+
+Creation via UI is not allowed for the Task entity; this is another difference between Task and Appointment.
+
+image::images/xamScheduleActivities.png[]
+
+== Modification and Visualization
+
+The UI allows the end user to modify a Task entity using a dialog or with "in-place" editing of the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~subject.html[Subject], dragging of the Start/End placeholders or dragging of the entire Task representation. It also provides the ability to delete an activity either via the activity dialog or by selecting the activity and pressing the Delete key. In these cases the changes are passed from the UI to the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[DataManager]. The DataManager then communicates with the DataConnector and it in turn applies the changes to the data source.
+
+*Note:*
+
+It is possible to provide your own activity editing dialog by providing a custom link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~dialogfactory.html[DialogFactory] on the XamScheduleDataManager.
+
+In every other aspect the Task and the Appointment are similar in functionality and behavior.
+
+== Related Topics
+
+link:xamschedule-using-activities-tzna.html[What is a Time Zone Neutral Activity ?]
+
+link:xamschedule-using-activities-appointments.html[Appointments]
+
+link:xamschedule-using-activities-journals.html[Journals]
+
+link:xamschedule-using-activities-recurrent.html[Recurrent Activities]
+
+link:xamschedule-using-activities-reminders.html[Reminders]

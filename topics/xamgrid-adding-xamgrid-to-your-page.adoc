@@ -1,0 +1,186 @@
+﻿////
+|metadata|
+{
+    "name": "xamgrid-adding-xamgrid-to-your-page",
+    "controlName": ["xamGrid"],
+    "tags": ["Getting Started","Grids","How Do I","Paging"],
+    "guid": "{3CD945FA-5D96-4E28-9FC5-B174BFA20BDB}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.6511833Z"
+}
+|metadata|
+////
+
+= Adding xamGrid to Your Page
+
+== Before You Begin
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamGrid™ control to your page using procedural code and XAML.
+
+_Assumptions:_
+
+This topic assumes that you have already configured a data source. For more information, see the link:xamgrid-data-binding.html[Data Binding] topic.
+
+== What You Will Accomplish
+
+You will create a basic xamGrid control with fixed columns and paging functionality. If you want to add additional features, such as editing, to xamGrid, follow the steps in the appropriate topics and add the code to this basic xamGrid sample.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ project.
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}Controls.Grids.XamGrid.v{ProductVersion}.dll
+** {ApiPlatform}Controls.Menus.XamMenu.v{ProductVersion}.dll
+** {ApiPlatform}DataManager.v{ProductVersion}.dll
+
+[start=3]
+. Attach an event handler to the UserControl’s Loaded event.
++
+*In XAML:*
++
+[source,xaml]
+----
+<UserControl Loaded="UserControl_Loaded" … >
+----
+
+[start=4]
+. Add the following using/Import directives or add a namespace declaration for xamGrid to the opening UserControl tag so that you don’t have to type out a member’s fully qualified name.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Grids
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Grids;
+----
+
+[start=5]
+. Add an instance of the xamGrid control, naming it MyGrid, to the default Grid layout panel named LayoutRoot. If you are doing this in procedural code, you can handle the user control’s Loaded event and place the corresponding code in the event handler.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamGrid x:Name="MyGrid">
+      <!-- TO DO: Add xamGrid features -->
+   </ig:XamGrid>    
+</Grid>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim MyGrid As New XamGrid()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamGrid MyGrid = new XamGrid();
+----
+
+[start=6]
+. Bind the xamGrid control to data by setting the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~itemssource.html[ItemSource] property. For more information, see the link:xamgrid-data-binding.html[Data Binding] topic.
+
+[start=7]
+. Add the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.pagersettings.html[PagerSettings] object to the xamGrid control to enable paging. For more information, see the link:xamgrid-paging.html[Paging] topic.
++
+Set the following properties:
++
+--
+** link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.pagersettings~allowpaging.html[AllowPaging] – Top
+** link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.pagersettings~pagesize.html[PageSize] – 5
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamGrid.PagerSettings>
+   <ig:PagerSettings AllowPaging="Top" PageSize="5"/>
+</ig:XamGrid.PagerSettings>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+MyGrid.PagerSettings.AllowPaging = PagingLocation.TopMyGrid.PagerSettings.PageSize = 5
+----
++
+*In C#:*
++
+[source,csharp]
+----
+MyGrid.PagerSettings.AllowPaging = PagingLocation.Top;
+MyGrid.PagerSettings.PageSize = 5;
+----
+
+[start=8]
+. Add the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.fixedcolumnsettings.html[FixedColumnSettings] object to the xamGrid control to enable fixed columns. For more information, see the link:xamgrid-fixed-columns.html[Fixed Columns] topic.
++
+Set the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.fixedcolumnsettings~allowfixedcolumns.html[AllowFixedColumns] property to Both.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamGrid.FixedColumnSettings>
+   <ig:FixedColumnSettings AllowFixedColumns="Both"/>
+</ig:XamGrid.FixedColumnSettings>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+MyGrid.FixedColumnSettings.AllowFixedColumns = FixedColumnType.Both
+----
++
+*In C#:*
++
+[source,csharp]
+----
+MyGrid.FixedColumnSettings.AllowFixedColumns = FixedColumnType.Both;
+----
+
+[start=9]
+. Add the instance of xamGrid to the Grid panel’s Children collection.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Me.LayoutRoot.Children.Add(MyGrid)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+this.LayoutRoot.Children.Add(MyGrid);
+----
+
+[start=10]
+. Save and run your application. You should have a xamGrid control, with paging and fixed columns enabled.

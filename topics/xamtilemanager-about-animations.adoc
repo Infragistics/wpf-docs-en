@@ -1,0 +1,85 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-about-animations",
+    "controlName": ["xamTileManager"],
+    "tags": ["Getting Started"],
+    "guid": "bd720012-5594-4aba-b45b-91849d204ce0",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.7063731Z"
+}
+|metadata|
+////
+
+= About Animations
+
+The xamTileManager™ allows you to change or disable the default animations for tile positioning and/or resizing.
+
+You can disable the animations by setting the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings.html[NormalModeSettings] and/or link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.maximizedmodesettings.html[MaximizedModeSettings] object's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~shouldanimate.html[ShouldAnimate] property to False. If you disable animations, xamTileManager will also ignore any custom animations you supply.
+
+If you want to set custom animation timings, you can set the NormalModeSettings and/or MaximizedModeSettings object's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~repositionanimation.html[RepositionAnimation] and link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~resizeanimation.html[ResizeAnimation] properties to objects that derive from the DoubleAnimationBase class. The double animation you provide should animate a double value from 0 to 1. However, you can temporarily go beyond this range using a DoubleAnimationUsingKeyFrames object as long as the last key frame ends with a value of 1. You can find a code example that demonstrates setting the RepositionAnimation and ResizeAnimation properties in the API Reference Guide
+
+.Note:
+[NOTE]
+====
+The resize animation is applied when xamTileManager has to resize tiles between state transitions. The resize animation does not get applied when your end users resize a tile using the resizing indicators. However, if resizing a tile causes other tiles to come into view or move into a new column or row, the reposition animation will get applied.
+====
+
+The xamTileManager applies animations in the following circumstances:
+
+*Reposition Animation in Normal Mode*
+
+* Dragging tiles into different positions
+* Scrolling tiles into view
+* Resizing xamTileManager so more tiles come into view or existing tiles are moved to new columns/rows
+* Changing a normal tile to a maximized tile
+
+*Resize Animation in Normal Mode (applied only when the size of a tile changes during a transition)*
+
+* Changing a maximized, minimized or minimized-expanded tiles to a normal tile
+
+*Reposition Animation in Maximized Mode*
+
+* Changing a normal, minimized or minimized-expanded tile to a maximized tile
+* Scrolling minimized or minimized-expanded tiles into view (this also includes tiles that come into view when you minimize a minimized-expanded tile or vice-versa)
+
+*Resize Animation in Maximized Mode (applied only when the size of a tile changes during a transition)*
+
+* Changing a normal tile to a maximized, minimized or minimized-expanded tile
+* Changing minimized or minimized-expanded tiles to maximized tiles
+
+== Notifications
+
+To receive notifications when the animation starts or ends hook at the following events:
+
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~animationstarted_ev.html[AnimationStarted]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~animationended_ev.html[AnimationEnded]
+
+To obtain the current state of the animation, use the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~isanimationinprogress.html[IsAnimationInProgress] property (Boolean, read-only).
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]

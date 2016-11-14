@@ -1,0 +1,27 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdata-terms-fields-field-layout",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Binding","Data Presentation","Layouts"],
+    "guid": "{7EBC33CE-AD1E-428A-86E4-86166EAC0094}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.5448621Z"
+}
+|metadata|
+////
+
+= Field Layout
+
+After setting the data source, {ProductName} controls derived from the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class (e.g., xamDataCarousel™, xamDataGrid™, and xamDataPresenter™) will look for Field Layout objects as it creates each link:xamdata-terms-records-data-record.html[Data Record] for the Data Items it loads. Field Layouts don't have names, but instead are matched by the series of Field objects they contain against the "attributes" it can identify on the Data Item. For more information, see link:xamdata-terms-fields.html[Fields].
+
+image::images/Terms_Fields_Field_Layout_01.PNG[diagrams explaining how field layouts work]
+
+The control wants to find the Field Layout that corresponds to the Type of the Data Item, so it will know how to lay out fields and cells for the data record it is creating. When no matching Field Layout exists already, a new one is initialized. If the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] property on the control is set to True, the Field Layout will have been automatically generated and added to its collection of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fields.html[Fields]. The control assigns a reference to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayouts.html[FieldLayouts] to the Data Record (as described in link:xamdata-assigning-a-fieldlayout.html[Assigning a FieldLayout]) for future use when the record will be presented.
+
+image::images/Terms_Fields_Field_Layout_02.PNG[diagram showing how field layouts work]
+
+When the time comes to display the separate header for Field Labels (if supported), and the cells in the Data Records, the link:xamdata-terms-presenters.html[Presenters] consult the Auto Arrange feature, as described in link:xamdata-arranging-cells-within-the-record.html[Arranging Cells within the Record]. If the Auto Arrange feature is enabled, it follows a predefined pattern (e.g., left-to-right) in laying out fields and cells. When you set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autoarrangecells.html[AutoArrangeCells] property to Never on the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~settings.html[Settings] class, then you can precisely control how Fields are laid out using their positioning properties (see link:xamdata-terms-fields.html[Fields] for an illustration).
+
+Field Layouts are a key concept in understanding how field and cell layouts are coordinated with the Type of data record being displayed in link:xamdata-terms-presentation-formats-grid-view-format.html[Grid View], and consequently knowing where you can adjust properties to have the effect on layout that you want.

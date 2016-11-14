@@ -1,0 +1,303 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-xamgantt-custom-project-column-code-example",
+    "controlName": [],
+    "tags": [],
+    "guid": "cbf84145-65c6-42bc-a7d8-e527a1a6a4d2",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4590625Z"
+}
+|metadata|
+////
+
+= Custom Project Column Code Example
+
+=== Description
+
+This code example presents a `CustomProjectColumn` class. This class is used to create custom definition for  _xamGantt_   project column.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomProjectColumn : INotifyPropertyChanged
+    {
+        #region Private variables
+        private string id;
+        private string key;
+        private string fixedIndicatorDirection;
+        private string dataTemplateKey;
+        private string headerText;
+        private string headerTextHorizontalAlignment;
+        private string headerTextVerticalAlignment;
+        private bool? isReadOnly;
+        private string width;
+        #endregion // Private variables
+        #region Public properties
+        public string Id
+        {
+            get { return id; }
+            set
+            {
+                if (id != value)
+                {
+                    id = value;
+                    this.OnPropertyChanged("Id");
+                }
+            }
+        }
+        public string Key
+        {
+            get { return key; }
+            set
+            {
+                if (key != value)
+                {
+                    key = value;
+                    this.OnPropertyChanged("Key");
+                }
+            }
+        }
+        public string FixedIndicatorDirection
+        {
+            get { return fixedIndicatorDirection; }
+            set
+            {
+                if (fixedIndicatorDirection != value)
+                {
+                    fixedIndicatorDirection = value;
+                    this.OnPropertyChanged("FixedIndicatorDirection");
+                }
+            }
+        }
+        public string DataTemplateKey
+        {
+            get { return dataTemplateKey; }
+            set
+            {
+                if (dataTemplateKey != value)
+                {
+                    dataTemplateKey = value;
+                    this.OnPropertyChanged("DataTemplateKey");
+                }
+            }
+        }
+        public string HeaderText
+        {
+            get { return headerText; }
+            set
+            {
+                if (headerText != value)
+                {
+                    headerText = value;
+                    this.OnPropertyChanged("HeaderText");
+                }
+            }
+        }
+        public string HeaderTextHorizontalAlignment
+        {
+            get { return headerTextHorizontalAlignment; }
+            set
+            {
+                if (headerTextHorizontalAlignment != value)
+                {
+                    headerTextHorizontalAlignment = value;
+                    this.OnPropertyChanged("HeaderTextHorizontalAlignment");
+                }
+            }
+        }
+        public string HeaderTextVerticalAlignment
+        {
+            get { return headerTextVerticalAlignment; }
+            set
+            {
+                if (headerTextVerticalAlignment != value)
+                {
+                    headerTextVerticalAlignment = value;
+                    this.OnPropertyChanged("HeaderTextVerticalAlignment");
+                }
+            }
+        }
+        public bool? IsReadOnly
+        {
+            get { return isReadOnly; }
+            set
+            {
+                if (isReadOnly != value)
+                {
+                    isReadOnly = value;
+                    this.OnPropertyChanged("IsReadOnly");
+                }
+            }
+        }
+        public string Width
+        {
+            get { return width; }
+            set
+            {
+                if (width != value)
+                {
+                    width = value;
+                    this.OnPropertyChanged("Width");
+                }
+            }
+        }
+        #endregion // Public properties
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion // INotifyPropertyChanged
+    }
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomProjectColumn
+      Implements INotifyPropertyChanged
+      #Region "Private variables"
+      Private m_id As String
+      Private m_key As String
+      Private m_fixedIndicatorDirection As String
+      Private m_dataTemplateKey As String
+      Private m_headerText As String
+      Private m_headerTextHorizontalAlignment As String
+      Private m_headerTextVerticalAlignment As String
+      Private m_isReadOnly As System.Nullable(Of Boolean)
+      Private m_width As String
+      #End Region
+      #Region "Public properties"
+      Public Property Id() As String
+            Get
+                  Return m_id
+            End Get
+            Set
+                  If m_id <> value Then
+                        m_id = value
+                        Me.OnPropertyChanged("Id")
+                  End If
+            End Set
+      End Property
+      Public Property Key() As String
+            Get
+                  Return m_key
+            End Get
+            Set
+                  If m_key <> value Then
+                        m_key = value
+                        Me.OnPropertyChanged("Key")
+                  End If
+            End Set
+      End Property
+      Public Property FixedIndicatorDirection() As String
+            Get
+                  Return m_fixedIndicatorDirection
+            End Get
+            Set
+                  If m_fixedIndicatorDirection <> value Then
+                        m_fixedIndicatorDirection = value
+                        Me.OnPropertyChanged("FixedIndicatorDirection")
+                  End If
+            End Set
+      End Property
+      Public Property DataTemplateKey() As String
+            Get
+                  Return m_dataTemplateKey
+            End Get
+            Set
+                  If m_dataTemplateKey <> value Then
+                        m_dataTemplateKey = value
+                        Me.OnPropertyChanged("DataTemplateKey")
+                  End If
+            End Set
+      End Property
+      Public Property HeaderText() As String
+            Get
+                  Return m_headerText
+            End Get
+            Set
+                  If m_headerText <> value Then
+                        m_headerText = value
+                        Me.OnPropertyChanged("HeaderText")
+                  End If
+            End Set
+      End Property
+      Public Property HeaderTextHorizontalAlignment() As String
+            Get
+                  Return m_headerTextHorizontalAlignment
+            End Get
+            Set
+                  If m_headerTextHorizontalAlignment <> value Then
+                        m_headerTextHorizontalAlignment = value
+                        Me.OnPropertyChanged("HeaderTextHorizontalAlignment")
+                  End If
+            End Set
+      End Property
+      Public Property HeaderTextVerticalAlignment() As String
+            Get
+                  Return m_headerTextVerticalAlignment
+            End Get
+            Set
+                  If m_headerTextVerticalAlignment <> value Then
+                        m_headerTextVerticalAlignment = value
+                        Me.OnPropertyChanged("HeaderTextVerticalAlignment")
+                  End If
+            End Set
+      End Property
+      Public Property IsReadOnly() As System.Nullable(Of Boolean)
+            Get
+                  Return m_isReadOnly
+            End Get
+            Set
+                  If m_isReadOnly <> value Then
+                        m_isReadOnly = value
+                        Me.OnPropertyChanged("IsReadOnly")
+                  End If
+            End Set
+      End Property
+      Public Property Width() As String
+            Get
+                  Return m_width
+            End Get
+            Set
+                  If m_width <> value Then
+                        m_width = value
+                        Me.OnPropertyChanged("Width")
+                  End If
+            End Set
+      End Property
+      #End Region
+      #Region "INotifyPropertyChanged"
+      Public Event PropertyChanged As PropertyChangedEventHandler
+      Public Sub OnPropertyChanged(propertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+      End Sub
+      #End Region
+End Class
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-code-example-creating-view-for-xamgantt-using-custom-classes.html[Code Example Creating View for xamGantt using Custom Classes]
+|You can create custom classes for project columns, project tables and project views and use those classes to customize xamGantt appearance.
+
+|====

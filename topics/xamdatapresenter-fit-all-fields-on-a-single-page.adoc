@@ -1,0 +1,73 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-fit-all-fields-on-a-single-page",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Data Presentation","Layouts"],
+    "guid": "{F3DFE46A-8166-44B8-B2A2-22186463B81F}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2059943Z"
+}
+|metadata|
+////
+
+= Fit All Fields on a Single Page
+
+When you print or export a DataPresenter control and there is insufficient space to fit all fields on a single page, the WPF Reporting engine automatically places the extra fields on another page. However, you can modify this behavior so that the WPF Reporting engine scales and fits all fields onto a single page.
+
+.Note
+[NOTE]
+====
+The WPF Reporting engine will print the contents of xamDataCarousel™ and xamDataCards™ in a tabular format just like xamDataGrid™.
+====
+
+The following example code demonstrates how to fit all fields on a single page when you print or export a xamDataGrid control. The example code creates a report using a xamDataGrid control; however, you can replace the xamDataGrid control with any of the DataPresenter controls.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Reporting
+...
+'The first three lines use the xamDatagrid control to create a report
+Dim report1 As New Report()
+Dim section1 As New EmbeddedVisualReportSection(Me.xamDataGrid1)
+report1.Sections.Add(section1)
+report1.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Scale
+report1.Print()
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Reporting;
+...
+//The first three lines use the xamDataGrid control to create a report
+Report report1 = new Report();
+EmbeddedVisualReportSection section1 = new EmbeddedVisualReportSection(this.xamDataGrid1);
+report1.Sections.Add(section1);
+report1.ReportSettings.HorizontalPaginationMode = HorizontalPaginationMode.Scale;
+report1.Print();
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-printing.html[Exclude DataPresenter Settings When Printing]
+
+link:xamdatapresenter-handling-events-to-customize-print-operations.html[Handling Events to Customize Print Operations]
+
+link:xamdatapresenter-print-all-records-in-a-hierarchy.html[Print All Records in a Hierarchy]
+
+link:xamdatapresenter-repeat-field-headers-on-all-pages.html[Repeat Field Headers on All Pages]
+
+link:wpf-reporting-getting-started-with-wpf-reporting.html[Adding WPF Reporting to Your Page]
+
+link:wpf-reporting-show-a-print-preview.html[Show a Print Preview]
+
+link:wpf-reporting-print-or-export-a-report.html[Print or Export a Report]
+
+link:wpf-reporting-print-page-numbers.html[Print Page Numbers]
+
+link:wpf-reporting-modify-the-page-layout-of-a-report.html[Modify the Page Layout of a Report]

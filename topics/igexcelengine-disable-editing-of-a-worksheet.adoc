@@ -1,0 +1,59 @@
+﻿////
+
+|metadata|
+{
+    "name": "igexcelengine-disable-editing-of-a-worksheet",
+    "controlName": ["IG Excel Engine"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{065D8BB2-5B34-425A-B1A3-712D386B634D}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:51.7587049Z"
+}
+|metadata|
+////
+
+= Disabling Editing of a Worksheet (Infragistics Excel Engine)
+
+You can disable editing of a worksheet by protecting it using the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet.html[Worksheet] object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~protect.html[Protect] method. This method has a lot of `bool` arguments one of which is to disallow cell editing. When a worksheet is protected all subsequent calls to the `Protect` method are ignored. To change the protections parameters you have to unprotect the worksheet using the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~unprotect.html[Unprotect] method and invoke the `Protect` method again with the new protection settings set in its arguments. You can check if a worksheet is protected using the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheet~isprotected.html[IsProtected] property.
+
+.Note
+[NOTE]
+====
+The protection is not enforced via the Infragistics Excel Engine's object model. It is a responsibility of the UI visualizing this object model, to honor these protection settings and allow or restrict the user from performing the corresponding operations.
+====
+
+You can also use the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook.html[Workbook] object's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~protect.html[Protect] method to protect a workbook against structural changes like adding, renaming, reordering and deleting of worksheets.
+
+When protection is set, you can set the link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcell~cellformat.html[CellFormat] object’s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.iworksheetcellformat~locked.html[Locked] property on individual cells, rows, merged cell regions, or columns to override the worksheet object's protection on those objects. For example, if you need all cells of a worksheet to be read-only except for the cells of one column, you can protect the worksheet and then set the CellFormat property's link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.iworksheetcellformat~locked.html[Locked] property to False on a specific link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.worksheetcolumn.html[WorksheetColumn] object. This will allow your end users to edit cells within the column while disabling editing of the other cells in the worksheet.
+
+The following code shows you how to make one column editable while all other cells are read-only in a worksheet.
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Documents.Excel
+...
+worksheet1.Protect(CBool(Nothing))
+worksheet1.Columns(1).CellFormat.Locked = ExcelDefaultableBoolean.False
+----
+
+*In C#:*
+
+----
+using Infragistics.Documents.Excel;
+...
+worksheet1.Protect((bool)null);
+worksheet1.Columns[1].CellFormat.Locked = ExcelDefaultableBoolean.False;
+----
+
+== Related Topics
+
+link:igexcelengine-about-infragistics-excel-engine.html[About Infragistics Excel Engine]
+
+link:igexcelengine-freeze-rows-and-columns.html[Freezing and Splitting Panes (Infragistics Excel Engine)]
+
+link:igexcelengine-set-excel-document-properties.html[Setting Workbook Properties (Infragistics Excel Engine)]
+
+link:igexcelengine-workbook-protection.html[Workbook Protection (Infragistics Excel Engine)]
+
+link:igexcelengine-worksheet-protection.html[Worksheet Protection (Infragistics Excel Engine)]

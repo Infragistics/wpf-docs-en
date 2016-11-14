@@ -1,0 +1,268 @@
+﻿////
+|metadata|
+{
+    "name": "xamnetworknode-working-with-drag-and-drag-framework",
+    "controlName": ["xamNetworkNode"],
+    "tags": ["Data Presentation","Editing","Getting Started","How Do I"],
+    "guid": "6333a2e9-e16e-4235-9d75-33a4c29f7245",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.4882484Z"
+}
+|metadata|
+////
+
+= Working with Drag and Drop Framework
+
+This topic demonstrates how to implement dragging and dropping with NetworkNode and Drag and Drop Framework™.
+
+The topic is organized as follows:
+
+* <<introduction,Introduction>>
+* <<preview,Preview>>
+* <<requirements,Requirements>>
+* <<overview,Overview>>
+* <<steps,Steps>>
+
+[[introduction]]
+== Introduction
+
+When implementing Drag and Drop the underlying data in the hierarchy must be updated manually. This is a requirement of the xamNetworkNode™ control so it could reflect the changes.
+
+[[preview]]
+== Preview
+
+Following is a preview of a node being dragged reorganizing the network structure:
+
+image::images/xamNetworkNode_Drag_and_Drop_01.png[]
+
+Figure 1: Dragging a node
+
+[[requirements]]
+== Requirements
+
+Required references:
+
+* {ApiPlatform}v{ProductVersion}.dll
+* {ApiPlatform}DataVisualization.v{ProductVersion}.dll
+* {ApiPlatform}Controls.Maps.XamNetworkNode.v{ProductVersion}.dll
+
+[[overview]]
+== Overview
+
+Conceptual overview of the procedure:
+
+. <<step1,Adding namespace declarations>>
+.. <<step1a,Adding XML namespace declarations to your XAML file>>
+.. <<step1b,Placing using/Imports in your code behind>>
+. <<step2,Configure the xamNetworkNode as a Drop Target>>
+. <<step3,Creating the Nodes Drag Sources and Drop Targets>>
+.. <<step3a,Assigning an event handler to the NodeControlAttachedEvent>>
+.. <<step3b,Configure the new NetworkNodeNodeControl as a Drag Source and Drop Target>>
+.. <<step3c,Handling the Drop event of the Drag Source>>
+
+[[steps]]
+== Steps
+
+[[step1]]
+. Add namespace declarations.
+[[step1a]]
+.. Add the XML namespace declaration to your XAML file:
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+[[step1b]]
+.. Place using/Imports in your code behind:
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Maps
+Imports Infragistics.DragDrop
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Maps;
+using Infragistics.DragDrop;
+----
+[[step2]]
+. Configure the xamNetworkNode as a Drop Target.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamNetworkNode>
+    <ig:DragDropManager.DropTarget>
+        <ig:DropTarget IsDropTarget="True" />
+    </ig:DragDropManager.DropTarget>
+</ig:XamNetworkNode>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim networkNode As New XamNetworkNode()
+
+'Create a new DropTarget object.
+Dim dropTarget As New DropTarget()
+dropTarget.IsDropTarget = True
+
+'Make the NetworkNode a Drop Target.
+DragDropManager.SetDropTarget(networkNode, dropTarget)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamNetworkNode networkNode = new XamNetworkNode();
+
+//Create a new DropTarget object.
+DropTarget dropTarget = new DropTarget();
+dropTarget.IsDropTarget = true;
+
+//Make the NetworkNode a Drop Target.
+DragDropManager.SetDropTarget(networkNode, dropTarget);
+----
+[[step3]]
+. Create the Nodes link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource.html[Drag Sources] and link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget.html[Drop Targets].
++
+To work with nodes, the xamNetworkNode control uses two key classes:
++
+--
+** link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.networknodenode.html[NetworkNodeNode] – its objects are the actual Network nodes. This class carries information about the parent and children nodes, the data displayed by the node, and a reference to the link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.networknodenodelayout.html[NetworkNodeNodeLayout] object used to create the node.
+** link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.networknodenodecontrol.html[NetworkNodeNodeControl] – its objects serve as visual representations of the NetworkNodeNode objects.
+--
++
+Therefore, the Drag Sources and Drop Targets are link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.networknodenodecontrol.html[NetworkNodeNodeControl] objects.
++
+Whenever a node is moved out of the visible area of the NetworkNode due to panning, the NetworkNodeNodeControl related to the node is disposed. Also, when the children of a node are collapsed, their NetworkNodeNodeControls are disposed.
++
+If a node has to be shown, a new NetworkNodeNodeControl associated to the node is created and the link:{ApiPlatform}controls.maps.xamnetworknode.v{ProductVersion}~infragistics.controls.maps.xamnetworknode~nodecontrolattachedevent_ev.html[NodeControlAttachedEvent] is raised.
++
+If working with Drag and Drop Framework, the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragdropmanager~dragsourceproperty.html[DragSource] and link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragdropmanager~droptargetproperty.html[DropTarget] properties must be attached to the NetworkNodeNodeControl objects when they are created.
++
+.Note
+[NOTE]
+====
+In some scenarios, there might be restrictions about the drop targets of the dragged node (an Employee can only be dropped on a Department). This behavior can be achieved by using Drag and Drop Framework’s Drag and Drop Channels.
+====
+[[step3a]]
+.. Assign an event handler to the NodeControlAttachedEvent.
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamNetworkNode
+    NodeControlAttachedEvent="NetworkNode_NodeControlAttachedEvent">
+</ig:XamNetworkNode>
+----
+[[step3b]]
+.. Configure the new NetworkNodeNodeControl as a Drag Source and Drop Target.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub NetworkNode_NodeControlAttachedEvent(sender As Object, e As NetworkNodeNodeEventArgs)
+    'Create a new DragSource object.
+    Dim dragSource As New DragSource()
+    dragSource.IsDraggable = True
+    
+    'dragSource.DragChannels = assign drag channels
+    dragSource.Drop += Node_Drop
+    
+    'Make the Node a Drag Source.
+    DragDropManager.SetDragSource(e.Node, dragSource)
+    
+    'Create a new DropTarget object.
+    Dim dropTarget As New DropTarget()
+    dropTarget.IsDropTarget = True
+    
+    'dropTarget.DropChannels = assign drop channels
+    'Make the Node a Drop Target.
+    DragDropManager.SetDropTarget(e.Node, dropTarget)
+End Sub
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private void NetworkNode_NodeControlAttachedEvent(object sender, NetworkNodeNodeEventArgs e)
+{
+    //Create a new DragSource object.
+    DragSource dragSource = new DragSource();
+    dragSource.IsDraggable = true;
+    
+    //dragSource.DragChannels = assign drag channels
+    dragSource.Drop += Node_Drop;
+    
+    //Make the Node a Drag Source.
+    DragDropManager.SetDragSource(e.Node, dragSource);
+    
+    //Create a new DropTarget object.
+    DropTarget dropTarget = new DropTarget();
+    dropTarget.IsDropTarget = true;
+    
+    //dropTarget.DropChannels = assign drop channels
+    //Make the Node a Drop Target.
+    DragDropManager.SetDropTarget(e.Node, dropTarget);
+}
+----
+[[step3c]]
+.. Handle the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~drop_ev.html[Drop] event of the Drag Source.
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private Sub Node_Drop(sender As Object, e As DropEventArgs)
+    'Get the dragged NetworkNodeNodeControl object.
+    Dim draggedNodeControl As NetworkNodeNodeControl = _
+        TryCast(e.DragSource, NetworkNodeNodeControl)
+    
+    'Get the dragged NetworkNodeNode object.
+    Dim draggedNode As NetworkNodeNode = draggedNodeControl.Node
+    
+    'Get the underlying data.
+    Dim data As Object = draggedNode.Data
+    
+    'TODO: Modify the underlying data.
+End Sub   
+----
++
+*In C#:*
++
+[source,cshare]
+----
+private void Node_Drop(object sender, DropEventArgs e)
+{
+    //Get the dragged NetworkNodeNodeControl object.
+    NetworkNodeNodeControl draggedNodeControl =
+        e.DragSource as NetworkNodeNodeControl;
+    
+    //Get the dragged NetworkNodeNode object.
+    NetworkNodeNode draggedNode = draggedNodeControl.Node;
+    
+    //Get the underlying data.
+    object data = draggedNode.Data;
+    
+    //TODO: Modify the underlying data.
+}
+----
+
+== Related Topics
+
+* link:xamnetworknode-getting-started-with-xamnetworknode.html[Getting Started with xamNetworkNode]
+* link:xamnetworknode-using-xamnetworknode.html[Using xamNetworkNode]

@@ -1,0 +1,110 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-add-image-using-map-elements",
+    "controlName": ["xamMap"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{48BA738A-948D-485F-8ECF-93275076989D}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.1692309Z"
+}
+|metadata|
+////
+
+= Add Image Using Map Elements
+
+A nice way to add images to mark specific places in xamMap™ is to use the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.symbolelement.html[SymbolElement] object to add a marker on the map and use a Value Template to provide the image. This approach works best when you have multiple points that use the same image.
+
+For example, if you have multiple states in a map that you want to add an image to, you can create SymbolElement objects for these states, add them to a layer, and apply a Value Template that contains the image on that layer.
+
+The following code shows you how to add a pizza image to New York to represent it as one of the best places to eat pizza. It creates a layer with a SymbolElement object positioned over New York and uses a Value Template to add the image.
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+<igMap:XamMap x:Name="map1">
+   <igMap:XamMap.Layers>
+      <igMap:MapLayer x:Name="statesLayer" Imported="statesLayer_Imported">
+         <igMap:MapLayer.Reader>
+            <igMap:ShapeFileReader Uri="/../../Shapefiles/usa_st" DataMapping="Name=STATE_NAME; Caption=STATE_ABBR" />
+         </igMap:MapLayer.Reader>
+      </igMap:MapLayer>
+      <igMap:MapLayer x:Name="symbolLayer">
+         <igMap:MapLayer.ValueTemplate>
+            <DataTemplate>
+               <Image Width="50" Height="50" Source="pizza.png" />
+            </DataTemplate>
+         </igMap:MapLayer.ValueTemplate>
+      </igMap:MapLayer>
+   </igMap:XamMap.Layers>
+</igMap:XamMap>
+----
+
+endif::wpf[]
+
+*In Visual Basic:*
+
+----
+Private Sub statesLayer_Imported(ByVal sender As System.Object, ByVal e As Infragistics.Controls.Maps.MapLayerImportEventArgs)
+        If e.Action = MapLayerImportAction.End Then
+                ' Find Element using Name property 
+                Dim newYork As MapElement = map1.Layers(0).Elements.FindElement("Name", "New York").ElementAt(0)
+                ' Get Point data from Cartesian coordinates 
+                Dim nyOrigin As New Point(newYork.WorldRect.X + 350000, newYork.WorldRect.Y + 300000)
+                ' Create Element 
+                Dim element As New SymbolElement()
+                element.SymbolOrigin = nyOrigin
+                element.Caption = "Best Pizzarias"
+                element.SymbolType = MapSymbolType.None
+                element.SymbolSize = 20
+                ' Assign arbitrary value so that Value Template can be used 
+                element.Value = 1
+                map1.Layers(1).Elements.Add(element)
+                ' Make enough space for the added shape 
+                Dim worldRect As Rect = map1.Layers(1).WorldRect
+                worldRect.Union(element.WorldRect)
+                map1.Layers(1).WorldRect = worldRect
+        End If
+End Sub
+----
+
+*In C#:*
+
+----
+private void statesLayer_Imported(object sender, Infragistics.Controls.Maps.MapLayerImportEventArgs e)
+{
+   if (e.Action == MapLayerImportAction.End)
+   {
+      // Find Element using Name property
+      MapElement newYork = map1.Layers[0].Elements.FindElement("Name", "New York").ElementAt<MapElement>(0);
+      // Get Point data from Cartesian coordinates
+      Point nyOrigin = new Point(newYork.WorldRect.X + 350000, newYork.WorldRect.Y + 300000);
+      // Create Element
+      SymbolElement element = new SymbolElement() { SymbolOrigin = nyOrigin, Caption = "Best Pizzarias", SymbolType = MapSymbolType.None, SymbolSize = 20 };
+      // Assign arbitrary value so that Value Template can be used
+      element.Value = 1;
+      map1.Layers[1].Elements.Add(element);
+      // Make enough space in layer for the added shape
+      Rect worldRect = map1.Layers[1].WorldRect;
+      worldRect.Union(element.WorldRect);
+      map1.Layers[1].WorldRect = worldRect;
+   }
+}
+----
+
+image::images/XamMap_Add_Image_Using_Map_Elements_01.png[]
+
+== Related Topics
+
+link:xamwebmap-add-symbol-element.html[Add Symbol Element]
+
+link:xamwebmap-add-path-element.html[Add Path Element]
+
+link:xamwebmap-add-surface-element.html[Add Surface Element]
+
+link:xamwebmap-map-elements-color-map-elements.html[Color Map Elements]
+
+link:xamwebmap-set-custom-format-string.html[Set Custom Format String]

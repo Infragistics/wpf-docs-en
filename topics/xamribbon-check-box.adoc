@@ -1,0 +1,42 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-check-box",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","Getting Started","How Do I","Layouts"],
+    "guid": "{743F1523-B3B5-4229-A109-58BD9D815D04}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1501831Z"
+}
+|metadata|
+////
+
+= Check Box
+
+
+
+If you need to present a binary option to your end user, then the CheckBox tool is the right tool for you. The CheckBox tool's functionality shines when you need a simple way for end users to specify application preferences. The CheckBox tool derives from Microsoft® Windows® Presentation Foundation's System.Windows.Controls.Primitives.ToggleButton class; therefore, you will get the same functionality that the base ToggleButton class provides.
+
+The CheckBox tool also implements the IRibbonTool interface, which adds cloning and binding functionality to facilitate advanced xamRibbon™ features. If you aren't creating your own custom xamRibbon tool, you don't need to worry about the `IRibbonTool` interface.
+
+The link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.checkboxtool.html[CheckBoxTool] class exposes several extra properties that go a long way towards easily managing a check box on xamRibbon. CheckBoxTool exposes several 'Has' and 'Is' properties to help confirm if a property has been set or if the check box is in a certain state. A few of the standard properties that help set up a CheckBox tool on xamRibbon include:
+
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~caption.html[Caption] - This text will always be visible next to the CheckBox tool regardless of its resolved SizingMode property.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~id.html[Id] - An identification string that xamRibbon uses to associate tools when they're located in different locations (i.e. a Ribbon Group and the Quick Access Toolbar simultaneously). The Id isn't required, but it can help you link:xamribbon-access-a-tool-by-its-id.html[access a tool] at run time.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~keytip.html[KeyTip] - Each tool has a link:xamribbon-key-tips.html[Key Tip] (similar to main menu mnemonics) associated with it. If you don't provide one explicitly, xamRibbon will internally choose one for you.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~largeimage.html[LargeImage] - Usually a 32 x 32 pixel image. You'll see this image when a tool's SizingMode is set to ImageAndTextLarge.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~sizingmode.html[SizingMode] - This property is read-only and returns how the tool is currently sized on its associated Ribbon group. If you want to link:xamribbon-resize-a-tool.html[set the size of a tool], you can set the RibbonGroup's link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~minimumsizeproperty.html[MinimumSize] and/or link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.ribbongroup~maximumsizeproperty.html[MaximumSize] attached properties. Also, if you link:xamribbon-add-tools-to-a-buttongroup.html[place a tool in a Button Group], the tools will automatically be sized to ImageOnly.
+* link:{ApiPlatform}ribbon.v{ProductVersion}~infragistics.windows.ribbon.togglebuttontool~smallimage.html[SmallImage] - Usually a 16 x 16 pixel image. You'll see this image when a tool's SizingMode is set to ImageAndTextNormal.
+
+Since xamRibbon tools all derive from and implement the same objects, the functionality for each of them is very similar. The following topics apply to all xamRibbon tools.
+
+== Related Topics
+
+link:xamribbon-access-a-tool-by-its-id.html[Access a Tool by Its ID]
+
+link:xamribbon-add-tools-to-a-buttongroup.html[Add Tools to a ButtonGroup]
+
+link:xamribbon-add-tools-to-a-ribbon-group.html[Add Tools to a Ribbon Group]
+
+link:xamribbon-resize-a-tool.html[Resize a Tool]

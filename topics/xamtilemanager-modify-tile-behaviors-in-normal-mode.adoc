@@ -1,0 +1,113 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-modify-tile-behaviors-in-normal-mode",
+    "controlName": ["xamTileManager"],
+    "tags": ["How Do I"],
+    "guid": "796a00c6-1509-48a1-b94c-322ce339be11",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.6943724Z"
+}
+|metadata|
+////
+
+= Modify Tile Behaviors in Normal Mode
+
+The xamTileManager™ exposes a link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~normalmodesettings.html[NormalModeSettings] property that allows you to modify the behavior and layout of tiles in the normal state. The link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings.html[NormalModeSettings] object exposes the following properties:
+
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~allowtiledragging.html[AllowTileDragging]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~allowtilesizing.html[AllowTileSizing]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~explicitlayouttilesizebehavior.html[ExplicitLayoutTileSizeBehavior]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~horizontaltileareaalignment.html[HorizontalTileAreaAlignment]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~maxcolumns.html[MaxColumns]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~maxrows.html[MaxRows]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~mincolumns.html[MinColumns]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~minrows.html[MinRows]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~repositionanimation.html[RepositionAnimation]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~resizeanimation.html[ResizeAnimation]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.modesettingsbase~shouldanimate.html[ShouldAnimate]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~showalltiles.html[ShowAllTiles]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~tileconstraints.html[TileConstraints]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~tilelayoutorder.html[TileLayoutOrder]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.normalmodesettings~verticaltileareaalignment.html[VerticalTileAreaAlignment]
+
+The xamTileManager does not automatically initialize the NormalModeSettings property. If you want to set any properties exposed by the NormalModeSettings property in code, you must set xamTileManager's NormalModeSettings property to an instance of a NormalModeSettings object.
+
+The following example code demonstrates how to modify tile behaviors in normal mode.
+
+*In XAML:*
+
+----
+<ig:XamTileManager Name="xamTileManager1">
+    <ig:XamTileManager.NormalModeSettings>
+        <ig:NormalModeSettings 
+            AllowTileDragging="Swap" 
+            AllowTileSizing="Individual" 
+            MaxColumns="2" 
+            MaxRows="2" />
+    </ig:XamTileManager.NormalModeSettings>
+    <!--Add Tiles here-->
+</ig:XamTileManager>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Layouts
+...
+If Me.xamTileManager1.MaximizedModeSettings Is Nothing Then
+    Me.xamTileManager1.NormalModeSettings = New NormalModeSettings()
+End If
+Me.xamTileManager1.NormalModeSettings.AllowTileDragging = _
+    AllowTileDragging.Swap
+Me.xamTileManager1.NormalModeSettings.AllowTileSizing = _
+    AllowTileSizing.Individual
+Me.xamTileManager1.NormalModeSettings.MaxColumns = 2
+Me.xamTileManager1.NormalModeSettings.MaxRows = 2
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Layouts;
+...
+if (this.xamTileManager1.NormalModeSettings == null)
+{
+    this.xamTileManager1.NormalModeSettings = new NormalModeSettings();
+}
+this.xamTileManager1.NormalModeSettings.AllowTileDragging =
+    AllowTileDragging.Swap;
+this.xamTileManager1.NormalModeSettings.AllowTileSizing =
+    AllowTileSizing.Individual;
+this.xamTileManager1.NormalModeSettings.MaxColumns = 2;
+this.xamTileManager1.NormalModeSettings.MaxRows = 2;
+...
+----
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-about-tile-templates.html[About Tile Templates]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

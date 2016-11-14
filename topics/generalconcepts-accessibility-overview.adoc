@@ -1,0 +1,57 @@
+﻿////
+
+|metadata|
+{
+    "name": "generalconcepts-accessibility-overview",
+    "controlName": [],
+    "tags": [],
+    "guid": "f837a5c6-c444-44fd-b966-d6d1363b7e0d",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:06:59.271777Z"
+}
+|metadata|
+////
+
+= Accessibility Overview
+
+The {ProductName} controls support link:http://msdn2.microsoft.com/en-us/library/ms753388.aspx[Microsoft® UI Automation], the new accessibility framework for Microsoft Windows®. This framework is available on all operating systems that support Windows Presentation Foundation (WPF). This topic explains the automation supported by specific controls and their limitations.
+
+The xamMaskedEditor™ and xamTextEditor™ controls support the Value control pattern, allowing their values to be read and changed.
+
+The xamMaskedEditor supports the ITextProvider control pattern. You can use the ITextProvider control pattern to:
+
+* obtain information about the text within the control
+* retrieve the selected text
+* change the text that is selected
+* navigate the text
+
+.Note
+[NOTE]
+====
+The xamTextEditor control does not have to implement ITextProvider to receive this functionality. The TextBox contained within xamTextEditor while it is in edit mode supports this interface.
+====
+
+The xamCheckEditor™ control supports the Toggle control pattern, allowing its checked state to be read and changed.
+
+The DataPresenterBase class and all derived controls (e.g., xamDataGrid™, xamDataCarousel™, and xamDataPresenter™) support:
+
+* Breadcrumbs support the Invoke control pattern, which allows you to invoke a breadcrumb action (navigating to a specific parent record).
+* Cells support the Value control pattern allowing its value to be read and changed.
+* Cells support the SelectionItem control pattern allowing it to be selected or unselected.
+* Cells support the ScrollItem control pattern to bring a cell into view.
+* Cells support the GridItem and TableItem control patterns allowing you to retrieve the row/column position information for the cell.
+* The GroupByArea supports the ExpandCollapse control pattern allowing the area to be expanded/collapsed via automation.
+* The field label supports the Invoke control pattern allowing the sort of the column to be toggled.
+* The record supports the ExpandCollapse control pattern allowing automation to determine and change its expansion state.
+* The record supports the ScrollItem control pattern allowing automation to bring it into view.
+* The record supports the SelectionItem control pattern allowing automation to select/deselected the record.
+* The record list (the list control that manages the records) implements the Selection control patterns. The Selection control patterns obtain a list of the selected items.
+* Record lists associated with DataRecords also support the Grid and Table control patterns. These control patterns obtain row/column information as well as row/column headers.
+* The root record list supports the Scroll control pattern.
+
+== Known Limitations
+
+The following is a list of accessibility limitations that we are currently aware of:
+
+* Cells and field labels do not implement the Transform control pattern, making it impossible to resize a column/cell/row via automation.
+* Field labels do not implement the selection patterns, making it impossible to select columns through automation.

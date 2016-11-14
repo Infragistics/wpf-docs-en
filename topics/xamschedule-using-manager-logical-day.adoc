@@ -1,0 +1,64 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-manager-logical-day",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "7ce3290e-34ca-43ce-aac9-59fcc4b96e59",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.7393285Z"
+}
+|metadata|
+////
+
+= Logical Day and Timeslots
+
+== Logical Day
+
+The xamSchedule views support the ability to define the time range that defines a day. This “logical day” functionality defines the “viewport” for all link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase.html[views] attached to the specific link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[data manager] and is controlled using the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~logicaldayoffset.html[LogicalDayOffset] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulesettings~logicaldayduration.html[LogicalDayDuration] properties of the xamScheduleDataManager’s link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~settings.html[Settings].
+
+An example of the logical day in use is to consider when you might want to make a day’s cutoff 4am instead of 12am. Consider a scheduling application for a TV station where the station’s ‘day’ begins at 4am to accommodate a programming schedule that considers the time from midnight to 4am as part of the previous day.
+
+For controls like link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduleview.html[xamScheduleView] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdayview.html[xamDayView] this will affect which timeslots are displayed for each date in its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase~visibledates.html[VisibleDates] collection. For link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview.html[xamMonthView], this will affect which activities are displayed within each day in the control. The following table demonstrates the effects of these properties on the time range for a given date:
+
+[options="header", cols="a,a,a"]
+|====
+|LogicalDayOffset|LogicDayDuration|Time range for Apr/15
+
+|00:00:00 (Default)
+|24:00:00 (Default)
+|12am Apr/15 – 12am Apr/16
+
+|-08:00:00
+|24:00:00 (Default)
+|4pm Apr/14 – 4pm Apr/15
+
+|12:00:00
+|24:00:00 (Default)
+|12pm Apr/15 – 12pm Apr/16
+
+|06:00:00
+|12:00:00
+|6am Apr/15 – 6pm Apr/15
+
+|====
+
+*Note:* The end times listed are exclusive.
+
+== Timeslots
+
+Each day in the xamDayView and xamScheduleView is divided into timeslots. The initial duration of the timeslots is 15 minutes and can be altered by changing the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~timeslotinterval.html[TimeslotInterval] property on each view independently. The allowed values are between 1 second and 1 day.
+
+Another way to restrict the time slots that are displayed is via the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~showworkinghoursonly.html[ShowWorkinghoursOnly] property on these controls. When set to true, the control attempts to exclude all timeslots that are outside of the working hour definitions. The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduletimecontrolbase~workinghourssource.html[WorkingHoursSource] property of the view determines which link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resources] are evaluated when resolving the working hours and has the following values:
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuser.html[CurrentUser] – the current user set in the DataManager’s link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuserid.html[CurrentUserId] property.
+* AllResourcesInGroup – a union of all working hours set in the resources within the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~calendargroups.html[CalendarGroupsResolved] property of the view.
+
+== Related Topics
+
+link:xamschedule-understanding-data-manager.html[About the Data Manager]
+
+link:xamschedule-understanding-views.html[About the xamSchedule views]
+
+link:xamschedule-using-manager-working-hours.html[Working Hours]

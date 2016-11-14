@@ -1,0 +1,91 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgrid-override-settings",
+    "controlName": ["xamGrid"],
+    "tags": ["Filtering","Grids","Grouping","Paging","Sorting"],
+    "guid": "{7F1A7DDA-555E-43B4-B8D2-1A3FBBB66909}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.9351987Z"
+}
+|metadata|
+////
+
+= Override Settings
+
+Settings on xamGrid, such as sorting and filtering settings, are customizable on different levels of the control. For example, you can enable sorting on the entire control, but selectively disable sorting on specific columns. You can override settings of xamGrid™ by using settings on the column layout level or column level.
+
+Every link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnlayout.html[ColumnLayout] object exposes properties that will override settings on the control level. For example, the ColumnLayout object contains an EditingSettings property of type link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsoverride.html[EditingSettingOverride] which overrides options set on the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettings.html[EditingSettings] object on the xamGrid level.
+
+Each column contains properties to override xamGrid or ColumnLayout settings. The properties are listed below:
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~isfixable.html[IsFixable]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~isgroupable.html[IsGroupable]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~ismovable.html[IsMovable]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editablecolumn~isreadonly.html[IsReadOnly]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~isresizable.html[IsResizable]
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.column~issortable.html[IsSortable]
+
+The following code shows you how to allow editing only on child rows, and further restrict editing on a specific column in the child data.
+
+ifdef::wpf[]
+
+*In XAML:*
+
+----
+<ig:XamGrid x:Name="xamGrid1" AutoGenerateColumns=">
+   <!-- Columns are ReadOnly by default -->
+   <ig:XamGrid.Columns>
+      <ig:TextColumn Key="CategoryName" />
+      <ig:TextColumn Key="Description" />
+   </ig:XamGrid.Columns>
+   <ig:XamGrid.ColumnLayouts>
+   <!-- Child Columns -->
+      <ig:ColumnLayout Key="Products">
+         <!-- Allow editing on child columns -->
+         <ig:ColumnLayout.EditingSettings>
+            <ig:EditingSettingsOverride AllowEditing="Row" />
+         </ig:ColumnLayout.EditingSettings>
+         <ig:ColumnLayout.Columns>
+            <!-- Restrict editing on one of the columns -->
+            <ig:TextColumn Key="ProductName" IsReadOnly="True"/>
+            <ig:TextColumn Key="QuantityPerUnit" />
+            <ig:TextColumn Key="UnitPrice" />
+         </ig:ColumnLayout.Columns>
+      </ig:ColumnLayout>
+   </ig:XamGrid.ColumnLayouts>
+</ig:XamGrid>
+----
+
+endif::wpf[]
+
+*In Visual Basic:*
+
+----
+Me.xamGrid1.ColumnLayouts(0).EditingSettings.AllowEditing = Infragistics.Controls.Grids.EditingType.Row
+Dim productName As EditableColumn = TryCast(Me.xamGrid1.Columns.ColumnLayouts("Products").Columns("ProductName"), EditableColumn)
+productName.IsReadOnly = True
+----
+
+*In C#:*
+
+----
+this.xamGrid1.ColumnLayouts[0].EditingSettings.AllowEditing = Infragistics.Controls.Grids.EditingType.Row;
+EditableColumn productName = this.xamGrid1.Columns.ColumnLayouts["Products"].Columns["ProductName"] as EditableColumn;
+productName.IsReadOnly = true;
+----
+
+== Related Topics
+
+link:xamgrid-fixed-columns.html[Fixed Columns]
+
+link:xamgrid-column-resizing.html[Column Resizing]
+
+link:xamgrid-groupby.html[GroupBy]
+
+link:xamgrid-column-moving.html[Column Moving]
+
+link:xamgrid-editing-data.html[Editing Data]
+
+link:xamgrid-sorting.html[Sorting]

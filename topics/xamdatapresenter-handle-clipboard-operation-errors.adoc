@@ -1,0 +1,83 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-handle-clipboard-operation-errors",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Events"],
+    "guid": "{1A094DB3-5296-43C1-8444-1A393595C649}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2189969Z"
+}
+|metadata|
+////
+
+= Handle Clipboard Operation Errors
+
+When an error occurs during a clipboard operation, the DataPresenter controls display a dialog box describing the error. For paste operations, the dialog box also offers options to recover from the error.
+
+In order to limit the number of errors that can occur, you should be aware of the following restrictions on clipboard operations:
+
+* *Mixed Selection* - Your end users must select the same type of DataPresenter objects when they perform clipboard operations. For example, your end users can select a group of cells, records, or fields; however, they cannot select a combination of these objects. The same restriction applies to selecting DataPresenter objects in code when performing a clipboard operation.
+* *Non-Rectangular Selection* - Your end users must select a rectangular set of cells before performing cut or copy operations; however, the selected cells do not have to be adjacent to each other. For example, your end user can cut or copy cells in the first data record and the fifth data record as long as they select the same corresponding fields in both data records.
+* *Not Enough Columns* - Your end users should select a cell as the starting point for the paste operation so that the number of fields following the starting point accommodate for the number of fields in the clipboard. For example, if your DataPresenter control has three fields and your end users select cells across all three fields, they should choose a cell in the first field as the starting point for the paste operation. Otherwise, the DataPresenter control will display a dialog box that offers your end users the option to clip the data or cancel the paste operation.
+* *Not Enough Rows* - This error is similar to the previous error except that it applies to the number of records in the clipboard.
+
+You can handle the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~clipboardoperationerror_ev.html[ClipboardOperationError] event to customize the behavior of clipboard errors. The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.clipboardoperationeventargs.html[ClipboardOperationErrorEventArgs] object exposes the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.clipboardoperationerroreventargs~error.html[Error] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.clipboardoperationerroreventargs~cancontinuewithremainingcells.html[CanContinueWithRemainingCells] properties that you can use to determine the type of error that occurred and whether you can continue with the operation, respectively. If you can recover from the error, you can set the ClipboardOperationErrorEventArgs object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.clipboardoperationerroreventargs~action.html[Action] property to a ClipboardErrorAction enumeration value to change the default corrective behavior.
+
+The following example demonstrates how to handle clipboard operation errors to suppress the dialog box when there is a conversion error and continue with the paste operation.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter 
+    Name="xamDataPresenter1" 
+    BindToSampleData="True" 
+    ClipboardOperationError="xamDataPresenter1_ClipboardOperationError">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings AllowClipboardOperations="All" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter.Events
+Imports Infragistics.Windows.DataPresenter
+...
+Private Sub xamDataPresenter1_ClipboardOperationError(ByVal sender As Object, ByVal e As ClipboardOperationErrorEventArgs) 
+    If e.Error = ClipboardError.ConversionError AndAlso e.CanContinueWithRemainingCells Then 
+        e.DisplayErrorMessage = False 
+        e.Action = ClipboardErrorAction.Continue 
+    End If 
+End Sub
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter.Events;
+using Infragistics.Windows.DataPresenter;
+...
+private void xamDataPresenter1_ClipboardOperationError(object sender, ClipboardOperationErrorEventArgs e)
+{
+    if (e.Error == ClipboardError.ConversionError && e.CanContinueWithRemainingCells)
+    {
+        e.DisplayErrorMessage = false;
+        e.Action = ClipboardErrorAction.Continue;
+    }
+}
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-enable-clipboard-operations.html[Enable Clipboard Operations]
+
+link:xamdatapresenter-perform-clipboard-operations.html[Perform Clipboard Operations]
+
+link:xamdatapresenter-prevent-clipboard-operations-from-modifying-a-field.html[Prevent Clipboard Operations From Modifying a Field]
+
+link:xamdatapresenter-prevent-the-addition-of-specific-formats-to-the-clipboard.html[Prevent the Addition of Specific Formats to the Clipboard]

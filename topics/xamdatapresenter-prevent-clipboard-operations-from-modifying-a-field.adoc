@@ -1,0 +1,64 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-prevent-clipboard-operations-from-modifying-a-field",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Editing","Tips and Tricks"],
+    "guid": "{6B23CAC0-1ADB-42E2-BC52-A113393E1BEE}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.2890109Z"
+}
+|metadata|
+////
+
+= Prevent Clipboard Operations From Modifying a Field
+
+If you enable clipboard operations that can modify a cell's value, such as cut, paste, and/or clear cell contents, you can prevent these operations from modifying values in a specific field by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~disallowmodificationviaclipboard.html[DisallowModificationViaClipboard] property to True. For example, if you enable the paste operation, you may want to prevent your end users from pasting data into a read-only field or a primary-key field.
+
+The following example code demonstrates how to prevent clipboard operations from modifying a field.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldLayoutSettings>
+        <igDP:FieldLayoutSettings AllowClipboardOperations="All" />
+    </igDP:XamDataPresenter.FieldLayoutSettings>
+    <igDP:XamDataPresenter.FieldLayouts>
+        <igDP:FieldLayout>
+            <igDP:FieldLayout.Fields>
+                <igDP:Field Name="name" DisallowModificationViaClipboard="True" />
+            </igDP:FieldLayout.Fields>
+        </igDP:FieldLayout>
+    </igDP:XamDataPresenter.FieldLayouts>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+...
+'This code assumes you are bound to the sample data provided by xamDataPresenter
+Me.xamDataPresenter1.FieldLayouts(0).Fields("name"). DisallowModificationViaClipboard = True
+...
+----
+
+*In C#:*
+
+----
+...
+//This code assumes you are bound to the sample data provided by xamDataPresenter
+this.xamDataPresenter1.FieldLayouts[0].Fields["name"]. DisallowModificationViaClipboard = true;
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-enable-clipboard-operations.html[Enable Clipboard Operations]
+
+link:xamdatapresenter-perform-clipboard-operations.html[Perform Clipboard Operations]
+
+link:xamdatapresenter-handle-clipboard-operation-errors.html[Handle Clipboard Operation Errors]
+
+link:xamdatapresenter-prevent-the-addition-of-specific-formats-to-the-clipboard.html[Prevent the Addition of Specific Formats to the Clipboard]

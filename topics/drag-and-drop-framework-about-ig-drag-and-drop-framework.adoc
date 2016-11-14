@@ -1,0 +1,92 @@
+﻿////
+
+|metadata|
+{
+    "name": "drag-and-drop-framework-about-ig-drag-and-drop-framework",
+    "controlName": ["IG Drag and Drop Framework"],
+    "tags": ["Editing","Getting Started","How Do I","Selection"],
+    "guid": "{9B4DAB96-E620-4D01-8683-82059ED80C3A}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.7010367Z"
+}
+|metadata|
+////
+
+= About Infragistics Drag and Drop Framework
+
+The link:{ApiPlatform}dragdrop.v{ProductVersion}.html[Infragistics Drag and Drop Framework]™ library provides the necessary pieces to make it as simple as possible to add drag and drop functionality to your application. This allows for real-time moving of elements and more user friendly interactions.
+
+You can allow an item to be dragged by setting the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource.html[DragSource] object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~isdraggable.html[IsDraggable] property to True.
+
+*In XAML:*
+
+----
+<StackPanel Background="White" Orientation="Horizontal">        
+   <Border>
+      <Image Source="/Images/select.png" Stretch="Fill">
+         <ig:DragDropManager.DragSource>
+            <ig:DragSource IsDraggable="True" DragChannels="ChannelA" 
+                            Drop="DragSource_Drop">
+            </ig:DragSource>
+         </ig:DragDropManager.DragSource>
+      </Image>
+   </Border>
+   <!-- Add more elements -->
+</StackPanel>
+----
+
+You can set the drop targets by setting the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget.html[DropTarget] object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget~isdroptarget.html[IsDropTarget] property to True.
+
+*In XAML:*
+
+----
+<StackPanel x:Name="TargetPanel" Background="White" Orientation="Vertical">
+   <ig:DragDropManager.DropTarget>
+      <ig:DropTarget IsDropTarget="True"
+                  DropChannels="ChannelA">
+      </ig:DropTarget>
+   </ig:DragDropManager.DropTarget>
+</StackPanel>
+----
+
+For an item to be dragged onto a drop target, both the source and target must belong to the same drag and drop channel. For more information, see link:drag-and-drop-framework-set-drag-and-drop-channels.html[Set Drag and Drop Channels]. If the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~dragchannels.html[DragChannels] and link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget~dropchannels.html[DropChannels] properties are not set, a default channel is used.
+
+.Note:
+[NOTE]
+====
+In order for the mouse events to be handled within the framework, the Background property on the drag source and the drop target elements must be set. It cannot have a Null value.
+====
+
+Just as the Drag operation is initiated, a snapshot image of the element to be dragged is captured and stored in an internally created instance of the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragobject.html[DragObject], which is set as the DataContext of the internally managed ContentControl.
+
+Also the ContentControl.ContentControlTemplate is set to the DragSource object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~dragtemplate.html[DragTemplate] property.
+
+The DragObject object exposes two properties:
+
+* link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragobject~data.html[Data] – this property gets an instance of the object that represents the dragged data. This object is set through the DragSource.DataObject or the result of DragSource.DataObjectBinding if it is set.
+* link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragobject~dragimage.html[DragImage] – this property gets the image that represents the snapshot of the UIElement that initiated the drag and drop operation.
+
+The following code demonstrates how to assign a data template to the DragSource object's DragTemplate property.
+
+*In XAML:*
+
+----
+<DataTemplate x:Key="itemsTemplate">
+   <StackPanel Background="#FFC1C1C1" Orientation="Horizontal">        
+      <TextBlock Text="{Binding Data.Description}" />
+      <ContentControl Content="{Binding Path=DragImage}"/>
+   </StackPanel>
+</DataTemplate>
+----
+
+In above example we are assuming that the object assigned to the DragObject.Data property has a property Description.
+
+While the item is being dragged, the underlying visual tree is inspected for appropriate drop targets. When the drop target is found the framework provides a visual indication by drawing a semitransparent shape over the drop target. You can set the color of this shape by setting the DropTarget object’s link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget~droptargetmarkerbrush.html[DropTargetMarkerBrush] property. The default color is transparent.
+
+If your drop target has properties set inline directly on the property itself, the properties you set in the link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.droptarget~droptargetstyle.html[DropTargetStyle] will not affect the drop target. If you want the DropTargetStyle's property settings to override the ones set on the DropTarget, instead of setting them inline, use a style on the DropTarget.
+
+== Related Topics
+
+link:drag-and-drop-framework-getting-started-with-ig-drag-and-drop-framework.html[Getting Started with Infragistics Drag and Drop Framework]
+
+link:drag-and-drop-framework-using-ig-drag-and-drop-framework.html[Using Infragistics Drag and Drop Framework]

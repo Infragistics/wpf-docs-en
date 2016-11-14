@@ -1,0 +1,165 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-configuring-the-listbackedproject-viewprovider-overview",
+    "controlName": ["xamGantt"],
+    "tags": ["Getting Started","Grids","Grouping","Scheduling"],
+    "guid": "b9810bb8-11de-4392-b8f4-1d5ecbe5e956",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.5271388Z"
+}
+|metadata|
+////
+
+= Configuring the ListBackedProject ViewProvider Overview (xamGantt)
+
+== Topic Overview
+
+=== Purpose
+
+This topic gives an overview of the main features of  _xamGantt™_   ListBackedProject ViewProvider class. This class is used to provide the project table and project view instances to the  _xamGantt_  .
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_ListBackedProject_ViewProvider_Overview, ListBackedProject ViewProvider Overview >>
+
+** <<_Overview,Overview>>
+
+** <<_Project_Column,Project Column>>
+
+** <<_Project_Table,Project Table>>
+
+** <<_Project_View,Project View>>
+
+* <<_Code_examples_overview, Code examples Overview >>
+
+* <<_Related_Content, Related Content >>
+
+[[_ListBackedProject_ViewProvider_Overview]]
+== ListBackedProject ViewProvider Overview
+
+[[_Overview]]
+
+=== Overview
+
+link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider_members.html[ListBackedProjectViewProvider] is a class used to provide the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttable_members.html[ProjectTable] and link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectview_members.html[ProjectView] instances to  _xamGantt_   control. Using this class you can customize the set of columns shown in the grid section.
+
+The following table summarizes main properties of link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider_members.html[ListBackedProjectViewProvider]:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~columnitemssource.html[ColumnItemsSource]
+|Gets or sets the data source from which the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumn_members.html[ProjectColumn] objects are created. Those objects are used to populate the ProjectTable.Columns collections.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~columnpropertymappings.html[ColumnPropertyMappings]
+|Specifies the data source field mappings for the `ProjectColumn` object.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~tableitemssource.html[TableItemsSource]
+|Gets or sets the data source from which the `ProjectViewProviderBase``.` link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectviewproviderbase~tables.html[Tables] will be populated.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~tablepropertymappings.html[TablePropertyMappings]
+|Specifies the data source field mappings for the `ProjectTable` object.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~viewitemssource.html[ViewItemsSource]
+|Gets or sets the data source from which the `ProjectViewProviderBase`. link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectviewproviderbase~views.html[Views] will be populated.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.listbackedprojectviewprovider~viewpropertymappings.html[ViewPropertyMappings]
+|Specifies the data source field mappings for the `ProjectView` object.
+
+|====
+
+[[_Project_Column]]
+
+=== Project Column
+
+Project column is an object which represents a column in the project table.
+
+[[_Project_Table]]
+
+=== Project Table
+
+Project table is the definition of the set of columns that are displayed within the grid part of the  _xamGantt_  .
+
+[[_Project_View]]
+
+=== Project View
+
+Project View repsents a specific view of project information. It has an associated table key, which identifies the project table currently presented by the view.
+
+The following table summarizes the main properties of the Project View:
+
+[options="header", cols="a,a"]
+|====
+|Property|Description
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectview~key.html[Key]
+|Gets or sets the string used to uniquely identify the view.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectview~settings.html[Settings]
+|Returns an object with the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectviewsettings_members.html[ProjectViewSettings] type that provides settings for the view.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectview~sortedcolumns.html[SortedColumns]
+|Returns a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcolumnsortdescriptioncollection_members.html[ProjectColumnSortDescriptionCollection] that represents the sorted columns in the grid.
+
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectview~tablekey.html[TableKey]
+|Gets or sets the ID of the table displayed by the view.
+
+|====
+
+[[_Code_examples_overview]]
+== Code Examples Overview
+
+=== Code examples Overview
+
+The following table summarizes the code examples related to ListBackedProjectViewProvider:
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+| link:xamgantt-code-example-changing-xamgantt-column-set.html[Code Example Changing _xamGantt_ Column Set]
+|You can specify the set of predefined columns shown in the _xamGantt_ grid section by using the ListBackedProjectViewProvider.
+
+| link:xamgantt-code-example-creating-customized-view-for-xamgantt.html[Code Example Creating Customized View for _xamGantt_ ]
+|You can create customize _xamGantt_ view by using ListBackedProject ViewProvider and built-in project column, project table and project view classes.
+
+| link:xamgantt-code-example-creating-view-for-xamgantt-using-custom-classes.html[Code Example Creating View for _xamGantt_ using Custom Classes]
+|You can create custom classes for project columns, project tables and project views and use those classes to customize _xamGantt_ appearance .
+
+|====
+
+[[_Related_Content]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-configuring-custom-calendars-for-xamgantt.html[Configuring the ListBackedProject View Provider for _xamGantt_ ]
+|This topic is the starting point for information related to LIstBackedProjectViewProvider.
+
+|====
+
+[[_Ref333763850]]
+
+=== Samples
+
+The following samples provide additional information related to this topic:
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/custom-view-provider[Custom View Provider]"] pick:[wpf=" link:{SamplesURL}/gantt/custom-view-provider[Custom View Provider]"] 
+|This sample demonstrates how you can create your project column, project table and project view classes and use them with the _xamGantt_ control.
+
+|====

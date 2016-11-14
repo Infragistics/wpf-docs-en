@@ -1,0 +1,127 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-connector-custom-connectors",
+    "controlName": ["xamSchedule"],
+    "tags": ["How Do I","Scheduling"],
+    "guid": "4273468c-0593-44b8-8100-bd8eece3865f",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.7083262Z"
+}
+|metadata|
+////
+
+= Custom Connectors
+
+== Data Connector Overview
+
+XamSchedule includes three distinct layers that enable connecting the XamSchedule suite to the backend data store. These layers are:
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase.html[View controls] (i.e., link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdayview.html[xamDataView], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduleview.html[xamScheduleView] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview.html[xamMonthView]) that display activities and provide the UI for user interaction.
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] class – view controls that interface directly with the XamScheduleDataManager to retrieve the necessary data to the end user. Furthermore, the view controls delegate the task of any data manipulation, like adding new appointments to the XamScheduleDataManager. XamScheduleDataManager in turn relies upon a schedule data connector, set via its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~dataconnector.html[DataConnector] property, to perform these tasks.
+* XamSchedule link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledataconnectorbase.html[Data Connector] classes provide the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[resource], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[resource calendar] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase.html[activity] data to the XamScheduleDataManager. The classes also provide the necessary logic to perform updates to each activity, including addition and removal. The schedule data connector derives from the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledataconnectorbase.html[ScheduleDataConnectorBase] base class.
+
+There are two built-in schedule data connectors included in XamSchedule:
+
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] – This class lets you bind to data sources where the resource, resource calendar, appointment, task and journal data is stored. The ListScheduleDataConnector class derives from the ScheduleDataConnectorBase class.
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.wcflistscheduledataconnector.html[WcfListScheduleDataConnector] – This class provides the same functionality as ListScheduleDataConnector however it lets you easily facilitate a WCF service. The type of service that interfaces with this class is setup to have scheduling data on the server and is exposed to applications running on client through a WCF service. The WCF service that the WcfListScheduleDataConnector interacts with is included in XamSchedule as the link:infragistics4.services.schedules.wcfconnectorservice.v{ProductVersion}~infragistics.services.schedules.wcflistconnectorservicesingle.html[WcfListConnectorServiceSingle] and link:infragistics4.services.schedules.wcfconnectorservice.v{ProductVersion}~infragistics.services.schedules.wcflistconnectorservicemulti.html[WcfListConnectorServiceMulti] classes. (Note: Both of these classes derive from link:infragistics4.services.schedules.wcfconnectorservice.v{ProductVersion}~infragistics.services.schedules.wcflistconnectorservice.html[WcfListConnectorService]). Either the WcfListConnectorServiceSingle or the WcfListConnectorServiceMulti service will run on the server where you bind the service to schedule data. The WcfListScheduleDataConnector running on a client machine connects to the service and retrieves data as necessary.
+
+== Custom Data Connectors
+
+The above connectors cover most scenarios where you want to bind to data sources that contain scheduling data. For specialized scenarios, you can derive from the above connectors and override specific methods to implement custom logic.
+
+There may be cases, however, where you may need to provide a custom implementation of a schedule data connector. This may be, for instance, because your scheduling data is not available in the form of default bindable data sources. For example, your data retrieval approach may require querying a server via http or some other protocol to access scheduling data.
+
+In this case you can write a custom schedule data connector by creating a class that inherits from link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledataconnectorbase.html[ScheduleDataConnectorBase] and implement your custom data connector logic. The ScheduleDataConnectorBase class contains abstract and virtual properties and methods that may be overridden to provide the necessary logic to perform custom data retrieval.
+
+== Writing a Custom Data Connector
+
+The following details the properties and methods that become important when sub classing ScheduleDataConnectorBase:
+
+link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.scheduledataconnectorbase~resourceitems.html[ResourceItems] Property
+
+This property provides a list of Resources. Note that each Resource’s Calendars collection (returned from the Resource’s link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~calendars.html[Calendars] property) must be populated with at least one link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar].
+
+== ScheduleDataConnectorBase Methods
+
+The following are methods you may need to provide a custom implementation when creating a sub class of the ScheduleDataConnectorBase class.
+
+GetActivities
+
+This method returns a list of activities such as link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointments], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.journal.html[Journals] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Tasks] based on query criteria specified in its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityquery.html[ActivityQuery] parameter. Query criteria can include:
+
+* One or more resource calendars used to retrieve activities (ActivityQuery. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityquery~calendars.html[Calendars])
+* One or more date ranges (ActivityQuery. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityquery~dateranges.html[DateRanges])
+* The type of activities to retrieve (Appointments, Journals and/or Tasks as specified by the ActivityQuery. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityquery~activitytypestoquery.html[ActivityTypesToQuery])
+* The type of information to retrieve (ActivityQuery. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityquery~requestedinformation.html[RequestedInformation] flagged enum).
+
+The GetActivities method returns an instance of the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityqueryresult.html[ActivityQueryResult] class which is initialized with the list of activities via its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activityqueryresult~initializeresult.html[InitializeResult] method. InitializeResult method takes in as one of its parameters an IList< link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase.html[ActivityBase]> object, which is populated with Appointment, Task and/or Journal objects.
+
+*Note:* The returned object’s activity list may populated asynchronously once data is available.
+
+Once the data is available, the call the InitializeResult method on the object that returned from the GetActivities method. This initializes the result with the activities.
+
+*Note:* This requires the connector to keep track of the objects returned from GetActivities.
+
+Keep in mind that GetActivities may be called multiple times with the same query criteria or with different query criteria which may result in a set of activities that has activities in common with a prior request. In this case the connector must ensure that the successive GetActivities calls return the same ActivityBase instance representing the same underlying activities. In other words, different GetActivities method calls should always return the same instance of ActivityBase for the same underlying activity. This can be accomplished by keeping a dictionary of ActivityBase objects where the key is the unique link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~id.html[Id] of the activity and the value is the ActivityBase object. When the activity query result is populated with activities the dictionary is used to ensure that an existing activity for a specific ID is used instead of creating a new one. This ensures that GetActivities always returns the same instance of ActivityBase for an underlying activity.
+
+For example, consider the first GetActivities call that retrieves activities of a resource calendar for January 10 to 14. This call originates from a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamdayview.html[XamDayView] control displaying the date range. Next, there is a second call made which retrieves activities for the same resource calendar for January 12 to 16. This call originates from a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduleview.html[XamSchduleView] control displaying the given date range. The January 12 to 14 dates are common between the two queries and the resulting objects will have activities in common for these days. These common activities in the two different result objects must be the same instances of ActivityBase.
+
+Further, when changes to data occur (ex: when an activity is added or removed) any previous returned results must be updated to reflect the addition or removal of the activity. This is accomplished by updating the list that was provided to the result object when its InitializeResult method was called. This means the connector must keep a list of returned objects from GetActivities so it can conduct updates as activities are added or removed. When an activity is modified, the connector simply needs to update the associated ActivityBase instance with the latest values.
+
+*Note:* The connector should use weak references, e.g. using a WeakDictionary, to keep track of the returned values. The weak references are necessary so that when the view control that contains the results can release the returned values to the garbage collector when the references are no longer necessary.
+
+== BeginEdit, CancelEdit and EndEdit
+
+The edit methods are used to modify an existing activity. BegnEdit is called to start an edit operation on an activity. CancelEdit is called to cancel changes that were made after the BeginEdit call. Finally, EndEdit is used to commit the changes that were made after BeginEdit.
+
+== CreateNew
+
+The CreateNew method is called to add a new activity. After the necessary activity data is set on the new activity you must call EndEdit is called to commit the values.
+
+*Note:* Since EndEdit is called to commit changes to an existing activity as well as adding a new activity, the connector may need to be able to tell whether the activity is an add-new activity or an existing activity inside this method. One way this can be accomplished is by maintaining a list of activities that were created in the CreateNew method and checking that list inside EndEdit to decide what operation to perform.
+
+== Remove
+
+The Remove method is called to remove an existing activity.
+
+== IsActivityFeatureSupported
+
+IsActivityFeatureSupported method provides information regarding what features your connector supports for each activity type. The view controls will either not include or disable the user interface elements associated with unsupported features.
+
+== IsActivityOperationSupported
+
+IsActivityOperationSupported method is used to check if an operation, like adding or removing, may be performed on an activity or a resource calendar. The view controls use this method to prevent the user from performing a disallowed operation.
+
+== SubscribeToReminders and UnsubscribeFromReminders
+
+These methods are used for supporting reminders functionality. SubscribeToReminders is called to subscribe to reminders of activities for a specific calendar. It takes in a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.remindersubscriber.html[ReminderSubscriber] object which must be stored in the connector. When the reminder for an activity of that calendar is due, the connector should invoke the ReminderSubscriber’s link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.remindersubscriber~deliverreminder.html[DeliverReminder] method. link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[XamScheduleDataManager] subscribes to reminders of all the calendars associated with its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuser.html[CurrentUser] property.
+
+== VerifyInitialState
+
+VerifyInitialState method verifies the state of the connector to ensure custom settings exposed by the derived connector are set properly and the connection to any remote server from which serves scheduling data is working. The XamScheduleDataManager calls this method a few seconds after it is loaded to provide the connector a chance to report back any errors to the XamScheduleDataManager which in turn will convey these errors to the end user.
+
+== Asynchronous Operations
+
+Depending upon the nature of your underlying scheduling data storage some of the above operations may need to be performed asynchronously. Asynchronous communication is possible because the above methods return sub classes the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.operationresult.html[OperationResult] base class. When asynchronous operation is run, the connector can return an un-initialized operation result object from the method call and keep track of that object. When the operation completes, successfully or otherwise, the connector can initialize the resulting OperationResult using its link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.operationresult~initializeresult.html[InitializeResult] method. The OperationResult object exposes an link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.operationresult~iscomplete.html[IsComplete] property that returns false until the InitializeResult method is called. This property indicates to the caller of the method that the operation is pending. The caller can listen for the PropertyChanged event of the OperationResult and look for an IsComplete property notification.
+
+== Error Handling
+
+The OperationResult object’s InitializeResult method takes in a DataErrorInfo object as an optional parameter. When the operation completes successfully, the error info parameter is passed in as null. However when there’s an error, the connector can pass in a DataErrorInfo object to initialize the result object with an error.
+
+*Note:* The IsComplete property of the OperationResult will be set to true even when there’s an error.
+
+The OperationResult exposes an link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.operationresult~error.html[Error] property which will return the passed in error. As described above, the caller of the method can listen to the PropertyChanged event of the OperationResult object to get notified when the operation is complete and check its Error property to see if the operation succeeded or failed.
+
+*Note:* When a pending operation times out then the connector should initialize the operation result with an error. The connector should not leave an operation in a pending state forever.
+
+== Related Topics
+
+link:xamschedule-understanding-data-connector.html[About the Data Connector]
+
+link:xamschedule-using-connector-list.html[ListScheduleConnector]
+
+link:xamschedule-using-connector-wcf.html[WCFScheduleConnector]
+
+link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]

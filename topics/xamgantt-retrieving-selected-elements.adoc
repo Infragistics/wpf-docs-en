@@ -1,0 +1,169 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamgantt-retrieving-selected-elements",
+    "controlName": ["xamGantt"],
+    "tags": ["Editing","Events","How Do I","Selection"],
+    "guid": "5ba0c2a6-b63a-4f57-ab69-446f64f9c67c",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.2841627Z"
+}
+|metadata|
+////
+
+= Retrieving Selected Elements
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes the events and their arguments used to retrieve information about the currently selected cells, columns or rows in the  _xamGantt_™ control.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-adding-xamgantt-to-a-page.html[Adding xamGantt to a Page]
+|This topic describes how to add the _xamGantt_ control to a page.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref334390337, Events Summary >>
+* <<_Ref334395476, Code Example: Identifying the Selected Tasks >>
+* <<_Ref334395481, Related Content >>
+
+** <<_Ref334395486,Topics>>
+** <<_Ref334395491,Samples>>
+
+[[_Ref334390337]]
+== Events Summary
+
+=== Events summary chart
+
+The following table lists the events for retrieving the selected elements in the  _xamGantt_   control.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Handle this event:|The event argument exposes the following information:
+
+|Identify the selected _xamGantt_ cells
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~selectedcellschanged_ev.html[SelectedCellsChanged]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~newselecteditems.html[NewSelectedItems] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~previouslyselecteditems.html[PreviouslySelectedItems] 
+
+|Identify the selected _xamGantt_ columns
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~selectedcolumnschanged_ev.html[SelectedColumnsChanged]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~newselecteditems.html[NewSelectedItems] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~previouslyselecteditems.html[PreviouslySelectedItems] 
+
+|Identify the selected _xamGantt_ rows
+| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.xamgantt~selectedrowschanged_ev.html[SelectedRowsChanged]
+|
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~newselecteditems.html[NewSelectedItems] 
+
+* link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.ganttgridselectionchangedeventargs`1~previouslyselecteditems.html[PreviouslySelectedItems] 
+
+|====
+
+[[_Ref334390343]]
+[[_Ref334395476]]
+== Code Example: Identifying the Selected Tasks
+
+=== Description
+
+The code snippet demonstrates how to use  _xamGantt_   `SelectedRowsChanged` event to identify the currently selected tasks and their names.
+
+Multiple rows can be selected; however, selecting a  _xamGantt_   row triggers the `SelectedRowsChanged` event.
+
+[[_Ref334395481]]
+
+=== Code
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamGantt x:Name="gantt" 
+             Project="{Binding Project}"
+             SelectedRowsChanged="gantt_SelectedRowsChanged"/>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+private void gantt_SelectedRowsChanged(object sender, GanttGridSelectionChangedEventArgs<GanttGridRow> e)
+{
+    // Get the newly selected rows
+    var selectedRows = e.NewSelectedItems;
+    foreach (GanttGridRow row in selectedRows)
+    {
+        string msg = string.Format("The {0} task is selected.", row.Task.TaskName);
+        System.Diagnostics.Debug.WriteLine(msg);
+    }
+    System.Diagnostics.Debug.WriteLine("Selected rows count is " + selectedRows.Count);
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Private Sub gantt_SelectedRowsChanged(sender As Object, e As GanttGridSelectionChangedEventArgs(Of GanttGridRow))
+    ' Get the newly selected rows
+    Dim selectedRows = e.NewSelectedItems
+    For Each row As GanttGridRow In selectedRows
+        Dim msg As String = String.Format("The {0} task is selected.", row.Task.TaskName)
+        System.Diagnostics.Debug.WriteLine(msg)
+    Next
+    System.Diagnostics.Debug.WriteLine("Selected rows count is " & Convert.ToString(selectedRows.Count))
+End Sub
+----
+
+== Related Content
+
+[[_Ref334395486]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamgantt-setting-and-retrieving-the-active-element.html[Setting and Retrieving the Active Element]
+|This topic describes the properties and events used to set or retrieve the currently active cell, column or row in the _xamGantt_ control.
+
+| link:xamgantt-other-events-and-events-arguments.html[Other Events and Event Arguments]
+|This topic describes some of the available events triggered by common user interactions in the _xamGantt_ control.
+
+|====
+
+[[_Ref334395491]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/gantt/#/selection[Selection]"] pick:[wpf=" link:{SamplesURL}/gantt/selection[Selection]"] 
+|This sample demonstrates how to use the _xamGantt_ selection events (SelectedCellsChanged, SelectedColumnsChanged and SelectedRowsChanged).
+
+|====

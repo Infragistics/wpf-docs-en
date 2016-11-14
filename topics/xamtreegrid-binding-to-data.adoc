@@ -1,0 +1,405 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtreegrid-binding-to-data",
+    "tags": ["Data Binding","How Do I"],
+    "controlName": ["xamTreeGrid"],
+    "guid": "88a7b40f-e7ac-41a2-85f8-9410a09687eb",  
+    "buildFlags": [],
+    "createdOn": "2015-02-06T12:27:36.1874662Z"
+}
+|metadata|
+////
+
+= Binding xamTreeGrid to Data
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to bind the control to data and how to define its field layouts.
+
+=== Required background
+
+The following table lists the concept and topics required as a prerequisite to understanding this topic.
+
+[options="header", cols="a,a"]
+|====
+|Type|Content
+
+|Concept
+|Data Presenter Family
+|====
+=== Topics
+[options="header", cols="a,a"]
+|====
+
+|Topic|Purpose 
+
+| link:wpf-about-the-data-presenter-family.html[About the Data Presenter Family] 
+
+|This topic explains the concept of the Data Presenter Family of controls. 
+
+| link:xamdatagrid-understanding-xamdatagrid.html[About xamDataGrid] 
+
+|This topic provides an overview of the _xamDataGrid_ control including a conceptual diagram of its comprising elements. 
+
+| link:xamdatapresenter-define-a-field-layout.html[Define a Field Layout (xamDataPresenter)] 
+
+|This topic explains how to define a custom set of fields displayed for the data entities. 
+
+|====
+
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref411351578, Binding Specifics >>
+** <<_Ref411351599,Object hierarchy definition>>
+** <<_Ref411351604,Homogeneous data source>>
+** <<_Ref411351610,Heterogeneous data source>>
+
+* <<_Ref411351622, Related Content >>
+
+[[_Ref411351578]]
+== Binding Specifics
+
+[[_Ref411351599]]
+
+=== Object hierarchy summary
+
+The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamtreegrid.html[xamTreeGrid] will establish record hierarchy by looking at each data object and seach for properties implementing the IEnumerable interface to create the sub-records list. If a data object contains multiple properties implementing the IEnumarable interface all their child objects will be used to create one single list of child items.
+
+.Note
+[NOTE]
+====
+In case you have multiple IEnumerable properties which leads to multiple sets of child records and you are sorting this list each set of child records will be sorted independently.
+====
+
+[[_Ref411351604]]
+
+=== Homogeneous data source
+
+When your data source collection contains a single data type, the  _xamTreeGrid_   will create a field layout and use it for all records. This field layout will contains field definitions of all public properties of the data objects type.
+
+If you want some of the data object's public properties hidden you can do one of the followings:
+
+* Leave the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] property to `True`, create a field layout and add field definitions for these properties with `Name` property set to their names and `Visibility` set to `Collapse`.
+* Set the `AutoGenerateFields` property to `False`, create a field layout and add field definitions only for the properties you want displayed.
+
+For example if you have a collection of the following data type:
+
+*In C#:*
+
+[source,csharp]
+----
+public class FileSystemNode
+{
+  public int ID { get; set; }
+  public string Name { get; set; }
+  public int FileSize { get; set; }
+  public bool IsFolder { get; set; }
+  public DateTime DateCreated { get; set; }
+  public DateTime DateModified { get; set; }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class FileSystemNode
+        Public Property ID() As Integer
+                Get
+                        Return m_ID
+                End Get
+                Set
+                        m_ID = Value
+                End Set
+        End Property
+        Private m_ID As Integer
+        Public Property Name() As String
+                Get
+                        Return m_Name
+                End Get
+                Set
+                        m_Name = Value
+                End Set
+        End Property
+        Private m_Name As String
+        Public Property FileSize() As Integer
+                Get
+                        Return m_FileSize
+                End Get
+                Set
+                        m_FileSize = Value
+                End Set
+        End Property
+        Private m_FileSize As Integer
+        Public Property IsFolder() As Boolean
+                Get
+                        Return m_IsFolder
+                End Get
+                Set
+                        m_IsFolder = Value
+                End Set
+        End Property
+        Private m_IsFolder As Boolean
+        Public Property DateCreated() As DateTime
+                Get
+                        Return m_DateCreated
+                End Get
+                Set
+                        m_DateCreated = Value
+                End Set
+        End Property
+        Private m_DateCreated As DateTime
+        Public Property DateModified() As DateTime
+                Get
+                        Return m_DateModified
+                End Get
+                Set
+                        m_DateModified = Value
+                End Set
+        End Property
+        Private m_DateModified As DateTime
+End Class
+----
+
+You can hide the "ID", "IsFolder" and "DateCreated" public properties by either of the following ways:
+
+Define fields only for the properties you want to hide, set their `Visibility` property to `Collapesed` and set `AutoGenerateFields` to `True` (or don't specify it at all because true is its default value):
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:XamTreeGrid>
+  <igDP:XamTreeGrid.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings AutoGenerateFields="True" />
+  </igDP:XamTreeGrid.FieldLayoutSettings>
+  <igDP:XamTreeGrid.FieldLayouts>
+    <igDP:FieldLayout>
+      <igDP:NumericField Name="ID" Visibility="Collapsed" />
+      <igDP:CheckBoxField Name="IsFolder" Visibility="Collapsed" />
+      <igDP:NumericField Name="FileSize" Visibility="Collapsed" />
+    </igDP:FieldLayout>
+  </igDP:XamTreeGrid.FieldLayouts>
+</igDP:XamTreeGrid>
+----
+
+Define fields only for the properties you want visible and set `AutoGenerateFields` to `False`:
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:XamTreeGrid>
+  <igDP:XamTreeGrid.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings AutoGenerateFields=" />
+  </igDP:XamTreeGrid.FieldLayoutSettings>
+  <igDP:XamTreeGrid.FieldLayouts>
+    <igDP:FieldLayout>
+      <igDP:TextField Name="Name" Label="Name" />
+      <igDP:NumericField Name="FileSize" Label="Size" />
+      <igDP:DateTimeField Name="DateModified" Label="Date" />
+    </igDP:FieldLayout>
+  </igDP:XamTreeGrid.FieldLayouts>
+</igDP:XamTreeGrid>
+----
+
+[[_Ref411351610]]
+
+=== Heterogeneous data source
+
+When your data source collection contains multiple data types, the  _xamTreeGrid_   will create field layouts for each type. These field layouts will contain field definitions of all public properties of the respective types. The first field layout created will also be the default one. You can change the default field layout by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~isdefault.html[IsDefault] property on any field layout.
+
+.Note
+[NOTE]
+====
+The default field layout is also used by the control to render the grid's columns.
+====
+
+The non-default field layouts are used to map their type's properties to the fields in the default field layout by matching the `Name` or `Label` properties.
+
+Keep in mind the following rules when defining a non-default field layout:
+
+* For each property you want displayed, define a field which `Name` property matches exactly the name of the data object's property.
+* Set the `Label` property of each field definition to match the `Name` or `Label` of a field from the default field layout to create the mapping.
+* If you think the field layout definitions may be ambiguous (for example you may have two different types but you are only mapping fields from them which exist in both types) you can set the type name as the field layout's `Key` property.
+
+For example if you have the following type definitions:
+
+*In C#:*
+
+[source,csharp]
+----
+public class SystemNodeBase
+{
+  public int ID { get; set; }
+  public DateTime DateCreated { get; set; }
+  public DateTime DateModified { get; set; }
+}
+public class FileNode : SystemNodeBase
+{
+  public string FileName { get; set; }
+  public long FileSize { get; set; }
+}
+public class FolderNode : SystemNodeBase
+{
+  public string FolderName { get; set; }
+  private List<object> _children;
+  public List<object> Children
+  {
+    get { return this._children; }
+    set { this._children = value; }
+  }
+}
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class SystemNodeBase
+        Public Property ID() As Integer
+                Get
+                        Return m_ID
+                End Get
+                Set
+                        m_ID = Value
+                End Set
+        End Property
+        Private m_ID As Integer
+        Public Property DateCreated() As DateTime
+                Get
+                        Return m_DateCreated
+                End Get
+                Set
+                        m_DateCreated = Value
+                End Set
+        End Property
+        Private m_DateCreated As DateTime
+        Public Property DateModified() As DateTime
+                Get
+                        Return m_DateModified
+                End Get
+                Set
+                        m_DateModified = Value
+                End Set
+        End Property
+        Private m_DateModified As DateTime
+End Class
+Public Class FileNode
+        Inherits SystemNodeBase
+        Public Property FileName() As String
+                Get
+                        Return m_FileName
+                End Get
+                Set
+                        m_FileName = Value
+                End Set
+        End Property
+        Private m_FileName As String
+        Public Property FileSize() As Long
+                Get
+                        Return m_FileSize
+                End Get
+                Set
+                        m_FileSize = Value
+                End Set
+        End Property
+        Private m_FileSize As Long
+End Class
+Public Class FolderNode
+        Inherits SystemNodeBase
+        Public Property FolderName() As String
+                Get
+                        Return m_FolderName
+                End Get
+                Set
+                        m_FolderName = Value
+                End Set
+        End Property
+        Private m_FolderName As String
+        Private _children As List(Of Object)
+        Public Property Children() As List(Of Object)
+                Get
+                        Return Me._children
+                End Get
+                Set
+                        Me._children = Value
+                End Set
+        End Property
+End Class
+----
+
+You can have the following default field layout definition for the `FolderNode` type:
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:FieldLayout Key="FolderNode" IsDefault="True">
+  <igDP:TextField Name="FolderName" Label="Name" />
+  <igDP:TemplateField BindingType="Unbound" Label="Size" DataType="{x:Type sys:String}">
+    <igDP:TemplateField.DisplayTemplate>
+      <DataTemplate>
+        <TextBlock HorizontalAlignment="Center" Text="&lt;DIR&gt;" />
+      </DataTemplate>
+    </igDP:TemplateField.DisplayTemplate>
+  </igDP:TemplateField>
+  <igDP:DateTimeField Name="DateModified" Label="Date" />
+  <igDP:Field Name="Children" />
+</igDP:FieldLayout>
+----
+
+And the field layout definition for the `FileNode` type:
+
+*In XAML:*
+
+[source,xaml]
+----
+<igDP:FieldLayout Key="FileNode">
+  <igDP:TextField Name="FileName" Label="Name" />
+  <igDP:NumericField Name="FileSize" Label="Size" />
+  <igDP:DateTimeField Name="DateModified" Label="Date" />
+</igDP:FieldLayout>
+----
+
+[[_Ref411351622]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamtreegrid-adding.html[Adding xamTreeGrid to Your Page]
+|This topic provides detailed instructions to help you get up and running as soon as possible with the control.
+
+| link:xamtreegrid-configuring.html[Configuring xamTreeGrid]
+|This is a set of topics describing how to configure the control.
+
+| link:xamtreegrid-styling.html[Styling xamTreeGrid]
+|This is a set of topics describing how to style some key elements of the control.
+
+|====
+
+=== Sample
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/tree-grid/heterogeneous-data[Heterogeneous Data]
+|This sample demonstrates how to bind the control to a heterogeneous data source and define separate field layout for each data type.
+
+|====

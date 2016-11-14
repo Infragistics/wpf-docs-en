@@ -1,0 +1,315 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-selection",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["Editing","Section 508"],
+    "guid": "a27fdcef-fdea-4abb-929f-7a43f726e2a6",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.3753911Z"
+}
+|metadata|
+////
+
+= Selection (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the programmatic use of the  _xamSyntaxEditor_™ control’s selection feature.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-adding-to-your-page.html[Adding _xamSyntaxEditor_ to Your Page]
+|This topic provides you with systematic instructions designed to help you get the _xamSyntaxEditor_ up and running as quickly as possible.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref337641462, Introduction >>
+* <<_Ref338056145, Working with Selection Summary >>
+** <<_Ref338771866,Obtaining the Currently Selected Text>>
+** <<_Ref337641490,Obtaining the Length of the Current Selection>>
+** <<_Ref338782325,Replacing the Currently Selected Text>>
+** <<_Ref338782349,Setting/Retrieving the Start and End Position of the Selection>>
+
+* <<OLE_LINK48, Code Examples >>
+** <<_Ref337710619,Code Example: Select Text Programmatically>>
+** <<_Ref337641534,Code Example: Get the Length of a Selection>>
+
+* <<_Ref337641540, Related Content >>
+
+[[_Ref337641462]]
+== Introduction
+
+=== Selection summary
+
+The selection feature enables users to select contiguous parts of a document’s text, for manipulation, and identifies the selection by highlighting it with a different background color. You can programmatically select text using the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview~selectionmanager.html[SelectionManager] property of the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.editordocumentview_members.html[EditorDocumentView] class. The `SelectionManager` property is of type link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager_members.html[ViewSelectionManager] and can be used to:
+
+* Obtain the currently selected text
+* Replace the currently selected text
+* Obtain the start, end and length of the current selection
+* Manipulate the selected text using a large number of `ViewSelectionManager` methods
+
+[[_Ref338056145]]
+== Working with Selection Summary
+
+=== Selection configuration summary chart
+
+The following table lists the configurable aspects of the Selection feature of the  _xamSyntaxEditor_
+
+[options="header", cols="a,a,a"]
+|====
+|Task|Details|Properties
+
+|<<_Ref338771866,Obtaining the Currently Selected Text>>
+|Get the currently selected text
+|
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager~selectedtext.html[SelectedText] 
+
+|<<_Ref337641490,Obtaining the Length of the Current Selection>>
+|Get the length of current selection
+|
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager~selectionlength.html[SelectionLength] 
+
+|<<_Ref338782325,Replacing the Currently Selected Text>>
+|Replace the current selection or insert text at caret’s current position
+|
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager~selectedtext.html[SelectedText] 
+
+|<<_Ref338782349,Setting/Retrieving the Start and End Position of the Selection>>
+|Get/Set the start for the current selection
+|
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager~selectionstart.html[SelectionStart] 
+
+* link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.viewselectionmanager~selectionend.html[SelectionEnd] 
+
+|====
+
+[[_Ref338771866]]
+== Obtaining the Currently Selected Text
+
+[[_Ref338685146]]
+
+=== Overview
+
+Use the `SelectedText` property to obtain the currently selected text.
+
+[[_Ref338685152]]
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Get/Set the currently selected text
+|`SelectedText`
+|Set it to a variable of type String
+
+|====
+
+[[_Ref337641490]]
+== Obtaining the Length of the Current Selection
+
+=== Overview
+
+The `SelectionLength` property returns an integer representing the number of characters in the current selection.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And:
+
+|Obtain the length of the current selection
+|`SelectionLength`
+|Set it to a variable of type Integer
+
+|====
+
+[[_Ref338782325]]
+== Replacing the Currently Selected Text
+
+=== Overview
+
+To replace the currently selected text with new text, set the new text to the `SelectedText` property. If there is no text currently selected, the new text set to the `SelectedText` property is inserted at the current caret position.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set the following arguments:
+
+|Replace current selection or insert text at the current caret position
+|`SelectedText`
+|
+* `New value of type string` 
+
+|====
+
+[[_Ref338782349]]
+== Setting/Retrieving the Start and End Position of the Selection
+
+=== Overview
+
+You can set or obtain the selection’s start and end position using the `SelectionStart` and `SelectionEnd` properties. The values of these properties represent a zero-based start or end offset from the beginning of the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocumentsnapshot_members.html[TextDocumentSnapshot].
+
+[[_Ref338685198]]
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this property:|And set the following arguments:
+
+|Get/Set the start/end index of the current selection
+|`SelectionStart` 
+
+`SelectionEnd`
+|
+* `startTextLocation` 
+
+* `endTextLocation` 
+
+or 
+
+* `startSnapshotPoint` 
+
+* `endSnapshotPoint` 
+
+|====
+
+== Code Examples
+
+=== Code examples summary
+
+The following table lists the code examples included in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|<<_Ref337710619,Code Example: Select Text Programmatically>>
+|This example shows the programming behind selecting the text with a start index of 5 and an end index of 60.
+
+|<<_Ref337641534,Code Example: Get the Length of a Selection>>
+|This example shows how to get the length of currently selected text.
+
+|====
+
+[[_Ref337710619]]
+== Code Example: Select Text Programmatically
+
+=== Description
+
+This example shows the programming behind selecting the text with a start index of 5 and an end index of 60.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+int startIndex = 5;
+int endIndex = 60;
+TextDocumentSnapshot tdsp = this.mySyntaxEditor.ActiveDocumentView.CurrentSnapshot;
+TextLocation stl = tdsp.LocationFromOffset(startIndex);
+TextLocation etl = tdsp.LocationFromOffset(endIndex);
+SnapshotPoint ssp = SnapshotPoint.FromTextLocation(stl, tdsp);
+SnapshotPoint esp = SnapshotPoint.FromTextLocation(etl, tdsp);
+this.mySyntaxEditor.ActiveDocumentView.SelectionManager.SelectionStart = ssp;
+this.mySyntaxEditor.ActiveDocumentView.SelectionManager.SelectionEnd = esp;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim startIndex As Integer = 5
+Dim endIndex As Integer = 60
+Dim tdsp As TextDocumentSnapshot = Me.mySyntaxEditor.ActiveDocumentView.CurrentSnapshot
+Dim stl As TextLocation = tdsp.LocationFromOffset(startIndex)
+Dim etl As TextLocation = tdsp.LocationFromOffset(endIndex)
+Dim ssp As SnapshotPoint = SnapshotPoint.FromTextLocation(stl, tdsp)
+Dim esp As SnapshotPoint = SnapshotPoint.FromTextLocation(etl, tdsp)
+Me.mySyntaxEditor.ActiveDocumentView.SelectionManager.SelectionStart = ssp
+Me.mySyntaxEditor.ActiveDocumentView.SelectionManager.SelectionEnd = esp
+----
+
+[[_Ref337641534]]
+== Code Example: Get the Length of a Selection
+
+=== Description
+
+This example shows how to get the length of the current text selection.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+int lengthOfSelection = this.xamSyntaxEditor1.ActiveDocumentView.SelectionManager.SelectionLength();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Dim lengthOfSelection As Integer
+lengthOfSelection = Me.xamSyntaxEditor1.ActiveDocumentView.SelectionManager.SelectionLength()
+----
+
+[[_Ref337641540]]
+== Related Content
+
+[[_Ref338056100]]
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-events-and-commands.html[Events and Commands]
+|This topic lists the events and supported commands available to you, while building your _xamSyntaxEditor_ applications.
+
+| link:xamsyntaxeditor-splitting.html[Splitting]
+|This topic will help you understand the document splitting capability of the _xamSyntaxEditor_ and how to customize it.
+
+|====
+
+[[_Ref338056106]]
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/selection-manager[Selection Manager]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/selection-manager[Selection Manager]"] 
+|This sample demonstrates how to use the `ViewSelectionManager` of the `EditorDocumentView`.
+
+|====

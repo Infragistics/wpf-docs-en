@@ -1,0 +1,80 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcalculationmanager-create-xamcalculationmanager-custom-functions",
+    "controlName": ["xamCalculationManager"],
+    "tags": ["Calculations","How Do I"],
+    "guid": "64bd145f-9b1f-4c5f-a283-8ec80f280984",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.5661246Z"
+}
+|metadata|
+////
+
+= Create xamCalculationManager Custom Functions
+
+== Topic Overview
+
+== Purpose
+
+The xamCalculationManager™ control provides a default set of pre-defined functions similar to Microsoft Excel functions list. However, in some situations, you may want to expand this set and add your own custom functions. This topic demonstrates how to add a custom function to the xamCalculationManager.
+
+The following table lists the code examples provided below.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|Create Custom Function
+|This example demonstrates how to create a custom function to be used within the calculations.
+
+|====
+
+== Code Example: Create Custom Function
+
+== Example description
+
+The code below demonstrates how to create a custom function and register it using the CustomCalculationFunction class. This class derives from the link:{ApiPlatform}calculations.xamcalculationmanager.v{ProductVersion}~infragistics.calculations.engine.calculationfunction.html[CalculationFunction] base class. It allows you to create a custom function by supplying it a delegate that contains the function logic.
+
+*In Visual Basic:*
+
+----
+Import Infragistics.Calculations
+…
+’Register a custom function using CustomCalculationFunction
+Dim absAvg As New CustomCalculationFunction("AbsAvg", Function(x, y) (System.Math.Abs(x) + System.Math.Abs(y)) / 2)
+calcManager.RegisterUserDefinedFunction(absAvg)
+----
+
+*In C#:*
+
+----
+using Infragistics.Calculations;
+…
+//Register a custom function using CustomCalculationFunction
+CustomCalculationFunction absAvg = new CustomCalculationFunction("AbsAvg",
+                           (x, y) => (System.Math.Abs(x) + System.Math.Abs(y)) / 2);
+calcManager.RegisterUserDefinedFunction(absAvg);
+----
+
+The XAML code below demonstrates how to use the custom function, absAvg(), that was created in the code example Create Custom Function within a formula.
+
+*In XAML:*
+
+----
+<TextBlock x:Name="Value" Width="150" ig:XamCalculationManager.CalculationManager="{Binding ElementName=calcManager}">
+   <ig:XamCalculationManager.ControlSettings>
+      <ig:ControlCalculationSettings Property="Text" ReferenceId="mulTotal"
+                       Formula="absAvg(1, 2)" />
+   </ig:XamCalculationManager.ControlSettings>
+</TextBlock>
+----
+
+== Related Topics:
+
+link:xamcalculationmanager-overview-of-named-references.html[Overview of Named References]
+
+link:xamcalculationmanager-overview-of-item-calculator.html[Overview of Item Calculator]
+
+link:xamcalculationmanager-overview-of-list-calculator.html[Overview of List Calculator]

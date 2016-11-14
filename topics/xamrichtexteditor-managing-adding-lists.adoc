@@ -1,0 +1,371 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-adding-lists",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "92e369d3-a481-44ca-8613-3650258968ff",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.508306Z"
+}
+|metadata|
+////
+
+= Adding Lists (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to create lists using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from the developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref364171003,Introduction>>
+* <<_Ref364171004,Defining a RichTextList>>
+** <<_Ref364171021,By Using a List Template Only>>
+** <<_Ref364089999,By Using a List Style and List Template>>
+
+* <<_Ref364171071,Adding Paragraphs to RichTextList>>
+* <<_Ref366584860,Applying List Style over Paragraphs>>
+* <<_Ref364171159,Related Content>>
+
+[[_Ref364171003]]
+== Introduction
+
+=== Lists summary
+
+The  _xamRichTextEditor_   control supports multi-level lists using either custom defined or any of the predefined list styles located in link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~defaultavailablestyles.html[RichTextDocument.DefaultAvailableStyles].
+
+The list definition involves the usage of lists, styles and templates, all designed to be reusable to minimize the memory footprint. However, this results in some limitations discussed later in this topic.
+
+[[_Ref364171004]]
+== Defining a RichTextList
+
+=== Defining a RichTextList summary chart
+
+There are two ways to define the levels and other settings in a list:
+
+* <<_Ref364089994,By Using a List Template Only>>
+* <<_Ref364089999,By Using a List Style and List Template>>
+
+[[_Ref364089994]]
+[[_Ref364171021]]
+==== By Using a List Template Only
+
+=== Overview
+
+The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listtemplate_members.html[ListTemplate] contains the actual definition for the structure of a list and all its levels (anywhere from 1 to 9 level definitions). Each level definition, represented by a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveldefinition_members.html[ListLevelDefinition] class instance, provides information such as the numbering or bullet to use, the text formatting to use around that list indicator, and the paragraph settings to apply to paragraphs at that level in the list. You can assign the list template to the list using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~template.html[RichTextList.Template] property. The list templates may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
+
+.Note
+[NOTE]
+====
+When sharing a template between more than one list, the actual number values used by the lists are incremented and determined by the list template itself. For example, if there are two lists in a document sharing a template and they each have three items, the items in the first list will be numbered 1, 2, 3, but the items in the second list will be numbered 4, 5, 6. To reset the numbering for the second list, you must populate the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~leveloverrides.html[RichTextList.LevelOverrides] collection with link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveloverride_members.html[ListLevelOverride] instances having link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveloverride~startoverride.html[StartOverride] values of 1. One `ListLevelOverride` instance is needed for each level defined in the template if the numbering is to be reset for all levels.
+====
+
+[[_Hlk337817761]]
+
+=== Example
+
+The code snippet below demonstrates the definition of a custom list using a template only:
+
+*In C#:*
+
+[source,csharp]
+----
+// create a paragraph settings with no top and bottom spacing
+ParagraphSettings listParagraphSettings = new ParagraphSettings();
+listParagraphSettings.Spacing = new ParagraphSpacingSettings()
+{
+    AfterParagraph = new ParagraphVerticalSpacing(
+        new Extent(0, ExtentUnitType.LogicalPixels)),
+    BeforeParagraph = new ParagraphVerticalSpacing(
+        new Extent(0, ExtentUnitType.LogicalPixels)),
+};
+// create a list template with one level definition which is using
+// decimals, bold style and green color for the numbering
+ListTemplate greenListTemplate = new ListTemplate()
+{
+    LevelDefinitions = new ListLevelDefinitionCollection()
+    { 
+        new ListLevelDefinition()
+        {
+            Level = 0,
+            LevelText = "TAKE %1",
+            NumberFormat = NumberFormat.DecimalEnclosedFullstop,
+            NumberSuffix = NumberSuffix.Space,
+            NumberSettings = new CharacterSettings()
+            {
+                Bold = true,
+                Color = new ColorInfo(Colors.Green)
+            },
+            ParagraphSettings = listParagraphSettings,
+        }
+    }
+};
+// create a rich text list using the template
+RichTextList greenRichTextList = new RichTextList()
+{
+    Id = "MyGreenRichTextList",
+    Template = greenListTemplate
+};
+this.xamRichTextEditor1.Document.RootNode.Lists.Add(greenRichTextList);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create a paragraph settings with no top and bottom spacing
+Dim listParagraphSettings As New ParagraphSettings()
+listParagraphSettings.Spacing = New ParagraphSpacingSettings() With { _
+      Key .AfterParagraph = New ParagraphVerticalSpacing(New Extent(0, ExtentUnitType.LogicalPixels)), _
+      Key .BeforeParagraph = New ParagraphVerticalSpacing(New Extent(0, ExtentUnitType.LogicalPixels)) _
+}
+' create a list template with one level definition which is using
+' decimals, bold style and green color for the numbering
+Dim greenListTemplate As New ListTemplate() With { _
+      Key .LevelDefinitions = New ListLevelDefinitionCollection() From { _
+            New ListLevelDefinition() With { _
+                  Key .Level = 0, _
+                  Key .LevelText = "TAKE %1", _
+                  Key .NumberFormat = NumberFormat.DecimalEnclosedFullstop, _
+                  Key .NumberSuffix = NumberSuffix.Space, _
+                  Key .NumberSettings = New CharacterSettings() With { _
+                        Key .Bold = True, _
+                        Key .Color = New ColorInfo(Colors.Green) _
+                  }, _
+                  Key .ParagraphSettings = listParagraphSettings _
+            } _
+      } _
+}
+' create a rich text list using the template
+Dim greenRichTextList As New RichTextList() With { _
+      Key .Id = "MyGreenRichTextList", _
+      Key .Template = greenListTemplate _
+}
+Me.xamRichTextEditor1.Document.RootNode.Lists.Add(greenRichTextList)
+----
+
+[[_Ref364089999]]
+==== By Using a List Style and List Template
+
+=== Overview
+
+To create a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.liststyle_members.html[ListStyle] you need to first create a `ListTemplate` (explained in the previous section) and set it to the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.liststyle~template.html[ListStyle.Template] property. Next, set a unique id using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextstylebase~id.html[ListStyle.Id] property and add the style in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles] collection. You can assign the list style to a list using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~liststyleid.html[RichTextList.ListStyleId] property. The list styles may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
+
+These are the benefits of using lists styles and templates (compared to templates-only):
+
+* When using list styles, the list numbering is not shared as it would be when sharing a template directly. No `StartOverride` values need to be set. This is because lists using a list style internally get their own template, which is actually empty and links to the main template definition from the list style. A list obtains its numbering values, so each list instance gets independent numbering values, from this empty template.
+* List styles can be displayed in a list gallery, allowing users to re-use list styles which have already been created in new lists.
+
+=== Example
+
+The code snippet below demonstrates the definition of a custom list using a list style and template:
+
+*In C#:*
+
+[source,csharp]
+----
+// create a paragraph settings with no top and bottom spacing
+ParagraphSettings listParagraphSettings = new ParagraphSettings();
+listParagraphSettings.Spacing = new ParagraphSpacingSettings()
+{
+    AfterParagraph = new ParagraphVerticalSpacing(
+        new Extent(0, ExtentUnitType.LogicalPixels)),
+    BeforeParagraph = new ParagraphVerticalSpacing(
+    new Extent(0, ExtentUnitType.LogicalPixels)),
+};
+// create a list template with one level definition which is using
+// decimals, bold style and red color for the numbering
+ListTemplate redListTemplate = new ListTemplate()
+{
+    LevelDefinitions = new ListLevelDefinitionCollection()
+    { 
+        new ListLevelDefinition()
+        {
+            Level = 0,
+            LevelText = "FORGET %1",
+            NumberFormat = NumberFormat.DecimalEnclosedFullstop,
+            NumberSuffix = NumberSuffix.Space,
+            NumberSettings = new CharacterSettings ()
+            {
+                Bold = true,
+                Color = new ColorInfo(Colors.Red)
+            },
+            ParagraphSettings = listParagraphSettings,
+        }
+    }
+};
+// create list style using the template
+ListStyle redListStyle = new ListStyle()
+{
+    Id = "MyRedListStyle",
+    Template = redListTemplate
+};
+this.xamRichTextEditor1.Document.RootNode.Styles.Add(redListStyle);
+// create a rich text list using the list style
+RichTextList redRichTextList = new RichTextList()
+{
+    Id = "MyRedRichTextList",
+    ListStyleId = "MyRedListStyle"
+};
+this.xamRichTextEditor1.Document.RootNode.Lists.Add(redRichTextList);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create a paragraph settings with no top and bottom spacing
+Dim listParagraphSettings As New ParagraphSettings()
+listParagraphSettings.Spacing = New ParagraphSpacingSettings() With { _
+      Key .AfterParagraph = New ParagraphVerticalSpacing(New Extent(0, ExtentUnitType.LogicalPixels)), _
+      Key .BeforeParagraph = New ParagraphVerticalSpacing(New Extent(0, ExtentUnitType.LogicalPixels)) _
+}
+' create a list template with one level definition which is using
+' decimals, bold style and red color for the numbering
+Dim redListTemplate As New ListTemplate() With { _
+      Key .LevelDefinitions = New ListLevelDefinitionCollection() From { _
+            New ListLevelDefinition() With { _
+                  Key .Level = 0, _
+                  Key .LevelText = "FORGET %1", _
+                  Key .NumberFormat = NumberFormat.DecimalEnclosedFullstop, _
+                  Key .NumberSuffix = NumberSuffix.Space, _
+                  Key .NumberSettings = New CharacterSettings() With { _
+                        Key .Bold = True, _
+                        Key .Color = New ColorInfo(Colors.Red) _
+                  }, _
+                  Key .ParagraphSettings = listParagraphSettings _
+            } _
+      } _
+}
+' create list style using the template
+Dim redListStyle As New ListStyle() With { _
+      Key .Id = "MyRedListStyle", _
+      Key .Template = redListTemplate _
+}
+Me.xamRichTextEditor1.Document.RootNode.Styles.Add(redListStyle)
+' create a rich text list using the list style
+Dim redRichTextList As New RichTextList() With { _
+      Key .Id = "MyRedRichTextList", _
+      Key .ListStyleId = "MyRedListStyle" _
+}
+Me.xamRichTextEditor1.Document.RootNode.Lists.Add(redRichTextList)
+----
+
+[[_Ref364171071]]
+==== Adding Paragraphs to RichTextLists
+
+=== Create list summary
+
+Each list item in a `RichTextList` is a paragraph ( link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]). Create as many list items as you need and make them a list item using the following:
+
+[[_Ref364171084]]
+
+=== By Using a List Template Only or a ListStyle
+
+The following code snippet creates a paragraph and adds it to a list:
+
+*In C#:*
+
+[source,csharp]
+----
+// create a paragraph which uses the rich text list
+ParagraphNode pn = new ParagraphNode();
+pn.SetText("Some content");
+pn.Settings = new ParagraphSettings()
+{
+    ListId = "MyGreenRichTextList",
+    ListLevel = 0
+};
+this.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create a paragraph which uses the rich text list
+Dim pn As New ParagraphNode()
+pn.SetText("Some content")
+pn.Settings = New ParagraphSettings() With { _
+      Key .ListId = "MyGreenRichTextList", _
+      Key .ListLevel = 0 _
+}
+Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
+----
+
+[[_Ref364171159]]
+
+[[_Ref366584860]]
+== Applying List Style over Paragraphs
+
+=== Applying list style summary
+
+You can also create lists by applying a particular list style over some existing paragraphs. First create paragraph nodes for each item of your list (refer to the link:xamrichtexteditor-managing-adding-text.html[Adding Text] topic for more information on how to create paragraphs). Then invoke the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method and provide the document span occupied by all created paragraphs and the list style id. This will associate the paragraphs to a new list and apply the list style over them.
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-adding-text.html[Adding Text]
+|This topic provides information on how to create text using the _xamRichTextEditor_ from a developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-hyperlinks.html[Adding Hyperlinks]
+|This topic provides information on how to create hyperlinks using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-images.html[Adding Images]
+|This topic provides information on how to create images using the _xamRichTextEditor_ from the developer’s perspective.
+
+| link:xamrichtexteditor-managing-adding-tables.html[Adding Tables]
+|This topic provides information on how to use the _xamRichTextEditor_ to create tables from the developer’s perspective.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-custom-lists-in-code[Defining Custom Lists in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-custom-lists-in-code[Defining Custom Lists in Code]"] 
+|This sample demonstrates the creation of custom lists.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-hierarchical-lists-in-code[Defining Hierarchical Lists in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-hierarchical-lists-in-code[Defining Hierarchical Lists in Code]"] 
+|This sample demonstrates the creation of hierarchical lists in code.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/defining-lists-in-code[Defining Lists in Code]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/defining-lists-in-code[Defining Lists in Code]"] 
+|This sample demonstrates the creation of lists using predefined styles.
+
+|====

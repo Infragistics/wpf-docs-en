@@ -1,0 +1,133 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamschedule-using-connector-recurring",
+    "controlName": ["xamSchedule"],
+    "tags": ["Data Binding","How Do I","Scheduling"],
+    "guid": "ab959e0a-12d6-4c76-95fd-1148e2418c74",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.695356Z"
+}
+|metadata|
+////
+
+= Using Recurring Appointments Items Source
+
+The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] component provides two properties for specifying an appointments data source: link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentitemssource.html[AppointmentItemsSource] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~recurringappointmentitemssource.html[RecurringAppointmentItemsSource]. AppointmentItemsSource is necessary in order to support appointments. However RecurringAppointmentItemsSource is optional.
+
+When an appointment object’s link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~recurrence.html[Recurrence] property is set it becomes the root of a series of recurring instances of the appointment. Each of these instances is referred to as an ‘occurrence’ of the appointment. When changes are made to a specific ‘occurrence’ it is known as a ‘variance’; for example, when an appointment is set for every Monday at 10:00am but on a specific week it is moved to 10:30.
+
+Normally the root appointment and any variances are stored in the AppointmentItemSource along with all the other appointments. *Note:* Non-variance occurrences are not stored at all since they can be generated from the root appointment for any date span based on the appointment’s recurrence rules.
+
+However, if the RecurringAppointmentItemsSource is set, both the root appointments as well as the variances will be stored in that data source. Segregating root appointments and variances allows the connector to optimize retrieval of all appointments. The reason for this is that the root appointments end up generating occurrences into the future. So, for example, if link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xammonthview.html[xamMonthView] needs to display the appointments for November 2010, it needs to get all root appointments that were created in the past that would generate occurrences in November 2010. Segregating these appointments allows more efficient retrieval by the ListScheduleDataConnector. Also if these appointments are segregated in their own items source then the properties relating to recurrences and variances don’t need to be mapped in the AppointmentItemSource - they only need to be mapped in the RecurringAppointmentItemSource.
+
+Note that when RecurringAppointmentItemsSource is set, the root appointments and variances must only be included in this data source. They cannot be included in the AppointmentsItemsSource. AppointmentItemsSource should only include non-recurring appointments when RecurringAppointmentItemsSource is provided.
+
+As with all other item source collections defined in ListScheduleDataConnector, RecurringAppointmentItemsSource can be populated with an IEnumerable collection of link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment] entities (with defined Recurrence property) or with an IEnumerable collection of custom entities. In the latter case the developer must provide the proper link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~recurringappointmentpropertymappings.html[RecurringAppointmentPropertyMappings] that provide information regarding properties of the custom entity and what information each of those properties provide. Here is how it is done:
+
+*In XAML:*
+
+----
+<ig:ListScheduleDataConnector
+    x:Name="scheduleDataConnector"
+    ResourceItemsSource="{Binding Resources}"
+    ResourceCalendarItemsSource="{Binding Calendars}"
+    AppointmentItemsSource="{Binding Appointments}"
+    RecurringAppointmentItemsSource="{Binding RecurringAppointments}">
+    <ig:ListScheduleDataConnector.RecurringAppointmentPropertyMappings>
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="Id"
+            DataObjectProperty="Id1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="Start"
+            DataObjectProperty="Start1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="End"
+            DataObjectProperty="End1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="OwningResourceId"
+            DataObjectProperty="OwnerId1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="OwningCalendarId"
+            DataObjectProperty="CalendarId1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="Subject"
+            DataObjectProperty="Subject1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="Description"
+            DataObjectProperty="Text1" />
+        <ig:AppointmentPropertyMapping
+            AppointmentProperty="Recurrence"
+            DataObjectProperty="Recurrence1" />
+    </ig:ListScheduleDataConnector.RecurringAppointmentPropertyMappings>
+</ig:ListScheduleDataConnector>
+----
+
+*In Visual Basic:*
+
+----
+Dim data = New MyScheduleData()
+Dim dataConnector = New ListScheduleDataConnector()
+dataConnector.ResourceItemsSource = data.Resources
+dataConnector.ResourceCalendarItemsSource = data.Calendars
+dataConnector.AppointmentItemsSource = data.Appointments
+dataConnector.RecurringAppointmentItemsSource = _
+    data.RecurringAppointments
+dataConnector.RecurringAppointmentPropertyMappings = _
+    New AppointmentPropertyMappingCollection()
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.Id, "Id1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.Start, "Start1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.End, "End1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.OwningResourceId, "OwnerId1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.OwningCalendarId, "CalendarId1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.Subject, "Subject1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.Description, "Text1")
+dataConnector.RecurringAppointmentPropertyMappings. _
+    Add(AppointmentProperty.Recurrence, "Recurrence1")
+----
+
+*In C#:*
+
+----
+var data = new MyScheduleData();           
+var dataConnector = new ListScheduleDataConnector();
+dataConnector.ResourceItemsSource = data.Resources;
+dataConnector.ResourceCalendarItemsSource = data.Calendars;
+dataConnector.AppointmentItemsSource = data.Appointments;
+dataConnector.RecurringAppointmentItemsSource =
+    data.RecurringAppointments;
+dataConnector.RecurringAppointmentPropertyMappings =
+    new AppointmentPropertyMappingCollection();
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.Id, "Id1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.Start, "Start1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.End, "End1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.OwningResourceId, "OwnerId1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.OwningCalendarId, "CalendarId1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.Subject, "Subject1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.Description, "Text1");
+dataConnector.RecurringAppointmentPropertyMappings.
+    Add(AppointmentProperty.Recurrence, "Recurrence1");
+----
+
+== Related Topics
+
+link:xamschedule-understanding-data-connector.html[About the Data Connector]
+
+link:xamschedule-using-connector-list.html[ListScheduleConnector]
+
+link:xamschedule-using-connector-mapping.html[Mapping Fields in Your Backend Data Source]

@@ -1,0 +1,220 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-undo-redo",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "7194dcc7-9a8d-465c-b78c-49cddc1cbbaa",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.5503084Z"
+}
+|metadata|
+////
+
+= Managing Undo/Redo (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s Undo and Redo operations from a developer’s perspective.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362429462,Introduction>>
+* <<_Ref362429466,Control Configuration Summary>>
+* <<_Ref332719506,Undo Operation>>
+* <<_Ref332719522,Redo Operation>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362429462]]
+== Introduction
+
+=== Introduction to the Undo and Redo support
+
+The link:{ApiPlatform}undo.v{ProductVersion}~infragistics.undo.undomanager.html[UndoManager] is available programmatically via the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument.html[RichTextDocument]’s link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~undomanager.html[UndoManager] property. By default, each `RichTextDocument` has its own `UndoManager`, which means you will have a separate history of all changes for each `RichTextDocument` in your application. Alternatively, you can configure a single `UndoManager` to multiple `RichTextDocument`s thereby allowing you to have a shared history tracking all the revisions across all `RichTextDocument`s.
+
+[[_Ref362429466]]
+== Control Configuration Summary
+
+=== Control configuration summary chart
+
+The following table lists the Undo and Redo operation with details.
+
+[options="header", cols="a,a"]
+|====
+|Operation|Details
+
+|<<_Ref332719506,Undo Operation>>
+|Performs an Undo operation on the specified _xamRichTextEditor_ instance.
+
+|<<_Ref332719522,Redo Operation>>
+|Performs a Redo operation on the specified _xamRichTextEditor_ instance.
+
+|====
+
+[[_Undo_Operation]]
+[[_Ref332719506]]
+== Undo Operation
+
+=== Overview
+
+The undo operation incrementally rolls back the last changes made on the `RichTextDocument`, returning the text to its original state, pops the Undo operation record off the undo history stack and adds it to the top of the Redo history stack.
+
+=== Property settings
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Do the following:
+
+|Perform an Undo operation using command
+|Instantiate a link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource_members.html[RichTextEditorCommandSource] class and set the following properties: 
+
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource~eventname.html[EventName] 
+
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource~commandtype.html[CommandType] 
+
+* link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.primitives.richtexteditorcommandsource~targetname.html[TargetName] 
+
+|Perform an Undo operation using code
+|Invoke the Undo method of the `UndoManager` of the respective _xamRichTextEditor’s_ document.
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+Example
+<Button Content="Undo">
+    <ig:Commanding.Command>
+        <igPrim:RichTextEditorCommandSource 
+            EventName="Click" CommandType="Undo" TargetName="xamRichTextEditor1" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.Document.UndoManager.Undo();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.Document.UndoManager.Undo()
+----
+
+[[_Redo_Operation]]
+[[_Ref332719522]]
+== Redo Operation
+
+=== Overview
+
+The Redo operation incrementally backs out the changes inserted by the Undo operation on the `RichTextDocument`, returning the text to its most recently edited state, pops the Undo operation record off the redo history stack and adds it to the top of the undo history stack.
+
+=== Property settings
+
+[options="header", cols="a,a"]
+|====
+|In order to:|Do the following:
+
+|Perform an Undo operation using command
+|Instantiate a `RichTextEditorCommandSource` class and set the following properties: 
+
+* `EventName` 
+
+* `CommandType` 
+
+* `TargetName` 
+
+|Perform an Undo operation using code
+|Invoke the Redo method of the `UndoManager` of the respective _xamRichTextEditor’s_ document
+
+|====
+
+=== Example
+
+*In XAML:*
+
+[source,xaml]
+----
+Example
+<Button Content="Redo">
+    <ig:Commanding.Command>
+        <igPrim:RichTextEditorCommandSource 
+            EventName="Click" CommandType="Redo" TargetName="xamRichTextEditor1" />
+    </ig:Commanding.Command>
+</Button>
+----
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.Document.UndoManager.Redo();
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Me.xamRichTextEditor1.Document.UndoManager.Redo()
+----
+
+[[_Related_Content]]
+[[_Ref359594803]]
+== Related Content
+
+=== Topics
+
+The following topic provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-configuring-undo-redo.html[Configuring Undo/Redo]
+|This topic explains how to turn on and off the _xamRichTextEditor_ control’s undo logging funtionality.
+
+|====
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/undo-redo[Undo / Redo]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/undo-redo[Undo / Redo]"] 
+|This sample demonstrates how to configure undo logging and how to use the Undo/Redo managers with the _xamRichTextEditor_ .
+
+|====

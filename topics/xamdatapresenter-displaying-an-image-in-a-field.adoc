@@ -1,0 +1,109 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatapresenter-displaying-an-image-in-a-field",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Tips and Tricks"],
+    "guid": "{1A48F7B6-29D4-40EA-906C-E9EE20020C3B}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1579847Z"
+}
+|metadata|
+////
+
+= Displaying an Image in a Field
+
+In your xamDataPresenter™, you may want a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] to display an image. To do this, you need to override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter]'s template.
+
+The following procedure assumes you have a data bound xamDataPresenter where you want to place an image in a field. For more information, see link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application].
+
+*To display an image in a field:*
+
+[start=1]
+. This topic actually uses the link:resources-products.html[Products.xml] file, which has a attribute pointing to the images that we want to load.
++
+.Note
+[NOTE]
+====
+To reflect where the images are located on your machine, you must modify the Products.xml file to change the path for Logo.
+====
+
+[start=2]
+. You will need to create a Style that targets the CellValuePresenter class in the Grid's resource section. You will also need to give the style a Key of "ProductImage". The style should look similar to the following example code.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Style TargetType="{x:Type igDP:CellValuePresenter}" x:Key="ProductImage">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type igDP:CellValuePresenter}">
+                <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                    <Image Margin="{TemplateBinding Padding}" 
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Content}" />
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+----
+
+[start=3]
+. Use the following XAML code to create an instance of XamDataPresenter and names it.
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataPresenter x:Name="XamDataPresenter1" ... >
+    ...
+</igDP:XamDataPresenter>
+----
+
+[start=4]
+. Inside the XamDataPresenter tags, place the following XAML code. This lays out the fields and also sets the "Logo" link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~cellvaluepresenterstyle.html[CellValuePresenterStyle] to the Style created above.
++
+.Note
+[NOTE]
+====
+Changes to the field layout are link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatapresenter~view.html[View] independent, and therefore the code below will work with either GridView or CarouselView.
+====
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataPresenter.FieldLayoutSettings>
+    <igDP:FieldLayoutSettings AutoGenerateFields="False" />
+</igDP:XamDataPresenter.FieldLayoutSettings>
+<igDP:XamDataPresenter.FieldLayouts>
+    <igDP:FieldLayout>
+        <igDP:FieldLayout.Fields>
+            <igDP:Field Name="ProductName" Label="Product Name" >
+                <igDP:Field.Settings>
+                    <igDP:FieldSettings CellMinWidth="200" 
+                                        CellWidth="200" />
+                </igDP:Field.Settings>
+            </igDP:Field> 
+            <igDP:Field Name="Logo" Label="Product Logo">
+                <igDP:Field.Settings>
+                    <igDP:FieldSettings CellMinWidth="200" CellWidth="200" 
+                                        CellValuePresenterStyle="{StaticResource ProductImage}" />
+                </igDP:Field.Settings>
+            </igDP:Field>
+        </igDP:FieldLayout.Fields>
+    </igDP:FieldLayout>
+</igDP:XamDataPresenter.FieldLayouts>
+----
+
+[start=5]
+. Build and run the project. If you are using the CarouselView you should see something similar to the following image.
++
+image::images/xamDataPresenter_Displaying_an_Image_in_a_Field_01.png[displaying an image in xamdatapresenter field]
+
+== Related Topics
+
+link:xamdatapresenter-about-data-items-and-data-records.html[About Data Items and Data Records]

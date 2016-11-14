@@ -1,0 +1,106 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdialogwindow-handle-moving-events",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["Events","How Do I"],
+    "guid": "{51E431B5-753D-475F-99A1-DCE86D5B4D1F}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.981146Z"
+}
+|metadata|
+////
+
+= Handle Moving Events
+
+There are two events associated with moving the dialog window. These events have the suffix “ing” or “ed” appended to them, reflecting the order in which they occur. The moving events allow you to perform some custom logic before or after the dialog window is moved.
+
+link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~moving_ev.html[Moving] – The moment right before the dialog window is moved, the Moving event fires. This event can be cancelled if certain conditions are not met.
+
+link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~moved_ev.html[Moved] – This event fires after the dialog window has moved.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+   <ig:XamDialogWindow Content="Dialog Window" 
+      x:Name="DialogWindow" Width="200" Height="200" 
+      Moved="DialogWindow_Moved" Moving="DialogWindow_Moving"/>
+</Grid>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Interactions
+…
+AddHandler DialogWindow.Moved, AddressOf DialogWindow_Moved
+AddHandler DialogWindow.Moving, AddressOf DialogWindow_Moving
+…
+Private Sub DialogWindow_Moving(ByVal sender As System.Object, ByVal e As MovingEventArgs)
+   'Don't allow the dialog window to move more than 200 pixels 
+   If (e.Left > 200) Then
+      e.Cancel = True
+      System.Diagnostics.Debug.WriteLine("Moving Cancelled")
+      Return
+   End If
+   System.Diagnostics.Debug.WriteLine("Dialog Window Moving Successfully")
+End Sub
+Private Sub DialogWindow_Moved(ByVal sender As System.Object, ByVal e As MovedEventArgs)
+   System.Diagnostics.Debug.WriteLine("Dialog Window has moved successfully. 
+                             New left coordinate is " + e.Left.ToString() + 
+                             ", new top coordinate is " + e.Top.ToString())
+End Sub
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Interactions;
+…
+DialogWindow.Moved += new EventHandler<MovedEventArgs>(DialogWindow_Moved);
+DialogWindow.Moving += new EventHandler<MovingEventArgs>(DialogWindow_Moving);
+…
+void DialogWindow_Moving(object sender, MovingEventArgs e)
+{
+    //Don't allow the dialog window to move more than 200 pixels 
+   if (e.Left > 200)
+   {
+      e.Cancel = true;
+      System.Diagnostics.Debug.WriteLine("Moving Cancelled");
+      return;
+   }
+   System.Diagnostics.Debug.WriteLine("Dialog Window Moving Successfully");
+}
+void DialogWindow_Moved(object sender, MovedEventArgs e)
+{
+   System.Diagnostics.Debug.WriteLine("Dialog Window has moved successfully. 
+                          New Left coordinate is "+e.Left+
+                          ", new top coordinate is "+e.Top);
+}
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-window-state-changing-events.html[Handle Window State Changing Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-modal-and-modeless-dialog-windows.html[Modal and Modeless Dialog Windows]
+
+link:xamdialogwindow-position-minimized-dialog-window.html[Position Minimized Dialog Window]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-the-xamdialogwindow-controls-behavior.html[The xamDialogWindow Control's Behavior]
+
+link:xamdialogwindow-window-header-controls.html[Window Header Controls]

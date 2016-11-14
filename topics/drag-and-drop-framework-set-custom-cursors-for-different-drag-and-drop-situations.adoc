@@ -1,0 +1,65 @@
+﻿////
+
+|metadata|
+{
+    "name": "drag-and-drop-framework-set-custom-cursors-for-different-drag-and-drop-situations",
+    "controlName": ["IG Drag and Drop Framework"],
+    "tags": ["Getting Started","How Do I","Templating"],
+    "guid": "{F51C19A6-ECB9-4E36-B4C7-783229CAED93}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.6850337Z"
+}
+|metadata|
+////
+
+= Set Custom Cursors for Different Drag and Drop Situations
+
+== Before You Begin
+
+You can override the default cursors that are used when you end users perform actions within the drag and drop framework. The following cursor templates are available.
+
+* link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~copycursortemplate.html[CopyCursorTemplate]
+* link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~dropnotallowedcursortemplate.html[DropNotAllowedCursorTemplate]
+* link:{ApiPlatform}dragdrop.v{ProductVersion}~infragistics.dragdrop.dragsource~movecursortemplate.html[MoveCursorTemplate]
+
+_Assumptions:_
+
+_This topic assumes that you already have drag and drop functionality implemented on your page. For more information, see the link:drag-and-drop-framework-getting-started-with-ig-drag-and-drop-framework.html[Getting Started with Infragistics Drag and Drop Framework] topic._
+
+== What You Will Accomplish
+
+After completing the steps in this walkthrough, you will have customized MoveCursorTemplate and DropNotAllowedCursorTemplate. You can modify cursor templates to achieve better user experience and indicate clearly in what state the dragged element is.
+
+== Follow these Steps
+
+[start=1]
+. Set a DragSource object's MoveCursorTemplate and DropNotAllowedCursorTemplate. Green and red colored ellipse indicates if the dragged element is over a valid drop target.
+
+*In XAML:*
+
+----
+<ig:DragDropManager.DragSource>
+    <ig:DragSource IsDraggable="True"  DragChannels="ChannelA"  
+        Drop="DragSource_Drop" >
+        <ig:DragSource.MoveCursorTemplate>
+            <DataTemplate>
+                <Ellipse Fill="Green" Width="50" Height="50" />
+            </DataTemplate>
+        </ig:DragSource.MoveCursorTemplate>
+        <ig:DragSource.DropNotAllowedCursorTemplate>
+            <DataTemplate>
+                <Ellipse Fill="Red" Width="50" Height="50" />
+            </DataTemplate>
+        </ig:DragSource.DropNotAllowedCursorTemplate>          
+    </ig:DragSource>
+ </ig:DragDropManager.DragSource>   
+----
+
+[start=2]
+. Save and run your application.
+
+== Related Topics
+
+link:drag-and-drop-framework-ig-drag-and-drop-framework-events.html[Infragistics Drag and Drop Framework Events]
+
+link:drag-and-drop-framework-set-drag-and-drop-channels.html[Set Drag and Drop Channels]

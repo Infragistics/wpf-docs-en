@@ -1,0 +1,176 @@
+﻿////
+
+|metadata|
+{
+    "name": "xampropertygrid-conf-properties-filtering",
+    "tags": ["Filtering","How Do I"],
+    "controlName": ["xamPropertyGrid"],
+    "guid": "5bd1384f-c0e2-4a17-8b3a-2f92fd83bc8e",  
+    "buildFlags": [],
+    "createdOn": "2014-08-28T10:47:41.5589397Z"
+}
+|metadata|
+////
+
+= Properties List Filtering (xamPropertyGrid)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to configure the filtering of the control’s properties list.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-features-overview.html[Features Overview (xamPropertyGrid)]
+|This topic explains the features supported by the control from developer perspective.
+
+| link:xampropertygrid-visual-elements.html[Visual Elements (xamPropertyGrid)]
+|This topic provides an overview of the visual elements of the control.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref394577185, Filtering Introduction >>
+* <<_Ref394577193, Code Examples Summary >>
+* <<_Ref394577067, Code Example: Filter Properties by Property Name >>
+* <<_Ref394577076, Code Example: Filter Properties by Property Name and Category >>
+* <<_Ref394577218, Related Content >>
+
+[[_Ref394577185]]
+== Filtering Introduction
+
+=== Filtering summary
+
+The link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid_members.html[ _xamPropertyGrid_  ] allows the user to enter a filter value in the text box located in the filtering area at the top of the control. This filter is used as a "contains" filter when evaluating properties for inclusion in the displayed property list. The pipe symbol (i.e., "|") can also be used to specify multiple filter criteria which are then combined using an "Or" operator.
+
+The control’s link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~filtertext.html[FilterText] property is bound by default to the filter area textbox so it always reflects the current value typed by the end user. In addition you can programmatically add custom filters (based on the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.icondition_members.html[ICondition] interface) via the control’s link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~itemfilters.html[ItemFilters] property which are combined using an "and" operator with the filter criteria specified by the user.
+
+To create custom filters you can use your own classes which implements the `ICondition` interface or use one of the classes supplied  _xamPropertyGrid_   assembly – link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridcomparisoncondition_members.html[PropertyGridComparisonCondition], link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridcomplementcondition_members.html[PropertyGridComplementCondition] and link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridconditiongroup_members.html[PropertyGridConditionGroup]. Each of these expose an link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridcomparisoncondition~operandsource.html[OperandSource] property of type link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridfilteroperandsource.html[PropertyGridFilterOperandSource] which lets you specify the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridpropertyitem_members.html[PropertyGridPropertyItem] value that should be used when evaluating whether a particular item satisfies.
+
+[[_Ref394577193]]
+== Code Examples Summary
+
+=== Code examples summary chart
+
+The following table lists the code examples included in this topic.
+
+[options="header", cols="a,a"]
+|====
+|Example|Description
+
+|<<_Ref394577067,Code Example: Filter Properties by Property Name>>
+|The following example shows how to add a filter which will result showing of properties which name contains either "Brush" or "Color".
+
+|<<_Ref394577076,Code Example: Filter Properties by Property Name and Category>>
+|The following example shows how to add a filter which will result showing of properties which are from the category "Appearance" and their name contains "Visibility".
+
+|====
+
+[[_Ref394577067]]
+== Code Example: Filter Properties by Property Name
+
+=== Description
+
+The following example shows how to add a filter which will result showing of properties which name contains either "Brush" or "Color".
+
+=== Code
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamPropertyGrid>
+  <ig:XamPropertyGrid.ItemFilters>
+    <ig:PropertyGridConditionGroup LogicalOperator="Or">
+      <ig:PropertyGridComparisonCondition Operator="Contains" Value="Brush" />
+      <ig:PropertyGridComparisonCondition Operator="Contains" Value="Color" />
+    </ig:PropertyGridConditionGroup>
+  </ig:XamPropertyGrid.ItemFilters>
+</ig:XamPropertyGrid>
+----
+
+.Note
+[NOTE]
+====
+The `OperandSource` property is omitted because its default value is `PropertyName`.
+====
+
+.Note
+[NOTE]
+====
+Creating item filters as described above would produce the same result as the user typing  *"Brush | Color"*  in the filter textbox.
+====
+
+[[_Ref394577076]]
+== Code Example: Filter Properties by Property Name and Category
+
+=== Description
+
+The following example shows how to add a filter which will result showing of properties which are from the category "Appearance" and their name contains "Visibility".
+
+=== Code
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<ig:XamPropertyGrid>
+  <ig:XamPropertyGrid.ItemFilters>
+    <ig:PropertyGridConditionGroup LogicalOperator="And">
+      <ig:PropertyGridComparisonCondition OperandSource="CategoryName"
+        Operator="Equals" Value="Appearance" />
+      <ig:PropertyGridComparisonCondition OperandSource="PropertyName" 
+        Operator="Contains" Value="Visibility" />
+    </ig:PropertyGridConditionGroup>
+  </ig:XamPropertyGrid.ItemFilters>
+</ig:XamPropertyGrid>
+----
+
+.Note
+[NOTE]
+====
+It is not possible for the end user to create the item filters as described above using the filter textbox. There are 2 reasons for this:
+
+* The filter criteria is combined using an "And" operator (the filter textbox uses an "Or" operator when combining multiple criteria).
+* The filter criteria is filtering based on "CategoryName" (the filter textbox only filters based on "PropertyName").
+
+====
+
+[[_Ref394577218]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xampropertygrid-conf-visuals.html[Configuring Visual Appearance (xamPropertyGrid)]
+|This topic explains how to configure some general control options.
+
+| link:xampropertygrid-conf-editors.html[Configuring Editors Definitions (xamPropertyGrid)]
+|This topic explains how to customize the editors used for editing the properties’ values.
+
+| link:xampropertygrid-conf-properties-sorting.html[Properties List Sorting (xamPropertyGrid)]
+|This topic explains how to provide logic for custom sorting of the properties list.
+
+| link:xampropertygrid-conf-templateselector.html[Configuring Template Selector for Editor Definitions (xamPropertyGrid)]
+|This topic explains how create custom logic for assigning editing template on an editor definition.
+
+|====

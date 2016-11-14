@@ -1,0 +1,120 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatagrid-getting-started-with-xamdatagrid",
+    "controlName": ["xamDataGrid"],
+    "tags": ["Getting Started"],
+    "guid": "{0AD1128D-237A-49E6-A416-E69667BC29BE}",
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0079547Z"
+}
+|metadata|
+////
+
+= Adding xamDataGrid to Your Page
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamDataGrid™ control.
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window project.
+
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+** {ApiPlatform}v{ProductVersion}.dll
+** {ApiPlatform}Editors.v{ProductVersion}.dll
+** {ApiPlatform}DataPresenter.v{ProductVersion}.dll
+
+[start=3]
+. Add a namespace declaration for xamDataGrid.
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:igDP="http://infragistics.com/DataPresenter"
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Windows.DataPresenter
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Windows.DataPresenter;
+----
+
+[start=4]
+. Name the default Grid layout panel in the Window so that you can reference it in the code-behind.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Grid Name="layoutRoot">
+</Grid>
+----
+
+[start=5]
+. Attach an event handler to the Window's Loaded event if you are going to add the xamGrid using code-behind.
++
+*In XAML:*
++
+[source,xaml]
+----
+<Window ... Loaded="Window_Loaded" ... >
+----
+
+[start=6]
+. Create an instance of xamDataGrid. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True. This will automatically populate xamDataGrid with sample data so that you can preview the xamDataGrid control without setting up a data source. Add the xamDatgrid in the main grid.
++
+*In XAML:*
++
+[source,xaml]
+----
+<igDP:XamDataGrid Name="xamDataGrid1" BindToSampleData="True" />
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Private xamDataGrid1 as XamDataGrid
+xamDataGrid1 = New XamDataGrid()
+' You can data bind your instance of xamDataGrid
+' instead of using the built in sample data
+xamDataGrid1.BindToSampleData = True
+Me.layoutRoot.Children.Add(xamDataGrid1)
+----
++
+*In C#:*
++
+[source,csharp]
+----
+private XamDataGrid xamDataGrid1;
+xamDataGrid1 = new XamDataGrid();
+// You can data bind your instance of xamDataGrid
+// instead of using the built in sample data
+xamDataGrid1.BindToSampleData = true;
+this.layoutRoot.Children.Add(xamDataGrid1);
+----
+
+[start=7]
+. Run the project to see the xamDataGrid control populated with sample data.
++
+image::images/xamDataGrid_Creating_xamDataGrid_in_XAML_01.png[creating xamdatagrid in xaml]
+
+== Related Topics
+
+link:creating-a-flat-dataset.html[Creating a Flat DataSet]
+
+link:creating-an-objectdataprovider.html[Creating an ObjectDataProvider]
+
+link:creating-an-xmldataprovider.html[Creating an XmlDataProvider]
+
+link:using-the-data-context-for-data-binding.html[Using the Data Context for Data Binding]

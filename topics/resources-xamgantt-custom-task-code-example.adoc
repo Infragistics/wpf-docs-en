@@ -1,0 +1,313 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-xamgantt-custom-task-code-example",
+    "controlName": [],
+    "tags": [],
+    "guid": "801a35f5-a111-4f41-95fc-948513c321e2",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4540244Z"
+}
+|metadata|
+////
+
+= Custom Task Code Example
+
+=== Description
+
+This code example presents a `CustomTask` class. This class is used to create custom project task.
+
+=== Code
+
+*In C#:*
+
+[source,csharp]
+----
+public class CustomTask : INotifyPropertyChanged
+    {
+        #region Private variables
+        private string dataItemId;
+        private DateTime? start;
+        private string taskName;
+        private TimeSpan? duration;
+        private string tasks;
+        private string predecesors;
+        private DateTime? constraintDate;
+        private string constraintType;
+        private string durationFormat;
+        private string resources;
+        #endregion // Private variables
+        #region Public Properties
+        public string DataItemId
+        {
+            get { return dataItemId; }
+            set
+            {
+                if (value != dataItemId)
+                {
+                    dataItemId = value;
+                    OnPropertyChanged("DataItemId");
+                }
+            }
+        }
+        public DateTime? Start
+        {
+            get { return start; }
+            set
+            {
+                if (value != start)
+                {
+                    start = value;
+                    OnPropertyChanged("Start");
+                }
+            }
+        }
+        public string TaskName
+        {
+            get { return taskName; }
+            set
+            {
+                if (value != taskName)
+                {
+                    taskName = value;
+                    OnPropertyChanged("TaskName");
+                }
+            }
+        }
+        public TimeSpan? Duration
+        {
+            get { return duration; }
+            set
+            {
+                if (duration != value)
+                {
+                    duration = value;
+                    OnPropertyChanged("Duration");
+                }
+            }
+        }
+        public string Tasks
+        {
+            get { return tasks; }
+            set
+            {
+                if (value != tasks)
+                {
+                    tasks = value;
+                    OnPropertyChanged("Tasks");
+                }
+            }
+        }
+        public string Predecessors
+        {
+            get { return predecesors; }
+            set
+            {
+                if (value != predecesors)
+                {
+                    predecesors = value;
+                    OnPropertyChanged("Predecessors");
+                }
+            }
+        }
+        public DateTime? ConstraintDate
+        {
+            get { return constraintDate; }
+            set
+            {
+                if (value != constraintDate)
+                {
+                    constraintDate = value;
+                    OnPropertyChanged("ConstraintDate");
+                }
+            }
+        }
+        public string ConstraintType
+        {
+            get { return constraintType; }
+            set
+            {
+                if (value != constraintType)
+                {
+                    constraintType = value;
+                    OnPropertyChanged("ConstraintType");
+                }
+            }
+        }
+        public string DurationFormat
+        {
+            get { return durationFormat; }
+            set
+            {
+                if (value != durationFormat)
+                {
+                    durationFormat = value;
+                    OnPropertyChanged("DurationFormat");
+                }
+            }
+        }
+        public string Resources
+        {
+            get { return resources; }
+            set
+            {
+                if (value != resources)
+                {
+                    resources = value;
+                    OnPropertyChanged("Resources");
+                }
+            }
+        }
+        #endregion // Public properties
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion // INotifyPropertyChanged
+    }
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+Public Class CustomTask
+      Implements INotifyPropertyChanged
+      #Region "Private variables"
+      Private m_dataItemId As String
+      Private m_start As System.Nullable(Of DateTime)
+      Private m_taskName As String
+      Private m_duration As System.Nullable(Of TimeSpan)
+      Private m_tasks As String
+      Private predecesors As String
+      Private m_constraintDate As System.Nullable(Of DateTime)
+      Private m_constraintType As String
+      Private m_durationFormat As String
+      Private m_resources As String
+      #End Region
+      #Region "Public Properties"
+      Public Property DataItemId() As String
+            Get
+                  Return m_dataItemId
+            End Get
+            Set
+                  If value <> m_dataItemId Then
+                        m_dataItemId = value
+                        OnPropertyChanged("DataItemId")
+                  End If
+            End Set
+      End Property
+      Public Property Start() As System.Nullable(Of DateTime)
+            Get
+                  Return m_start
+            End Get
+            Set
+                  If value <> m_start Then
+                        m_start = value
+                        OnPropertyChanged("Start")
+                  End If
+            End Set
+      End Property
+      Public Property TaskName() As String
+            Get
+                  Return m_taskName
+            End Get
+            Set
+                  If value <> m_taskName Then
+                        m_taskName = value
+                        OnPropertyChanged("TaskName")
+                  End If
+            End Set
+      End Property
+      Public Property Duration() As System.Nullable(Of TimeSpan)
+            Get
+                  Return m_duration
+            End Get
+            Set
+                  If m_duration <> value Then
+                        m_duration = value
+                        OnPropertyChanged("Duration")
+                  End If
+            End Set
+      End Property
+      Public Property Tasks() As String
+            Get
+                  Return m_tasks
+            End Get
+            Set
+                  If value <> m_tasks Then
+                        m_tasks = value
+                        OnPropertyChanged("Tasks")
+                  End If
+            End Set
+      End Property
+      Public Property Predecessors() As String
+            Get
+                  Return predecesors
+            End Get
+            Set
+                  If value <> predecesors Then
+                        predecesors = value
+                        OnPropertyChanged("Predecessors")
+                  End If
+            End Set
+      End Property
+      Public Property ConstraintDate() As System.Nullable(Of DateTime)
+            Get
+                  Return m_constraintDate
+            End Get
+            Set
+                  If value <> m_constraintDate Then
+                        m_constraintDate = value
+                        OnPropertyChanged("ConstraintDate")
+                  End If
+            End Set
+      End Property
+      Public Property ConstraintType() As String
+            Get
+                  Return m_constraintType
+            End Get
+            Set
+                  If value <> m_constraintType Then
+                        m_constraintType = value
+                        OnPropertyChanged("ConstraintType")
+                  End If
+            End Set
+      End Property
+      Public Property DurationFormat() As String
+            Get
+                  Return m_durationFormat
+            End Get
+            Set
+                  If value <> m_durationFormat Then
+                        m_durationFormat = value
+                        OnPropertyChanged("DurationFormat")
+                  End If
+            End Set
+      End Property
+      Public Property Resources() As String
+            Get
+                  Return m_resources
+            End Get
+            Set
+                  If value <> m_resources Then
+                        m_resources = value
+                        OnPropertyChanged("Resources")
+                  End If
+            End Set
+      End Property
+      #End Region
+      #Region "INotifyPropertyChanged"
+      Public Event PropertyChanged As PropertyChangedEventHandler
+      Public Sub OnPropertyChanged(propertyName As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
+      End Sub
+      #End Region
+End Class
+----

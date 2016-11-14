@@ -1,0 +1,129 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-showing-a-contextual-tab-group-programmatically",
+    "controlName": ["xamRibbon"],
+    "tags": ["Application Blocks","Grouping","How Do I"],
+    "guid": "{2B54676A-72BC-442C-8929-713C12296467}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.2121955Z"
+}
+|metadata|
+////
+
+= Showing a Contextual Tab Group Programmatically
+
+
+
+== Before You Begin
+
+You can display context sensitive Tabs with the ContextualTabGroup object. However, simply adding a ContextualTabGroup to the ContextualTabGroupCollection will not be enough to show context sensitive Tabs. You will have to handle the GotFocus and LostFocus events of a control within your application to programmatically show or hide the ContextualTabGroup object.
+
+This topic assumes that you know how to link:xamribbon-adding-xamribbon-to-your-application-.html[create a basic xamRibbon™ using Extensible Application Markup Language (XAML)] and link:xamribbon-add-a-contextual-tab-to-xamribbon.html[add a ContextualTabGroup to xamRibbon].
+
+== What You Will Accomplish
+
+By handling the GotFocus and LostFocus events of the controls in your Window, you will show or hide a ContextualTabGroup, respectively.
+
+== To Show a ContextualTabGroup Programmatically:
+
+[start=1]
+. Add a ContextualTabGroup to the ContextualTabGroups collection.
+
+.. Set the Caption property to "RichTextBox Tools".
+.. Set the Key property to "RichTextBox_Tabs".
+.. Set the IsVisible property to False.
+
+[start=2]
+. Add a RibbonTabItem to the ContextualTabGroup’s Tabs collection.
+[start=3]
+. Set the Header property of the RibbonTabItem to "Style".
+[start=4]
+. Add a second RibbonTabItem to the ContextualTabGroups Tab collection.
+[start=5]
+. Set the Header property of the second RibbonTabItem to "Behavior".
+
+*In XAML:*
+
+----
+<igRibbon:XamRibbon Name="XamRibbon1">
+...
+    <igRibbon:XamRibbon.ContextualTabGroups>
+        <igRibbon:ContextualTabGroup Caption="RichTextBox Tools"                                                      Key="RichTextBox_Tabs" IsVisible=">
+            <igRibbon:RibbonTabItem Header="Style" />
+            <igRibbon:RibbonTabItem Header="Behavior" />
+        </igRibbon:ContextualTabGroup>
+    </igRibbon:XamRibbon.ContextualTabGroups>
+...
+</igRibbon:XamRibbon>
+----
+
+[start=6]
+. Add a RichTextBox control to the Window’s layout container. The XAML below assumes that you are using a StackPanel.
+
+.. Attach an event handler for the GotFocus event of the RichTextBox control.
+.. Attach an event handler for the LostFocus event of the RichTextBox control.
+
+[start=7]
+. Add a Button control to the Window's layout container. This Button control will allow you to remove focus from the RichTextBox control.
+
+*In XAML:*
+
+----
+...
+<RichTextBox GotFocus="RichTextBox1_GotFocus"
+  LostFocus="RichTextBox1_LostFocus" />
+<Button Content="Remove focus from the RichTextBox control" />
+...
+----
+
+[start=8]
+. In the code-behind, create a method named RichTextBox1_GotFocus to handle the RichTextBox control's GotFocus event.
+[start=9]
+. Create another method named RichTextBox1_LostFocus to handle the RichTextBox control's LostFocus event.
+[start=10]
+. In the GotFocus event handler, use the key "RichTextBox_Tabs" to retrieve a reference to the ContextualTabGroup you added in step one.
+[start=11]
+. Set this ContextualTabGroup's IsVisible property to True.
+[start=12]
+. In the LostFocus event handler, use the key "RichTextBox_Tabs" to retrieve a reference to the ContextualTabGroup you added in step one.
+[start=13]
+. Set this ContextualTabGroup's IsVisible property to False.
+
+*In Visual Basic:*
+
+----
+Private Sub RichTextBox1_GotFocus(ByVal sender As Object, _
+  ByVal e As RoutedEventArgs) 
+    Me.XamRibbon1.ContextualTabGroups("RichTextBox_Tabs").IsVisible = True 
+End Sub 
+Private Sub RichTextBox1_LostFocus(ByVal sender As Object, _
+  ByVal e As RoutedEventArgs) 
+    Me.XamRibbon1.ContextualTabGroups("RichTextBox_Tabs").IsVisible = False 
+End Sub
+----
+
+*In C#:*
+
+----
+private void RichTextBox1_GotFocus(object sender, RoutedEventArgs e)
+{
+        this.XamRibbon1.ContextualTabGroups["RichTextBox_Tabs"].IsVisible = true;
+}
+private void RichTextBox1_LostFocus(object sender, RoutedEventArgs e)
+{
+        this.XamRibbon1.ContextualTabGroups["RichTextBox_Tabs"].IsVisible = false;
+}
+----
+
+[start=14]
+. Run the application and place focus on the RichTextBox to show the Contextual Tabs related to RichTextBox tasks.
+[start=15]
+. Remove focus from the RichTextBox control by clicking on the Button control. This will hide the Contextual Tabs related to RichTextBox tasks.
+
+== Related Topics
+
+link:xamribbon-add-a-tab-to-xamribbon.html[Add a Tab to xamRibbon]
+
+link:xamribbon-add-a-contextual-tab-to-xamribbon.html[Add a Contextual Tab to xamRibbon]

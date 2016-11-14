@@ -1,0 +1,94 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdockmanager-set-the-location-of-a-floating-pane",
+    "controlName": ["xamDockManager"],
+    "tags": ["How Do I"],
+    "guid": "{FB0109AE-167A-4D15-95F0-8A3974A6E30E}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.5270585Z"
+}
+|metadata|
+////
+
+= Set the Location of a Floating Pane
+
+When you float a pane by setting the xamDockManager™ control's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~initiallocationproperty.html[InitialLocation] attached property to FloatingOnly, you can position the floating pane by setting xamDockManager's link:{ApiPlatform}dockmanager.v{ProductVersion}~infragistics.windows.dockmanager.xamdockmanager~floatinglocationproperty.html[FloatingLocation] attached property to an instance of a Point structure. In XAML, you can set the FloatingLocation attached property by specifying an x coordinate and y coordinate separated by a comma or a space.
+
+The following example code demonstrates how to set the location of a floating pane.
+
+*In XAML:*
+
+----
+...
+<igDock:XamDockManager Name="xamDockManager1">
+    <igDock:XamDockManager.Panes>
+        <igDock:SplitPane 
+            Name="splitPane1" 
+            igDock:XamDockManager.FloatingLocation="0 0"
+            igDock:XamDockManager.InitialLocation="FloatingOnly">
+            <igDock:ContentPane Header="Pane 1">
+                <!--TODO: Add content here-->
+            </igDock:ContentPane>
+        </igDock:SplitPane>
+    </igDock:XamDockManager.Panes>
+</igDock:XamDockManager>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DockManager
+...
+Dim splitPane1 As New SplitPane() 
+XamDockManager.SetFloatingLocation(splitPane1, New Point(0, 0)) 
+XamDockManager.SetInitialLocation(splitPane1, InitialPaneLocation.FloatingOnly) 
+Me.xamDockManager1.Panes.Add(splitPane1) 
+Dim pane1 As New ContentPane() 
+pane1.Header = "Pane 1" 
+splitPane1.Panes.Add(pane1) 
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DockManager;
+...
+SplitPane splitPane1 = new SplitPane();
+XamDockManager.SetFloatingLocation(splitPane1, new Point(0, 0));
+XamDockManager.SetInitialLocation(splitPane1, InitialPaneLocation.FloatingOnly);
+this.xamDockManager1.Panes.Add(splitPane1);
+ContentPane pane1 = new ContentPane();
+pane1.Header = "Pane 1";
+splitPane1.Panes.Add(pane1);
+...
+----
+
+== Related Topics
+
+link:xamdockmanager-about-opening-and-closing-panes.html[About Opening and Closing Panes]
+
+link:xamdockmanager-add-content-to-a-contentpane.html[Add Content to a ContentPane]
+
+link:xamdockmanager-add-panes-to-the-documentcontenthost-object.html[Add Panes to the DocumentContentHost Object]
+
+link:xamdockmanager-add-panes-to-xamdockmanager.html[Add Panes to xamDockManager]
+
+link:xamdockmanager-creating-a-tabbed-mdi-application.html[Creating a Tabbed MDI Application]
+
+link:xamdockmanager-pin-and-unpin-a-pane.html[Pin and Unpin a Pane]
+
+link:xamdockmanager-prevent-end-users-from-resizing-floating-panes.html[Prevent End Users From Resizing Floating Panes]
+
+link:xamdockmanager-set-the-initial-location-of-a-pane.html[Set the Initial Location of a Pane]
+
+link:xamdockmanager-set-the-size-of-a-floating-pane.html[Set the Size of a Floating Pane]
+
+link:xamdockmanager-show-the-pane-navigator-programmatically.html[Show the Pane Navigator Programmatically]
+
+link:xamdockmanager-end-user-settings.html[End User Settings]
+
+link:xamdockmanager-styling-xamdockmanager.html[Styling xamDockManager]

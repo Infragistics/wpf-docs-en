@@ -1,0 +1,156 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-managing-import-export-docx",
+    "tags": ["Data Binding"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "4d1e6ba2-481a-40d0-8c6c-f5109966fc6e",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.489345Z"
+}
+|metadata|
+////
+
+= Import/Export DOCX (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to use the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control for importing and exporting DOCX formatted data.
+
+=== Required background
+
+The following topic is a prerequisite to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-serialization-providers.html[Serialization Providers Overview]
+|This topic explains the _xamRichTextEditor_ control’s serialization providers.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362612534,Import/Export MS Word Configuration Summary>>
+* <<_Ref362603137,Import MS Word Content>>
+* <<_Ref362603145,Export MS Word Content>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362608235]]
+[[_Ref362612534]]
+== Import/Export MS Word Configuration Summary
+
+=== Import/Export configuration summary chart
+
+The following table briefly explains the configurable aspects of the  _xamRichTextEditor_   control and maps them to their respective properties.
+
+[options="header", cols="a,a,a"]
+|====
+|Configurable aspect|Details|Methods
+
+|<<_Ref362603137,Import MS Word Content>>
+|Import MS Word content from a stream.
+| link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.wordserializationproviderextensions~loadfromword.html[LoadFromWord]
+
+|<<_Ref362603145,Export MS Word Content>>
+|Export MS Word content to a stream.
+| link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.wordserializationproviderextensions~savetoword.html[SaveToWord]
+
+|====
+
+.Note
+[NOTE]
+====
+You must first include the MS Word serialization provider assembly in your project prior to being able to use it:
+
+*{ApiPlatform}Documents.RichTextDocument.Word.v{ProductVersion}*
+====
+
+[[_Ref362603137]]
+== Import MS Word Content
+
+=== Overview
+
+Use the `LoadFromWord` extension method of the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] to import MS Word content in the  _xamRichTextEditor_   control from a stream.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Import MS Word content
+|`LoadFromWord`
+|
+* The stream object containing the MS Word format content 
+
+* Content loading options object of type link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.wordloadoptions_members.html[WordLoadOptions], which is not required 
+
+|====
+
+[[_Ref362603145]]
+== Export MS Word Content
+
+=== Overview
+
+Use the `SaveToWord` extension method of the `RichTextDocument` to export  _xamRichTextEditor’s_   content to a stream in MS Word format.
+
+=== Property settings
+
+The following table maps the desired configuration to its respective property settings.
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And provide the following arguments:
+
+|Export content in MS Word format
+|`SaveToWord`
+|
+* The stream object into which to export the content in MS Word format 
+
+* Content saving options object of type link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.wordsaveoptions_members.html[WordSaveOptions], which is not required 
+
+|====
+
+[[_Ref359594803]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-import-export-text.html[Import/Export Plain Text]
+|This topic explains how to import and export of plain text data using the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-managing-import-export-rtf.html[Import/Export RTF]
+|This topic explains how to use the _xamRichTextEditor_ control for importing and exporting RTF data.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/export-content[Export Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/export-content[Export Content]"] 
+|This sample demonstrates the export of content in different formats.
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/import-content[Import Content]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/import-content[Import Content]"] 
+|This sample demonstrates the import of content in different formats.
+
+|====

@@ -1,0 +1,252 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamspellchecker-adding-xamspellchecker-to-your-page",
+    "controlName": ["xamSpellChecker"],
+    "tags": ["Getting Started"],
+    "guid": "{25AA5881-477F-4F4C-831A-9E4D0F15900D}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.176383Z"
+}
+|metadata|
+////
+
+= Adding xamSpellChecker to Your Page
+
+== Before You Begin
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamSpellChecker control to your page using procedural code and XAML.
+
+_Assumptions:_
+
+_This topic assumes that you have already added the Dictionary to your application. For more information, see the link:xamspellchecker-dictionaries.html[Dictionaries] topic._
+
+== What You Will Accomplish
+
+You will create a xamSpellChecker control that will spell check the words that your end user enters in to a text box.
+
+== Follow these Steps
+
+[start=1]
+. Create a {PlatformName} project.
+[start=2]
+. In the Solution Explorer, add the following references to your project:
+
+{ApiPlatform}v{ProductVersion}.dll
+
+{ApiPlatform}Controls.Interactions.XamSpellChecker.v{ProductVersion}.dll
+
+{ApiPlatform}Controls.Interactions.XamDialogWindow.v{ProductVersion}.dll
+[start=3]
+. Attach an event handler to the UserControl’s Loaded event.
+
+*In XAML:*
+
+----
+<UserControl Loaded="UserControl_Loaded"
+   …
+>
+----
+
+[start=4]
+. Add the following using/Import directives so that you don’t have to type out a member’s fully qualified name or add an XAML namespace declaration for xamSpellChecker
+
+*In XAML:*
+
+----
+<xmlns:ig="http://schemas.infragistics.com/xaml">
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Controls.Interactions
+Imports Infragistics
+Imports System.Windows.Data
+----
+
+*In C#:*
+
+----
+using Infragistics.Controls.Interactions;
+using Infragistics;
+using System.Windows.Data;
+----
+
+[start=5]
+. Add an instance of the xamSpellChecker control to the default Grid layout panel named LayoutRoot. If you are doing this in procedural code, you can handle the user control’s Loaded event and place the code in the event handler.
+
+*In XAML:*
+
+----
+<ig:XamSpellChecker x:Name="spellChecker">
+   <!—- Add SpellCheckerTargets --> 
+</ig:XamSpellChecker>
+----
+
+*In Visual Basic:*
+
+----
+Dim spellChecker As New XamSpellChecker()
+----
+
+*In C#:*
+
+----
+XamSpellChecker spellChecker = new XamSpellChecker();
+----
+
+[start=6]
+. Create a TextBox, naming it txtSpellCheck. Set the TextWrapping property to Wrap
+
+*In XAML:*
+
+----
+<TextBox x:Name="txtSpellCheck" TextWrapping="Wrap" />
+----
+
+*In Visual Basic:*
+
+----
+Dim txtSpellCheck As New TextBox()
+txtSpellCheck.TextWrapping = TextWrapping.Wrap
+----
+
+*In C#:*
+
+----
+TextBox txtSpellCheck = new TextBox();
+txtSpellCheck.TextWrapping = TextWrapping.Wrap;
+----
+
+[start=7]
+. Create a Binding element for the xamSpellChecker control’s link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.xamspellchecker~spellchecktargets.html[SpellCheckTargets] collection. This specifies the text to be spell checked. For more information see the link:xamspellchecker-how-to-specify-text-to-be-spell-checked.html[How to Specify Text to Spell Check] topic.
+
+*In XAML:*
+
+----
+<ig:XamSpellChecker.SpellCheckTargets>
+   <Binding ElementName="txtSpellCheck" Path="Text" Mode="TwoWay" ></Binding>
+</ig:XamSpellChecker.SpellCheckTargets>
+----
+
+*In Visual Basic:*
+
+----
+Dim spellBinding As New Binding()
+spellBinding.Mode = BindingMode.TwoWay
+Dim propPathSpellBinding As New PropertyPath("Text")
+spellBinding.Path = propPathSpellBinding
+' Specifies the TextBox created earlier
+spellBinding.Source = txtSpellCheck
+----
+
+*In C#:*
+
+----
+Binding spellBinding = new Binding();
+spellBinding.Mode = BindingMode.TwoWay;
+PropertyPath propPathSpellBinding = new PropertyPath("Text");
+spellBinding.Path = propPathSpellBinding;
+// Specifies the TextBox created earlier.
+spellBinding.Source = txtSpellCheck;
+----
+
+[start=8]
+. If you are using procedural code, add the Binding element to the SpellCheckTargets collection.
+
+*In Visual Basic:*
+
+----
+Me.spellChecker.SpellCheckTargets.Add(spellBinding)
+----
+
+*In C#:*
+
+----
+this.spellChecker.SpellCheckTargets.Add(spellBinding);
+----
+
+[start=9]
+. Create a Button control. Set the following properties:
+
+** Content – Check Spelling
+** If you are using procedural code, set the Click event-- new RoutedEvenHandler(btnCheckSpelling_Click)
+** If you are using XAML, add a command to the Button control which will be executed when the Button is clicked. This example uses commanding for the button click
+
+*In XAML:*
+
+----
+<Button x:Name="btnCheckSpelling" Content="Check Spelling">
+<ig:Commanding.Command>
+   <ig:XamSpellCheckerCommandSource CommandType="SpellCheck" TargetName="spellChecker" EventName="Click"/>
+</ig:Commanding.Command>
+</Button>
+----
+
+*In Visual Basic:*
+
+----
+Dim btnCheckSpelling As New Button()
+btnCheckSpelling.Content = "Check Spelling"
+btnCheckSpelling.VerticalAlignment = Windows.VerticalAlignment.Bottom
+btnCheckSpelling.HorizontalAlignment = Windows.HorizontalAlignment.Left
+AddHandler btnCheckSpelling.Click, AddressOf btnCheckSpelling_Click
+----
+
+*In C#:*
+
+----
+Button btnCheckSpelling = new Button();
+btnCheckSpelling.Content = "Check Spelling";
+btnCheckSpelling.VerticalAlignment = VerticalAlignment.Bottom;
+btnCheckSpelling.HorizontalAlignment = HorizontalAlignment.Left;
+btnCheckSpelling.Click += new RoutedEventHandler(btnCheckSpelling_Click);
+----
+
+[start=10]
+. If you are following the steps in procedural code, add theTextBox, Button and xamSpellChecker to the Grid Panel’s Children collection.  _Note: When you initially create a new page, a grid panel is created by default and named LayoutRoot._ 
+
+*In Visual Basic:*
+
+----
+Me.LayoutRoot.Children.Add(txtSpellCheck)
+Me.LayoutRoot.Children.Add(btnCheckSpelling)
+Me.LayoutRoot.Children.Add(spellChecker)
+----
+
+*In C#:*
+
+----
+this.LayoutRoot.Children.Add(txtSpellCheck);
+this.LayoutRoot.Children.Add(btnCheckSpelling);
+this.LayoutRoot.Children.Add(spellChecker);
+----
+
+[start=11]
+. If you are following the steps in procedural code, call the link:{ApiPlatform}controls.interactions.xamspellchecker.v{ProductVersion}~infragistics.controls.interactions.xamspellchecker~spellcheck.html[SpellCheck()] method in the xamSpellChecker control in the button click event.
+
+*In Visual Basic:*
+
+----
+Private Sub btnCheckSpelling_Click(sender As Object, e As RoutedEventArgs)
+    Me.spellChecker.SpellCheck()
+End Sub
+----
+
+*In C#:*
+
+----
+void btnCheckSpelling_Click(object sender, RoutedEventArgs e)
+{
+   this.spellChecker.SpellCheck();
+}
+----
+
+[start=12]
+. Save and run your application. Enter misspelled text into the textbox and click the button. The spell checker dialog should appear.
+
+== Related Topic
+
+link:xamspellchecker-using-xamspellchecker.html[Using xamSpellChecker]

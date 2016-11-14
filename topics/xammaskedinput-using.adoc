@@ -1,0 +1,280 @@
+﻿////
+|metadata|
+{
+    "name": "xammaskedinput-using",
+    "controlName": ["xamInputs"],
+    "tags": ["Editing"],
+    "guid": "87b6f10f-36c1-4056-9886-edae30fdfa50",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:56.9382187Z"
+}
+|metadata|
+////
+
+= Using xamMaskedInput
+
+== Topic Overview
+
+== Purpose
+
+This topic demonstrates how to add a xamMaskedInput™ control to your application and use some of its more notable properties.
+
+== Required background
+
+You need to first read the following topics:
+
+* link:xammaskedinput-about.html[About xamMaskedInput]
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+
+== xamMaskedInput Configuration Overview
+
+== Control configuration chart
+
+The table below lists some of the configurable behaviors of the xamMaskedInput control.
+
+[cols="a,a,a"]
+|====
+|*Configurable behavior*
+|*Configuration details*
+|*Configuration properties*
+
+|<<adding,Adding xamMaskedInput to an application>>
+|Steps needed to add a xamMaskedInput control to an application.
+|none
+
+|<<modifying,Modifying the xamMaskedInput>>
+|Configure some of the main properties of the control.
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar] 
+
+link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+
+|====
+
+[[adding]]
+== Adding xamMaskedInput to an application
+
+[start=1]
+. *Add the Infragistics namespace.*
+
+.. *Add required references*
++
+In order to add a xamMaskedInput control to your application you must add the following assemblies to your project:
+
+*** {ApiPlatform}Controls.Editors.XamMaskedInput.v{ProductVersion}.dll
+*** {ApiPlatform}v{ProductVersion}.dll
+
+.. *Add the Infragistics namespace*
++
+*In XAML:*
++
+[source,xaml]
+----
+xmlns:ig=http://schemas.infragistics.com/xaml
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Imports Infragistics.Controls.Editors
+----
++
+*In C#:*
++
+[source,csharp]
+----
+using Infragistics.Controls.Editors;
+----
+
+[start=2]
+. *Add a xamMaskedInput control.*
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamMaskedInput/>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+Dim maskedInput As XamMaskedInput = New XamMaskedInput()
+----
++
+*In C#:*
++
+[source,csharp]
+----
+XamMaskedInput maskedInput = new XamMaskedInput();
+----
+
+[[modifying]]
+== Modifying the xamMaskedInput
+
+The table below maps the desired configurations to property settings. The properties are directly accessed from the xamMaskedInput control.
+
+[cols="a,a,a"]
+|====
+|*In order to…*
+|*Use this property:*
+|*And set it to…*
+
+|<<SetMask,Set a mask>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|A string of your choosing
+
+|<<InvalidValueBehavior,Keep an entered value even if it is not valid>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|RetainValue
+
+|<<ClipMode,Let the user copy to the clipboard the mask literals and padding together with the value>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+|IncludeLiteralsWithPadding
+
+|<<NullText,Display a specific string when the value is null>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+|A string of your choosing
+
+|<<PromptChar,Display different prompt character than underscore>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+|A character of your choosing
+
+|<<IsUndoEnabled,Enable/disable undo/redo operations>>
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~isundoenabled.html[IsUndoEnabled]
+|True/False
+
+|====
+
+== Modifying the xamMaskedInput details
+
+[[SetMask]]
+[start=1]
+. *Set a Mask.*
++
+The most important part of setting up an input control is configuring the Mask property. Set a mask that suits your needs by:
++
+*In XAML:*
++
+[source,xaml]
+----
+<ig:XamMaskedInput Mask=”[Your Mask]”/>
+----
++
+*In Visual Basic:*
++
+[source,vb]
+----
+maskedInput.Mask = ”[Your Mask]”
+----
++
+*In C#:*
++
+[source,csharp]
+----
+maskedInput.Mask = ”[Your Mask]”;
+----
++
+For more information on how to create a mask, please refer to the link:xaminputs-masks.html[Masks Topic].
+
+[[InvalidValueBehavior]]
+[start=2]
+. *Keep an entered value even if it is not valid.*
++
+There are several options for how the xamMaskedInput will behave when invalid value is entered by the user. If you set the InvalidValueBehavior property to RetainValue, then when the user enters an invalid value and tries to leave the input control, the value is retained.
+
+[[ClipMode]]
+[start=3]
+. *Let the user copy to the clipboard the mask literals and padding together with the value.*
++
+By setting the ClipMode property to IncludeLiteralsWithPadding, when the user copies the input’s contents to the clipboard, the value is copied together with the mask literals and padding.
+
+[[NullText]]
+[start=4]
+. *Display a specific string when the value is null.*
++
+When no value is entered in the control or when it is bound to a null value, you can set a string that is displayed. You can do this by setting the NullText property to the desired string. In this way you can guide the user on what to enter or to explicitly indicate that no value has been entered.
+
+[[PromptChar]]
+[start=5]
+. *Display different prompt character than underscore.*
++
+The default prompt character used in the xamMaskedInput is underscore, but you can change this behavior by setting the PromptChar property to the desired character.
+
+[[IsUndoEnabled]]
+[start=6]
+. *Enable/disable undo/redo operations.*
++
+By default, the xamInputs support undo/redo operations triggered by CTRL+Z and CTRL + Y keys combinations. If you want to disable this functionality, you can set the IsUndoEnabled property to False.
++
+.Note
+[NOTE]
+====
+Disabling the `IsUndoEnabled` property clears the undo/redo stack. If you disable undo/redo and then re-enable it, the commands won’t work because the undo/redo history is cleared.
+====
+
+== Modifying the xamMaskedInput example
+
+The images below demonstrate a xamMaskedInput control in edit and display mode as a result of the following settings:
+
+[cols="a,a"]
+|====
+|*Property*
+|*Setting*
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+|&gt;aaaa (if set in XAML) 
+
+>aaaa (if set in procedural code)
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+|RetainValue
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+|IncludeLiteralsWithPadding
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+|Enter code
+
+| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+|~
+
+|====
+
+[cols="a,a"]
+|====
+|In edit mode:
+|In display mode:
+
+|image::images/xamInputs_xamMaskedInput_Using_2.png[] 
+|image::images/xamInputs_xamMaskedInput_Using_1.png[] 
+
+|====
+
+=== Modifying the xamMaskedInput property reference
+
+For detailed information about these properties, refer to their listing in the property reference section:
+
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~mask.html[Mask]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~clipmode.html[ClipMode]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~nulltext.html[NullText]
+* link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.xammaskedinput~promptchar.html[PromptChar]
+
+== Related Topics
+
+Following are some other topics you may find useful.
+
+* link:xaminputs-masks.html[Masks]
+* link:xaminputs-overview-of-the-valueinput-class.html[Overview of the ValueInput Class]
+* link:xaminputs-using-xaminput-controls-in-xamgrid-cells-for-data-editing.html[Using xamInput Controls in xamGrid Cells for Data Editing]

@@ -1,0 +1,70 @@
+﻿////
+|metadata|
+{
+    "name": "xamdialogwindow-position-minimized-dialog-window",
+    "controlName": ["xamDialogWindow"],
+    "tags": ["Editing","How Do I"],
+    "guid": "{61F05386-BA7E-4760-A821-5479B2BF9058}",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:55.0041185Z"
+}
+|metadata|
+////
+
+= Position Minimized Dialog Window
+
+By default, the dialog window does not change position when it is minimized. The width and the height of the dialog window changes, but the position does not change. However, you can override this default setting and change the position of the minimized dialog window.
+
+For example, if you have many dialog windows on your application, it could be easier for your end user to see them all minimized in a uniformed manner in a certain location of the application.
+
+To achieve this, you set the xamDialogWindow™ control’s link:{ApiPlatform}controls.interactions.xamdialogwindow.v{ProductVersion}~infragistics.controls.interactions.xamdialogwindow~minimizedpanel.html[MinimizedPanel] property. This specifies a panel that the dialog window should be minimized to.
+
+*In XAML:*
+[source,xaml]
+----
+<StackPanel
+    Grid.Column="0" Grid.Row="0" Background="Black"
+    Orientation="Horizontal" x:Name="MinPanel">
+</StackPanel>
+
+<ig:XamDialogWindow
+    Content="Dialog Window" 
+    x:Name="DialogWindow" Width="200" Height="200" 
+    MinimizedPanel="{Binding ElementName=MinPanel}" />
+----
+
+*In Visual Basic:*
+[source,vb]
+----
+DialogWindow.MinimizedPanel = Me.MinPanel
+----
+
+*In C#:* 
+[source,csharp]
+----
+DialogWindow.MinimizedPanel = this.MinPanel;
+----
+
+== Related Topics
+
+link:xamdialogwindow-custom-cursors.html[Custom Cursors]
+
+link:xamdialogwindow-customize-modal-dialog-window-background.html[Customize Modal Dialog Window Background]
+
+link:xamdialogwindow-customize-the-window-header-icon.html[Customize the Window Header Icon]
+
+link:xamdialogwindow-handle-moving-events.html[Handle Moving Events]
+
+link:xamdialogwindow-handle-window-state-changing-events.html[Handle Window State Changing Events]
+
+link:xamdialogwindow-keyboard-settings.html[Keyboard Settings]
+
+link:xamdialogwindow-modal-and-modeless-dialog-windows.html[Modal and Modeless Dialog Windows]
+
+link:xamdialogwindow-set-the-dialog-windows-height-and-width-when-minimized.html[Set the Dialog Window's Height and Width When Minimized]
+
+link:xamdialogwindow-start-up-position-of-xamdialogwindow.html[Start Up Position of xamDialogWindow]
+
+link:xamdialogwindow-the-xamdialogwindow-controls-behavior.html[The xamDialogWindow Control's Behavior]
+
+link:xamdialogwindow-window-header-controls.html[Window Header Controls]

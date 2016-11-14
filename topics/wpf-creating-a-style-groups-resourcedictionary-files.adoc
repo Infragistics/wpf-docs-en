@@ -1,0 +1,95 @@
+﻿////
+
+|metadata|
+{
+    "name": "wpf-creating-a-style-groups-resourcedictionary-files",
+    "controlName": [],
+    "tags": ["Styling"],
+    "guid": "{80C0D492-F7A7-4E34-9DD2-B628D9981597}",  
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-01-30T20:33:32.051039Z"
+}
+|metadata|
+////
+
+= Creating a Style Group's ResourceDictionary Files
+
+This topic is third in a multi-part walkthrough that continues from link:wpf-creating-a-style-groups-class.html[Creating a Style Group's Class]. This topic discusses the ResourceDictionary files and their role in the ThemePack.
+
+There are two resource dictionaries for each style group. These files are:
+
+* Primary ResourceDictionary – Contains the Styles for the style group you are setting. The primary ResourceDictionary is named after the style group and references the brushes ResourceDictionary by way of a MergedDictionary.
+* Brushes ResourceDictionary – Contains brushes that are used in the primary ResourceDictionary file. The brushes ResourceDictionary is named after the style group with "OrangePeel_Brushes" appended to it, where "OrangePeel" is the name of the style you are creating.
+
+.Note
+[NOTE]
+====
+Each style group's ResourceDictionary files are similar in layout. The differences are in the style group's targeted controls.
+====
+
+[start=1]
+. In the Solution Explorer, right click the DataPresenter's folder, click Add, and then click New Item…
+[start=2]
+. In the Add New Item dialog box, select ResourceDictionary (WPF), and assign it a name matching the style group's name (i.e., DataPresenter, Editors, or Primitives). Click Add.
+[start=3]
+. Repeat step two, but append OrangePeel_Brushes to the style group's name.
+[start=4]
+. In the primary ResourceDictionary, place the following namespace declarations inside the opening ResourceDictionary tag.
+
+*In XAML:*
+
+----
+...
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:d="http://schemas.microsoft.com/expression/interactivedesigner/2006"
+	mc:Ignorable="d"
+	xmlns:igwindows="http://infragistics.com/Windows"
+	xmlns:editors="http://infragistics.com/Editors"	
+	xmlns:controls="http://infragistics.com/DataPresenter"
+...
+----
+
+[start=5]
+. Specify a ResourceDictionary MergedDictionaries object after the ResourceDictionary opening tag. This will allow you to reference the brushes you defined in your brushes ResourceDictionary file.
+
+*In XAML:*
+
+----
+<ResourceDictionary.MergedDictionaries>
+	<ResourceDictionary Source="DataPresenterOrangePeel_Brushes.xaml" />
+</ResourceDictionary.MergedDictionaries>
+----
+
+[start=6]
+. In the Brushes ResourceDictionary, create brushes you want to use in the Primary ResourceDictionary. The following XAML creates two brushes; a LinearGradientBrush and a SolidColorBrush.
+
+*In XAML:*
+
+----
+<LinearGradientBrush x:Key="CellAreaBackgroundHover" StartPoint="0,0" EndPoint="0,1">
+	<GradientStop Offset="0" Color="#FFFFFFFF"/>
+	<GradientStop Offset="1" Color="#FFFF9900"/>
+</LinearGradientBrush>
+<SolidColorBrush x:Key="CellAreaBackgroundHoverBorder" Color="#FFCCCCCC" />
+----
+
+.Note
+[NOTE]
+====
+Be certain to assign the Brush a Key so that you can reference it.
+====
+
+[start=7]
+. Inside the primary ResourceDictionary file, you can create styles and override control templates for a style group's controls. The following XAML defines a style for the link:infragisticswpf4.datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordcellarea.html[DataRecordCellArea] and sets the link:infragisticswpf4.datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordcellarea~backgroundhover.html[BackgroundHover] and link:infragisticswpf4.datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordcellarea~borderhoverbrush.html[BorderHoverBrush] to the two brushes defined above.
+
+*In XAML:*
+
+----
+<Style TargetType="{x:Type controls:DataRecordCellArea}">
+	<Setter Property="BackgroundHover" Value="{StaticResource CellAreaBackgroundHover}" />
+	<Setter Property="BorderHoverBrush" 
+	  Value="{StaticResource CellAreaBackgroundHoverBorder}" />
+</Style>
+----
+
+Once you create your ResourceDictionaries and the style group's class, you have to register the new style group so it is loaded properly when the ThemePack assembly is called. Learn how to register the new style group in link:wpf-creating-the-assemblyresourcesetloader-class.html[Creating the AssemblyResourceSetLoader Class].

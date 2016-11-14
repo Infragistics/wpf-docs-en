@@ -1,0 +1,43 @@
+﻿////
+
+|metadata|
+{
+    "name": "xameditors-overview-of-the-valueeditor-class",
+    "controlName": [],
+    "tags": ["Getting Started"],
+    "guid": "{14DB6235-21DB-4359-A219-8011C173AAA7}",  
+    "buildFlags": [],
+    "createdOn": "2012-09-05T19:05:30.1819781Z"
+}
+|metadata|
+////
+
+= Overview of the ValueEditor Class
+
+link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor.html[ValueEditor] is an abstract base class from which all other editors are derived. ValueEditor implements a significant portion of functionality that is common to all the value editors.
+
+Here's a listing of key features that make ValueEditor and derived classes.
+
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valuetype.html[ValueType] -- The ValueType property specifies the type of values that are being displayed/edited by the editor. The ValueEditor ensures that the user input is of this type. The editor will automatically parse the input and convert it to an object of this type. If the user input is not in the correct format, the value editor will reject the input and take appropriate action based on the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~invalidvaluebehavior.html[InvalidValueBehavior] property setting.
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~value.html[Value] -- The Value property gets or sets the value being displayed/edited by the editor. The Value property is an object type property. This is because the Value property will return objects of type specified by the ValueType property. For example, if you set the ValueType of a xamTextEditor™ to DateTime, the Value property will return DateTime objects. The editor will automatically convert the user input into DateTime objects as mentioned above.
+* link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valueconstraint.html[ValueConstraint] -- The ValueConstraint property allows you to specify constraints for the values that the user can enter in the value editor. Among the constraints you can specify include minimum value, maximum value, regular expression, nullable, maximum length, etc. The value editor will validate the user input against these constraints and if the input doesn't satisfy the constraints, the editor will consider the entered value invalid. The IsValueValid property of the ValueEditor indicates whether or not the current input is valid or not. If the input is invalid, the editor will take actions when the user attempts to leave the editor based on the InvalidValueBehavior property setting.
+* *Format* -- The Format property lets you specify formatting to use when the editor is not in edit mode. For example, you can set Format to "c" on a xamTextEditor whose ValueType is set to decimal. The xamTextEditor control will format the values using currency formatting ("c" format). When the editor enters edit mode, it will remove this formatting for a more natural editing experience.
+* *Custom Converters* -- The ValueEditor and TextEditorBase classes (from which all the text-based editors are derived from) expose properties of type IValueConverter for specifying custom logic for converting between text and value. ValueEditor exposes link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.valueeditor~valuetotextconverter.html[ValueToTextConverter], and link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.texteditorbase.html[TextEditorBase] exposes link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.texteditorbase~valuetodisplaytextconverter.html[ValueToDisplayTextConverter] properties, respectively. ValueToTextConverter is used for converting between the Value and Text properties. ValueToTextConverter is used in both directions -- for converting value to text, and from text (user input) into the value type. On the other hand, the ValueToDisplayTextConverter property is used only for converting value to display text.
+
+The key distinction between ValueToTextConverter and ValueToDisplayTextConverter is that ValueToDisplayTextConverter is used in display mode and ValueToTextConverter is used in edit mode. As a result, ValueToTextConverter is used for not only converting value to text, but also for converting back the user input in the form of text to the value type. For example, if a xamTextEditor's ValueType is set to DateTime, the ValueToTextConverter property will be used for converting DateTime objects to text to display when in edit mode and also for converting back the user input into DateTime objects. ValueToDisplayTextConverter will be used for converting DateTime objects to text for displaying while the editor is not in edit mode. The reason for using two different converters -- one for edit mode and one for display mode -- is that it lets you display values with different formatting and edit values with different formatting. For example, in the case of DateTime, you may want to display dates as long dates (e.g., January 01, 2007). And when the end user enters edit mode to modify the value, you may want to display the same value as 01/01/07 for easier editing. After the user modifies the date in short date format and leaves the editor, the new date will automatically be displayed in the long date format using the ValueToDisplayTextConverter property.
+
+.Note
+[NOTE]
+====
+Typically, there is no need to specify these converters because the default conversion logic provided by the editors is sufficient. You may, however, want to specify these if you want to implement custom conversion logic. Essentially, this facility lets you do some of the same things that the editor data filter functionality lets you do in Windows Forms embeddable editor architecture. For example, you can specify ValueToTextConverter that converts ‘2k', ‘2m', etc… to 1000, 1000000 respectively. Or ‘+2m', ‘-1d' to a date that is two months from now and yesterday, respectively.
+====
+
+* *InvalidValueBehavior* -- The InvalidValueBehavior property specifies which action to take when the user attempts to leave the editor after entering an invalid value. The editor will consider user input to be invalid when the input cannot be properly parsed into the editor's ValueType or it does not satisfy the value constraints specified by the ValueConstraint. The default value is DisplayErrorMessage, which will display a message to the user indicating that the value entered is invalid.
+* *Default Editors Repository* -- ValueEditor maintains a mapping of editors to use by default for each known data type. This mapping is used by the controls such as xamDataGrid™ and xamDataPresenter™ to select a default editor for each field based on the field's data type. For example, for Boolean fields, xamCheckEditor™ is used. You can override which editor to use by default for a specific data type using the ValueEditor's RegisterDefaultEditorForType static method. You can even register a custom ValueEditor for a data type.
+* *Default Masks Repository* -- xamMaskedEditor™ maintains a mapping of masks to use by default for each known data type. For example, for long data type, the default mask that gets used has 19 digits. You can specify default mask for a data type using the xamMaskedEditor's link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.xammaskededitor~registerdefaultmaskfortype.html[RegisterDefaultMaskForType] static method.
+
+.Note
+[NOTE]
+====
+The default masks repository is used by xamMaskedEditor and all the other mask-based editors as well (e.g., xamDateTimeEditor™ and xamNumericEditor™).
+====

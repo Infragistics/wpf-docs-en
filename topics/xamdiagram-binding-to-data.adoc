@@ -1,0 +1,136 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdiagram-binding-to-data",
+    "tags": ["Charting","Data Binding","Data Presentation"],
+    "controlName": ["xamDiagram"],
+    "guid": "10df0a4f-9d82-47ae-b25c-cda45073fc9f",  
+    "buildFlags": [],
+    "createdOn": "2014-06-16T09:16:19.0989802Z"
+}
+|metadata|
+////
+
+= Binding xamDiagram to Data
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides an overview of the data binding scenarios supported by the  _xamDiagram_™ control.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-general-overview.html[General Overview ( _xamDiagram_ )]
+|This topic provides a conceptual overview of the _xamDiagram_ control and its main features and capabilities.
+
+| link:xamdiagram-adding-to-a-page.html[Adding _xamDiagram_ to a page]
+|This topic explains how to add the _xamDiagram_ control to a {PlatformName} application.
+
+|====
+
+== Binding to Data Sources
+
+=== Supported data sources summary
+
+The  _xamDiagram_   control supports the following data sources:
+
+[options="header", cols="a,a"]
+|====
+|Data Source|Binding
+
+|Nodes and connections data – reference based
+|The data source contains two collections of objects – one representing nodes and the other representing connections. 
+
+Each of the connection objects references its start and end objects. 
+
+The _xamDiagram_ creates a node or connection for each data source object, respectively.
+
+|Nodes and connections data – key based
+|The data source contains two collections of objects: 
+
+* Objects representing Nodes 
+
+** Consisting of a single property holding a unique identifier 
+
+* Objects representing Connections 
+
+** Consisting of two properties holding the identifiers of the node object representing the start and end of the connection. 
+
+For each data source object, the control creates a node or connection as applicable in the _xamDiagram_ .
+
+|Hierarchical node data – reference based
+|The data source contains a collection of objects that represent nodes. 
+
+Each of these objects can have a collection of objects that are its logical children. For each object in the data source or one of the child collections, _xamDiagram_ creates a node. 
+
+For each parent-child relationship _xamDiagram_ creates a connection.
+
+|Hierarchical node data – key based
+|The data source contains a collection of objects that represent nodes. 
+
+Each of the node objects has a property that holds a unique identifier. Each of these objects can have a collection of identifiers that are its logical children. For each object in the data source, a node is created in the _xamDiagram_ . 
+
+For each parent-child relationship _xamDiagram_ creates a connection.
+
+|Mixed
+|Any combination of the above. As an example, the data source could contain a number of node objects that each has a child collection of other node objects. In addition, the data source could contain numerous connection objects as well. The resulting diagram displays all the nodes and their logical parent-child connections as well as additional connections for each of the connection objects.
+
+|====
+
+=== Data sources summary
+
+The  _xamDiagram_   receives data through its link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectionssource.html[ConnectionsSource] properties, which accept any `IEnumerable`. In order to map the input data to nodes and connections in the diagram, three more properties are available – link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~nodedefinitions.html[NodeDefinitions], link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectionpointdefinitions.html[ConnectionPointDefinitions]. Each of these is a collection of definition objects providing instructions to the diagram about what the data objects represent and how they are interconnected.
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamdiagram-binding-to-nodes-and-connections-data-with-references.html[Binding to Nodes and Connections Data with References ( _xamDiagram_ )]
+|This topic provides a step by step guidance on how to bind the _xamDiagram_ control to data where input data objects represent nodes and connections and each of the connection objects has a reference to two node objects representing its start and end nodes.
+
+| link:xamdiagram-binding-to-nodes-and-connections-data-with-keys.html[Binding to Nodes and Connections Data with Keys ( _xamDiagram_ )]
+|This topic provides a step by step guidance on how to bind the _xamDiagram_ control to data where input data objects represent nodes and connections. Each of the node objects has a unique string identifier and each of the connection objects has two properties holding the identifiers of the two node objects representing its start and end nodes.
+
+| link:xamdiagram-binding-to-hierarchical-node-data-with-references.html[Binding to Hierarchical Node Data with References ( _xamDiagram_ )]
+|This topic provides a step by step guidance on how to bind the _xamDiagram_ control to hierarchical node data.
+
+| link:xamdiagram-binding-to-hierarchical-node-data-with-keys.html[Binding to Hierarchical Node Data with Keys ( _xamDiagram_ )]
+|This topic provides a step by step guidance on how to bind the _xamDiagram_ control to hierarchical node data with keys.
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| link:{SamplesURL}/diagram/binding-nodes-and-connections-with-objects[Binding Nodes and Connections with Objects]
+|The following sample demonstrates how to bind the _xamDiagram_ to data objects that represent nodes and connections, and each of the connection objects has a reference to two node objects representing its start and end nodes.
+
+| link:{SamplesURL}/diagram/binding-nodes-and-connections-with-keys[Binding Nodes and Connections with Keys]
+|The following sample demonstrates how to bind the _xamDiagram_ to data where input data objects represent nodes and connections. Each of the node objects has a property of type object that represents a unique identifier and each of the connection objects has two properties holding the identifiers of the two node objects representing its start and end nodes.
+
+| link:{SamplesURL}/diagram/binding-nodes-with-objects[Binding Nodes with Objects]
+|The following sample demonstrates how to bind the _xamDiagram_ to data where input data objects represent nodes and each of them has a collection of child node objects.
+
+| link:{SamplesURL}/diagram/binding-nodes-with-keys[Binding Nodes with Keys]
+|The following sample demonstrates how to bind the _xamDiagram_ to data where input data objects represent nodes and each of them has a unique string identifier and a collection of keys of its child objects.
+
+|====

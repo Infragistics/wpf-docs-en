@@ -1,0 +1,144 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamrichtexteditor-configuring-undo-redo",
+    "tags": ["How Do I"],
+    "controlName": ["xamRichTextEditor"],
+    "guid": "3368ce87-3e86-47e9-aa14-e254481ab79a",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:58.4413396Z"
+}
+|metadata|
+////
+
+= Configuring Undo/Redo (xamRichTextEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains how to turn on and off the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s undo logging funtionality.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-features-overview.html[Features Overview]
+|This topic provides an overview of the features supported by the _xamRichTextEditor_ control.
+
+| link:xamrichtexteditor-content-structure.html[Content Structure]
+|This topic explains the document’s content logical structure you can use to edit the contents in the _xamRichTextEditor_ programmatically.
+
+| link:xamrichtexteditor-adding-to-your-page.html[Adding xamRichTextEditor to Your Page]
+|This topic provides detailed instructions to help you get up and running as quickly as possible with the _xamRichTextEditor_ .
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref362429301,Introduction>>
+* <<_Ref362429306,Undo Logging Configuration Summary>>
+* <<_Ref361240380,Start Undo Logging>>
+* <<_Ref361240385,Stop Undo Logging>>
+* <<_Ref359594803,Related Content>>
+
+[[_Ref362429301]]
+== Introduction
+
+=== Undo/Redo summary
+
+The Undo/Redo feature logs all changes made to the document’s content by the user or in code. When you first create a document or load new content using the load method logging is off by default. It will turn on if one of these occur:
+
+* The user starts editing the document content thru an attached  _XamRichTextEditor_   control
+* The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~startundologging.html[StartUndoLogging] method on the document is invoked
+
+If you invoke the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~stopundologging.html[StopUndoLogging] method on the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] this will clear all undo history and stop undo logging.
+
+[[_Ref362429306]]
+== Undo Logging Configuration Summary
+
+=== Undo/Redo configuration summary chart
+
+The following table briefly explains the configurable aspects of the  _RichTextDocument_   and maps them to their specific properties.
+
+[options="header", cols="a,a"]
+|====
+|Configurable aspect|Details
+
+|<<_Ref361240380,Start Undo Logging>>
+|Starts the undo logging.
+
+|<<_Ref361240385,Stop Undo Logging>>
+|Stops the undo logging and clear undo history.
+
+|====
+
+[[_Ref361240380]]
+== Start Undo Logging
+
+=== Overview
+
+Start the undo logging programmatically by invoking the `StartUndoLogging` method.
+
+[[_Hlk337817761]]
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.Document.StartUndoLogging();
+----
+
+[[_Ref361240385]]
+== Stop Undo Logging
+
+=== Overview
+
+You can stop undo logging by programmatically invoking the StopUndoLogging method. This will also clear the undo history.
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+this.xamRichTextEditor1.Document.StopUndoLogging();
+----
+
+[[_Ref359594803]]
+== Related Content
+
+=== Topics
+
+The following topic provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamrichtexteditor-managing-undo-redo.html[Managing Undo/Redo]
+|This topic explains the _xamRichTextEditor_ control’s Undo and Redo operations from a developer’s perspective.
+
+|====
+
+=== Samples
+
+The following sample provides additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/richtext-editor/#/undo-redo[Undo / Redo]"] pick:[wpf=" link:{SamplesURL}/richtext-editor/undo-redo[Undo / Redo]"] 
+|This sample demonstrates how to use a single (shared) or multiple Undo/Redo managers with multiple instances of the *xamRichTextEditor* .
+
+|====

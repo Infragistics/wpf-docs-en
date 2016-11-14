@@ -1,0 +1,118 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-display-a-segmented-key-tip-on-a-menu-tool",
+    "controlName": ["xamRibbon"],
+    "tags": ["Data Presentation","How Do I"],
+    "guid": "{1DB37BC0-A1B9-4326-9B5A-512B01A93071}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.1631857Z"
+}
+|metadata|
+////
+
+= Display a Segmented Key Tip on a Menu Tool
+
+
+
+You can use a Menu tool as a simple drop-down menu or a drop-down button. As a drop-down button, you can assign a KeyTip to both the drop-down portion of the Menu tool as well as the button portion of the Menu tool. In order to display separate Key Tips for both the drop-down and button portions of the Menu tool, you need to set the MenuTool’s ButtonType property to either Segmented or SegmentedState.
+
+.Note
+[NOTE]
+====
+The Menu tool is disabled if it does not have at least one tool in the Items collection.
+====
+
+The following example code demonstrates how to display segmented button key tips on a Menu tool. You will have to replace any images in the example code with your own.
+
+image::images/xamRibbon_Display_a_Segmented_Key_Tip_on_a_Menu_Tool.png[displaying a segmented key tip on a menu tool in xamribbon]
+
+*In XAML:*
+
+----
+...
+<igRibbon:XamRibbon Name="xamRibbon1">
+    <igRibbon:XamRibbon.Tabs>
+        <igRibbon:RibbonTabItem Header="Home" KeyTip="H">
+            <igRibbon:RibbonGroup Caption="Search" Id="grpSearch">
+                <igRibbon:MenuTool Caption="Find" 
+                                   ButtonType="SegmentedState"
+                                   KeyTip="FD" 
+                                   KeyTipForSegmentedButton="FI"
+                                   Id="mnuSearch">
+                    <igRibbon:ButtonTool Caption="Find …" Id="btnFind" />
+                    <igRibbon:ButtonTool Caption="Go To …" Id="btnGoTo" />
+                </igRibbon:MenuTool>
+            </igRibbon:RibbonGroup>
+        </igRibbon:RibbonTabItem>
+    </igRibbon:XamRibbon.Tabs>
+</igRibbon:XamRibbon>
+...
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.Ribbon
+...
+Dim tab As New RibbonTabItem() 
+tab.Header = "Home" 
+tab.KeyTip = "H" 
+Me.xamRibbon1.Tabs.Add(tab) 
+Dim group As New RibbonGroup() 
+group.Caption = "Search" 
+group.Id = "grpSearch" 
+tab.RibbonGroups.Add(group) 
+Dim menu As New MenuTool() 
+menu.Caption = "Find" 
+menu.ButtonType = MenuToolButtonType.SegmentedState 
+menu.KeyTip = "FD" 
+menu.KeyTipForSegmentedButton = "FI" 
+menu.Id = "mnuSearch" 
+group.Items.Add(menu) 
+Dim bt As ButtonTool 
+bt = New ButtonTool() 
+bt.Caption = "Find..." 
+bt.Id = "btnFind" 
+menu.Items.Add(bt) 
+bt = New ButtonTool() 
+bt.Caption = "Go To..." 
+bt.Id = "btnGoTo" 
+menu.Items.Add(bt)
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.Ribbon;
+...
+RibbonTabItem tab = new RibbonTabItem();
+tab.Header = "Home";
+tab.KeyTip = "H";
+this.xamRibbon1.Tabs.Add(tab);
+RibbonGroup group = new RibbonGroup();
+group.Caption = "Search";
+group.Id = "grpSearch";
+tab.RibbonGroups.Add(group);
+MenuTool menu = new MenuTool();
+menu.Caption = "Find";
+menu.ButtonType = MenuToolButtonType.SegmentedState;
+menu.KeyTip = "FD";
+menu.KeyTipForSegmentedButton = "FI";
+menu.Id = "mnuSearch";
+group.Items.Add(menu);
+ButtonTool bt;
+bt = new ButtonTool();
+bt.Caption = "Find...";
+bt.Id = "btnFind";
+menu.Items.Add(bt);
+bt = new ButtonTool();
+bt.Caption = "Go To...";
+bt.Id = "btnGoTo";
+menu.Items.Add(bt);
+----
+
+== Related Topics
+
+link:xamribbon-display-custom-key-tips.html[Display Custom Key Tips]

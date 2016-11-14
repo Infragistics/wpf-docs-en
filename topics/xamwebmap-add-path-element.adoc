@@ -1,0 +1,96 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamwebmap-add-path-element",
+    "controlName": ["xamMap"],
+    "tags": ["Application Scenarios","Data Presentation","How Do I"],
+    "guid": "{7D359E18-BE97-4357-A7AC-7FCA70F93AA1}",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:57.1752313Z"
+}
+|metadata|
+////
+
+= Add Path Element
+
+The link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.pathelement.html[PathElement] object allows you to add lines to your map. This is useful when you want to depict routes and paths on your map. To create a PathElement object, you need to specify points for a line. The origins of these points can be set in Geodetic or Cartesian coordinates. After the points are specified, you can store them as a collection in the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.mappolylinecollection.html[MapPolylineCollection] object, which is used to set up the line in xamMap™.
+
+The following code shows you how to create a path that goes through four countries using the link:{ApiPlatform}controls.maps.xammap.v{ProductVersion}~infragistics.controls.maps.maplayer~imported_ev.html[Imported] event of the map layer.
+
+*In Visual Basic:*
+
+----
+Private Sub worldLayer_Imported(ByVal sender As System.Object, ByVal e As Infragistics.Controls.Maps.MapLayerImportEventArgs)
+   If e.Action = MapLayerImportAction.End Then
+   ' polyline collection for end-points of line 
+   Dim lines As New MapPolylineCollection()
+   Dim points As New List(Of Point)()
+   'US 
+   points.Add(New Point(-74.535, 40.246))
+   'Brazil 
+   points.Add(New Point(-37, -5))
+   'South Africa 
+   points.Add(New Point(20, -33))
+   'Thailand 
+   points.Add(New Point(100, 15))
+   ' Convert Geodetic to Cartesian coordinates 
+   lines.Add(map1.MapProjection.ProjectToMap(points))
+   ' Create path element and set points using polylines 
+   Dim lineElement As New PathElement()
+   lineElement.Polylines = lines
+   lineElement.Fill = New SolidColorBrush(Colors.Red)
+   lineElement.StrokeThickness = 2
+   map1.Layers(0).Elements.Add(lineElement)
+   Dim worldRect As Rect = lineElement.WorldRect
+   worldRect = lines.GetWorldRect()
+   lineElement.WorldRect = worldRect
+   End If
+   End Sub
+----
+
+*In C#:*
+
+----
+private void worldLayer_Imported(object sender, Infragistics.Controls.Maps.MapLayerImportEventArgs e)
+{
+   if (e.Action == MapLayerImportAction.End)
+   {
+      // polyline collection for end-points of line
+      MapPolylineCollection lines = new MapPolylineCollection();
+      List<Point> points = new List<Point>();
+      // US
+      points.Add(new Point(-74.535, 40.246));
+      // Brazil
+      points.Add(new Point(-37, -5));
+      // South Africa
+      points.Add(new Point(20, -33));
+      // Thailand
+      points.Add(new Point(100, 15));
+      // Convert Geodetic to Cartesian coordinates
+      lines.Add(map1.MapProjection.ProjectToMap(points));
+      // Create path element and set points using polylines
+      PathElement lineElement = new PathElement() { Polylines = lines };
+      lineElement.Fill = new SolidColorBrush(Colors.Red);
+      lineElement.StrokeThickness = 2;
+      map1.Layers[0].Elements.Add(lineElement);
+      Rect worldRect = lineElement.WorldRect;
+      worldRect = lines.GetWorldRect();
+      lineElement.WorldRect = worldRect;
+   }
+}
+----
+
+image::images/SL_DV_XamMap_Add_Path_Element_01.png[]
+
+== Related Topics
+
+link:xamwebmap-add-image-using-map-elements.html[Add Image Using Map Elements]
+
+link:xamwebmap-add-symbol-element.html[Add Symbol Element]
+
+link:xamwebmap-add-surface-element.html[Add Surface Element]
+
+link:xamwebmap-map-elements-color-map-elements.html[Color Map Elements]
+
+link:xamwebmap-set-custom-format-string.html[Set Custom Format String]

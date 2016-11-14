@@ -1,0 +1,31 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamribbon-about-ribbon-tool-commands",
+    "controlName": ["xamRibbon"],
+    "tags": ["Getting Started"],
+    "guid": "{8C6E9184-7E12-4B62-A4F9-23155F12C681}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:54.0861703Z"
+}
+|metadata|
+////
+
+= About Ribbon Tool Commands
+
+
+
+The xamRibbon™ control includes five tool types that know how to invoke commands (i.e. command sources):
+
+* *ButtonTool* - A simple push button, that when clicked, will invoke the associated command.
+* *ToggleButtonTool* - A push button control that maintains a checked state.
+* *CheckBoxTool* - A control that maintains a checked state and is represented as a check mark.
+* *RadioButtonTool* - A push button control that maintains an exclusive checked state with regard to other radio buttons in the same group.
+* *MenuTool* - A tool that provides a drop-down list of options, but may also have a separate push button. This push button may either act as a standard push button or as a toggle button.
+
+Each tool exposes three command related properties - *Command*, *CommandTarget* and *CommandParameter*. For more information on these properties, please refer to the Microsoft documentation on *Commanding* .
+
+In regards to their handling of commands, the first four tools are essentially the same. When the tool is clicked (or in the case of the button tools that maintain state, when the item's checked state is changed), the associated command is invoked. The CanExecute state of the command is also used to determine the enabled state of the tool. Therefore, if the button tool's IsEnabled property is set to True, which is the default value, and the CanExecute state is False, these tools will be disabled.
+
+The MenuTool is a little different in that its primary function is to provide a drop-down list of options that the end user can select. The MenuTool utilizes the command differently depending on the value of its *ButtonType* property. The Command is only invoked when the ButtonType is set to *Segmented* or *SegmentedState* , and then only when the segmented portion of the button is clicked. When the ButtonType is set to Segmented or SegmentedState, the CanExecute state of the command is only used to determine the enabled state of the segmented portion of the menu tool. When the ButtonType is set to DropDown, the Command is never executed, but its CanExecute state is still used to determine the enabled state of the tool.

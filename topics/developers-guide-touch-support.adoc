@@ -1,0 +1,140 @@
+﻿////
+|metadata|
+{
+    "name": "developers-guide-touch-support",
+    "controlName": [],
+    "tags": ["Getting Started","How Do I","Layouts","Selection"],
+    "guid": "4e57bca7-c9c5-4593-82a6-014112eea671",
+    "buildFlags": ["sl","wpf"],
+    "createdOn": "2012-03-16T09:24:21.4965724Z"
+}
+|metadata|
+////
+
+= Touch Gesture Support
+
+== Topic Overview
+
+=== Purpose
+
+This topic explains the touch gesture support of the XAML controls, the usage of the controls in touch environment and the limitations you can face while using the controls.
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref318990814, Touch Gesture Support >>
+* <<_Ref318990841, Supported   Gestures >>
+* <<_Ref318990848, Unsupported   Gestures >>
+* <<_Ref318989590, Related Content >>
+
+[[_Ref318990814]]
+== Touch Gesture Support
+
+Starting from the 12.1 release the {ProductName} controls support touch gestures. There are many improvements in the controls to support touch gestures, like larger touch targets and invisible touch buffers so that the controls can be easily operated in a touch environment. Also to make controls even more easy to use with fingers you can apply a specially created link:designers-guide-using-themes.html[Metro Theme].
+
+[[_Ref318990841]]
+
+=== Supported Gestures
+
+[options="header", cols="a,a,a"]
+|====
+|Gesture|Description|Activity
+
+|Tap
+|Briefly touch the surface once.
+|
+* Clicks buttons 
+
+* Selects items 
+
+* Selects cells in lists 
+
+* Selects grids 
+
+|Long Press
+|Touch the surface for an extended period of time and release when an indicator is shown.
+|
+* Shows contextual information /contextual menus 
+
+* Acts as a tap action if no other functionality applies 
+
+|Double Tap
+|Touch the surface twice in a short period of time.
+|Acts as one of the following: 
+
+* a mouse double click 
+
+* zoom in 
+
+* open 
+
+* edit 
+
+|Pan
+|Touch the surface and then move your finger immediately without losing contact.
+|
+* Scrolls an area (if in scrollable area) 
+
+* Moves an element (if over an element) 
+
+* Resizes (windows, dialogs or other resizable elements) 
+
+|
+|Touch the surface, pause for a short period of time (less than 1 sec.) and then move your finger without losing contact.
+|
+* Moves an element (if over an element) 
+
+* Resizes (windows, dialogs or other resizable elements) 
+
+* Scrolls an area (if in scrollable area) 
+
+|Flick
+|Touch and quickly brush the surface.
+|Used for inertial scroll of scrollable content
+
+|====
+
+[[_Ref318990848]]
+
+=== Unsupported Gestures
+
+[options="header", cols="a,a"]
+|====
+|Gesture|Description
+
+|Hover
+|Due to the nature of the touch environment it is not possible to perform hovering over an element, so contextual information (like tooltips) should be shown using other technics depending of the application user interface.
+
+|====
+
+.Note
+[NOTE]
+====
+
+Note:You can disable the “Pan” and “Flick” gestures by setting the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.schedulecontrolbase~istouchsupportenabled.html[IsTouchSupportEnabled] property to false. The `IsTouchSupportEnabled` property is available on the following controls:
+
+* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}.html[XamGrid]
+* link:{ApiPlatform}datapresenter.v{ProductVersion}.html[XamDataGrid]
+* link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}.html[XamDataTree]
+* link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}.html[XamComboEditor and XamMultiColumnComboEditor]
+* link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}.html[XamTileManager]
+* link:{ApiPlatform}controls.schedules.v{ProductVersion}.html[XamSchedule views]
+
+====
+
+[[_Ref318989590]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:designers-guide-using-themes.html[Metro Theme]
+|Describes the Metro theme for the XAML controls.
+
+|====

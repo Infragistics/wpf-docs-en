@@ -1,0 +1,47 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamcarousellistbox-setting-a-path-for-xamcarousellistbox-to-use",
+    "controlName": ["xamCarouselListBox"],
+    "tags": ["Data Presentation","Events"],
+    "guid": "{FEAA05D1-86D2-4E86-A81A-C45D60FE5368}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:52.0517635Z"
+}
+|metadata|
+////
+
+= Setting a Path for xamCarouselListBox to Use
+
+In link:xamcarousel-creating-a-named-path-on-the-artboard.html[Creating a Named Path on the Artboard], we create a path that we could use to define a custom path for xamCarouselPanel™, xamDataCarousel™, xamCarouselListBox™, or xamDataPresenter™ to use. The purpose of this topic is to show you how to take that path, and apply it to your xamCarouselListBox.
+
+.Note
+[NOTE]
+====
+This topic assumes you already have setup your xamCarouselListBox. For more information on how to do this, see link:xamcarousellistbox-getting-started-with-xamcarousellistbox.html[Adding xamCarouselListBox to Your Application].
+====
+
+[start=1]
+. First you need to copy your path you created from your Microsoft® Expression® Blend project into your Visual Studio project. The Window1.xaml is the default window for Blend projects so your path should be defined in this file.
+[start=2]
+. Once you have copied your path, paste it into the resource section of your project.
+[start=3]
+. Doing this will cause an error if you compile it right now. This error occurs because the path is in the resource section, and all items in the resource section must have a Key assigned to them. So specify a Key for your path.
+[start=4]
+. You can remove from the path the Fill, Stretch, and Stroke settings that Blend has set, as the xamCarouselListBox won't need them. You can also leave them if you would like to see the path that your items follow inside the xamCarouselListBox.
+[start=5]
+. Below your XamCarouselListBox's opening tag, place the following example code. This code creates a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamcarousellistbox~viewsettings.html[ViewSettings], which contains a link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings.html[CarouselViewSettings] that has the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.carouselviewsettings~itempath.html[ItemPath] property that you assign your custom path too, by specifying the Key you assigned to the path.
+
+*In XAML:*
+
+----
+<igWindows:XamCarouselListBox.ViewSettings>
+        <igWindows:CarouselViewSettings ItemPath="{StaticResource myPath}"/>
+</igWindows:XamCarouselListBox.ViewSettings>
+----
+
+[start=6]
+. If you run the project you will see the xamCarouselListBox items follow the path that you have defined.
+
+image::images/xamCarouselListBox_Setting_a_Path_for_xamCarouselListBox_to_Use_01.png[setting a path for xamcarousellistbox to use]

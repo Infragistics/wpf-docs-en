@@ -1,0 +1,195 @@
+﻿////
+
+|metadata|
+{
+    "name": "resources-car-business-logic",
+    "controlName": [],
+    "tags": [],
+    "guid": "0ed6bbbd-f1f0-4456-8987-c3b8885cf431",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:53.4040196Z"
+}
+|metadata|
+////
+
+= Car Business Logic
+
+*In Visual Basic:*
+
+----
+Imports System.ComponentModel
+Imports System.Collections.ObjectModel
+Public Class CarsBusinessLogic
+    Public Function GetCars() As ObservableCollection(Of Car)
+        Dim carList As New ObservableCollection(Of Car)()
+        carList.Add(New Car("Dodge", "Ram", 22050, 153))
+        carList.Add(New Car("Ford", "Explorer", 27175, 96))
+        carList.Add(New Car("BMW", "Z4", 35600, 42))
+        carList.Add(New Car("Toyota", "Camry", 20790.99, 131))
+        Return carList
+    End Function
+End Class
+Public Class Car
+    Implements INotifyPropertyChanged
+    Private m_make As String
+    Private m_model As String
+    Private m_baseprice As Double
+    Private m_mileage As Integer
+    Public Sub New()
+    End Sub
+    Public Sub New(ByVal make As String, ByVal model As String, ByVal baseprice As Double, ByVal mileage As Integer)
+        Me.Make = make
+        Me.Model = model
+        Me.BasePrice = baseprice
+        Me.Mileage = mileage
+    End Sub
+    Public Property Make() As String
+        Get
+            Return m_make
+        End Get
+        Set(ByVal value As String)
+            If m_make <> value Then
+                m_make = value
+                OnPropertyChanged("Make")
+            End If
+        End Set
+    End Property
+    Public Property Model() As String
+        Get
+            Return m_model
+        End Get
+        Set(ByVal value As String)
+            If m_model <> value Then
+                m_model = value
+                OnPropertyChanged("Model")
+            End If
+        End Set
+    End Property
+    Public Property BasePrice() As Double
+        Get
+            Return m_baseprice
+        End Get
+        Set(ByVal value As Double)
+            If m_baseprice <> value Then
+                m_baseprice = value
+                OnPropertyChanged("BasePrice")
+            End If
+        End Set
+    End Property
+    Public Property Mileage() As Integer
+        Get
+            Return m_mileage
+        End Get
+        Set(ByVal value As Integer)
+            If m_mileage <> value Then
+                m_mileage = value
+                OnPropertyChanged("Mileage")
+            End If
+        End Set
+    End Property
+#Region "INotifyPropertyChanged Members"
+    Public Event PropertyChanged(ByVal sender As Object, ByVal e As System.ComponentModel.PropertyChangedEventArgs) Implements System.ComponentModel.INotifyPropertyChanged.PropertyChanged
+    Private Sub OnPropertyChanged(ByVal info As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
+    End Sub
+#End Region
+End Class
+----
+
+*In C#:*
+
+----
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+namespace IGDocumentation
+{
+    public class CarsBusinessLogic
+    {
+        public ObservableCollection<Car> GetCars()
+        {
+            ObservableCollection<Car> carList = new ObservableCollection<Car>();
+            carList.Add(new Car("Dodge", "Ram", 22050.00, 153));
+            carList.Add(new Car("Ford", "Explorer", 27175.00, 96));
+            carList.Add(new Car("BMW", "Z4", 35600.00, 42));
+            carList.Add(new Car("Toyota", "Camry", 20790.99, 131));
+            return carList;
+        }
+    }
+    public class Car : INotifyPropertyChanged
+    {
+        string m_make;
+        string m_model;
+        double m_baseprice;
+        int m_mileage;
+        public Car()
+        {
+        }
+        public Car(string make, string model, double baseprice, int mileage)
+        {
+            this.Make = make;
+            this.Model = model;
+            this.BasePrice = baseprice;
+            this.Mileage = mileage;
+        }
+        public string Make
+        {
+            get { return m_make; }
+            set
+            {
+                if (m_make != value)
+                {
+                    m_make = value;
+                    OnPropertyChanged("Make");
+                }
+            }
+        }
+        public string Model
+        {
+            get { return m_model; }
+            set
+            {
+                if (m_model != value)
+                {
+                    m_model = value;
+                    OnPropertyChanged("Model");
+                }
+            }
+        }
+        public double BasePrice
+        {
+            get { return m_baseprice; }
+            set
+            {
+                if (m_baseprice != value)
+                {
+                    m_baseprice = value;
+                    OnPropertyChanged("BasePrice");
+                }
+            }
+        }
+        public int Mileage
+        {
+            get { return m_mileage; }
+            set
+            {
+                if (m_mileage != value)
+                {
+                    m_mileage = value;
+                    OnPropertyChanged("Mileage");
+                }
+            }
+        }
+        #region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(String info)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(info));
+            }
+        }
+        #endregion
+    }
+}
+----

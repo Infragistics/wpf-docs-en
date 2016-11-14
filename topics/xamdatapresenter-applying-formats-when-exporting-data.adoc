@@ -1,0 +1,115 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-applying-formats-when-exporting-data",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Exporting","Getting Started","Grids","How Do I"],
+    "guid": "68dcc72b-a0f5-4e9c-8f97-f43d7cdbe4aa",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.3840299Z"
+}
+|metadata|
+////
+
+= Applying Formats When Exporting Data
+
+You can apply formats to data records, group-by records, labels, and summaries when exporting data to Word. This functionality is handled by setting the attached formatting properties exposed by the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter.html[DataPresenterWordWriter] class. The name of each attached property corresponds to the type of element that the property formats. The attached properties will not affect the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenter] control; instead, users will only see the formats applied to the records in the document. For example, you can format data records by setting the attached link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~setcellsettingsfordatarecord.html[CellSettingsForDataRecord] property and you can format column headers by setting the attached link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~setcellsettingsforlabel.html[CellSettingsForLabel] property.
+
+== Precedence of Formatting Properties
+
+You must set the DataPresenterWordWriter class' attached formatting properties on a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object. This allows you to apply a default format for all fields using the DataPresenter control's FieldSettings object and selectively format specific fields in a field layout. The formatting properties are resolved and merged starting from the control's FieldSettings object down to a field's FieldSettings object, i.e. whatever you set fort the more specific object takes precedence over what you set on more general object. For example, if you set the CellSettingsForDataRecord object's ForeColor property to Blue on the control's FontSettings property and then you set the CellSettingsForDataRecord object's Bold property to True on a field's FontSettings object, the resulting document records will have bold blue text for that field.
+
+== Formatting Tables
+
+In addition to setting the attached formatting properties, you can also handle the DataPresenterWordWriter object's events to apply formatting to document table cells, and rows. When you handle the DataPresenterWordWriter object's events ending with "-ing", the event argument exposes a CellSettings property that you can use to apply formats. For more information on handling the DataPresenterWordWriter's events, refer to link:xamdatapresenter-exporting-to-word-events.html[Managing the Export Through Handling Export Events].
+
+== Example: Exporting a DataPresenter Control to Word
+
+The following example code demonstrates how to apply formats for exporting a DataPresenter control to Word.
+
+*In XAML:*
+
+----
+<igDP:XamDataGrid Grid.Row="1" Theme="IGTheme" x:Name="xamDataGrid">
+  <igDP:XamDataGrid.FieldSettings>
+    <!-- Enable summaries on the XamDataGrid -->
+    <igDP:FieldSettings AllowSummaries="true" 
+     SummaryUIType="MultiSelect" 
+     SummaryDisplayArea="BottomFixed">
+      <!-- Apply custom style for data records. -->
+      <igWordWriter:DataPresenterWordWriter.CellSettingsForDataRecord>
+        <igWordWriter:WordTableCellSettings BackColor="#FFEFD3D2">
+          <!-- Adjust Font Settings for data records. -->
+          <igWordWriter:WordTableCellSettings.FontSettings>
+            <igWordWriter:WordFontSettings
+              ForeColor="#FF943634" Bold="True" Size="11pt" />
+          </igWordWriter:WordTableCellSettings.FontSettings>
+        </igWordWriter:WordTableCellSettings>
+      </igWordWriter:DataPresenterWordWriter.CellSettingsForDataRecord>
+    </igDP:FieldSettings>
+  </igDP:XamDataGrid.FieldSettings>
+</igDP:XamDataGrid>
+----
+
+*In Visual Basic:*
+
+----
+import Infragistics.Windows
+import Infragistics.Windows.DataPresenter
+import Infragistics.Windows.DataPresenter.WordWriter
+import System.Windows.Media
+Me.xamDataGrid.FieldSettings = New Windows.DataPresenter.FieldSettings() _
+With { _
+        Key .AllowSummaries = True, _
+        Key .SummaryUIType = SummaryUIType.MultiSelect, _
+        Key .SummaryDisplayArea = SummaryDisplayAreas.BottomFixed _
+}
+Dim wordFontSettings As New WordFontSettings() With { _
+        Key .ForeColor = Colors.Blue, _
+        Key .Bold = True, _
+        Key .Size = New DeviceUnitLength(11, DeviceUnitType.Point) _
+}
+Dim wordTableCellSettings As New WordTableCellSettings() With { _
+        Key .BackColor = Colors.Gray, _
+        Key .FontSettings = wordFontSettings _
+}
+DataPresenterWordWriter.SetCellSettingsForDataRecord( _
+    Me.xamDataGrid.FieldSettings, wordTableCellSettings)
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows;
+using Infragistics.Windows.DataPresenter;
+using Infragistics.Windows.DataPresenter.WordWriter;
+using System.Windows.Media;
+this.xamDataGrid.FieldSettings = new Windows.DataPresenter.FieldSettings
+{
+    AllowSummaries = true,
+    SummaryUIType = SummaryUIType.MultiSelect,
+    SummaryDisplayArea = SummaryDisplayAreas.BottomFixed
+};
+WordFontSettings wordFontSettings = new WordFontSettings
+{
+    ForeColor = Colors.Blue,
+    Bold = true,
+    Size = new DeviceUnitLength(11, DeviceUnitType.Point)
+};
+WordTableCellSettings wordTableCellSettings = new WordTableCellSettings
+{
+    BackColor = Colors.Gray,
+    FontSettings = wordFontSettings
+};
+DataPresenterWordWriter.SetCellSettingsForDataRecord(
+    this.xamDataGrid.FieldSettings, wordTableCellSettings);
+----
+
+== Related Topics
+
+link:xamdatapresenter-exporting-data-to-word.html[Exporting Data to Word Using the xamDataPresenter]
+
+link:xamdatapresenter-exclude-settings.html[Exclude... Settings for the DataPresenter When Exporting]
+
+link:xamdatapresenter-exporting-to-word-events.html[Managing the Export Through Handling Export Events]

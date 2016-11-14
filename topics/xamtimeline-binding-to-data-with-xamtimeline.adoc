@@ -1,0 +1,372 @@
+﻿////
+|metadata|
+{
+    "name": "xamtimeline-binding-to-data-with-xamtimeline",
+    "controlName": ["xamTimeline"],
+    "tags": [],
+    "guid": "{2FD20E5B-00B6-46F3-A79B-5616CC6CBD57}","buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.9383944Z"
+}
+|metadata|
+////
+
+= Binding to Data
+
+This walkthrough demonstrates how to bind the link:{ApiPlatform}controls.timelines.xamtimeline.v{ProductVersion}~infragistics.controls.timelines.xamtimeline.html[xamTimeline]™ control to a custom data collection. You will learn to define a data model, add the xamTimeline control to your application, instantiate a data collection, and bind that data to the control.
+
+By the end of the walkthrough, your application will look like this:
+
+image::images/xamTimeline_Binding_to_Data_01.png[]
+
+== Define a Data Class
+
+To begin, create a class to model the data in the collection. The following code creates a type representing timeline data:
+
+*In C#:*
+
+----
+public class TimelineData
+{
+    public TimelineData() { }
+    public TimelineData(int newTime, int newDuration, string newTitle, string newDetails)
+    {
+        Time = newTime;
+        Duration = newDuration;
+        Title = newTitle;
+        Details = newDetails;
+    }
+    public int Time { get; set; }
+    public int Duration { get; set; }
+    public string Title { get; set; }
+    public string Details { get; set; }
+}
+----
+
+*In Visual Basic:*
+
+----
+Public Class TimelineData
+    Public Sub New()
+    End Sub
+    Public Sub New(newTime As Integer, newDuration As Integer, newTitle As String, newDetails As String)
+        Time = newTime
+        Duration = newDuration
+        Title = newTitle
+        Details = newDetails
+    End Sub
+    Public Property Time() As Integer
+        Get
+            Return m_Time
+        End Get
+        Set
+            m_Time = Value
+        End Set
+    End Property
+    Private m_Time As Integer
+    Public Property Duration() As Integer
+        Get
+            Return m_Duration
+        End Get
+        Set
+            m_Duration = Value
+        End Set
+    End Property
+    Private m_Duration As Integer
+    Public Property Title() As String
+        Get
+            Return m_Title
+        End Get
+        Set
+            m_Title = Value
+        End Set
+    End Property
+    Private m_Title As String
+    Public Property Details() As String
+        Get
+            Return m_Details
+        End Get
+        Set
+            m_Details = Value
+        End Set
+    End Property
+    Private m_Details As String
+End Class
+----
+
+== Add the xamTimeline Control
+
+Next, add an instance of the xamTimeline control to your application.
+
+.Note:
+[NOTE]
+====
+Make sure you’ve added the appropriate assembly references to your project:
+====
+
+* {ApiPlatform}Controls.Timelines.XamTimeline.v{ProductVersion}.dll
+* {ApiPlatform}DataVisualization.v{ProductVersion}.dll
+* {ApiPlatform}v{ProductVersion}.dll
+
+Then, insert the following XAML namespace reference:
+
+*In XAML:*
+
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
+
+Then, add an instance of the control to your layout root.
+
+*In XAML:*
+
+----
+<Grid x:Name="LayoutRoot" Background="White">
+    <ig:XamTimeline x:Name="xamTimeline" />
+</Grid>
+----
+
+== Instantiate and Bind the Data
+
+In this step, you must instantiate a data collection and bind it to the xamTimeline control instance. In the code-behind, add the appropriate namespace directives:
+
+*In C#:*
+
+----
+using System.Collections.ObjectModel;
+using Infragistics.Controls.Timelines;
+----
+
+*In Visual Basic:*
+
+----
+Imports System.Collections.ObjectModel
+Imports Infragistics.Controls.Timelines
+----
+
+Then, inside the MainPage constructor, instantiate the collection as follows.
+
+*In C#:*
+
+----
+var collection = new ObservableCollection<TimelineData>();
+for (int i = 1; i < 10; i++)
+{
+    var dataEntry = new TimelineData()
+    {
+        Time = i * 100,
+        Duration = 10,
+        Title = "Data Title " + i,
+        Details = "Data Description " + i
+    };
+    collection.Add(dataEntry);
+}
+----
+
+*In Visual Basic:*
+
+----
+Dim collection As New ObservableCollection(Of TimelineData)()
+For i As Integer = 1 To 9
+    Dim dataEntry As New TimelineData() With { _
+        Key .Time = i * 100, _
+        Key .Duration = 10, _
+        Key .Title = "Data Title " & i, _
+        Key .Details = "Data Description " & i _
+    }
+    collection.Add(dataEntry)
+Next
+----
+
+Now, instantiate a NumericTimeSeries object and bind it to this collection.
+
+*In C#:*
+
+----
+var series = new NumericTimeSeries();
+series.Title = "Series With Data Binding";
+series.DataSource = collection;
+----
+
+*In Visual Basic:*
+
+----
+Dim series As New NumericTimeSeries()
+series.Title = "Series With Data Binding"
+series.DataSource = collection
+----
+
+== Data Mapping
+
+Finally, you must define the DataMapping and add the series to the xamTimeline control’s Series collection. The DataMapping string allows you to define the mapping between data source members and the characteristics of each timeline entry. In this case, the string consists of four statements that map the Time, Duration, Title, and Details of each timeline entry to identically-named members of the data source.
+
+*In C#:*
+
+----
+series.DataMapping = "Time=Time;Duration=Duration;Title=Title;Details=Details";
+this.xamTimeline.Series.Add(series);
+----
+
+*In Visual Basic:*
+
+----
+series.DataMapping = "Time=Time;Duration=Duration;Title=Title;Details=Details"
+Me.xamTimeline.Series.Add(series)
+----
+
+== Run the Application
+
+At this point, you’ve successfully bound the xamTimeline control to a custom data collection. Your application should now display as shown.
+
+image::images/xamTimeline_Binding_to_Data_01.png[]
+
+== Complete Code Sample
+
+The following code listings show you the full example implemented in context.
+
+== View
+
+*In XAML:*
+
+----
+<UserControl x:Class="Application1.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ig="http://schemas.infragistics.com/xaml"
+    mc:Ignorable="d"
+    d:DesignHeight="300" d:DesignWidth="400">
+    <Grid x:Name="LayoutRoot" Background="White">
+        <ig:XamTimeline x:Name="xamTimeline" />
+    </Grid>
+</UserControl>
+----
+
+== Code Behind
+
+*In C#:*
+
+----
+using System.Windows.Controls; 
+using System.Collections.ObjectModel;
+using Infragistics.Controls.Timelines;
+namespace Application1
+{
+    public partial class MainPage : UserControl
+    {
+        public MainPage()
+        {
+            InitializeComponent();
+            var collection = new ObservableCollection<TimelineData>();
+            for (int i = 1; i < 10; i++)
+            {
+                var dataEntry = new TimelineData()
+                {
+                    Time = i * 100,
+                    Duration = 10,
+                    Title = "Data Title " + i,
+                    Details = "Data Description " + i
+                };
+                collection.Add(dataEntry);
+            }
+            var series = new NumericTimeSeries();
+            series.Title = "Series With Data Binding";
+            series.DataSource = collection;
+            series.DataMapping = "Time=Time;Duration=Duration;Title=Title;Details=Details";
+            this.xamTimeline.Series.Add(series);
+        }
+    }
+    public class TimelineData
+    {
+        public TimelineData() { }
+        public TimelineData(int newTime, int newDuration, string newTitle, string newDetails)
+        {
+            Time = newTime;
+            Duration = newDuration;
+            Title = newTitle;
+            Details = newDetails;
+        }
+        public int Time { get; set; }
+        public int Duration { get; set; }
+        public string Title { get; set; }
+        public string Details { get; set; }
+    }
+}
+----
+
+*In Visual Basic:*
+
+----
+Imports System.Windows.Controls
+Imports System.Collections.ObjectModel
+Imports Infragistics.Controls.Timelines
+Namespace Application1
+    Public Partial Class MainPage
+        Inherits UserControl
+        Public Sub New()
+            InitializeComponent()
+            Dim collection As New ObservableCollection(Of TimelineData)()
+            For i As Integer = 1 To 9
+                Dim dataEntry As New TimelineData() With { _
+                    Key .Time = i * 100, _
+                    Key .Duration = 10, _
+                    Key .Title = "Data Title " & i, _
+                    Key .Details = "Data Description " & i _
+                }
+                collection.Add(dataEntry)
+            Next
+            Dim series As New NumericTimeSeries()
+            series.Title = "Series With Data Binding"
+            series.DataSource = collection
+            series.DataMapping = "Time=Time;Duration=Duration;Title=Title;Details=Details"
+            Me.xamTimeline.Series.Add(series)
+        End Sub
+    End Class
+    Public Class TimelineData
+        Public Sub New()
+        End Sub
+        Public Sub New(newTime As Integer, newDuration As Integer, newTitle As String, newDetails As String)
+            Time = newTime
+            Duration = newDuration
+            Title = newTitle
+            Details = newDetails
+        End Sub
+        Public Property Time() As Integer
+            Get
+                Return m_Time
+            End Get
+            Set
+                m_Time = Value
+            End Set
+        End Property
+        Private m_Time As Integer
+        Public Property Duration() As Integer
+            Get
+                Return m_Duration
+            End Get
+            Set
+                m_Duration = Value
+            End Set
+        End Property
+        Private m_Duration As Integer
+        Public Property Title() As String
+            Get
+                Return m_Title
+            End Get
+            Set
+                m_Title = Value
+            End Set
+        End Property
+        Private m_Title As String
+        Public Property Details() As String
+            Get
+                Return m_Details
+            End Get
+            Set
+                m_Details = Value
+            End Set
+        End Property
+        Private m_Details As String
+    End Class
+End Namespace
+----

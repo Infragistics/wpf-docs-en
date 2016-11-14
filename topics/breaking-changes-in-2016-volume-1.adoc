@@ -1,0 +1,199 @@
+﻿////
+|metadata|
+{
+    "name": "breaking-changes-in-2016-volume-1",
+    "controlName": ["Breaking Changes"],
+    "tags": [],
+    "guid": "4154edca-399a-4378-9c27-fb0e373f2ff2","buildFlags": [],
+    "createdOn": "2016-01-19T14:30:08.0946339Z"
+}
+|metadata|
+////
+
+= Breaking Changes in 2016 Volume 1
+
+== Breaking Changes Summary
+
+The following table summarizes the breaking changes of the Infragistics WPF 2016 Volume 1 Release. Detailed explanations of the issues are provided after the summary table.
+
+==== Legend:
+
+image:images/Yes.png[] – Workaround available
+
+image:images/No.png[] – No known workaround
+
+image:images/Fix.png[] – No known workaround, fix planned
+
+==== <<_Ref421542580,TriangulationSource>>
+
+[options="header", cols="30a,60a,^10a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref421542581,Change in the assembly location for TriangulationSource class>>
+|The assembly location for the TriangulationSource class has been changed from XamGeographicMap to DataVisualization.
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref421542576,xamDataPresenter>>
+
+[options="header", cols="30a,60a,^10a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref421542577,Default property value change>>
+|The default value of the `AllowFieldMoving` property is changed from `Yes` to `WithinLogicalRow`.
+|image::images/Yes.png[]
+
+|<<_Ref421542578,Fields collection's items not accessible>>
+|The field layout's Fields collection is not populated with fields prior the field layout is initialized.
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref421542582,xamGeographicMap>>
+
+[options="header", cols="30a,60a,^10a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref421542583,"ShoulKeepResourcesOnUnload" public property name has been changed>>
+|The name of the _xamGeographicMap’s_ "ShoulKeepResourcesOnUnload" property has been changed to link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.xamgeographicmap~shouldkeepresourcesonunload.html[ShouldKeepResourcesOnUnload].
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref421542578,xamSchedule>>
+
+[options="header", cols="30a,60a,^10a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref421542579,Change in the default visibility of the recurrence label>>
+|The default visibility of the recurrence label in the xamSchedule's recurrence dialog is now visible for German and French languages.
+|image::images/Yes.png[]
+
+|====
+
+[[_Ref421542580]]
+== TriangulationSource
+
+[[_Ref421542581]]
+
+=== TriangulationSource class moved to shared assembly
+
+The location for the link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.charts.triangulationsource.html[TriangulationSource] class has been removed from the xamGeographicMap assembly and has been moved to the shared DataVisualization assembly.
+
+[options="header", cols="a,a"]
+|====
+|Old Assembly|New Assembly
+
+|InfragisticsWPF4.Controls.Maps.XamGeographicMap
+|InfragisticsWPF4.DataVisualization
+
+|====
+
+.Note
+[NOTE]
+====
+The namespace for the TriangulationSource class has not changed; further, as the DataVisualization assembly was already required for the xamGeographicMap, no further actions are necessary for prior implementations.
+====
+
+[[_Ref421542576]]
+== xamDataPresenter
+
+[[_Ref421542577]]
+
+=== Default property value change
+
+The default value of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowfieldmoving.html[AllowFieldMoving] property is changed from `Yes` to `WithinLogicalRow`.
+
+[options="header", cols="a,a,a"]
+|====
+|Property|Old Visibility|New Visibility
+
+|`AllowFieldMoving`
+|`Yes`
+|`WithinLogicalRow`
+
+|====
+
+*Workaround:*
+
+If you want to retain the old behavior you can set `AllowFieldMoving` property to `Yes`.
+
+==== Related topic:
+
+link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~allowfieldmoving.html[AllowFieldMoving]
+
+=== Fields collection's items not accessible
+
+You may not be able to access fields defined in XAML using the `FieldLayout`{empty}'s `Fields` collection prior the initialization of the particular field layout (for example this may not be possible in the _xamDataGrid's_ `Loaded` event).
+
+*Workarounds:*
+
+. You may use the `FieldLayout`{empty}'s `FieldItems` collection which contains the fields definitions prior the `FieldLayout` is initialized. Since the `FieldItems` collection is using the `FieldItem` type you may need to up-cast to the `Field` type in order to access the `Field` specific properties.
+
+. You may use the _xamDataGrid's_ `FieldLayoutInitialized` event to get notified for the moment in time at which a specific `FieldLayout` gets initialized which means its `Fields` and `FieldItems` collections are populated and synchronized.
+
+[[_Ref421542582]]
+== xamGeographicMap
+
+[[_Ref421542583]]
+
+=== ShoulKeepResourcesOnUnload public property name has been changed
+
+The name of the  _xamGeographicMap’s_   link:{ApiPlatform}controls.maps.xamgeographicmap.v{ProductVersion}~infragistics.controls.maps.xamgeographicmap~shouldkeepresourcesonunload.html[ShouldKeepResourcesOnUnload] property has been changed.
+
+[options="header", cols="a,a"]
+|====
+|Old Value|New Value
+
+|ShoulKeepResourcesOnUnload
+|ShouldKeepResourcesOnUnload
+
+|====
+
+[[_Ref421542578]]
+== xamSchedule
+
+[[_Ref421542579]]
+
+=== Change in the default visibility of the recurrence label
+
+The default visibility of the recurrence label in the xamSchedule's recurrence dialog is now visible for German and French languages.
+
+[options="header", cols="a,a,a"]
+|====
+|Language|Old Visibility|New Visibility
+
+|English
+|Visible
+|Visible
+
+|German
+|Hidden
+|Visible
+
+|French
+|Hidden
+|Visible
+
+|Spanish
+|Hidden
+|Hidden
+
+|Japanese
+|Hidden
+|Hidden
+
+|====
+
+*Workaround:*
+
+If you want to retain the old behavior you can add a string resource which configures the visibility to a resource file (.resx) and register this resource file on any of the xamSchedule's views as described in the related topic below.
+
+== Related topic:
+
+link:xamschedule-using-activitydialogs.html[Activity Dialogs]

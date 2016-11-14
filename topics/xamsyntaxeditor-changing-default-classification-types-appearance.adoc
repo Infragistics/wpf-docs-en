@@ -1,0 +1,274 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamsyntaxeditor-changing-default-classification-types-appearance",
+    "controlName": ["xamSyntaxEditor"],
+    "tags": ["How Do I","Layouts","Templating"],
+    "guid": "09021071-1b08-46e4-9867-b6b3787f9a01",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.4203948Z"
+}
+|metadata|
+////
+
+= Changing Default Classification Types Appearance (xamSyntaxEditor)
+
+== Topic Overview
+
+=== Purpose
+
+This topic provides information on how to change the colors and other appearance attributes assigned to language elements by the  _xamSyntaxEditor™_  .
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-overview.html[ _xamSyntaxEditor_ Overview]
+|In this topic, you will find information to help you better understand the _xamSyntaxEditor’s_ functions.
+
+| link:xamsyntaxeditor-editing-support-overview.html[Editing Support Overview]
+|This topic covers the text editing capabilities of the _xamSyntaxEditor_ control from both the developer and user’s perspective.
+
+| link:xamsyntaxeditor-supported-languages.html[Supported Languages]
+|This topic lists the languages supported by the _xamSyntaxEditor_ and shows you how to use each of them.
+
+|====
+
+=== In this topic
+
+This topic contains the following sections:
+
+* <<_Ref330805833, Introduction >>
+* <<_Ref330805843, Add ClassificationAppearanceMap Entry in Code >>
+* <<_Ref330805845, Add ClassificationAppearanceMap Entry in XAML >>
+* <<_Ref330805859, Remove ClassificationAppearanceMap Entry >>
+* <<_Ref330805915, Related Content >>
+
+[[_Ref330805833]]
+== Introduction
+
+=== Customizing predefined languages using classification appearance mapping
+
+The  _xamSyntaxEditor_   supports link:xamsyntaxeditor-supported-languages.html[several predefined languages] each of which define a specific grammar to classify and colorize discrete parts of the document’s text.
+
+After lexing the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.textdocument_members.html[TextDocument], an internal link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.tagging.classificationtagger.html[ClassificationTagger] service begins to assign a link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.classificationtype_members.html[ClassificationType] to each text part. `ClassificationTypes` represent basic language element types such as "Keyword", "Operator" and "Literal".
+
+link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.textdocumentappearance_members.html[TextDocumentAppearance] is an object that exposes properties such as link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.textdocumentappearance~foreground.html[Foreground], link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.textdocumentappearance~fontitalic.html[FontItalic] and link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.textdocumentappearance~fontbold.html[FontBold].
+
+A link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.classificationappearancemap_members.html[ClassificationAppearanceMap] associates `ClassificationTypes` with `TextDocumentAppearance` instances. The  _xamSyntaxEditor_   exposes an instance of this map via its link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~classificationappearancemap.html[ClassificationAppearanceMap] property. The default `ClassificationAppearanceMap``,` provided by the  _xamSyntaxEditor_   assigns colors to `ClassificationTypes` that are similar to the default colors assigned by Visual Studio.
+
+The  _xamSyntaxEditor_   uses the `ClassificationTypes` assigned to each language element along with the `ClassificationAppearanceMap` to colorize each language element as it is rendering on the display.
+
+In some cases, you may need to change the predefined colorization and styling. To do this, you can modify the default `ClassificationAppearanceMap` provided by the  _xamSyntaxEditor_   to add new mappings or remove existing mappings. Alternatively, you can create a new `ClassificationAppearanceMap` instance with the desired appearances and mappings and assign it to the `xamSyntaxEditor.ClassificationAppearanceMap` property. In this scenario, if your custom map does not contain an entry for a particular `ClassificationType`, the  _xamSyntaxEditor_   will fall back to using the default `ClassificationAppearanceMap` for that `ClassificationType`.
+
+.Note
+[NOTE]
+====
+Mapping entries added in the `ClassificationApperanceMap` property have a higher priority than the styling and colorization defined by the highlighting languages.
+====
+
+[options="header", cols="a,a"]
+|====
+|Argument types|Details
+
+|`ClassificationType`
+|The classification type specifies the language part you want to change (for example, comments, keywords, operators, string literals…).
+
+|`TextDocumentAppearance`
+|This class holds the values used to change various aspects of the text styling (for example, color, font family, font style…).
+
+|====
+
+[[_Ref330805843]]
+== Add ClassificationAppearanceMap Entry in Code
+
+=== Overview
+
+Add a new classification appearance map entry to modify the highlighting set by the current language.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And specify:
+
+|Add a new classification appearance map entry
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.appearancemap%601~addmapentry.html[AddMapEntry]
+|
+* `ClassificationType` 
+
+* `TextDocumentAppearance` 
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+// create a new classification appearance map 
+ClassificationAppearanceMap classMap =
+    new ClassificationAppearanceMap();
+// create a new text document appearance object
+TextDocumentAppearance tda = new TextDocumentAppearance();
+// change the foreground color only
+tda.Foreground = new SolidColorBrush(Colors.Red);
+// add a new entry in the classification map
+// for the "keyword" classification type
+// the last argument is true if you want to
+// replace existing entry for the same
+// classification type
+classMap.AddMapEntry(
+    ClassificationType.Keyword,
+    tda,
+    true
+);
+// assign the classification map to the xamSyntaxEditor
+this.xamSyntaxEditor1.ClassificationAppearanceMap = classMap;
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+' create a new classification appearance map 
+Dim classMap As New ClassificationAppearanceMap()
+' create a new text document appearance object
+Dim tda As New TextDocumentAppearance()
+' change the foreground color only
+tda.Foreground = New SolidColorBrush(Colors.Red)
+' add a new entry in the classification map
+' for the "keyword" classification type
+' the last argument is True if you want to
+' replace existing entry for the same
+' classification type
+classMap.AddMapEntry(ClassificationType.Keyword, tda, True)
+' assign the classification map to the xamSyntaxEditor
+Me.xamSyntaxEditor1.ClassificationAppearanceMap = classMap
+----
+
+[[_Ref330805845]]
+== Add ClassificationAppearanceMap Entry in XAML
+
+=== Overview
+
+The control supports defining new classification appearance map entries in XAML. The code snippet below demonstrates how to add new classification appearance map entries which change the language rendering:
+
+* keywords’ uses a red foreground and bold styling
+* strings’ uses a magenta foreground and italic styling
+
+=== Example
+
+Following is the code that implements this example.
+
+*In XAML:*
+
+[source,xaml]
+----
+<Page.Resources>
+    <ResourceDictionary>
+        <ig:ClassificationAppearanceMap x:Key="CustomClassificationMap">
+            <ig:ClassificationAppearanceMapInitializationEntry
+                Classification="Keyword">
+                <ig:ClassificationAppearanceMapInitializationEntry.Appearance>
+                    <ig:TextDocumentAppearance FontBold="True">
+                        <ig:TextDocumentAppearance.Foreground>
+                            <SolidColorBrush Color="Red" />
+                        </ig:TextDocumentAppearance.Foreground>
+                    </ig:TextDocumentAppearance>
+                </ig:ClassificationAppearanceMapInitializationEntry.Appearance>
+            </ig:ClassificationAppearanceMapInitializationEntry>
+            <ig:ClassificationAppearanceMapInitializationEntry
+                 Classification="StringLiteral">
+                 <ig:ClassificationAppearanceMapInitializationEntry.Appearance>
+                     <ig:TextDocumentAppearance FontItalic="True">
+                        <ig:TextDocumentAppearance.Foreground>
+                            <SolidColorBrush Color="Magenta" />
+                        </ig:TextDocumentAppearance.Foreground>
+                    </ig:TextDocumentAppearance>
+                </ig:ClassificationAppearanceMapInitializationEntry.Appearance>
+            </ig:ClassificationAppearanceMapInitializationEntry>
+        </ig:ClassificationAppearanceMap>
+    </ResourceDictionary>
+</Page.Resources>
+<ig:XamSyntaxEditor
+    ClassificationAppearanceMap="{StaticResource CustomClassificationMap}"
+/>
+----
+
+[[_Ref330805859]]
+== Remove ClassificationAppearanceMap Entry
+
+=== Overview
+
+Delete a classification appearance map entry to remove a custom defined highlighting.
+
+=== Property settings
+
+[options="header", cols="a,a,a"]
+|====
+|In order to:|Use this method:|And specify:
+
+|Remove a classification appearance map entry
+| link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.appearancemap%601~removemapentry.html[RemoveMapEntry]
+|
+* `ClassificationType` 
+
+|====
+
+=== Example
+
+*In C#:*
+
+[source,csharp]
+----
+classMap.RemoveMapEntry(ClassificationType.Keyword);
+----
+
+*In Visual Basic:*
+
+[source,vb]
+----
+classMap.RemoveMapEntry(ClassificationType.Keyword)
+----
+
+[[_Ref330805915]]
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:xamsyntaxeditor-syntax-highlighting.html[Syntax Highlighting]
+|This topic provides information about text colorization, based on the `TextDocument`’s associated language..
+
+| link:xamsyntaxeditor-customizing.html[Customizing the Syntax Editor]
+|The topics in this group explain the ways to customize the _xamSyntaxEditor_ .
+
+|====
+
+=== Samples
+
+The following samples provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Sample|Purpose
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/highlighting-customization[Highlighting Customization (in Code)]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/highlighting-customization[Highlighting Customization (in Code)]"] 
+|This sample demonstrates how to change the style of different classification types of the syntax highlighting.
+
+| pick:[sl=" link:{SamplesURL}/syntax-editor/#/highlighting-customization-xaml[Highlighting Customization (in XAML)]"] pick:[wpf=" link:{SamplesURL}/syntax-editor/highlighting-customization-xaml[Highlighting Customization (in XAML)]"] 
+|This sample demonstrates how to change the style of different classification types of the syntax highlighting. The default blue color of the keywords is changed to red and the default brown color of the strings is changed to magenta.
+
+|====

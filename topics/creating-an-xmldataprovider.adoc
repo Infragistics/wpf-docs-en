@@ -1,0 +1,69 @@
+﻿////
+|metadata|
+{
+    "name": "creating-an-xmldataprovider",
+    "controlName": [],
+    "tags": [],
+    "guid": "{58BC69D7-81B2-441D-AC12-EFE931CD427E}",
+    "buildFlags": ["wpf"],
+    "createdOn": "2012-02-01T16:01:19.6158359Z"
+}
+|metadata|
+////
+
+= Creating an XmlDataProvider
+
+== Before You Begin
+
+You can bind controls to an XML file by using the XmlDataProvider.
+
+This topic does not cover binding the XmlDataProvider to any specific control; however, you will need to use the XmlDataProvider created in this topic for control specific tasks. For information on binding a control to the XmlDataProvider you created in this topic, use the links provided at the end of this topic.
+
+== What You Will Accomplish
+
+This topic will show you how to create an XmlDataProvider object in Extensible Application Markup Language (XAML). The XAML for declaring the XmlDataProvider is written generically enough that it is control-independent.
+
+The XML file used in this topic is called link:resources-orders.html[Orders.xml], and is available for you to download. The example XAML code assumes the XML file exists in a folder called "Data" in your project.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® Windows® Presentation Foundation Window project.
+
+[start=2]
+. Create a Resource section in your Window or Page.
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<Window.Resources>
+        <!--TODO: Add an XmlDataProvider here-->
+</Window.Resources>
+...
+----
+
+[start=3]
+. Add an XmlDataProvider to the Resources section.
++
+--
+.. Key - Set the Key property to OrderData. You can use this key to reference the data provider later.
+.. Source - Set the Source property to Data/Orders.xml.
+--
++
+*In XAML:*
++
+[source,xaml]
+----
+...
+<XmlDataProvider x:Key="OrderData" Source="Data/Orders.xml" />
+...
+----
+
+[start=4]
+. Running your application at this time will just display an empty Window. You will have to add a control to the Window and bind the XmlDataProvider that you created in this topic to the control in order to see the results. Use the links provided below to bind the XmlDataProvider to a specific control.
+
+== Related Topics
+
+link:xamcomboeditor-bind-xamcomboeditor-to-an-xmldataprovider.html[Bind xamComboEditor to an XmlDataProvider]

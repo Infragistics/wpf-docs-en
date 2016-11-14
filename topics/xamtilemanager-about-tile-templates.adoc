@@ -1,0 +1,53 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamtilemanager-about-tile-templates",
+    "controlName": ["xamTileManager"],
+    "tags": ["Templating"],
+    "guid": "6cde3380-eadd-4a00-b15c-8eebeeeb4115",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:59.6683712Z"
+}
+|metadata|
+////
+
+= About Tile Templates
+
+The xamTileManager™ exposes four item template properties, link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~itemtemplate.html[ItemTemplate], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~itemtemplatemaximized.html[ItemTemplateMaximized], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~itemtemplateminimized.html[ItemTemplateMinimized] and link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~itemtemplateminimizedexpanded.html[ItemTemplateMinimizedExpanded] that correspond to the four tile states, normal, maximized, minimized and minimized-expanded, respectively. You do not have to write any code that switches templates based on a tile's state. Instead, you can create a data template for each state and set the corresponding item template property and xamTileManager automatically uses the correct template based on a tile's state.
+
+In addition to the item template properties exposed by xamTileManager, each link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile.html[XamTile] object also exposes four content template properties, link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~contenttemplateresolved.html[ContentTemplateResolved], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~contenttemplatemaximized.html[ContentTemplateMaximized], link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~contenttemplateminimized.html[ContentTemplateMinimized] and link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~contenttemplateminimizedexpanded.html[ContentTemplateMinimizedExpanded]. The decision between setting the item template properties and the content template properties depends on whether you are binding xamTileManager to data or adding data items directly to xamTileManager's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~items.html[Items] collection. If you are binding xamTileManager to data, you can use the item template properties exposed by xamTileManager or the content template properties exposed by the Tile objects. However, if you are adding data items directly to xamTileManager's Items collection, you must use the XamTile object's content template properties.
+
+The xamTileManager automatically displays the proper item template based on a tile's state. You do not have to write any code to switch between templates. However, you should be aware of the impact if you do not define all four item templates.
+
+* If you do not define a minimized item template, a minimized tile will only display a header.
+* If you define a normal item template, but you do not define any other templates, the maximized and minimized-expanded tiles will use the normal tile's item template while the minimized tile will only display a header.
+* If you define a maximized, minimized and/or minimized-expanded item template, but you do not define a normal item template, normal tiles will use the default data template for that data item; i.e., a data template that has its DataType property set to the data item's type. If you do not define a default template for the data item, the normal tiles will display the string returned from the data item's ToString method.
+
+For an example of binding xamTileManager to data and using the various item templates, see Data Binding and Item Templates.
+
+== Related Topics
+
+link:xamtilemanager-about-tile-layout.html[About Tile Layout]
+
+link:xamtilemanager-add-tiles-to-xamtilemanager.html[Add Tiles to xamTileManager]
+
+link:xamtilemanager-retrieve-a-reference-to-a-tile.html[Retrieve a Reference to a Tile]
+
+link:xamtilemanager-change-the-state-of-a-tile.html[Change the State of a Tile]
+
+link:xamtilemanager-about-saving-and-loading-layouts.html[About Saving and Loading Layouts]
+
+link:xamtilemanager-binding-xamtilemanager-to-data.html[Binding xamTileManager to Data]
+
+link:xamtilemanager-explicitly-arrange-tiles.html[Explicitly Arrange Tiles]
+
+link:xamtilemanager-allow-end-users-to-close-tiles.html[Allow End Users to Close Tiles]
+
+link:xamtilemanager-restrict-a-tiles-size.html[Restrict a XamTile's Size]
+
+link:xamtilemanager-modify-tile-behaviors-in-normal-mode.html[Modify Tile Behaviors in Normal Mode]
+
+link:xamtilemanager-modify-tile-behaviors-in-maximized-mode.html[Modify Tile Behaviors in Maximized Mode]
+
+link:xamtilemanager-about-animations.html[About Animations]

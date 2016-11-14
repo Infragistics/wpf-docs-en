@@ -1,0 +1,241 @@
+﻿////
+|metadata|
+{
+    "name": "xamdatatree-adding-xamdatatree-to-your-page",
+    "controlName": ["xamDataTree"],
+    "tags": ["Getting Started"],
+    "guid": "8f46afad-1398-419b-9948-95ff114d52c8",
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.8431082Z"
+}
+|metadata|
+////
+
+= Adding xamDataTree to Your Page
+
+== Before You Begin
+
+This topic is designed to get you up and running as quickly as possible by describing the basic steps required for adding the xamDataTree control to your page using procedural code and XAML.
+
+Assumptions:
+
+This topic assumes that you have already configured a data source. For more information, see the link:xamdatatree-xamdatatree-data-binding.html[Data Binding] topic.
+
+== What You Will Accomplish
+
+You will create a basic xamDataTree control with checkboxes and editing functionality. If you want to add additional functionality such as drag and drop, follow the steps in the appropriate topics and add the code to this basic xamDataTree.
+
+== Follow these Steps
+
+[start=1]
+. Create a Microsoft® {PlatformName}™ project.
+[start=2]
+. In the Solution Explorer, add the following references to your project:
++
+{ApiPlatform}v{ProductVersion}.dll
++
+{ApiPlatform}Controls.Menus.XamDataTree.v{ProductVersion}.dll
++
+{ApiPlatform}DragDrop.v{ProductVersion}.dll
++
+{ApiPlatform}DataManager.v{ProductVersion}.dll
+
+[start=3]
+. Place the using/Imports directives in your code behind or add an XML namespace declaration for xamDataTree.
++
+*In XAML:*
++
+[source, xaml]
+----
+xmlns:ig="http://schemas.infragistics.com/xaml"
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Imports Infragistics.Controls.Menus
+----
++
+*In C#:*
++
+[source, csharp]
+----
+using Infragistics.Controls.Menus;
+----
+
+[start=4]
+. Add an instance of the xamDataTree control to the default Grid layout panel named LayoutRoot. If you are doing this in procedural code, you can handle the user control’s Loaded event and place the code in the event handler.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamDataTree x:Name="MyTree">
+</ig:XamDataTree>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+Dim MyTree As New XamDataTree()
+----
++
+*In C#:*
++
+[source, csharp]
+----
+XamDataTree MyTree = new XamDataTree();
+----
+
+[start=5]
+. Bind the xamDataTree control to data by setting the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~itemssource.html[ItemsSource] property. For more information, see the link:xamdatatree-xamdatatree-data-binding.html[Binding xamDataTree to Data] topic. Configure the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~globalnodelayouts.html[GlobalNodeLayouts] object based on your data source; in this sample, we will assume that there are Category and Product objects that contain CategoryName and ProductName properties.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamDataTree
+    x:Name="MyTree" 
+    ItemsSource="{Binding Source={StaticResource DataUtil}, Path=CategoriesAndProducts}">
+    <ig:XamDataTree.GlobalNodeLayouts>
+        <ig:NodeLayout
+            Key="CategoryLayout"                             
+            TargetTypeName="Category"  
+            DisplayMemberPath="CategoryName">
+        </ig:NodeLayout>
+        <ig:NodeLayout
+            Key="ProductLayout" 
+            TargetTypeName="Product" 
+            DisplayMemberPath="ProductName">
+        </ig:NodeLayout>
+    </ig:XamDataTree.GlobalNodeLayouts>
+</ig:XamDataTree>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+MyTree.ItemsSource = DataUtil.CategoriesAndProducts
+
+Dim mylayout As New NodeLayout()
+mylayout.Key = "CategoryLayout"
+mylayout.TargetTypeName = "Category"
+mylayout.DisplayMemberPath = "CategoryName"
+
+Dim mylayout2 As New NodeLayout()
+mylayout2.Key = "ProductLayout"
+mylayout2.TargetTypeName = "Product"
+mylayout2.DisplayMemberPath = "ProductName"
+
+MyTree.GlobalNodeLayouts.Add(mylayout)
+MyTree.GlobalNodeLayouts.Add(mylayout2)
+----
++
+*In C#:*
++
+[source, csharp]
+----
+MyTree.ItemsSource = DataUtil.CategoriesAndProducts;
+
+NodeLayout mylayout = new NodeLayout();
+mylayout.Key = "CategoryLayout";
+mylayout.TargetTypeName = "Category";
+mylayout.DisplayMemberPath = "CategoryName";
+
+NodeLayout mylayout2 = new NodeLayout();
+mylayout2.Key = "ProductLayout";
+mylayout2.TargetTypeName = "Product";
+mylayout2.DisplayMemberPath = "ProductName";
+
+MyTree.GlobalNodeLayouts.Add(mylayout);
+MyTree.GlobalNodeLayouts.Add(mylayout2);
+----
+
+[start=6]
+. Add the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.checkboxsettings.html[CheckBoxSettings] object to the xamDataTree control to enable check boxes. For more information, see the link:xamdatatree-xamdatatree-check-boxes.html[Configuring Check Boxes Visibility (xamDataTree)] topic. Set the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.checkboxsettings~checkboxvisibility.html[CheckBoxVisibility] property to True.
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamDataTree.CheckBoxSettings>
+   <ig:CheckBoxSettings CheckBoxVisibility="Visible"/>
+</ig:XamDataTree.CheckBoxSettings>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+MyTree.CheckBoxSettings.CheckBoxVisibility = Visibility.Visible
+----
++
+*In C#:*
++
+[source, csharp]
+----
+MyTree.CheckBoxSettings.CheckBoxVisibility = Visibility.Visible;
+----
+
+[start=7]
+. Add the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.xamdatatree~editingsettings.html[EditingSettings] object to the xamDataTree control to enable editing. For more information, see the link:xamdatatree-xamdatatree-editing.html[Configuring Editing (xamDataTree)] topic. Set the link:{ApiPlatform}controls.menus.xamdatatree.v{ProductVersion}~infragistics.controls.menus.treeeditingsettings~allowediting.html[AllowEditing] property to True.
++
+.Note:
+[NOTE]
+====
+When enabling editing, ensure that the property is getable/setable.
+====
++
+*In XAML:*
++
+[source, xaml]
+----
+<ig:XamDataTree.EditingSettings>
+   <ig:TreeEditingSettings AllowEditing="True"/> 
+</ig:XamDataTree.EditingSettings>
+----
++
+*In Visual Basic:*
++
+[source, vb]
+----
+MyTree.EditingSettings.AllowEditing = True
+----
++
+*In C#:*
++
+[source, csharp]
+----
+MyTree.EditingSettings.AllowEditing = true;
+----
+
+[start=8]
+. If you are creating the xamDataTree control using procedural code, add the instance of the xamDataTree to the Grid panel’s Children collection.
++
+*In Visual Basic:*
++
+[source, vb]
+----
+LayoutRoot.Children.Add(MyTree)
+----
++
+*In C#:*
++
+[source, csharp]
+----
+LayoutRoot.Children.Add(MyTree);
+----
+
+[start=9]
+. Save and run your application.
+
+*Related Topics*
+
+link:xamdatatree-about-xamdatatree.html[About xamDataTree]
+
+link:xamdatatree-xamdatatree-data-binding.html[Binding xamDataTree to Data]
+
+link:xamdatatree-using-xamdatatree.html[Configuring xamDataTree]

@@ -1,0 +1,91 @@
+﻿////
+
+|metadata|
+{
+    "name": "ig-spe-improve-ebnf-files-readability",
+    "controlName": ["IG Syntax Parsing Engine"],
+    "tags": [],
+    "guid": "57dcc31d-f452-403a-a258-7feb4b8e21e8",  
+    "buildFlags": [],
+    "createdOn": "2016-05-25T18:21:54.1681005Z"
+}
+|metadata|
+////
+
+= Improve EBNF Files Readability (Syntax Parsing Engine)
+
+== Topic Overview
+
+=== Purpose
+
+This topic describes how to improve EBNF file readability.
+
+=== Required background
+
+The following topics are prerequisites to understanding this topic:
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-overview.html[Syntax Parsing Engine Overview]
+|This topic provides an overview of the Syntax Parsing Engine.
+
+| link:ig-spe-non-terminal-symbols.html[Non-Terminal Symbols]
+|This topic explains a grammar’s non-terminal symbols.
+
+| link:ig-spe-defining-productions.html[Defining Productions]
+|This topic explains how to create productions for a non-terminal symbol.
+
+|====
+
+== Non-Terminal Symbols Definition
+
+=== Summary
+
+The following are some techniques for improving your EBNF code readability:
+
+Begin each non-terminal symbol on its own line at the left side with each root-level choice on its own indented line:
+
+----
+Start =
+    [UsingStatements], (NamespaceDeclaration | TypeDeclaration);
+TypeDeclaration =
+    ClassDeclaration
+    | StructDeclaration
+    | InterfaceDeclaration
+    | EnumDeclaration
+    | DelegateDeclaration;
+----
+
+If one of those root level choices consists of a long series of concatenations, move part of the series to the next line and insert another indent being careful to ensure that each term remains on 1 line:
+
+----
+ClassDeclaration =
+    [Attributes], [Modifiers], [PartialKeyword], ClassKeyword, Identifier,
+        [TypeParameterList], [BaseList], [TypeParameterConstraintClauses],
+        OpenBrace, ClassMembers, CloseBrace, [Semicolon]
+    | …
+    | …;
+----
+
+== Related Content
+
+=== Topics
+
+The following topics provide additional information related to this topic.
+
+[options="header", cols="a,a"]
+|====
+|Topic|Purpose
+
+| link:ig-spe-optimize-non-terminal-symbol-definitions.html[Optimize Non-Terminal Symbol Definitions]
+|This topic explains how to optimize your non-terminal symbol definitions in order to minimize the number of productions.
+
+| link:ig-spe-writing-operator-precedence-rules.html[Writing Operator Precedence Rules]
+|This topic explains how to write operator precedence rules correctly.
+
+| link:ig-spe-use-symbolnames-constants-instead-of-strings.html[Use SymbolNames Constants Instead of Strings]
+|This topic explains the benefits of using the SymbolNames constants.
+
+|====

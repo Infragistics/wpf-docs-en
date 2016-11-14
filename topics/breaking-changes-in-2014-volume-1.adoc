@@ -1,0 +1,302 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-in-2014-volume-1",
+    "controlName": ["Breaking Changes"],
+    "tags": [],
+    "guid": "f7e102fe-39a6-4d73-b74e-b344901e1ee7",  
+    "buildFlags": [],
+    "createdOn": "2014-03-12T08:51:34.8532309Z"
+}
+|metadata|
+////
+
+= Breaking Changes in 2014 Volume 1
+
+== Breaking Changes Summary
+
+=== Breaking changes summary chart
+
+The following table summarizes the breaking changes of the Infragistics WPF 2014 Volume 1 Release. Detailed explanations of the issues and the existing workarounds are provided after the summary table.
+
+==== Legend:
+
+image:images/Yes.png[] – Workaround available
+
+image:images/No.png[] – No known workaround
+
+image:images/Fix.png[] – No known workaround, fix planned
+
+==== <<_Ref382990422,XamComboEditor, XamMultiColumnComboEditor>>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref382930130,Change in the SelectionChanged event argument type>>
+|The `SelectionChanged` event argument’s type is changed so it has to be replaced with the new extended type.
+|image::images/Yes.png[]
+
+|<<_Ref382933036,Changes in item filtering implementation and renamed properties>>
+|In order to enhance the implementation of the custom item filtering in the control, the following properties were changed: `ItemsFilter` and `CustomItemsFilter`.
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref383099298,XamGeographicMap>>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref383099374,Renaming members>>
+|Renaming of some members
+|image::images/Yes.png[]
+
+|<<_Ref383099378,Removing members>>
+|Removing of some members
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref383099326,XamRichTextEditor>>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref382578506,Renaming members>>
+|Renaming of some members
+|image::images/Yes.png[]
+
+|<<_Ref382578553,Default property value changed>>
+|The default value of a property has been changed
+|image::images/Yes.png[]
+
+|====
+
+==== <<_Ref383099337,XamSyntaxEditor>>
+
+[options="header", cols="a,a,a"]
+|====
+|Issue|Description|Status
+
+|<<_Ref382578597,Members rename>>
+|Renaming of some members
+|image::images/Yes.png[]
+
+|====
+
+[[_Ref382930119]]
+
+[[_Ref382990422]]
+== XamComboEditor, XamMultiColumnComboEditor
+
+[[_Ref382930130]]
+
+=== Change in the SelectionChanged event argument type
+
+The type of the event argument of the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~selectionchanged_ev.html[SelectionChanged] event is changed from `EventArgs` to link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.selectionchangedeventargs_members.html[SelectionChangedEventArgs] in order to provide information for selected/unselected control’s items.
+
+[options="header", cols="a,a"]
+|====
+|Old Event Argument Type|New Event Argument Type
+
+|System.EventArgs
+|Infragistics.Controls.Editors.SelectionChangedEventArgs
+
+|====
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change rename all occurrences of the old event’s argument type with the new one.
+====
+
+[[_Ref382933036]]
+
+=== Changes in item filtering implementation and renamed properties
+
+In order to enhance the custom item filtering in the control, the following properties were changed:
+
+* `ItemsFilter`
+* `CustomItemsFilter`
+
+Till the 2014 Volume 1 release, only one filter was possible to apply in the control. After creating an `ItemsFilter` object, it was set to the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xamcomboeditor_members.html[XamComboEditor]/ link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor_members.html[XamMultiColumnComboEditor] `CustomItemsFilter` property.
+
+After enhancing the custom item filtering logic, it is possible to create many filters of type link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboitemfilter_members.html[ComboItemFilter] and they are added to the link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xamcomboeditor_members.html[XamComboEditor]/ link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.xammulticolumncomboeditor_members.html[XamMultiColumnComboEditor] link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboeditorbase`2~itemfilters.html[ItemFilters] property of type `ObservableCollection<ComboItemFilter>.`
+
+.Note
+[NOTE]
+====
+When creating a custom `ComboItemFilter`, the `ComboItemFilter` link:{ApiPlatform}controls.editors.xamcomboeditor.v{ProductVersion}~infragistics.controls.editors.comboitemfilter~fieldname.html[FieldName] property must be set to the name of the data property to be filtered. If `FieldName` property is not set, an exception is thrown.
+====
+
+Following is a table that lists the old properties names and the new ones:
+
+[options="header", cols="a,a"]
+|====
+|Old Property Name|New Property Name
+
+|Infragistics.Controls.Editors.ItemsFilter
+|Infragistics.Controls.Editors.ComboItemFilter
+
+|Infragistics.Controls.Editors.CustomItemsFilter
+|Infragistics.Controls.Editors.ItemFilters
+
+|====
+
+For more information about implementing custom item filtering, check the following topics:
+
+* link:xamcomboeditor-custom-filtering.html[Configuring Item Filtering (xamComboEditor)]
+* link:xammulticee-configuring-item-filtering.html[Configuring Item Filtering (xamMultiColumnComboEditor)]
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change rename all occurrences of the old properties with the new ones.
+====
+
+[[_Ref383099298]]
+== XamGeographicMap
+
+[[_Ref383099374]]
+
+=== Renaming members
+
+Renaming of members in the  *InfragisticsWPF4.Controls.Maps.XamGeographicMap.v14.1.dll*  assembly:
+
+[options="header", cols="a,a"]
+|====
+|Old Member|New Member
+
+|HorizontalZoomable
+|Zoomable
+
+|VerticalZoomable
+|Zoomable
+
+|HorizontalWindowScale
+|WindowScale
+
+|VerticalWindowScale
+|WindowScale
+
+|====
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change rename all occurrences of the old members with the new members.
+====
+
+[[_Ref383099378]]
+
+=== Removing members
+
+Removing of members in the  *InfragisticsWPF4.Controls.Maps.XamGeographicMap.v14.1.dll*  assembly:
+
+[cols="a"]
+|====
+|Removed Member
+
+|HorizontalZoombarVisibility
+
+|VerticalZoombarVisibility
+
+|====
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change remove all occurrences of the old members.
+====
+
+[[_Ref383099326]]
+== XamRichTextEditor
+
+[[_Ref382578506]]
+
+=== Renaming members
+
+Renaming of members in the  *InfragisticsWPF4.Controls.Editors.XamRichTextEditor.v14.1.dll*  assembly:
+
+[options="header", cols="a,a"]
+|====
+|Old Member|New Member
+
+|AdornmentGeneratorBase
+|RichTextAdornmentGeneratorBase
+
+|CaretPresenter
+|RichTextCaretPresenter
+
+|SelectionChangedEventArgs
+|RichTextSelectionChangedEventArgs
+
+|====
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change rename all occurrences of the old members with the new members.
+====
+
+[[_Ref382578553]]
+
+=== Default property value changed
+
+The default value of the xamRichTextEditor’s AllowDocumentViewSplitting has been changed from true to false.
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change add this property to your  _xamRichTextEditor_   and set it to true.
+====
+
+[[_Ref367305781]]
+
+[[_Ref383099337]]
+== XamSyntaxEditor
+
+[[_Ref382578597]]
+
+=== Members rename
+
+Renaming of members in the  *InfragisticsWPF4.Controls.Editors.XamSyntaxEditor.v14.1.dll*  assembly:
+
+[options="header", cols="a,a"]
+|====
+|Old Member|New Member
+
+|AdornmentGeneratorBase
+|SyntaxEditorAdornmentGeneratorBase
+
+|CaretPresenter
+|SyntaxEditorCaretPresenter
+
+|SelectionChangedEventArgs
+|SyntaxEditorSelectionChangedEventArgs
+
+|====
+
+Workaround
+
+.Note
+[NOTE]
+====
+To work around this breaking change rename all occurrences of the old members with the new members.
+====

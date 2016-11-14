@@ -1,0 +1,92 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-apply-formats-for-exporting",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["Exporting","Styling","Templating"],
+    "guid": "{71153338-713E-4A28-BE64-1DBA8A45C47E}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.0939719Z"
+}
+|metadata|
+////
+
+= Apply Formats for Exporting
+
+You can apply formats to cells, field labels, group-by records, and summaries when exporting to Excel by setting the attached formatting properties exposed by the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter.html[DataPresenterExcelExporter] class. The name of each attached property corresponds to the type of element that the property formats. The attached properties will not affect the DataPresenter control; instead, your end users will only see the formats applied to the cells in the worksheet. For example, you can format cells by setting the attached ExcelCellFormatSettings property and you can format field headers by setting the attached ExcelLabelFormatSettings property.
+
+You must set the DataPresenterExcelExporter class' attached formatting properties on a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object. This allows you to apply a default format for all fields using the DataPresenter control's FieldSettings object and selectively format specific fields in a field layout. The formatting properties are resolved and merged starting at the control's FieldSettings object down to a field's FieldSettings object. For example, if you set the ExcelCellFormatSettings object's FontColor property to Blue on the control's FieldSettings property and then you set the ExcelCellFormatSettings object's FontWeight property to Bold on a field's FieldSettings object, the resulting worksheet column will have bold blue text for that field.
+
+In addition to setting the attached formatting properties, you can also handle the DataPresenterExcelExporter object's events to apply formatting to worksheet cells, and rows. When you handle the DataPresenterExcelExporter object's events ending with "-ing", the event argument exposes a FormatSettings property that you can use to apply formats. For more information on handling the DataPresenterExcelExporter object's events, read Handle Exporting Events.
+
+The following example code demonstrates how to apply formats for exporting a DataPresenter control to Excel.
+
+*In XAML:*
+
+----
+<igDP:XamDataPresenter Name="xamDataPresenter1" BindToSampleData="True">
+    <igDP:XamDataPresenter.FieldSettings>
+        <igDP:FieldSettings>
+            <!--Formatting for cells-->
+            <igExcelExporter:DataPresenterExcelExporter.ExcelCellFormatSettings>
+                <igExcelExporter:FormatSettings
+                    FillPattern="Solid" 
+                    FillPatternForegroundColor="Green" />            
+            </igExcelExporter:DataPresenterExcelExporter.ExcelCellFormatSettings>
+            <!--Formatting for labels-->
+            <igExcelExporter:DataPresenterExcelExporter.ExcelLabelFormatSettings>
+                <igExcelExporter:FormatSettings
+                    FontColor="Red" 
+                    FontWeight="Bold" />            
+            </igExcelExporter:DataPresenterExcelExporter.ExcelLabelFormatSettings>
+        </igDP:FieldSettings>
+    </igDP:XamDataPresenter.FieldSettings>
+</igDP:XamDataPresenter>
+----
+
+*In Visual Basic:*
+
+----
+Imports Infragistics.Windows.DataPresenter.ExcelExporter
+Imports Infragistics.Documents.Excel
+...
+'Formatting for cells
+Dim cellFormatSettings As New FormatSettings With {.FillPattern = FillPatternStyle.Solid, .FillPatternForegroundColor = Colors.Green}
+DataPresenterExcelExporter.SetExcelCellFormatSettings(Me.xamDataPresenter1.FieldSettings, cellFormatSettings)
+'Formatting for labels
+Dim labelFormatSettings As New FormatSettings With {.FontColor = Colors.Red, .FontWeight = FontWeights.Bold}
+DataPresenterExcelExporter.SetExcelLabelFormatSettings(Me.xamDataPresenter1.FieldSettings, labelFormatSettings)
+...
+----
+
+*In C#:*
+
+----
+using Infragistics.Windows.DataPresenter.ExcelExporter;
+using Infragistics.Documents.Excel;
+...
+//Formatting for cells
+FormatSettings cellFormatSettings = new FormatSettings
+{
+    FillPattern = FillPatternStyle.Solid,
+    FillPatternForegroundColor = Colors.Green
+};
+DataPresenterExcelExporter.SetExcelCellFormatSettings(this.xamDataPresenter1.FieldSettings, cellFormatSettings);
+//Formatting for labels
+FormatSettings labelFormatSettings = new FormatSettings
+{
+    FontColor = Colors.Red,
+    FontWeight = FontWeights.Bold    
+};
+DataPresenterExcelExporter.SetExcelLabelFormatSettings(this.xamDataPresenter1.FieldSettings, labelFormatSettings);
+...
+----
+
+== Related Topics
+
+link:xamdatapresenter-export-a-datapresenter-control-to-excel.html[Export a DataPresenter Control to Excel]
+
+link:xamdatapresenter-exclude-datapresenter-settings-when-exporting.html[Exclude DataPresenter Settings when Exporting]
+
+link:xamdatapresenter-handle-exporting-events.html[Handle Exporting Events]

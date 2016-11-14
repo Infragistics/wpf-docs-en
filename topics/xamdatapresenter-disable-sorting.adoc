@@ -1,0 +1,51 @@
+﻿////
+
+|metadata|
+{
+    "name": "xamdatapresenter-disable-sorting",
+    "controlName": ["xamDataPresenter"],
+    "tags": ["How Do I","Sorting"],
+    "guid": "{2EA23AE3-4522-439F-A556-029D18034FCB}",  
+    "buildFlags": [],
+    "createdOn": "2012-01-30T19:39:53.1479827Z"
+}
+|metadata|
+////
+
+= Disable Sorting
+
+The xamDataPresenter's™ Grid View sorts data when the end user clicks a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field]'s header. To prevent your end users from sorting data in the Grid View, set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~labelclickaction.html[LabelClickAction] property off the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings].
+
+The following procedure assumes you have a data bound xamDataPresenter, and you want do disable sorting in it. For more information, see link:xamdatapresenter-getting-started-with-xamdatapresenter.html[Adding xamDataPresenter to Your Application].
+
+[start=1]
+. Create an instance of XamDataPresenter and name it. Specify a FieldSettings object off of which you can set the LabelClickAction to Nothing.
+
+*In XAML:*
+
+[source]
+----
+<igDP:XamDataPresenter x:Name="XamDataPresenter1" 
+  ...
+  >
+----
+
+[source]
+----
+    <igDP:XamDataPresenter.View>
+        <igDP:GridView/>
+    </igDP:XamDataPresenter.View>
+    <igDP:XamDataPresenter.FieldSettings>
+        <igDP:FieldSettings LabelClickAction="Nothing" />
+    </igDP:XamDataPresenter.FieldSettings>
+</igDP:XamDataPresenter>
+----
+
+[start=2]
+. Build and run the project. The Grid View does not sort when you click on a Field's header.
+
+== Related Topics
+
+link:xamdatapresenter-about-sorting.html[About Sorting]
+
+link:xamdatapresenter-sorting-and-grouping-fields-programmatically.html[Sorting and Grouping Fields Programmatically]

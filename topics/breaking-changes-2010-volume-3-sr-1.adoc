@@ -1,0 +1,89 @@
+﻿////
+
+|metadata|
+{
+    "name": "breaking-changes-2010-volume-3-sr-1",
+    "controlName": [],
+    "tags": ["Known Issues"],
+    "guid": "85be4975-9917-4d56-84ce-804d00760598",  
+    "buildFlags": [],
+    "createdOn": "2012-01-31T21:16:05.5687978Z"
+}
+|metadata|
+////
+
+= 2010 Volume 3 November Service Release
+
+== XamRadialGauge
+
+The XamRadialGauge™ control’s template RootElement is now a Grid instead of a ContentPresenter. All existing styles for the XamRadialGauge control which modify the template must be updated with this change to avoid runtime exceptions.
+
+*In XAML:*
+
+----
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:XamRadialGauge">
+                    <Grid UseLayoutRounding=">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="85*" />
+                            <RowDefinition Height="30*" />
+                            <RowDefinition Height="85*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="85*" />
+                            <ColumnDefinition Width="30*" />
+                            <ColumnDefinition Width="85*" />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse x:Name="background"
+                                 Grid.RowSpan="3"
+                                 Grid.ColumnSpan="3"
+                                 Stroke="{TemplateBinding BorderBrush}"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Width="Auto"
+                                 Height="Auto"
+                                 Fill="{TemplateBinding Background}"
+                                 StrokeThickness="10" />
+                        <Ellipse x:Name="OuterBorder"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Width="Auto"
+                                 Height="Auto"
+                                 StrokeThickness="1"
+                                 Grid.ColumnSpan="3"
+                                 Grid.RowSpan="3"
+                                 Stroke="{StaticResource AnchorStroke}" />
+                        <Ellipse x:Name="InnerBorder"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Stretch"
+                                 Width="Auto"
+                                 Height="Auto"
+                                 StrokeThickness="1"
+                                 Grid.ColumnSpan="3"
+                                 Grid.RowSpan="3"
+                                 Margin="10,10,10,10">
+                            <Ellipse.Stroke>
+                                <LinearGradientBrush EndPoint="0.5,1"
+                                                     StartPoint="0.5,0">
+                                    <GradientStop Color="#FFA3AEB9" />
+                                    <GradientStop Color="#FFE4E7EA"
+                                                  Offset="1" />
+                                </LinearGradientBrush>
+                            </Ellipse.Stroke>
+                        </Ellipse>
+                        <Grid x:Name="RootElement"
+                              Grid.RowSpan="3"
+                              Grid.ColumnSpan="3"
+                              Margin="{TemplateBinding Padding}" />
+                        <Ellipse x:Name="Anchor"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 StrokeThickness="2"
+                                 Fill="{StaticResource AnchorFill}"
+                                 Stroke="{StaticResource AnchorStroke}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+----
