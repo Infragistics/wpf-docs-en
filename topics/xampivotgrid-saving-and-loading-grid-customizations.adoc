@@ -94,14 +94,14 @@ The information about these customization aspects is stored in the data source c
 [[_Ref347827438]]
 ==== Saving customizations
 
-In order to save the current view of  _xamPivotGrid_  , you need to save the current values of the properties that define that view. All relevant information is available in the data source instance set as the value of the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid~datasource.html[DataSource] property of the  _xamPivotGrid_  . The link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] class (from which all other multi-dimensional (OLAP) data sources inherit) exposes extension methods for saving and loading the current state of the data source. The customizations can be written to either a string or in a stream.
+In order to save the current view of  _xamPivotGrid_  , you need to save the current values of the properties that define that view. All relevant information is available in the data source instance set as the value of the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotgrid~datasource.html[DataSource] property of the  _xamPivotGrid_  . The link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] class (from which all other multi-dimensional (OLAP) data sources inherit) exposes extension methods for saving and loading the current state of the data source. The customizations can be written to either a string or in a stream.
 
-The actual saving is done by the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] method. There are two overloads for this method. One returns a string containing the saved customizations, and the other expects a stream into which the customizations are written. You invoke one of them depending on your preferences.
+The actual saving is done by the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] method. There are two overloads for this method. One returns a string containing the saved customizations, and the other expects a stream into which the customizations are written. You invoke one of them depending on your preferences.
 
 [[_Ref347827441]]
 ==== Loading customizations
 
-The link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~loadcustomizations.html[LoadCustomizations] methods load previously <<_Saving_customizations,>><<_Ref347827438,saved customizations>>. Saved customizations can be loaded from a string or stream. In addition to this, in both cases, an Action can be specified to be executed when the load has completed. Therefore there are four overloads of the `LoadCustomizations` method, one for each parameter combination.
+The link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~loadcustomizations.html[LoadCustomizations] methods load previously <<_Saving_customizations,>><<_Ref347827438,saved customizations>>. Saved customizations can be loaded from a string or stream. In addition to this, in both cases, an Action can be specified to be executed when the load has completed. Therefore there are four overloads of the `LoadCustomizations` method, one for each parameter combination.
 
 In practice, the implementation of the loading usually goes together with configuring of some post-load action. For example, because the process of loading the customizations may take some time, you may want to execute some custom code when it is finished, or be notified for its completion. To do this, call one of the `LoadCustomizations` overloads that accept an action parameter. When the load process finishes, the action is executed. The action accepts a string parameter which will contain descriptions of the errors that occurred during the load process if such errors have occurred.
 
@@ -116,14 +116,14 @@ Following are the general requirements for saving and loading customizations:
 In order for a set of customizations to load, the source and destination data sources must have the same database (metadata) structure. Otherwise the load process will either fail or be incomplete.
 
 * References
-** Defining the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] and link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~loadcustomizations.html[LoadCustomizations] extension methods for the `DataSourceBase` class in the `Infragistics.Olap` namespace
+** Defining the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] and link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~loadcustomizations.html[LoadCustomizations] extension methods for the `DataSourceBase` class in the `Infragistics.Olap` namespace
 ** `using`/`Imports` directive to the `Infragistics.Olap` namespace
 
 [[_Ref347827459]]
 
 === Properties Saved Upon Customization
 
-The following table maps the configurable aspects that are saved by the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] methods to the values of the respective properties and the data source type to which they apply.
+The following table maps the configurable aspects that are saved by the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] methods to the values of the respective properties and the data source type to which they apply.
 
 [options="header", cols="a,a,a"]
 |====
@@ -192,7 +192,7 @@ The following table maps the configurable aspects that are saved by the link:{Ap
 
 === Description
 
-The following procedure demonstrates the process of saving the customizations for a data source. To save the user customizations, one of the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] methods is called. The example <<_Ref347765476,Code>> assumes that a variable of type link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] (or a class inherited from it) named `dataSource` holds a reference to a data source object.
+The following procedure demonstrates the process of saving the customizations for a data source. To save the user customizations, one of the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebaseextension~savecustomizations.html[SaveCustomizations] methods is called. The example <<_Ref347765476,Code>> assumes that a variable of type link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] (or a class inherited from it) named `dataSource` holds a reference to a data source object.
 
 [[_Ref347765476]]
 
@@ -254,7 +254,7 @@ The procedure contains an optional step of configuring a post-load action which,
 
 To complete the procedure, you need the following:
 
-* A variable of type link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] (or a class inherited from it) named `dataSource` holding a reference to a data source object
+* A variable of type link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.datasourcebase_members.html[DataSourceBase] (or a class inherited from it) named `dataSource` holding a reference to a data source object
 
 [[_Ref347827527]]
 

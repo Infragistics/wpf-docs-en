@@ -17,7 +17,7 @@ This topic explains how to implement data export to Excel using the xamDataPrese
 
 == Introduction
 
-The DataPresenter controls can export data in Microsoft® Excel® format using the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter.html[DataPresenterExcelExporter] class. The DataPresenterExcelExporter class encapsulates all the work of creating a workbook, iterating DataPresenter rows/cells, and setting worksheet cell values.
+The DataPresenter controls can export data in Microsoft® Excel® format using the link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter.html[DataPresenterExcelExporter] class. The DataPresenterExcelExporter class encapsulates all the work of creating a workbook, iterating DataPresenter rows/cells, and setting worksheet cell values.
 
 The DataPresenterExcelExporter class is not a visual element; therefore, you cannot add it to your window's visual tree. However, if you want to instantiate a DataPresenterExcelExporter object in XAML, you can add it to your window's resource dictionary.
 
@@ -110,7 +110,7 @@ Add a xamDataPresenter control to the second row in the Grid panel and configure
 +
 --
 ** the Name property – to xamDataPresenter1.
-** the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property – to True.
+** the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property – to True.
 --
 +
 *In XAML:*
@@ -214,7 +214,7 @@ DataPresenterExcelExporter exporter = new DataPresenterExcelExporter();
 [start=7]
 . *Call the export method.*
 +
-You can choose between two methods – link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~export.html[Export] and link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously. The file extension of the exported file should match the target Excel version (.xlsx for Excel 2007/2010 or .xls for Excel 97/2003).
+You can choose between two methods – link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~export.html[Export] and link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously. The file extension of the exported file should match the target Excel version (.xlsx for Excel 2007/2010 or .xls for Excel 97/2003).
 +
 --
 * to export the data synchronously:
@@ -256,8 +256,8 @@ exporter.ExportAsync(this.xamDataPresenter1, "xamDataPresenter1.xlsx", WorkbookF
 .Notes on asynchronous export
 [NOTE]
 ====
-. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportinterval.html[AsyncExportInterval] property.
-. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.excelexporter.v{ProductVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportended_ev.html[ExportEnded] event.
+. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~asyncexportinterval.html[AsyncExportInterval] property.
+. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.excelexporter{ApiVersion}~infragistics.windows.datapresenter.excelexporter.datapresenterexcelexporter~exportended_ev.html[ExportEnded] event.
 ====
 
 [start=8]

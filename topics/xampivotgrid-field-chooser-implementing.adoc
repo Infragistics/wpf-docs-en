@@ -105,12 +105,12 @@ This topic takes you step-by-step toward implementing the field chooser control 
 [start=1]
 . Initialize the FieldChooser.
 
-The link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser_members.html[FieldChooser] has to be initialized  *before the pivot grid is loaded* . One way to do this is to declare it inline in XAML. If you prefer to do this in code, a good place for initializing it is in the event handler for the Loaded event of the page. The code for the rest of the steps below could also be placed in this event handler, but it could also be executed at some later point.
+The link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser_members.html[FieldChooser] has to be initialized  *before the pivot grid is loaded* . One way to do this is to declare it inline in XAML. If you prefer to do this in code, a good place for initializing it is in the event handler for the Loaded event of the page. The code for the rest of the steps below could also be placed in this event handler, but it could also be executed at some later point.
 
 [start=2]
 . Create the necessary collections.
 
-Create four `ObservableCollection``s` of link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooseritem_members.html[FieldChooserItem].
+Create four `ObservableCollection``s` of link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooseritem_members.html[FieldChooserItem].
 
 [start=3]
 . Populate the collections with FieldChooserItems.
@@ -119,7 +119,7 @@ Create four `ObservableCollection``s` of link:{ApiPlatform}controls.grids.xampiv
 
 For each of the collections create and add `FieldChooserItem` instances according to the hierarchies/measures that you want to be present in the respective group. For every `FieldChooserItem` you need to do the following:
 
-Set the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooseritem~fielduniquename.html[FieldUniqueName] property.
+Set the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooseritem~fielduniquename.html[FieldUniqueName] property.
 
 Set this property to the unique name of the hierarchy that you want to be represented by the item. This means that for the Seller hierarchy in the `SalesDataSample` data source you need to set the `FieldUniqeName` property of the `FieldChooserItem` to `[Seller]``.[``Seller]` which is the unique name of the hierarchy.
 
@@ -129,7 +129,7 @@ Set this property to the unique name of the hierarchy that you want to be repres
 
 * The value of the `Content` property is what is actually rendered for a field chooser item. Its type is object so this gives you the freedom to display any type of content. The simplest way to proceed here is to set it to a string containing the name of the hierarchy/measure.
 
-* Set the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooseritem~fieldordinal.html[FieldOrdinal] property.
+* Set the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooseritem~fieldordinal.html[FieldOrdinal] property.
 
 * When you check multiple items in the field chooser to be added to a single area (for example, columns), by default they are added in the sequence they were checked. However if these items have their `FieldOrdinal` property set, the last element in the target area is not the last one that is checked. The last one that is added is the one with the greatest `FieldOrdinal` value.
 
@@ -140,20 +140,20 @@ Set this property to the unique name of the hierarchy that you want to be repres
 
 Set the collections created in the previous steps as values of the following properties:
 
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~columnsitemssource.html[ColumnsItemsSource]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~rowsitemssource.html[RowsItemsSource]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~filtersitemssource.html[FiltersItemsSource]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~measuresitemssource.html[MeasuresItemsSource]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~columnsitemssource.html[ColumnsItemsSource]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~rowsitemssource.html[RowsItemsSource]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~filtersitemssource.html[FiltersItemsSource]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~measuresitemssource.html[MeasuresItemsSource]
 
 [start=5]
 . Set the group headers.
 
 Specify group headers by setting the following properties:
 
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~columnsgroupheader.html[ColumnsGroupHeader]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~rowsgroupheader.html[RowsGroupHeader]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~filtersgroupheader.html[FiltersGroupHeader]
-* link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.fieldchooser~measuresgroupheader.html[MeasuresGroupHeader]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~columnsgroupheader.html[ColumnsGroupHeader]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~rowsgroupheader.html[RowsGroupHeader]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~filtersgroupheader.html[FiltersGroupHeader]
+* link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.fieldchooser~measuresgroupheader.html[MeasuresGroupHeader]
 
 Similarly to the `Content` property of a `FieldChooserItem`, the type of these properties is `object`, so you can set them to almost anything you want.
 

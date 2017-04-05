@@ -17,7 +17,7 @@
 
 === Purpose
 
-This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s serialization providers.
+This topic explains the link:{ApiPlatform}controls.editors.xamrichtexteditor{ApiVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control’s serialization providers.
 
 === Required background
 
@@ -55,7 +55,7 @@ This topic contains the following sections:
 
 The  _xamRichTextEditor_   control supports a flexible architecture based on serialization providers, which allows the import and export of different rich content formats. These are the abilities the  _xamRichTextEditor_   gains when a new serialization provider is added:
 
-* You can use the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] control’s link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~load.html[Load] or link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~save.html[Save] methods for importing and exporting rich content by specifying a particular serialization provider. The external serialization providers supplied by Infragistics also define extension methods for `RichTextDocument` to load and save documents in specific formats. More information about this is available later in the <<_Ref359594803,Related Content>> section.
+* You can use the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextdocument_members.html[RichTextDocument] control’s link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextdocument~load.html[Load] or link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextdocument~save.html[Save] methods for importing and exporting rich content by specifying a particular serialization provider. The external serialization providers supplied by Infragistics also define extension methods for `RichTextDocument` to load and save documents in specific formats. More information about this is available later in the <<_Ref359594803,Related Content>> section.
 * The clipboard cut or copy operations adds the content to the clipboard in all internal content formats supported by the  _xamRichTextEditor_   (various plain text formats) plus the format(s) provided by the external serialization providers.
 * The clipboard paste operation is using external serialization providers to obtain and deserialize the clipboard’s content. A description of how to define a format’s priority as the one chosen for deserialization appears later in this topic.
 
@@ -65,7 +65,7 @@ The following table lists the  *Infragistics pick:[sl="SL5"]  pick:[wpf="WPF4"] 
 |====
 |Serialization Provider|Format|Description
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextserializationprovider.html[PlainTextSerializationProvider]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.plaintextserializationprovider.html[PlainTextSerializationProvider]
 |System.String
 |Text content in ANSI format
 
@@ -77,7 +77,7 @@ The following table lists the  *Infragistics pick:[sl="SL5"]  pick:[wpf="WPF4"] 
 |Text
 |Text content in ANSI format
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.imageserializationprovider.html[ImageSerializationProvider]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.imageserializationprovider.html[ImageSerializationProvider]
 |DIB
 |Device Independent Bitmap
 
@@ -97,13 +97,13 @@ The following table lists the serialization providers located in external assemb
 
 |*{ApiPlatform}Documents.RichTextDocument.Rtf.v{ProductVersion}* 
 
-link:{ApiPlatform}documents.richtextdocument.rtf.v{ProductVersion}~infragistics.documents.richtext.rtf.rtfserializationprovider.html[RtfSerializationProvider]
+link:{ApiPlatform}documents.richtextdocument.rtf{ApiVersion}~infragistics.documents.richtext.rtf.rtfserializationprovider.html[RtfSerializationProvider]
 |Rich Text Format
 |Rich content in Rich Text Format
 
 |*{ApiPlatform}Documents.RichTextDocument.Word.v{ProductVersion}* 
 
-link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.wordserializationprovider.html[WordSerializationProvider]
+link:{ApiPlatform}documents.richtextdocument.word{ApiVersion}~infragistics.documents.richtext.word.wordserializationprovider.html[WordSerializationProvider]
 |Embed Source
 |Rich content in MS Word (docx) format
 
@@ -122,11 +122,11 @@ The following table briefly explains the configurable aspects of the  _xamRichTe
 
 |<<_Ref362533437,Add Serialization Providers>>
 |Add external serialization providers to the _xamRichTextEditor_ .
-| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardserializationproviders.html[ClipboardSerializationProviders]
+| link:{ApiPlatform}controls.editors.xamrichtexteditor{ApiVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardserializationproviders.html[ClipboardSerializationProviders]
 
 |<<_Ref362533449,Set Formats Priority>>
 |Set a formats priority to be used when obtaining data from the clipboard.
-| link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardformats.html[ClipboardFormats]
+| link:{ApiPlatform}controls.editors.xamrichtexteditor{ApiVersion}~infragistics.controls.editors.xamrichtexteditor~clipboardformats.html[ClipboardFormats]
 
 |====
 
@@ -200,7 +200,7 @@ Me.xamRichTextEditor1.ClipboardSerializationProviders.Add(WordSerializationProvi
 
 === Overview
 
-Use the `ClipboardFormats` property for setting the order in which to apply the various formats, from the list of supported formats, to use when importing data from the clipboard. The formats are considered in the order they are specified on this property. Obtain the exact format name using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.serializationproviderbase~supportedclipboardformats.html[SupportedClipboardFormats] properties of each serialization provider. Only the formats listed in the `ClipboardFormats` property are used to save or load content on the clipboard. By default, the clipboard contains all formats supported by the internal and external serialization providers supplied by Infragistics in a default preferred order.
+Use the `ClipboardFormats` property for setting the order in which to apply the various formats, from the list of supported formats, to use when importing data from the clipboard. The formats are considered in the order they are specified on this property. Obtain the exact format name using the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.serializationproviderbase~supportedclipboardformats.html[SupportedClipboardFormats] properties of each serialization provider. Only the formats listed in the `ClipboardFormats` property are used to save or load content on the clipboard. By default, the clipboard contains all formats supported by the internal and external serialization providers supplied by Infragistics in a default preferred order.
 
 === Property settings
 

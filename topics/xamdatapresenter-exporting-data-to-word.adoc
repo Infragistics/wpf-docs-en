@@ -17,7 +17,7 @@ This topic explains how to implement data export to Word using the xamDataPresen
 
 == Introduction
 
-The DataPresenter controls can export data in Microsoft® Word® format using the DataPresenterWordWriter class. The link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter.html[DataPresenterWordWriter] class encapsulates all the work of creating a Word document containing tables representing the values/layout of a specified DataPresenterBase.
+The DataPresenter controls can export data in Microsoft® Word® format using the DataPresenterWordWriter class. The link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter.html[DataPresenterWordWriter] class encapsulates all the work of creating a Word document containing tables representing the values/layout of a specified DataPresenterBase.
 
 The DataPresenterWordWriter class is not a visual element; therefore, you cannot add it to your window's visual tree. However, if you want to instantiate a DataPresenterWordWriter object in XAML, you can add it to your window's resource dictionary.
 
@@ -102,7 +102,7 @@ Add a xamDataPresenter™ control to the second row in the Grid panel.
 +
 --
 ** Set its Name property to xamDataPresenter1.
-** Set its link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True.
+** Set its link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True.
 --
 +
 *In XAML:*
@@ -204,7 +204,7 @@ DataPresenterWordWriter writer = new DataPresenterWordWriter();
 [start=7]
 . *Call the export method.*
 +
-You can choose between two methods – link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~export.html[Export] and link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously.
+You can choose between two methods – link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~export.html[Export] and link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportasync.html[ExportAsync] – depending on whether want to export data synchronously or asynchronously.
 +
 --
 * to export the data synchronously:
@@ -246,8 +246,8 @@ writer.ExportAsync(this.xamDataPresenter1, "xamDataPresenter1.docx");
 .Notes on asynchronous export:
 [NOTE]
 ====
-. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportinterval.html[AsyncExportInterval] property.
-. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.wordwriter.v{ProductVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportended_ev.html[ExportEnded] event.
+. The asynchronous export is exporting the data in chunks. Each chunk is processed for the amount of time specified by the link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportduration.html[AsyncExportDuration] property and the time between two chunk processing is specified by the link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~asyncexportinterval.html[AsyncExportInterval] property.
+. If you invoke the ExportAsync method and want to track when the export process has finished it is a good idea to hook at the link:{ApiPlatform}datapresenter.wordwriter{ApiVersion}~infragistics.windows.datapresenter.wordwriter.datapresenterwordwriter~exportended_ev.html[ExportEnded] event.
 ====
 
 [start=8]

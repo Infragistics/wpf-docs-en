@@ -73,7 +73,7 @@ image::images/xamDiagram_Bind_To_Hierarchical_Node_Data_With_References_1.png[]
 To complete the procedure, you need the following:
 
 * A WPF application with an empty  _xamDiagram_   added to a page
-* The link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~layout.html[Layout] property of the  _xamDiagram_   set to an instance of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.forcedirectedgraphdiagramlayout_members.html[ForceDirectedGraphDiagramLayout]
+* The link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~layout.html[Layout] property of the  _xamDiagram_   set to an instance of the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.forcedirectedgraphdiagramlayout_members.html[ForceDirectedGraphDiagramLayout]
 
 [[_Overview]]
 
@@ -293,7 +293,7 @@ End Class
 
 *3. Set the `ItemsSource` property*
 
-Set DataContext to a new instance of the view model class and bind the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] to the `Employees` property of the `EmployeeViewModel` class.
+Set DataContext to a new instance of the view model class and bind the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] to the `Employees` property of the `EmployeeViewModel` class.
 
 *In XAML:*
 
@@ -309,25 +309,25 @@ ItemsSource="{Binding Employees}">
 
 === 2. Create the node definitions
 
-Usually for each of the data types in the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] is added to the  _xamDiagram_  . If one or more types are in an inheritance relationship the most concrete types have to be specified first. The  _xamDiagram_   tries to match the type of each of the data items the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition. The first node definition whose link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] returns true to a call to `IsAssignableFrom` is selected. That is if the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition matches exactly or is a parent type of the data item’s type, the node definition will be selected.
+Usually for each of the data types in the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] is added to the  _xamDiagram_  . If one or more types are in an inheritance relationship the most concrete types have to be specified first. The  _xamDiagram_   tries to match the type of each of the data items the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition. The first node definition whose link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] returns true to a call to `IsAssignableFrom` is selected. That is if the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition matches exactly or is a parent type of the data item’s type, the node definition will be selected.
 
 *1. Add a `NodeDefinition` for the Manager class*
 
-A. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] to the `Manager` type.
+A. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] to the `Manager` type.
 
-B. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~childrenmemberpath.html[ChildrenMemberPath] to the name of the property holding the collection of child objects.
+B. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~childrenmemberpath.html[ChildrenMemberPath] to the name of the property holding the collection of child objects.
 
 In this case that is “Subordinates” property.
 
 [start=3]
-C. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath]
+C. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath]
 
-If a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] is not specified, and if no custom link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] is set via the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle], the result of the `ToString` method will be displayed as the nodes’ content.
+If a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] is not specified, and if no custom link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] is set via the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle], the result of the `ToString` method will be displayed as the nodes’ content.
 
 [start=4]
-D. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] (optional)
+D. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] (optional)
 
-Using the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] property allows you to set a style to be applied to all link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] objects matched by the node definition. This gives you the opportunity to easily customize the nodes created for a certain data type.
+Using the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] property allows you to set a style to be applied to all link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] objects matched by the node definition. This gives you the opportunity to easily customize the nodes created for a certain data type.
 
 *In XAML:*
 
@@ -350,7 +350,7 @@ DisplayMemberPath="Name">
 
 *2. Add a node definition for the Employee class*
 
-Add an additional node definition setting the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] accordingly. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] to with a setter for the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] property as follows.
+Add an additional node definition setting the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] and link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] accordingly. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] to with a setter for the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] property as follows.
 
 *In XAML:*
 
@@ -379,9 +379,9 @@ Foreground="Green"/>
 
 === 3. Create a hierarchical connection definition.
 
-Create a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinition_members.html[ConnectionDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions] collection. The connection definitions provide a way to set a custom style for the connection generated by the  _xamDiagram_   for parent-child data item relations. Connection definitions are matched by the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinition~starttargettype.html[StartTargetType] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinition~endtargettype.html[EndTargetType] properties. For this example set these to the `Manager` and `Employee` types respectively.
+Create a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinition_members.html[ConnectionDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions] collection. The connection definitions provide a way to set a custom style for the connection generated by the  _xamDiagram_   for parent-child data item relations. Connection definitions are matched by the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinition~starttargettype.html[StartTargetType] and link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinition~endtargettype.html[EndTargetType] properties. For this example set these to the `Manager` and `Employee` types respectively.
 
-Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle] property to a style targeting link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection_members.html[DiagramConnection].
+Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle] property to a style targeting link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramconnection_members.html[DiagramConnection].
 
 *In XAML:*
 

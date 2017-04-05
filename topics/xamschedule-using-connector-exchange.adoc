@@ -26,7 +26,7 @@ The topic is organized as follows:
 
 == Introduction
 
-The xamSchedule control connects to an Exchange Server using a non-visual component called Exchange Data Connector. The link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector.html[Exchange Data Connector] connects the xamSchedule to an Exchange Server residing on the same domain as the user’s machine. It also enables you to view and edit schedule data stored on the Exchange Server.
+The xamSchedule control connects to an Exchange Server using a non-visual component called Exchange Data Connector. The link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector.html[Exchange Data Connector] connects the xamSchedule to an Exchange Server residing on the same domain as the user’s machine. It also enables you to view and edit schedule data stored on the Exchange Server.
 
 == Creating an Exchange Data Connector
 
@@ -65,22 +65,22 @@ To connect to an Exchange Server:
 [start=1]
 . *Set URL of the Exchange Server.*
 +
-Create an link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings.html[ExchangeServerConnectionSettings] instance and set the Exchange Server connection URL into its link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~url.html[Url] property.
+Create an link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings.html[ExchangeServerConnectionSettings] instance and set the Exchange Server connection URL into its link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~url.html[Url] property.
 
 [start=2]
 . *Set the Exchange Server’s version.*
 +
-Set the Exchange Server version in the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~requestedserverversion.html[RequestedServerVersion] property. Set the ExchangeServerConnectionSettings instance to the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~serverconnectionsettings.html[ServerConnectionSettings] property.
+Set the Exchange Server version in the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangeserverconnectionsettings~requestedserverversion.html[RequestedServerVersion] property. Set the ExchangeServerConnectionSettings instance to the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~serverconnectionsettings.html[ServerConnectionSettings] property.
 
 [start=3]
 . *Provide Exchange Server user credentials.*
 +
-Add an link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeuser.html[ExchangeUser] instance with valid credentials in the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~users.html[Users] collection.
+Add an link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangeuser.html[ExchangeUser] instance with valid credentials in the connector’s link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~users.html[Users] collection.
 
 [start=4]
 . *Invoke the connect method.*
 +
-Example of setting up the connector and invoking the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~connect.html[Connect] method:
+Example of setting up the connector and invoking the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~connect.html[Connect] method:
 +
 *In Visual Basic:*
 +
@@ -117,7 +117,7 @@ connector.Connect();
 [NOTE]
 ====
 [start=1]
-. Invoking the Connect method is non-required. The Exchange Data Connector will initiate a connection once all the needed information is set. However if you close a connection using the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~disconnect.html[Disconnect] method, you will have to invoke the Connect method in order to reconnect.
+. Invoking the Connect method is non-required. The Exchange Data Connector will initiate a connection once all the needed information is set. However if you close a connection using the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~disconnect.html[Disconnect] method, you will have to invoke the Connect method in order to reconnect.
 [start=2]
 . At this writing, the following Exchange Data Servers are supported:
 
@@ -125,13 +125,13 @@ connector.Connect();
 ** Exchange 2010
 ** Exchange 2010 SP1
 
-The servers are available for selection in the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangeversion.html[ExchangeVersion] enumeration.
+The servers are available for selection in the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangeversion.html[ExchangeVersion] enumeration.
 ====
 
 [start=5]
 . *Display the activities of a specific user.*
 +
-Configure the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuserid.html[CurrentUserId] property of the Data Manager. You need to specify the domain and the user name in lower case like this:
+Configure the link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.xamscheduledatamanager~currentuserid.html[CurrentUserId] property of the Data Manager. You need to specify the domain and the user name in lower case like this:
 +
 *In Visual Basic:*
 +
@@ -159,10 +159,10 @@ After successfully connecting to the Exchange Server, the connector will retriev
 
 The information is periodically updated. You have the options to either configure the update period or to force immediate data update:
 
-* *to configure the update period*, use the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollinginterval.html[PollingInterval] property
-* *to force immediate update*, use the link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollforchanges.html[PollForChanges] method
+* *to configure the update period*, use the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollinginterval.html[PollingInterval] property
+* *to force immediate update*, use the link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~pollforchanges.html[PollForChanges] method
 
-In addition to that, there is a property called link:{ApiPlatform}controls.schedulesexchangeconnector.v{ProductVersion}~infragistics.controls.schedules.exchangescheduledataconnector~ispolling.html[IsPolling], which can be used to determine whether data has actually been obtained at the moment of invocation from the Exchange Server.
+In addition to that, there is a property called link:{ApiPlatform}controls.schedulesexchangeconnector{ApiVersion}~infragistics.controls.schedules.exchangescheduledataconnector~ispolling.html[IsPolling], which can be used to determine whether data has actually been obtained at the moment of invocation from the Exchange Server.
 
 == Disconnecting from an Exchange Server
 

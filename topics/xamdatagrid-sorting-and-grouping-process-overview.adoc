@@ -17,7 +17,7 @@
 
 === Purpose
 
-This topic describes those actions performed by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.xamdatagrid.html[ _xamDataGrid™_  ]  __control__  _’_  s internal comparer for sorting and grouping processes.
+This topic describes those actions performed by the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.xamdatagrid.html[ _xamDataGrid™_  ]  __control__  _’_  s internal comparer for sorting and grouping processes.
 
 === Required background
 
@@ -51,7 +51,7 @@ This topic contains the following sections:
 
 === Sorting and Grouping process
 
-By default, an optimized internal comparer sorts all of the  _xamDataGrid_   link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]s. The remainder of this topic provides additional information about the control’s optimizations made with this release along with a detailed description of the process.
+By default, an optimized internal comparer sorts all of the  _xamDataGrid_   link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord]s. The remainder of this topic provides additional information about the control’s optimizations made with this release along with a detailed description of the process.
 
 .Note
 [NOTE]
@@ -64,7 +64,7 @@ The internal comparer performs the following:
 [start=1]
 . It creates an array of individual field comparers and caches other relatable information inside its constructor. The field comparers are sequenced within the array in the following order:
 
-.. First, all of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~sortedfields.html[SortedFields] collection’s grouped fields (they are the high-order criteria) using their `IGroupByEvaluator` link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~sortcomparer.html[SortComparer] objects. If any of these is `Null`, then that field will use either the `SortComparer` or the default comparer.
+.. First, all of the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout~sortedfields.html[SortedFields] collection’s grouped fields (they are the high-order criteria) using their `IGroupByEvaluator` link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~sortcomparer.html[SortComparer] objects. If any of these is `Null`, then that field will use either the `SortComparer` or the default comparer.
 .. Next, all of the `SortedFields` collection’s non-grouped fields using either the field’s `SortComparer` or the default comparer.
 .. Finally, all of the `SortedFields` collection’s grouped fields, appearing only once in the collection (in other words they were not added in again in step ‘b’) being appended to the end again. This time ignoring the `IGroupByEvaluator.SortComparer` and instead uses either the field’s `SortComparer` or the default comparer.
 .. If any of the field comparers from step ‘b’ or step’ ‘c’ are unnecessary (that is `IGroupByEvaluator.SortComparer` returned `Null`), then those comparers are not added to the array a second time. Instead, this is where the control performs its other array pruning optimizations thus avoiding any unnecessary overhead during the sort.
@@ -78,9 +78,9 @@ The internal comparer performs the following:
 [start=5]
 . If all of the field sort comparers in the array return 0, indicating that they are all equal, the control uses the relative indexes of the associated Data Items in the Data Source for the final comparison. Additionally, it caches the Data Item indices to avoid repeatedly performing the `IndexOf` operation on the data source to query the data item index during the comparison process.
 [start=6]
-. Creates the appropriate link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecord]s to contain any grouped fields after sorting. If possible, the optimized logic attempts to reuse any existing `GroupByRecord`s.
+. Creates the appropriate link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecord]s to contain any grouped fields after sorting. If possible, the optimized logic attempts to reuse any existing `GroupByRecord`s.
 [start=7]
-. Finally specifying a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~groupbycomparer.html[GroupByComparer] for a grouped field using the associated `GroupByRecord`s as part of a second sort pass.
+. Finally specifying a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~groupbycomparer.html[GroupByComparer] for a grouped field using the associated `GroupByRecord`s as part of a second sort pass.
 
 [[_Ref335407927]]
 == Related Content

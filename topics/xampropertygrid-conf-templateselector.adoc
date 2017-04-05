@@ -47,19 +47,19 @@ This topic contains the following sections:
 [[_RefLink01]]
 == Introduction
 
-In some cases it may not be enough to specify a custom editor depending on its type, category or name. As an alternative approach you may use the editor definition's link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~templateselector.html[TemplateSelector] property and provide an object which extends from the link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector(v=vs.110).aspx[DataTemplateSelector] class. When a template selector is provided to an editor definition the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~edittemplate.html[EditTemplate] property and the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygrideditordefinition~readonlytemplate.html[ReadOnlyTemplate] property are ignored and the resolved template will be the one returned by the template selector's link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector.selecttemplate(v=vs.110).aspx[SelectTemplate] method. In addition, the template selector has access to the edit template and the read-only template and can either return one of them or return any other data template based on its internal logic.
+In some cases it may not be enough to specify a custom editor depending on its type, category or name. As an alternative approach you may use the editor definition's link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygrideditordefinition~templateselector.html[TemplateSelector] property and provide an object which extends from the link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector(v=vs.110).aspx[DataTemplateSelector] class. When a template selector is provided to an editor definition the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygrideditordefinition~edittemplate.html[EditTemplate] property and the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygrideditordefinition~readonlytemplate.html[ReadOnlyTemplate] property are ignored and the resolved template will be the one returned by the template selector's link:https://msdn.microsoft.com/en-us/library/system.windows.controls.datatemplateselector.selecttemplate(v=vs.110).aspx[SelectTemplate] method. In addition, the template selector has access to the edit template and the read-only template and can either return one of them or return any other data template based on its internal logic.
 
 [[_RefLink02]]
 == Providing Template Selector
 
 Your custom template selector must extend from the `DataTemplateSelector` class and implements the `SelectTemplate` method. This method has the following arguments:
 
-* `item` - this is an object of type link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext.html[PropertyGridTemplateSelectorContext] which gives you access to the
-** link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~edittemplate.html[EditTemplate] (if such is specified)
-** link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~readonlytemplate.html[ReadOnlyTemplate] (if such is specified)
-** link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~propertyitem.html[PropertyItem]
+* `item` - this is an object of type link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext.html[PropertyGridTemplateSelectorContext] which gives you access to the
+** link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~edittemplate.html[EditTemplate] (if such is specified)
+** link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~readonlytemplate.html[ReadOnlyTemplate] (if such is specified)
+** link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridtemplateselectorcontext~propertyitem.html[PropertyItem]
 
-* `container` - this is a reference to the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid.html[_xamPropertyGrid_] control
+* `container` - this is a reference to the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid.html[_xamPropertyGrid_] control
 
 Having access to the `xamPropertyGrid` control and the property item for which the control is requesting a template should be sufficient for you to provide an adequate template. In addition you have access to the editing and read-only templates specified on the editor definition. Your implementation can either return any of them or a data template based on your custom logic.
 
@@ -157,12 +157,12 @@ public class CustomDataTemplateSelector : DataTemplateSelector
 [[_RefLink04]]
 == Re-evaluate the Template Selector Programmatically
 
-There are cases when you may need to re-evaluate the template selector's value programmatically. For example if your template selector's code is returning different data templates based on the value of another property you can initiate re-evaluation by invoking the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridpropertyitem.html[PropertyGridPropertyItem]'s link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygridpropertyitem~requeryeditordefinition.html[RequeryEditorDefinition] method.
+There are cases when you may need to re-evaluate the template selector's value programmatically. For example if your template selector's code is returning different data templates based on the value of another property you can initiate re-evaluation by invoking the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridpropertyitem.html[PropertyGridPropertyItem]'s link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygridpropertyitem~requeryeditordefinition.html[RequeryEditorDefinition] method.
 
 .Note
 [NOTE]
 ====
-You can be notified when a property’s value has changed by attaching an event handler to the `xamPropertyGrid's` link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~propertyitemvaluechanged_ev.html[PropertyItemValueChanged] event and to find the `PropertyGridPropertyItem` associated with a specific property you can call the existing `xamPropertyGrid's` link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~findpropertyitem.html[FindPropertyItem] method.
+You can be notified when a property’s value has changed by attaching an event handler to the `xamPropertyGrid's` link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid~propertyitemvaluechanged_ev.html[PropertyItemValueChanged] event and to find the `PropertyGridPropertyItem` associated with a specific property you can call the existing `xamPropertyGrid's` link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid~findpropertyitem.html[FindPropertyItem] method.
 ====
 
 [[_RefLink05]]

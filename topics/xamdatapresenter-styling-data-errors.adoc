@@ -19,9 +19,9 @@ The DataPresenter controls offer two different ways to style data errors. If you
 
 == What You Will Accomplish
 
-You will create a style for the error icon and a data template that positions the error icon on the right-hand side of the cell's value. You will also use a predefined resource key exposed by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class when you create the style and data template so that the DataPresenter controls automatically apply them to all data errors.
+You will create a style for the error icon and a data template that positions the error icon on the right-hand side of the cell's value. You will also use a predefined resource key exposed by the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class when you create the style and data template so that the DataPresenter controls automatically apply them to all data errors.
 
-The scope of the resource dictionary that contains the style and data template determines which DataPresenter controls are affected. For example, adding the style and data template to the window's resource dictionary affects all DataPresenter controls in the window. You can use this behavior to style DataPresenter controls selectively by adding the style and data templates to the control's local resource dictionary. In addition, if you only want the style and data template to affect a single field, you can create a keyed style that targets the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] class and add them to its resource dictionary. When you set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~cellvaluepresenterstyle.html[CellValuePresenterStyle] property exposed by a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] property, the style and data template will only affect data errors in that field.
+The scope of the resource dictionary that contains the style and data template determines which DataPresenter controls are affected. For example, adding the style and data template to the window's resource dictionary affects all DataPresenter controls in the window. You can use this behavior to style DataPresenter controls selectively by adding the style and data templates to the control's local resource dictionary. In addition, if you only want the style and data template to affect a single field, you can create a keyed style that targets the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenter] class and add them to its resource dictionary. When you set the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~cellvaluepresenterstyle.html[CellValuePresenterStyle] property exposed by a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.field.html[Field] object's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] property, the style and data template will only affect data errors in that field.
 
 == Follow these Steps
 
@@ -112,8 +112,8 @@ The scope of the resource dictionary that contains the style and data template d
 --
 .. Name it errorIcon.
 .. Set its Visibility property to Collapsed.
-.. Set its Style property to a dynamic resource using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~dataerroriconstylekey.html[DataErrorIconStyleKey] property exposed by the DataPresenterBase class.
-.. Set its ToolTip property to the CellValuePresenter object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter~dataerror.html[DataError] property.
+.. Set its Style property to a dynamic resource using the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~dataerroriconstylekey.html[DataErrorIconStyleKey] property exposed by the DataPresenterBase class.
+.. Set its ToolTip property to the CellValuePresenter object's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter~dataerror.html[DataError] property.
 --
 +
 *In XAML:*
@@ -149,8 +149,8 @@ The scope of the resource dictionary that contains the style and data template d
 . Add a MultiDataTrigger element to the data template's Triggers collection. When the cell has a data error and an error icon should be displayed, set the Visibility property of the control named "errorIcon" to True.
 +
 --
-.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter~hasdataerror.html[HasDataError] property to the Conditions collection.
-.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter~isdataerrordisplaymodeicon.html[IsDataErrorDisplayModeIcon] property to the Conditions collection.
+.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter~hasdataerror.html[HasDataError] property to the Conditions collection.
+.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter~isdataerrordisplaymodeicon.html[IsDataErrorDisplayModeIcon] property to the Conditions collection.
 .. Add a Setter element that sets the error icon's Visibility property to Visible.
 --
 +
@@ -172,7 +172,7 @@ The scope of the resource dictionary that contains the style and data template d
 +
 --
 .. Add a Condition element for the CellValuePresenter object's HasDataError property to the Conditions collection.
-.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter~isdataerrordisplaymodehighlight.html[IsDataErrorDisplayModeHighlight] property to the Conditions collection.
+.. Add a Condition element for the CellValuePresenter object's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter~isdataerrordisplaymodehighlight.html[IsDataErrorDisplayModeHighlight] property to the Conditions collection.
 .. Add a Setter element that sets the Border object's Visibility property to Visible.
 --
 +

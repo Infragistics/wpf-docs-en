@@ -49,28 +49,28 @@ This topic contains the following sections:
 
 === Property generation summary
 
-The link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid_members.html[_xamPropertyGrid_] control has an extensible architecture for discovering properties on the selected object(s). This architecture is based on the concept of property generators. The following built-in property generators are supplied with the control:
+The link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid_members.html[_xamPropertyGrid_] control has an extensible architecture for discovering properties on the selected object(s). This architecture is based on the concept of property generators. The following built-in property generators are supplied with the control:
 
-* link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.typedescriptorpropertygenerator_members.html[TypeDescriptorPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/ms171819.aspx[TypeDescriptor] to discover the properties exposed by the selected object(s). The `TypeDescriptor` approach will typically discover more properties on the selected object(s) since Attached properties as well as custom properties provided by link:http://msdn.microsoft.com/en-us/library/system.componentmodel.customtypedescriptor(v=vs.110).aspx[CustomTypeDescriptor] implementations are discoverable and therefore included in the generated list of property items.
-* link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.reflectionpropertygenerator_members.html[ReflectionPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/f7ykdhsy(v=vs.110).aspx[Reflection] to discover the properties of the selected object(s) and can only discover the properties that are explicitly defined on the selected objects(s) type(s).
+* link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.typedescriptorpropertygenerator_members.html[TypeDescriptorPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/ms171819.aspx[TypeDescriptor] to discover the properties exposed by the selected object(s). The `TypeDescriptor` approach will typically discover more properties on the selected object(s) since Attached properties as well as custom properties provided by link:http://msdn.microsoft.com/en-us/library/system.componentmodel.customtypedescriptor(v=vs.110).aspx[CustomTypeDescriptor] implementations are discoverable and therefore included in the generated list of property items.
+* link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.reflectionpropertygenerator_members.html[ReflectionPropertyGenerator] is using link:http://msdn.microsoft.com/en-us/library/f7ykdhsy(v=vs.110).aspx[Reflection] to discover the properties of the selected object(s) and can only discover the properties that are explicitly defined on the selected objects(s) type(s).
 
 .Note
 [NOTE]
 ====
-The required property generator is specified by setting the control’s link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~propertygenerator.html[PropertyGenerator] property. If this property is not set, a `TypeDescriptor` property generator will be used by default.
+The required property generator is specified by setting the control’s link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid~propertygenerator.html[PropertyGenerator] property. If this property is not set, a `TypeDescriptor` property generator will be used by default.
 ====
 
 === Configuring property generation
 
-The property generators can be configured using the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.xampropertygrid~propertygenerationoptions.html[PropertyGenerationOptions] property which allows you to include attached and/or read-only properties.
+The property generators can be configured using the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.xampropertygrid~propertygenerationoptions.html[PropertyGenerationOptions] property which allows you to include attached and/or read-only properties.
 
-You can also use filters to customize the properties discovered by the property generators using the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase~generatedpropertyfilter.html[GeneratedPropertyFilter] property which is shown in the code snippets below.
+You can also use filters to customize the properties discovered by the property generators using the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygeneratorbase~generatedpropertyfilter.html[GeneratedPropertyFilter] property which is shown in the code snippets below.
 
 === Custom property generators
 
-If you need custom property generation that "tweaks" the output of the default generators you can derive your own class from one of the built-in property generators and override the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase~generateproperties.html[GenerateProperties] method to modify the property list returned from the built-in generators.
+If you need custom property generation that "tweaks" the output of the default generators you can derive your own class from one of the built-in property generators and override the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygeneratorbase~generateproperties.html[GenerateProperties] method to modify the property list returned from the built-in generators.
 
-If you need to completely take over the property generator process to implement custom property discovery logic, you can create your own property generator extending from the link:{ApiPlatform}controls.editors.xampropertygrid.v{ProductVersion}~infragistics.controls.editors.propertygeneratorbase_members.html[PropertyGeneratorBase] class and override the `GenerateProperties` method.
+If you need to completely take over the property generator process to implement custom property discovery logic, you can create your own property generator extending from the link:{ApiPlatform}controls.editors.xampropertygrid{ApiVersion}~infragistics.controls.editors.propertygeneratorbase_members.html[PropertyGeneratorBase] class and override the `GenerateProperties` method.
 
 [[_Ref395713903]]
 == Configuring Property Generator Filter

@@ -121,9 +121,9 @@ using Infragistics.Controls.Barcodes;
 
 [[step_3]]
 [start=3]
-. Create a new link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader.html[Barcode Reader instance], attach an event handler, and start the decoding process.
+. Create a new link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader.html[Barcode Reader instance], attach an event handler, and start the decoding process.
 +
-Add a new instance of the Barcode Reader in your code-behind. When the Barcode Reader decodes a barcode or finishes scanning an image, the link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~decodecomplete_ev.html[DecodeComplete] event is raised as many times as barcode symbols are recognized in the image. Attach an event handler for the DecodeComplete event and then start the decoding process using either the link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~decode.html[Decode] or link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~decodeasync.html[DecodeAsync] (thread-safe) method.
+Add a new instance of the Barcode Reader in your code-behind. When the Barcode Reader decodes a barcode or finishes scanning an image, the link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~decodecomplete_ev.html[DecodeComplete] event is raised as many times as barcode symbols are recognized in the image. Attach an event handler for the DecodeComplete event and then start the decoding process using either the link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~decode.html[Decode] or link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~decodeasync.html[DecodeAsync] (thread-safe) method.
 +
 *In Visual Basic:*
 +
@@ -184,14 +184,14 @@ private void BarcodeReader_DecodeComplete(object sender, ReaderDecodeArgs e)
 
 The Barcode Reader library has the following properties:
 
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~maxnumberofsymbolstoread.html[MaxNumberOfSymbolsToRead] – the maximum number of barcodes that are expected on the image (-1 for all, default: 1, recommended: 1÷5)
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~maxnumberofsymbolstoread.html[MaxNumberOfSymbolsToRead] – the maximum number of barcodes that are expected on the image (-1 for all, default: 1, recommended: 1÷5)
 +
 When this threshold is reached, the Barcode Reader stops the decoding. A low number of barcodes for recognition will increase the application’s performance. When -1 is assigned, the Barcode Reader will retrieve symbols until all of them are found.
 +
 .Note
 [NOTE]
 ====
-The link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~decodecomplete_ev.html[DecodeComplete] event will be raised for each decoded barcode symbology after the scanning is complete.
+The link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~decodecomplete_ev.html[DecodeComplete] event will be raised for each decoded barcode symbology after the scanning is complete.
 ====
 +
 The picture below demonstrates a scanned image (retrieved by the FilteredImage property) with the MaxNumberOfSymbolsToRead set to 1 – only one symbol is recognized (the one with the green rectangle over it – Code 128):
@@ -200,13 +200,13 @@ image::images/Infragistics_Barcode_Reader_02.png[]
 +
 Figure 2: Effect of the MaxNumberOfSymbolsToRead setting on the barcodes retrieved
 
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~minsymbolsize.html[MinSymbolSize] – minimum recognizable symbol size in pixels (width and height for linear barcodes only) –(default: -1, recommended: a value proportional to the image size, e.g. 50 for an image with 500px height) 
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~minsymbolsize.html[MinSymbolSize] – minimum recognizable symbol size in pixels (width and height for linear barcodes only) –(default: -1, recommended: a value proportional to the image size, e.g. 50 for an image with 500px height) 
 +
 The default value of -1 means that the minimum recognizable symbol size is to be calculated internally depending proportionally on the scanned image size. The lower the MinSymbolSize value, the more zones the image will be divided into (this enables recognizing of small symbols but has a negative effect on performance), the higher is just the opposite (fewer zones, symbols should be bigger, better performance). Note that if a symbols’ size in pixels is less than the specified in MinSymbolSize, the image might not be decoded.
 
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~barcodeorientation.html[BarcodeOrientation] – orientation of the scanned barcodes (linear barcodes only)
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~barcodeorientation.html[BarcodeOrientation] – orientation of the scanned barcodes (linear barcodes only)
 +
-link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.symbolorientation.html[Valid values]:
+link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.symbolorientation.html[Valid values]:
 +
 --
 ** Horizontal
@@ -216,7 +216,7 @@ link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics
 +
 Unspecified orientation means that a barcode is to be decoded regardless of its orientation.
 
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~filteredimage.html[FilteredImage] - an image with the recognized barcode symbols. (Figure 3: A filtered barcode image) Used only with the Decode method.
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~filteredimage.html[FilteredImage] - an image with the recognized barcode symbols. (Figure 3: A filtered barcode image) Used only with the Decode method.
 +
 image::images/Infragistics_Barcode_Reader_03.png[]
 +
@@ -258,7 +258,7 @@ barcodeReader.BarcodeOrientation = SymbolOrientation.Horizontal;
 [[decode_async]]
 == Multi-Threaded Image Decoding (Method DecodeAsync)
 
-The link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.barcodereader~decodeasync.html[DecodeAsync] method allows an image to be decoded thread-safely – several images can be decoded simultaneously in different threads:
+The link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.barcodereader~decodeasync.html[DecodeAsync] method allows an image to be decoded thread-safely – several images can be decoded simultaneously in different threads:
 
 *In Visual Basic:*
 [source,vb]
@@ -281,17 +281,17 @@ Deployment.Current.Dispatcher.BeginInvoke(() =>
 [[decode_args]]
 == DecodeComplete Arguments (Class ReaderDecodeArgs)
 
-The link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.readerdecodeargs.html[ReaderDecodeArgs] class is passed as a parameter in the DecodeComplete event. The class contains the following information:
+The link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.readerdecodeargs.html[ReaderDecodeArgs] class is passed as a parameter in the DecodeComplete event. The class contains the following information:
 
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.readerdecodeargs~filteredimage.html[FilteredImage] – an image with the recognized barcode symbols
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.readerdecodeargs~symbolfound.html[SymbolFound] – a bool argument indicating whether a barcode is found
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.readerdecodeargs~symbology.html[Symbology] – the symbology of the decoded barcode symbol
-* link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.readerdecodeargs~value.html[Value] – the encoded string information in the barcode symbol
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.readerdecodeargs~filteredimage.html[FilteredImage] – an image with the recognized barcode symbols
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.readerdecodeargs~symbolfound.html[SymbolFound] – a bool argument indicating whether a barcode is found
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.readerdecodeargs~symbology.html[Symbology] – the symbology of the decoded barcode symbol
+* link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.readerdecodeargs~value.html[Value] – the encoded string information in the barcode symbol
 
 [[symbology_types]]
 == Using Enumeration for the Symbology Types
 
-The types, for which the Barcode Reader will search, can be optionally specified using the link:{ApiPlatform}controls.barcodes.barcodereader.v{ProductVersion}~infragistics.controls.barcodes.symbology.html[Symbology enumeration].
+The types, for which the Barcode Reader will search, can be optionally specified using the link:{ApiPlatform}controls.barcodes.barcodereader{ApiVersion}~infragistics.controls.barcodes.symbology.html[Symbology enumeration].
 
 .Note:
 [NOTE]

@@ -14,11 +14,11 @@
 
 = Mapping Fields in Your Backend Data Source
 
-A common scenario in providing the link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[xamScheduleDataManager] with data is that the scheduling data is stored in a database or in custom objects. The link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] exposes several ItemsSource properties (e.g., link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentitemssource.html[AppointmentItemsSource]) that can be set to any IEnumerable object that will provide the schedule data for that collection. The ListScheduleDataConnector makes use of LINQ to query the data source. If the data source is IQueryable then LINQ is used to retrieve only the activities needed for the current display.
+A common scenario in providing the link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.xamscheduledatamanager.html[xamScheduleDataManager] with data is that the scheduling data is stored in a database or in custom objects. The link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.listscheduledataconnector.html[ListScheduleDataConnector] exposes several ItemsSource properties (e.g., link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentitemssource.html[AppointmentItemsSource]) that can be set to any IEnumerable object that will provide the schedule data for that collection. The ListScheduleDataConnector makes use of LINQ to query the data source. If the data source is IQueryable then LINQ is used to retrieve only the activities needed for the current display.
 
-In order to map the properties from the data source objects to the xamSchedule entities that will be created, the associated PropertyMappings collection should be provided (e.g., link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentpropertymappings.html[AppointmentPropertyMappings]). These are collections of PropertyMapping objects (e.g., AppointmentPropertyMapping) that specify the name of the property on the data source object (via the DataObjectProperty), the name of the xamSchedule entity property that it corresponds to (e.g., using the AppointmentProperty), and optionally a Converter that can be used to convert between the datasource object’s property value and the xamSchedule property value. The following is an example of using these mapping properties:
+In order to map the properties from the data source objects to the xamSchedule entities that will be created, the associated PropertyMappings collection should be provided (e.g., link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.listscheduledataconnector~appointmentpropertymappings.html[AppointmentPropertyMappings]). These are collections of PropertyMapping objects (e.g., AppointmentPropertyMapping) that specify the name of the property on the data source object (via the DataObjectProperty), the name of the xamSchedule entity property that it corresponds to (e.g., using the AppointmentProperty), and optionally a Converter that can be used to convert between the datasource object’s property value and the xamSchedule property value. The following is an example of using these mapping properties:
 
-*Note:* Property mapping collection has a link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.propertymappingcollection`2~usedefaultmappings.html[UseDefaultMappings] property. If the names of the properties of the data source object are the same as the names of the properties of the xamSchedule entity object, this property can be set to true to automatically map the properties. Reflection is used to find properties with the same names and any matching properties are automatically mapped. Furthermore, if the names of some properties are not the same, explicit property mapping entries for those properties can be added to the collection.
+*Note:* Property mapping collection has a link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.propertymappingcollection`2~usedefaultmappings.html[UseDefaultMappings] property. If the names of the properties of the data source object are the same as the names of the properties of the xamSchedule entity object, this property can be set to true to automatically map the properties. Reflection is used to find properties with the same names and any matching properties are automatically mapped. Furthermore, if the names of some properties are not the same, explicit property mapping entries for those properties can be added to the collection.
 
 *In XAML:*
 
@@ -152,93 +152,93 @@ Certain property mappings are required for proper functioning of the XamSchedule
 
 == Required Fields:
 
-link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource]:
+link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource.html[Resource]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~id.html[Id] - String - Id values are not created and stored by the schedule data connector and therefore has not restrictions on what values it contains and what their lengths are as long as they are unique.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~id.html[Id] - String - Id values are not created and stored by the schedule data connector and therefore has not restrictions on what values it contains and what their lengths are as long as they are unique.
 
-link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar]:
+link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~id.html[Id] - String - Id values are not created and stored by the schedule data connector and therefore has not restrictions on what values it contains and what their lengths are as long as they are unique.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~owningresourceid.html[OwningResourceId] - String - Values from the Resource’s Id field are used to link the resource calendar to a resource and therefore allowable length should correspond to the allowable length of the Resource’s Id field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~id.html[Id] - String - Id values are not created and stored by the schedule data connector and therefore has not restrictions on what values it contains and what their lengths are as long as they are unique.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~owningresourceid.html[OwningResourceId] - String - Values from the Resource’s Id field are used to link the resource calendar to a resource and therefore allowable length should correspond to the allowable length of the Resource’s Id field.
 
-Common to link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.journal.html[Journal] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Task]:
+Common to link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.appointment.html[Appointment], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.journal.html[Journal] and link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.task.html[Task]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~id.html[Id] - String - For non-variance activities, by default GUID values are stored as strings and threfore should allow  at least 36 characters. For variance activities, by default GUID plus a recurrence version plus a date-time value is stored which requires at least 60 characters.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~start.html[Start] - DateTime - This field can be a nullable DateTime field.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~end.html[End] - DateTime - This field can be a nullable DateTime field.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~owningresourceid.html[OwningResourceId] - String - Values from the Resource’s Id field are used to link the resource calendar to a resource and therefore allowable length should correspond to the allowable length of the Resource’s Id field.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~starttimezoneid.html[StartTimeZoneId] - String - Should allow upto 40 characters.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~endtimezoneid.html[EndTimeZoneId] - String - Same as StartTimeZoneId.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~id.html[Id] - String - For non-variance activities, by default GUID values are stored as strings and threfore should allow  at least 36 characters. For variance activities, by default GUID plus a recurrence version plus a date-time value is stored which requires at least 60 characters.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~start.html[Start] - DateTime - This field can be a nullable DateTime field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~end.html[End] - DateTime - This field can be a nullable DateTime field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~owningresourceid.html[OwningResourceId] - String - Values from the Resource’s Id field are used to link the resource calendar to a resource and therefore allowable length should correspond to the allowable length of the Resource’s Id field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~starttimezoneid.html[StartTimeZoneId] - String - Should allow upto 40 characters.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~endtimezoneid.html[EndTimeZoneId] - String - Same as StartTimeZoneId.
 
-The following fields are only required if link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.listscheduledataconnector~resourcecalendaritemssource.html[ResourceCalendarItemsSource] is provided:
+The following fields are only required if link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.listscheduledataconnector~resourcecalendaritemssource.html[ResourceCalendarItemsSource] is provided:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~owningcalendarid.html[OwningCalendarId] - String - Values from the ResourceCalendar’s Id field are used to link the resource calendar to an activity and therefore allowable length should correspond to the allowable length of the ResourceCalendar’s Id field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~owningcalendarid.html[OwningCalendarId] - String - Values from the ResourceCalendar’s Id field are used to link the resource calendar to an activity and therefore allowable length should correspond to the allowable length of the ResourceCalendar’s Id field.
 
 To support time-zone neutral activities:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~istimezoneneutral.html[IsTimeZoneNeutral] - Boolean - This field can be nullable.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~istimezoneneutral.html[IsTimeZoneNeutral] - Boolean - This field can be nullable.
 
 To support recurring activities:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~recurrence.html[Recurrence] - String - Recurrence rules are stored in iCalendar RECUR value format. This field should be variable length field that can have text values anywhere from approximately 30 characters to well over 100 characters.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~maxoccurrencedatetime.html[MaxOccurrenceDateTime] - DateTime - This field can be a nullable DateTime field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~recurrence.html[Recurrence] - String - Recurrence rules are stored in iCalendar RECUR value format. This field should be variable length field that can have text values anywhere from approximately 30 characters to well over 100 characters.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~maxoccurrencedatetime.html[MaxOccurrenceDateTime] - DateTime - This field can be a nullable DateTime field.
 
 To support variance of recurring activities:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~rootactivityid.html[RootActivityId] - String - Should allow at least 36 characters.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrencestart.html[OriginalOccurrenceStart] - DateTime - This field can be a nullable DateTime field.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrenceend.html[OriginalOccurrenceEnd] - DateTime - This field can be a nullable DateTime field.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~isoccurrencedeleted.html[IsOccurrenceDeleted] - bool
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~variantproperties.html[VariantProperties] - Long
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~recurrenceversion.html[RecurrenceVersion] - Integer
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~rootactivityid.html[RootActivityId] - String - Should allow at least 36 characters.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~originaloccurrencestart.html[OriginalOccurrenceStart] - DateTime - This field can be a nullable DateTime field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~originaloccurrenceend.html[OriginalOccurrenceEnd] - DateTime - This field can be a nullable DateTime field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~isoccurrencedeleted.html[IsOccurrenceDeleted] - bool
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~variantproperties.html[VariantProperties] - Long
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~recurrenceversion.html[RecurrenceVersion] - Integer
 
 To support reminders:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderenabled.html[ReminderEnabled] – Boolean
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderinterval.html[ReminderInterval] – TimeSpan
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminder.html[Reminder] – String – This field is not required for non-recurring activities however it is required to support reminders for recurring activities. This field should be a variable length text field.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~reminderenabled.html[ReminderEnabled] – Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~reminderinterval.html[ReminderInterval] – TimeSpan
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~reminder.html[Reminder] – String – This field is not required for non-recurring activities however it is required to support reminders for recurring activities. This field should be a variable length text field.
 
 == Optional Fields:
 
 The following listing defines requirements for the fields that are optional. Note that even though these fields are optional, you may want to provide mappings for some of them for better scheduling functionality.
 
-link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource.html[Resource]:
+link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource.html[Resource]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~name.html[Name] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~emailaddress.html[EmailAddress] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~description.html[Description] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~firstdayofweek.html[FirstDayOfWeek] – .NET Nullable DayOfWeek enum type or nullable integer type.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~daysofweek.html[DaysOfWeek] – String – This field should be variable length text field where the ScheduleDaysOfWeek object is serialized as XML.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~daysettingsoverrides.html[DaySettingsOverrides] – String – This field should be variable length text field DaySettingsOverridesCollection is serialized as XML.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~isvisible.html[IsVisible] – Nullable Boolean
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resource~islocked.html[IsLocked] – Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~name.html[Name] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~emailaddress.html[EmailAddress] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~description.html[Description] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~firstdayofweek.html[FirstDayOfWeek] – .NET Nullable DayOfWeek enum type or nullable integer type.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~daysofweek.html[DaysOfWeek] – String – This field should be variable length text field where the ScheduleDaysOfWeek object is serialized as XML.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~daysettingsoverrides.html[DaySettingsOverrides] – String – This field should be variable length text field DaySettingsOverridesCollection is serialized as XML.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~isvisible.html[IsVisible] – Nullable Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resource~islocked.html[IsLocked] – Boolean
 * UnmappedProperties – String – Values of fields for which mappings are not provided will be stored in this field as XML. This field should be variable length text field. UnmappedProperties allows you to avoid defining fields that are not required and still allow for those fields’ values to be stored in the data source.
 
-link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar]:
+link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar.html[ResourceCalendar]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~name.html[Name] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~description.html[Description] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~basecolor.html[BaseColor] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.resourcecalendar~isvisible.html[IsVisible] – Nullable Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~name.html[Name] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~description.html[Description] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~basecolor.html[BaseColor] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.resourcecalendar~isvisible.html[IsVisible] – Nullable Boolean
 * UnmappedProperties – String – see description for Resource’s UnmappedProperties above.
 
-link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment.html[Appointment], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.journal.html[Journal] and link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task.html[Task]:
+link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.appointment.html[Appointment], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.journal.html[Journal] and link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.task.html[Task]:
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~subject.html[Subject] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.appointment~location.html[Location] – String – Only applies to Appointment.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~description.html[Description] – String
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~isvisible.html[IsVisible] – Nullable Boolean
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~islocked.html[IsLocked] – Nullable Boolean
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~lastmodifiedtime.html[LastModifiedTime] – DateTime
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.task~percentcomplete.html[PercentComplete] – Integer – Only applies to Task.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~subject.html[Subject] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.appointment~location.html[Location] – String – Only applies to Appointment.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~description.html[Description] – String
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~isvisible.html[IsVisible] – Nullable Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~islocked.html[IsLocked] – Nullable Boolean
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~lastmodifiedtime.html[LastModifiedTime] – DateTime
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.task~percentcomplete.html[PercentComplete] – Integer – Only applies to Task.
 
 == LINQ usage in the ListScheduleDataConnector:
 
 LINQ is used to retrieve activities on demand. Fields on which LINQ queries are performed are required to be of certain types.
 
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~start.html[Start], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~end.html[End], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~maxoccurrencedatetime.html[MaxOccurrenceDateTime], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrencestart.html[OriginalOccurrenceStart], link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~originaloccurrenceend.html[OriginalOccurrenceEnd] – Must be DateTime or nullable DateTime.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderenabled.html[ReminderEnabled] – Must be Boolean or nullable Boolean.
-* link:{ApiPlatform}controls.schedules.v{ProductVersion}~infragistics.controls.schedules.activitybase~reminderinterval.html[ReminderInterval] – Must be TimeSpan type.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~start.html[Start], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~end.html[End], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~maxoccurrencedatetime.html[MaxOccurrenceDateTime], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~originaloccurrencestart.html[OriginalOccurrenceStart], link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~originaloccurrenceend.html[OriginalOccurrenceEnd] – Must be DateTime or nullable DateTime.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~reminderenabled.html[ReminderEnabled] – Must be Boolean or nullable Boolean.
+* link:{ApiPlatform}controls.schedules{ApiVersion}~infragistics.controls.schedules.activitybase~reminderinterval.html[ReminderInterval] – Must be TimeSpan type.
 
 == Using LINQ to SQL:
 

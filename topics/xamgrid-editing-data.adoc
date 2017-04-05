@@ -13,13 +13,13 @@
 
 = Editing Data
 
-The xamGrid™ control allows your end users to edit data in its rows. You can allow your end users to edit data in two ways: enter edit mode for the entire row or on a cell-by-cell basis. The control supports data that implements the IEditableObject interface and raises the BeginEdit, CancelEdit and EndEdit methods at their appropriate times. The link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettings.html[EditingSettings] object provides you with many options when it comes to editing in xamGrid. The control's editing behavior, events, methods, and settings are described below.
+The xamGrid™ control allows your end users to edit data in its rows. You can allow your end users to edit data in two ways: enter edit mode for the entire row or on a cell-by-cell basis. The control supports data that implements the IEditableObject interface and raises the BeginEdit, CancelEdit and EndEdit methods at their appropriate times. The link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettings.html[EditingSettings] object provides you with many options when it comes to editing in xamGrid. The control's editing behavior, events, methods, and settings are described below.
 
 == Editing Behavior
 
 Editing of xamGrid's data can only occur when your end user enters edit mode. This applies to checkbox columns as well - a checkbox is only editable when its cell is in edit mode.
 
-To allow editing for a template column, use the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.templatecolumn.html[TemplateColumn] object's link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.templatecolumn~editortemplate.html[EditorTemplate] property to set a custom editor. For more information about editing a template column, see link:xamgrid-editing-data-in-a-template-column.html[Editing Data in a Template Column].
+To allow editing for a template column, use the link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.templatecolumn.html[TemplateColumn] object's link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.templatecolumn~editortemplate.html[EditorTemplate] property to set a custom editor. For more information about editing a template column, see link:xamgrid-editing-data-in-a-template-column.html[Editing Data in a Template Column].
 
 To provide your own value converter, set a column's EditorValueConverter and EditorValueConverterParameter properties.
 
@@ -41,20 +41,20 @@ An editor has priority in edit mode. Therefore, if an editor handles a certain k
 
 == Mouse Editing Behavior
 
-* Hover a cell - if link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] is set to *Hover* commits change on previously edited cell if there is such and enters edit mode.
-* Single click on a cell - if  pick:[sl,wpf=" link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled]"]  pick:[win-rt=" link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~ispointeractioneditingenabled[IsPointerActionEditingEnabled]"]  is set to *SingleClick* commits change on previously edited cell if there is such and enters edit mode.
-* Double click on a cell - if  pick:[sl,wpf=" link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled]"]  pick:[win-rt=" link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~ispointeractioneditingenabled[IsPointerActionEditingEnabled]"]  is set to *DoubleClick* commits change on previously edited cell if there is such and enters edit mode.
+* Hover a cell - if link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] is set to *Hover* commits change on previously edited cell if there is such and enters edit mode.
+* Single click on a cell - if  pick:[sl,wpf=" link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled]"]  pick:[win-rt=" link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~ispointeractioneditingenabled[IsPointerActionEditingEnabled]"]  is set to *SingleClick* commits change on previously edited cell if there is such and enters edit mode.
+* Double click on a cell - if  pick:[sl,wpf=" link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled]"]  pick:[win-rt=" link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~ispointeractioneditingenabled[IsPointerActionEditingEnabled]"]  is set to *DoubleClick* commits change on previously edited cell if there is such and enters edit mode.
 * Perform a click outside the xamGrid - commits change on previously edited cell if there is such.
 
 .Note:
 [NOTE]
 ====
-When entering edit mode the xamGrid will start editing a single cell or all cells in a rows , depending on the value of the link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] property, which is discussed later in this topic.
+When entering edit mode the xamGrid will start editing a single cell or all cells in a rows , depending on the value of the link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] property, which is discussed later in this topic.
 ====
 
-When link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editablecolumn~alloweditingvalidation.html[AllowEditingValidation] is True on a column, exiting edit mode requires that data is valid; i.e, the data your end user enters does not throw an exception. Otherwise, the Escape key needs to be pressed to cancel the change and exit edit mode. For more information on data validation when editing, see link:xamgrid-validating-data.html[Validating Data].
+When link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editablecolumn~alloweditingvalidation.html[AllowEditingValidation] is True on a column, exiting edit mode requires that data is valid; i.e, the data your end user enters does not throw an exception. Otherwise, the Escape key needs to be pressed to cancel the change and exit edit mode. For more information on data validation when editing, see link:xamgrid-validating-data.html[Validating Data].
 
-Scrolling with the horizontal scrollbar will not exit edit mode when link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] is set to Row; scrolling with the vertical scrollbar exits both Row and Cell editing.
+Scrolling with the horizontal scrollbar will not exit edit mode when link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettings~allowediting.html[AllowEditing] is set to Row; scrolling with the vertical scrollbar exits both Row and Cell editing.
 
 == Editing Events
 
@@ -66,36 +66,36 @@ The xamGrid control provides various editing events for you to implement custom 
 All of the "ing" events, such as CellEnteringEditMode, are cancellable.
 ====
 
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~cellenteringeditmode_ev.html[CellEnteringEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~cellenterededitmode_ev.html[CellEnteredEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~cellexitingeditmode_ev.html[CellExitingEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~cellexitededitmode_ev.html[CellExitedEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~rowenteringeditmode_ev.html[RowEnteringEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~rowenterededitmode_ev.html[RowEnteredEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~rowexitingeditmode_ev.html[RowExitingEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~rowexitededitmode_ev.html[RowExitedEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~celleditingvalidationfailed_ev.html[CellEditingValidationFailed]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~cellenteringeditmode_ev.html[CellEnteringEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~cellenterededitmode_ev.html[CellEnteredEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~cellexitingeditmode_ev.html[CellExitingEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~cellexitededitmode_ev.html[CellExitedEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~rowenteringeditmode_ev.html[RowEnteringEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~rowenterededitmode_ev.html[RowEnteredEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~rowexitingeditmode_ev.html[RowExitingEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~rowexitededitmode_ev.html[RowExitedEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~celleditingvalidationfailed_ev.html[CellEditingValidationFailed]
 
 == Editing Methods
 
 The following is a list of editing methods xamGrid provides to enter and exit edit mode from code behind.
 
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~entereditmode.html[EnterEditMode]
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~exiteditmode.html[ExitEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~entereditmode.html[EnterEditMode]
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~exiteditmode.html[ExitEditMode]
 
 == Editing Settings
 
 The EditingSettings object provides you with a list of properties to set up editing for xamGrid.
 
 * AllowEditing – Set the behavior of xamGrid when the end user tries to enter edit mode on a cell. The following EditingType enumeration values are available: Cell, Row, Hover or None.
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~isenterkeyeditingenabled.html[IsEnterKeyEditingEnabled] – Allows entering edit mode with the Enter key.
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~isf2editingenabled.html[IsF2EditingEnabled] – Allows entering edit mode with F2 key.
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled] – Allows entering edit mode with a single or double click.
-* link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingsettingsbase~isoncellactiveeditingenabled.html[IsOnCellActiveEditingEnabled] – Allows entering edit mode when a cell becomes active, for example with the Tab key.
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~isenterkeyeditingenabled.html[IsEnterKeyEditingEnabled] – Allows entering edit mode with the Enter key.
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~isf2editingenabled.html[IsF2EditingEnabled] – Allows entering edit mode with F2 key.
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~ismouseactioneditingenabled.html[IsMouseActionEditingEnabled] – Allows entering edit mode with a single or double click.
+* link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingsettingsbase~isoncellactiveeditingenabled.html[IsOnCellActiveEditingEnabled] – Allows entering edit mode when a cell becomes active, for example with the Tab key.
 
-When you set the AllowEditing property to link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editingtype.html[Hover], the grid will enter in edit mode when you just hover it with the mouse. Use the xamGrid's link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.xamgrid~rowhover.html[RowHover] property to specify whether a single cell or the whole row should enter edit mode.
+When you set the AllowEditing property to link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editingtype.html[Hover], the grid will enter in edit mode when you just hover it with the mouse. Use the xamGrid's link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.xamgrid~rowhover.html[RowHover] property to specify whether a single cell or the whole row should enter edit mode.
 
-Aside from setting editing options on the entire control, you can also set options on individual link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.columnlayout.html[ColumnLayout] objects. Further, each individual link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editablecolumn.html[EditableColumn] object exposes an link:{ApiPlatform}controls.grids.xamgrid.v{ProductVersion}~infragistics.controls.grids.editablecolumn~isreadonly.html[IsReadonly] property to enable/disable editing on a column basis. The following code shows you how to enable editing on a row-by-row basis for the top level data and a cell-by-cell basis for the nested data.
+Aside from setting editing options on the entire control, you can also set options on individual link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.columnlayout.html[ColumnLayout] objects. Further, each individual link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editablecolumn.html[EditableColumn] object exposes an link:{ApiPlatform}controls.grids.xamgrid{ApiVersion}~infragistics.controls.grids.editablecolumn~isreadonly.html[IsReadonly] property to enable/disable editing on a column basis. The following code shows you how to enable editing on a row-by-row basis for the top level data and a cell-by-cell basis for the nested data.
 
 *In XAML:*
 [source,xaml]

@@ -18,7 +18,7 @@
 
 === Purpose
 
-This topic provides information on how to create lists using the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from the developer’s perspective.
+This topic provides information on how to create lists using the link:{ApiPlatform}controls.editors.xamrichtexteditor{ApiVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ from the developer’s perspective.
 
 === Required background
 
@@ -57,7 +57,7 @@ This topic contains the following sections:
 
 === Lists summary
 
-The  _xamRichTextEditor_   control supports multi-level lists using either custom defined or any of the predefined list styles located in link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~defaultavailablestyles.html[RichTextDocument.DefaultAvailableStyles].
+The  _xamRichTextEditor_   control supports multi-level lists using either custom defined or any of the predefined list styles located in link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextdocument~defaultavailablestyles.html[RichTextDocument.DefaultAvailableStyles].
 
 The list definition involves the usage of lists, styles and templates, all designed to be reusable to minimize the memory footprint. However, this results in some limitations discussed later in this topic.
 
@@ -77,12 +77,12 @@ There are two ways to define the levels and other settings in a list:
 
 === Overview
 
-The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listtemplate_members.html[ListTemplate] contains the actual definition for the structure of a list and all its levels (anywhere from 1 to 9 level definitions). Each level definition, represented by a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveldefinition_members.html[ListLevelDefinition] class instance, provides information such as the numbering or bullet to use, the text formatting to use around that list indicator, and the paragraph settings to apply to paragraphs at that level in the list. You can assign the list template to the list using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~template.html[RichTextList.Template] property. The list templates may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
+The link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.listtemplate_members.html[ListTemplate] contains the actual definition for the structure of a list and all its levels (anywhere from 1 to 9 level definitions). Each level definition, represented by a link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.listleveldefinition_members.html[ListLevelDefinition] class instance, provides information such as the numbering or bullet to use, the text formatting to use around that list indicator, and the paragraph settings to apply to paragraphs at that level in the list. You can assign the list template to the list using the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextlist~template.html[RichTextList.Template] property. The list templates may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
 
 .Note
 [NOTE]
 ====
-When sharing a template between more than one list, the actual number values used by the lists are incremented and determined by the list template itself. For example, if there are two lists in a document sharing a template and they each have three items, the items in the first list will be numbered 1, 2, 3, but the items in the second list will be numbered 4, 5, 6. To reset the numbering for the second list, you must populate the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~leveloverrides.html[RichTextList.LevelOverrides] collection with link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveloverride_members.html[ListLevelOverride] instances having link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.listleveloverride~startoverride.html[StartOverride] values of 1. One `ListLevelOverride` instance is needed for each level defined in the template if the numbering is to be reset for all levels.
+When sharing a template between more than one list, the actual number values used by the lists are incremented and determined by the list template itself. For example, if there are two lists in a document sharing a template and they each have three items, the items in the first list will be numbered 1, 2, 3, but the items in the second list will be numbered 4, 5, 6. To reset the numbering for the second list, you must populate the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextlist~leveloverrides.html[RichTextList.LevelOverrides] collection with link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.listleveloverride_members.html[ListLevelOverride] instances having link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.listleveloverride~startoverride.html[StartOverride] values of 1. One `ListLevelOverride` instance is needed for each level defined in the template if the numbering is to be reset for all levels.
 ====
 
 [[_Hlk337817761]]
@@ -174,7 +174,7 @@ Me.xamRichTextEditor1.Document.RootNode.Lists.Add(greenRichTextList)
 
 === Overview
 
-To create a link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.liststyle_members.html[ListStyle] you need to first create a `ListTemplate` (explained in the previous section) and set it to the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.liststyle~template.html[ListStyle.Template] property. Next, set a unique id using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextstylebase~id.html[ListStyle.Id] property and add the style in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles] collection. You can assign the list style to a list using the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist~liststyleid.html[RichTextList.ListStyleId] property. The list styles may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
+To create a link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.liststyle_members.html[ListStyle] you need to first create a `ListTemplate` (explained in the previous section) and set it to the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.liststyle~template.html[ListStyle.Template] property. Next, set a unique id using the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextstylebase~id.html[ListStyle.Id] property and add the style in the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.documentrootnode~styles.html[DocumentRootNode.Styles] collection. You can assign the list style to a list using the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextlist~liststyleid.html[RichTextList.ListStyleId] property. The list styles may be shared among multiple list instances. The link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextlist_members.html[RichTextList] instances must be placed in the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.documentrootnode~lists.html[DocumentRootNode.Lists] collection in order to be resolved.
 
 These are the benefits of using lists styles and templates (compared to templates-only):
 
@@ -281,7 +281,7 @@ Me.xamRichTextEditor1.Document.RootNode.Lists.Add(redRichTextList)
 
 === Create list summary
 
-Each list item in a `RichTextList` is a paragraph ( link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]). Create as many list items as you need and make them a list item using the following:
+Each list item in a `RichTextList` is a paragraph ( link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.paragraphnode_members.html[ParagraphNode]). Create as many list items as you need and make them a list item using the following:
 
 [[_Ref364171084]]
 
@@ -325,7 +325,7 @@ Me.xamRichTextEditor1.Document.RootNode.Body.ChildNodes.Add(pn)
 
 === Applying list style summary
 
-You can also create lists by applying a particular list style over some existing paragraphs. First create paragraph nodes for each item of your list (refer to the link:xamrichtexteditor-managing-adding-text.html[Adding Text] topic for more information on how to create paragraphs). Then invoke the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method and provide the document span occupied by all created paragraphs and the list style id. This will associate the paragraphs to a new list and apply the list style over them.
+You can also create lists by applying a particular list style over some existing paragraphs. First create paragraph nodes for each item of your list (refer to the link:xamrichtexteditor-managing-adding-text.html[Adding Text] topic for more information on how to create paragraphs). Then invoke the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.richtextdocument~applyparagraphstyle.html[RichTextDocument.ApplyParagraphStyle] method and provide the document span occupied by all created paragraphs and the list style id. This will associate the paragraphs to a new list and apply the list style over them.
 
 == Related Content
 

@@ -73,7 +73,7 @@ image::images/xamDiagram_Binding_to_Nodes_and_Connections_Data_with_Keys_1.png[]
 To complete the procedure, you need the following:
 
 * A WPF application with an empty  _xamDiagram_   added to a page
-* The link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~layout.html[Layout] property of the  _xamDiagram_   set to an instance of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.forcedirectedgraphdiagramlayout_members.html[ForceDirectedGraphDiagramLayout]
+* The link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~layout.html[Layout] property of the  _xamDiagram_   set to an instance of the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.forcedirectedgraphdiagramlayout_members.html[ForceDirectedGraphDiagramLayout]
 
 [[_Overview]]
 
@@ -368,7 +368,7 @@ Set the diagram’s `DataContext` property to an instance of the `WaterFlowViewM
 
   *5. Set the ItemsSource*   *property* 
 
-Bind the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] to the `Articles` property of the `WaterFlowViewModel` data context.
+Bind the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] to the `Articles` property of the `WaterFlowViewModel` data context.
 
 *In XAML:*
 
@@ -379,7 +379,7 @@ ItemsSource="{Binding Activities}"
 
   *6. Set the ConnectionsSource*   *property* 
 
-Bind the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectionssource.html[ConnectionsSource] to the `Relations` property of the `WaterFlowViewModel` data context.
+Bind the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~connectionssource.html[ConnectionsSource] to the `Relations` property of the `WaterFlowViewModel` data context.
 
 *In XAML:*
 
@@ -390,27 +390,27 @@ ConnectionsSource="{Binding Relations}"
 
 === 2. Create the node definitions
 
-For each of the data types in the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] is usually added to the  _xamDiagram_  . Specify the most concrete types first if one or more types are in an inheritance relationship. The  _xamDiagram_   tries to match the type of each of the data items in the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition. The first node definition whose link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] returns true from a call to `IsAssignableFrom` is selected. That is if the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the node definition matches exactly, or is a parent type of the data item’s type; otherwise, the node definition is selected.
+For each of the data types in the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~itemssource.html[ItemsSource] a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] is usually added to the  _xamDiagram_  . Specify the most concrete types first if one or more types are in an inheritance relationship. The  _xamDiagram_   tries to match the type of each of the data items in the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of a node definition. The first node definition whose link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] returns true from a call to `IsAssignableFrom` is selected. That is if the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the node definition matches exactly, or is a parent type of the data item’s type; otherwise, the node definition is selected.
 
-In order to use data binding with keys, the node objects must have a string property with valid value for the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~key.html[Key] property of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] class.
+In order to use data binding with keys, the node objects must have a string property with valid value for the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramnode~key.html[Key] property of the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] class.
 
 *1. Create a NodeDefinition for the `Activity` class*
 
-Create a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~nodedefinitions.html[NodeDefinitions] collection.
+Create a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~nodedefinitions.html[NodeDefinitions] collection.
 
-*2. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] to the `Activity` type.*
+*2. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] of the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition_members.html[NodeDefinition] to the `Activity` type.*
 
 *3. Set the KeyMemberPath*
 
-Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~keymemberpath.html[KeyMemberPath] to  _Key_  . This will populate the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode~key.html[Name] property of the created link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] instances to the value of the Key property.
+Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~keymemberpath.html[KeyMemberPath] to  _Key_  . This will populate the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramnode~key.html[Name] property of the created link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramnode_members.html[DiagramNode] instances to the value of the Key property.
 
-*4. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath]*
+*4. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath]*
 
-Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] to  _Key_  . Not specifying a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath], and not setting a custom link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] via the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle], the results in the `ToString` method displayed as the nodes’ content.
+Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath] to  _Key_  . Not specifying a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~displaymemberpath.html[DisplayMemberPath], and not setting a custom link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] via the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle], the results in the `ToString` method displayed as the nodes’ content.
 
-*5. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] (optional)*
+*5. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] (optional)*
 
-Using the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] property you can set the style to be applied to all `DiagramNode` objects matched by the node definition. This gives you the opportunity to easily customize the nodes created for a certain data type.
+Using the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~nodestyle.html[NodeStyle] property you can set the style to be applied to all `DiagramNode` objects matched by the node definition. This gives you the opportunity to easily customize the nodes created for a certain data type.
 
 *In XAML:*
 
@@ -439,23 +439,23 @@ DisplayMemberPath="Key">
 
 === 3. Create the connection definitions.
 
-When supplying separate connection data objects, use an instance of link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition_members.html[ConnectionSourceDefinition] in the diagram’s link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions]. This type of connection definition describes what connection to create for each data items matching the definition’s link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType]. In order for such a connection to have its link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection~startnodekey.html[StartNodeKey] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection~endnodekey.html[EndNodeKey] properties correctly populated, the connection definition’s link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition~startnodekeymemberpath.html[StartNodeKeyMemberPath] and link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition~endnodekeymemberpath.html[EndNodeKeyMemberPath] properties must be set to the names of the properties holding the identifiers of the start/end node data objects. 
+When supplying separate connection data objects, use an instance of link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition_members.html[ConnectionSourceDefinition] in the diagram’s link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions]. This type of connection definition describes what connection to create for each data items matching the definition’s link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType]. In order for such a connection to have its link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramconnection~startnodekey.html[StartNodeKey] and link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramconnection~endnodekey.html[EndNodeKey] properties correctly populated, the connection definition’s link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition~startnodekeymemberpath.html[StartNodeKeyMemberPath] and link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition~endnodekeymemberpath.html[EndNodeKeyMemberPath] properties must be set to the names of the properties holding the identifiers of the start/end node data objects. 
 
 *1. Create a connection definition* 
 
-Create a link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition_members.html[ConnectionSourceDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions] collection.
+Create a link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition_members.html[ConnectionSourceDefinition] and add it to the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.xamdiagram~connectiondefinitions.html[ConnectionDefinitions] collection.
 
-*2. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType]*
+*2. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType]*
 
-Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] to the `ActivityRelation` type. 
+Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.nodedefinition~targettype.html[TargetType] to the `ActivityRelation` type. 
 
 *3. Set the start/end node name member paths* 
 
-Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition~startnodekeymemberpath.html[StartNodeKeyMemberPath] to “ _StartKey_   _”_  . Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectionsourcedefinition~endnodekeymemberpath.html[EndNodeKeyMemberPath] to  _”_   _EndKey_   _”_  .
+Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition~startnodekeymemberpath.html[StartNodeKeyMemberPath] to “ _StartKey_   _”_  . Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectionsourcedefinition~endnodekeymemberpath.html[EndNodeKeyMemberPath] to  _”_   _EndKey_   _”_  .
 
-*4. Set the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle]  _(optional)_*
+*4. Set the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle]  _(optional)_*
 
-You can customize the connections created for a particular data type by setting the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle] property to a style targeting link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramconnection_members.html[DiagramConnection]. You can specify a setting for the link:{ApiPlatform}controls.charts.xamdiagram.v{ProductVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] property and apply a template setting the `DataContext` where the data object will be.
+You can customize the connections created for a particular data type by setting the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.connectiondefinitionbase~connectionstyle.html[ConnectionStyle] property to a style targeting link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramconnection_members.html[DiagramConnection]. You can specify a setting for the link:{ApiPlatform}controls.charts.xamdiagram{ApiVersion}~infragistics.controls.charts.diagramitem~displaytemplate.html[DisplayTemplate] property and apply a template setting the `DataContext` where the data object will be.
 
 *In XAML:*
 
