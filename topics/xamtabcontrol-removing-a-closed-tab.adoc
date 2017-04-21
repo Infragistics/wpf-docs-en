@@ -16,21 +16,21 @@
 
 == Before You Begin
 
-When an end user closes a tab, xamTabControl™ does not remove the tab from the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol.html[Items collection]; it hides it instead. In cases where the tab contains resource-heavy objects, you may want to remove the tab from the Items collection so the garbage collector can reclaim the resources. If you are using individual tabs to represent an entity instance from your data model (e.g., a Customer, an Order, etc) and you are treating each tab similar to a Form, removing each tab from the Items collection as each tab is closed will ensure the smallest memory and resource footprint for your application.
+When an end user closes a tab, xamTabControl™ does not remove the tab from the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.xamtabcontrol.html[Items collection]; it hides it instead. In cases where the tab contains resource-heavy objects, you may want to remove the tab from the Items collection so the garbage collector can reclaim the resources. If you are using individual tabs to represent an entity instance from your data model (e.g., a Customer, an Order, etc) and you are treating each tab similar to a Form, removing each tab from the Items collection as each tab is closed will ensure the smallest memory and resource footprint for your application.
 
-One thing you have to be aware of when defining tabs in XAML is the Name property. If you do not name the tabs in XAML, you can simply remove the tab from xamTabControl's Items collection. However, if you name a tab in XAML, you have to take two additional steps after you remove the tab from the Items collection. You must unregister the tab's name from the Window's namescope and set all references to the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabitemex.html[TabItemEx] object, including the Window's instance variable, to null.
+One thing you have to be aware of when defining tabs in XAML is the Name property. If you do not name the tabs in XAML, you can simply remove the tab from xamTabControl's Items collection. However, if you name a tab in XAML, you have to take two additional steps after you remove the tab from the Items collection. You must unregister the tab's name from the Window's namescope and set all references to the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.tabitemex.html[TabItemEx] object, including the Window's instance variable, to null.
 
 == What You Will Accomplish
 
-You will handle the TabItemEx object's link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabitemex~closed_ev.html[Closed] event and remove the TabItemEx object from xamTabControl's Items collection.
+You will handle the TabItemEx object's link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.tabitemex~closed_ev.html[Closed] event and remove the TabItemEx object from xamTabControl's Items collection.
 
 == Follow these Steps
 
 [start=1]
 . Add an instance of xamTabControl to your Window.
 
-.. Set the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol.html[Name] property so you can reference it from the code-behind.
-.. Set the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.xamtabcontrol~allowtabclosing.html[AllowTabClosing] property to True.
+.. Set the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.xamtabcontrol.html[Name] property so you can reference it from the code-behind.
+.. Set the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.xamtabcontrol~allowtabclosing.html[AllowTabClosing] property to True.
 .. Attach an event handler to the TabItemEx object's Closed event.
 
 Since the TabItemEx object's Closed event is a routed event that bubbles up, you can attach an event handler on the xamTabControl instead of on each individual instance of the TabItemEx class.
@@ -49,8 +49,8 @@ Since the TabItemEx object's Closed event is a routed event that bubbles up, you
 [start=2]
 . Add a TabItemEx object to xamTabControl.
 
-.. Set the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabitemex.html[Name] property to "tab1".
-.. Set the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.tabitemex.html[Header] property to "Tab 1".
+.. Set the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.tabitemex.html[Name] property to "tab1".
+.. Set the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.tabitemex.html[Header] property to "Tab 1".
 
 *In XAML:*
 

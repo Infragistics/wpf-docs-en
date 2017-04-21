@@ -14,7 +14,7 @@
 
 = Selection Overview
 
-All {ProductName} controls derived from the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class have built-in support for selection of cells, records, and fields. There are three different selection modes available on the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.selectiontype.html[SelectionType] enumeration:
+All {ProductName} controls derived from the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase.html[DataPresenterBase] class have built-in support for selection of cells, records, and fields. There are three different selection modes available on the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.selectiontype.html[SelectionType] enumeration:
 
 * no selection
 * selection of one object at a time
@@ -81,7 +81,7 @@ void OnFieldLayoutInitialized(object sender, FieldLayoutInitializedEventArgs e)
 }
 ----
 
-Every selectable item has an link:{ApiPlatform}v{ProductVersion}~infragistics.windows.selection.iselectableitem~isselectable.html[IsSelected] property. In the {ProductName} product, you will frequently use this property as a Condition for your Style Triggers to display selected items differently (for example, painted with a different background brush). This gives your users the visual feedback that they will expect regarding their selection.
+Every selectable item has an link:{RootAssembly}{ApiVersion}~infragistics.windows.selection.iselectableitem~isselectable.html[IsSelected] property. In the {ProductName} product, you will frequently use this property as a Condition for your Style Triggers to display selected items differently (for example, painted with a different background brush). This gives your users the visual feedback that they will expect regarding their selection.
 
 image::images/WPF_Selection_Overview_02.PNG[datapresenterbase selection API]
 
@@ -99,9 +99,9 @@ The above screen shot illustrates an extended record selection scenario, highlig
 
 More advanced selection handling scenarios can be handled by attaching an event handler to the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~selecteditemschanging_ev.html[SelectedItemChanging] and link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~selecteditemschanged_ev.html[SelectedItemChanged] events that all DataPresenterBase-derived controls must fire when selection is enabled, and the selected item or items have changed.
 
-For example, you can handle the SelectedItemChanging event to examine the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.events.selecteditemschangingeventargs~newselection.html[NewSelection]. After evaluating a business rule that restricts what items are allowed to be selected in your application's current state, you can cancel the selection by setting the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.events.cancelableroutedeventargs~cancel.html[Cancel] to True.
+For example, you can handle the SelectedItemChanging event to examine the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.events.selecteditemschangingeventargs~newselection.html[NewSelection]. After evaluating a business rule that restricts what items are allowed to be selected in your application's current state, you can cancel the selection by setting the link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.events.cancelableroutedeventargs~cancel.html[Cancel] to True.
 
-The selection infrastructure for DataPresenterBase-derived controls has been abstracted behind interfaces, which you can use to deal with the most advanced selection scenarios. All of the selectable items you have learned about in this topic (cells, records, and fields) implement the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.selection.iselectableitem.html[ISelectableItem] interface, which allows them to be selectable by the control infrastructure. The DataPresenterBase class implements the link:{ApiPlatform}v{ProductVersion}~infragistics.windows.selection.iselectionhost.html[ISelectionHost] interface that is responsible for many of the finer aspects of selection, including dragging, dealing with translating a finer-grained ISelectableItem (e.g., a cell) into a coarser-grained ISelectableItemand (e.g., a record) based on the semantics of the ISelectionHost's presentation, and the speed of auto-scrolling during the selection of a range spanning multiple pages at one time.
+The selection infrastructure for DataPresenterBase-derived controls has been abstracted behind interfaces, which you can use to deal with the most advanced selection scenarios. All of the selectable items you have learned about in this topic (cells, records, and fields) implement the link:{RootAssembly}{ApiVersion}~infragistics.windows.selection.iselectableitem.html[ISelectableItem] interface, which allows them to be selectable by the control infrastructure. The DataPresenterBase class implements the link:{RootAssembly}{ApiVersion}~infragistics.windows.selection.iselectionhost.html[ISelectionHost] interface that is responsible for many of the finer aspects of selection, including dragging, dealing with translating a finer-grained ISelectableItem (e.g., a cell) into a coarser-grained ISelectableItemand (e.g., a record) based on the semantics of the ISelectionHost's presentation, and the speed of auto-scrolling during the selection of a range spanning multiple pages at one time.
 
 == Clearing Selected Records in the xamDataGrid Control
 
