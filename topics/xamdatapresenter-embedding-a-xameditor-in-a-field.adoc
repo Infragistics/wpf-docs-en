@@ -15,11 +15,11 @@
 
 == Before You Begin
 
-The xamDataPresenter™, xamDataGrid™, and xamDataCarousel™ controls embed a default ValueEditor derived control in a field based on a field's data type. However, you can change the xamEditor control that xamDataPresenter embeds in a field by setting the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editortype.html[EditorType] property of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object. To set properties on an embedded editor control, you have to create a Style that targets the editor control and then assign the Style to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] property of the FieldSettings object. For more information on default xamEditor controls and data types, see link:xamdata-about-xamdatapresenter-and-xameditors.html[About xamDataPresenter and xamEditors].
+The xamDataPresenter™, xamDataGrid™, and xamDataCarousel™ controls embed a default ValueEditor derived control in a field based on a field's data type. However, you can change the xamEditor control that xamDataPresenter embeds in a field by setting the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~editortype.html[EditorType] property of the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings.html[FieldSettings] object. To set properties on an embedded editor control, you have to create a Style that targets the editor control and then assign the Style to the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~editorstyle.html[EditorStyle] property of the FieldSettings object. For more information on default xamEditor controls and data types, see link:xamdata-about-xamdatapresenter-and-xameditors.html[About xamDataPresenter and xamEditors].
 
 == What You Will Accomplish
 
-You will embed xamCurrencyEditor™ to edit the salary field in xamDataGrid's built-in sample data. You will also set the link:{ApiPlatform}editors.v{ProductVersion}~infragistics.windows.editors.texteditorbase~nulltext.html[NullText] property of the embedded xamCurrencyEditor control using a Style.
+You will embed xamCurrencyEditor™ to edit the salary field in xamDataGrid's built-in sample data. You will also set the link:{ApiPlatform}editors{ApiVersion}~infragistics.windows.editors.texteditorbase~nulltext.html[NullText] property of the embedded xamCurrencyEditor control using a Style.
 
 .Note
 [NOTE]
@@ -78,8 +78,8 @@ using Infragistics.Windows.DataPresenter;
 +
 --
 .. Name the controls so you can reference it in the code-behind.
-.. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True.
-.. Attach an event handler to the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized] event if you are going to use the code-behind.
+.. Set the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~bindtosampledata.html[BindToSampleData] property to True.
+.. Attach an event handler to the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized] event if you are going to use the code-behind.
 --
 +
 *In XAML:*
@@ -110,7 +110,7 @@ using Infragistics.Windows.DataPresenter;
 ----
 
 [start=4]
-. Add a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] object to the controls and then a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] object to field layout.
+. Add a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] object to the controls and then a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.field.html[Field] object to field layout.
 +
 You can also add fields to the field layout for the remaining three fields, name, email, and department. Since we did not turn off the auto-generate fields feature, xamDataGrid will automatically generate the remaining three fields.
 +
@@ -181,7 +181,7 @@ private void xamData_FieldLayoutInitialized(object sender, Infragistics.Windows.
 ----
 
 [start=5]
-. Set the EditorStyle property of the Settings property on the salary field. Set the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~editastype.html[EditAsType] property of the Settings property on the salary field.
+. Set the EditorStyle property of the Settings property on the salary field. Set the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~editastype.html[EditAsType] property of the Settings property on the salary field.
 +
 Since the built-in sample data is XML data, all data types for the data bound fields are strings. In order to edit these string values as decimal values using the xamCurrencyEditor control, you have to set the EditAsType property to decimal. However, if the data type of a data bound field in your field layout matches the data type that you want the editor to edit, you can skip this step.
 +

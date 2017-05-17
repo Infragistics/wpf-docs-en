@@ -89,7 +89,7 @@ The following steps demonstrate how to create a custom adornment.
 
 === 1. Create an adornment generator provider by deriving a class from AdornmentGeneratorProvider.
 
-Create a class extending from the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.adornmentgeneratorprovider_members.html[AdornmentGeneratorProvider] and implements the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.adornmentgeneratorprovider~createadornmentgenerator.html[CreateAdornmentGenerator] method, which, in turn, instantiates and returns an instance of your link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.syntaxeditoradornmentgeneratorbase_members.html[SyntaxEditorAdornmentGeneratorBase] derived class. When the  _xamSyntaxEditor_   invokes this method, it supplies the related link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase]. It is a good idea to pass it along to the adornment, because the `DocumentViewBase` contains all the context the adornment needs to access view and control information.
+Create a class extending from the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.adornmentgeneratorprovider_members.html[AdornmentGeneratorProvider] and implements the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.adornmentgeneratorprovider~createadornmentgenerator.html[CreateAdornmentGenerator] method, which, in turn, instantiates and returns an instance of your link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.syntaxeditoradornmentgeneratorbase_members.html[SyntaxEditorAdornmentGeneratorBase] derived class. When the  _xamSyntaxEditor_   invokes this method, it supplies the related link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase]. It is a good idea to pass it along to the adornment, because the `DocumentViewBase` contains all the context the adornment needs to access view and control information.
 
 .Note
 [NOTE]
@@ -99,7 +99,7 @@ Please refer to the <<_Ref340582135,related code example>> for more information 
 
 === 2. Register your derived adornment generator provider with the ServicesManager exposed on the TextDocument’s Language.
 
-Create a page and add the  _xamSyntaxEditor_   control. Use the link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.parsing.servicesmanager.html[ServicesManager]’s link:{ApiPlatform}documents.textdocument.v{ProductVersion}~infragistics.documents.parsing.servicesmanager~registerservice.html[RegisterService] method to register the adornment generator provider.
+Create a page and add the  _xamSyntaxEditor_   control. Use the link:{ApiPlatform}documents.textdocument{ApiVersion}~infragistics.documents.parsing.servicesmanager.html[ServicesManager]’s link:{ApiPlatform}documents.textdocument{ApiVersion}~infragistics.documents.parsing.servicesmanager~registerservice.html[RegisterService] method to register the adornment generator provider.
 
 .Note
 [NOTE]
@@ -111,9 +111,9 @@ Please refer to the <<_Ref340582157,related code example>> for additional inform
 
 Create an adornment generator class extending from the `SyntaxEditorAdornmentGeneratorBase` class. When invoking the base constructor you can associate the adornment generator with one of the predefined adornment layers or create a new layer for your adornment and specify its z-order position with respect to the other layers.
 
-Use the `AdornmentLayer` property to access the adornment layer’s link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.primitives.adornmentlayer~addadornment.html[AddAdornment] method to add the elements associated with your adornment generator.
+Use the `AdornmentLayer` property to access the adornment layer’s link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.primitives.adornmentlayer~addadornment.html[AddAdornment] method to add the elements associated with your adornment generator.
 
-In most cases, you will also add a handler to the document view’s link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[LayoutChanged] event to update the adornments whenever the visible lines change.
+In most cases, you will also add a handler to the document view’s link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[LayoutChanged] event to update the adornments whenever the visible lines change.
 
 Override the `OnRefreshAdornments` method, invoked by the  _xamSyntaxEditor_   whenever its settings change.
 

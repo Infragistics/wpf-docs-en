@@ -24,7 +24,7 @@ You can use the Cross-Field Record Filtering Feature to create advanced filterin
 
 The Cross-Field Record Filtering is combined with the field specific record filtering which means that if a record match the cross field record filtering criteria it still have to match the field specific record filtering criteria too for it to be considered "filtered-in".
 
-The Cross-Field Record Filtering impact on a hierarchical data source’s records depends on the value of the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~recordfilterscope.html[FieldLayoutSettings.RecordFilterScope] property. The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordfilterscope.html[SiblingDataRecords] value will instruct the filtering to honor each field layout's cross-field records filtering rules and the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.recordfilterscope.html[AllRecords] value will cause the root layout's filtering rules to be applied on all levels.
+The Cross-Field Record Filtering impact on a hierarchical data source’s records depends on the value of the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~recordfilterscope.html[FieldLayoutSettings.RecordFilterScope] property. The link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.recordfilterscope.html[SiblingDataRecords] value will instruct the filtering to honor each field layout's cross-field records filtering rules and the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.recordfilterscope.html[AllRecords] value will cause the root layout's filtering rules to be applied on all levels.
 
 [[_RefLink02]]
 == Configuring Cross-Field Record Filtering
@@ -45,7 +45,7 @@ The Cross-Field Record Filtering impact on a hierarchical data source’s record
 If there are fields already programmatically added in the Cross-Field Record Filtering groups they will still be visible in the filtering dialog. 
 
 ====
-| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldsettings~allowcrossfieldrecordfiltering.html[AllowCrossFieldRecordFiltering]
+| link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldsettings~allowcrossfieldrecordfiltering.html[AllowCrossFieldRecordFiltering]
 
 |Enable the user to select certain field in the Cross-Field Record Filtering Dialog
 |Use this property to allow/disallow the user to select certain field in the Cross-Field Record Filtering Dialog. 
@@ -59,15 +59,15 @@ If there are fields already programmatically added in the Cross-Field Record Fil
 If there are fields already programmatically added in the Cross-Field Record Filtering groups they will still be visible in the filtering dialog. 
 
 ====
-| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field~allowcrossfieldrecordfiltering.html[AllowCrossFieldRecordFiltering]
+| link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.field~allowcrossfieldrecordfiltering.html[AllowCrossFieldRecordFiltering]
 
 |Enable the user to open the Cross-Field Record Filtering Dialog
 |Configure whether to display a menu containing the items for opening the Cross-Field Record Filtering Dialog and clearing all Cross-Field Record Filters.
-| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~headerprefixareadisplaymode.html[HeaderPrefixAreaDisplayMode]
+| link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~headerprefixareadisplaymode.html[HeaderPrefixAreaDisplayMode]
 
 |Configure the menu items in the header menu
-|Configure which items are present in the header prefix area menu. Set a value which is a combination of the value of type link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.headerprefixareamenuoptions.html[HeaderPrefixAreaMenuOptions].
-| link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~headerprefixareamenuoptions.html[HeaderPrefixAreaMenuOptions]
+|Configure which items are present in the header prefix area menu. Set a value which is a combination of the value of type link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.headerprefixareamenuoptions.html[HeaderPrefixAreaMenuOptions].
+| link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~headerprefixareamenuoptions.html[HeaderPrefixAreaMenuOptions]
 
 |====
 
@@ -89,20 +89,20 @@ Using the dialog the user has the following abilities:
 * Grouping two or more filtering conditions using the AND logical operator.
 * Grouping two or more filtering conditions using the OR logical operator.
 * Toggle the currently selected group's logical operator (AND <> OR).
-* Ungroup the selected item(s) if they are grouped but not in the root level group (defined directly in the field layout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~crossfieldrecordfilters.html[CrossFieldRecordFilters] property).
+* Ungroup the selected item(s) if they are grouped but not in the root level group (defined directly in the field layout's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout~crossfieldrecordfilters.html[CrossFieldRecordFilters] property).
 
 All defined filters are descriptively summarized at the bottom of the dialog.
 
 [[_RefLink04]]
 == Specifying Filters Programmatically
 
-The Cross-Field Record Filters, represented by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter.html[CrossFieldRecordFilter] class, are defined separately for each field layout via the `FieldLayout.CrossFieldRecordFilters` property. For a filter to be valid you have to specify:
+The Cross-Field Record Filters, represented by the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter.html[CrossFieldRecordFilter] class, are defined separately for each field layout via the `FieldLayout.CrossFieldRecordFilters` property. For a filter to be valid you have to specify:
 
-* The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~field.html[Field] ( link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~fieldname.html[FieldName]) whose cell data will be matched using the operator and operand
-* The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~operator.html[Operator] which will be used for the comparison
-* The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~operand.html[Operand] which will be compared to the cell data
+* The link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~field.html[Field] ( link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~fieldname.html[FieldName]) whose cell data will be matched using the operator and operand
+* The link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~operator.html[Operator] which will be used for the comparison
+* The link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfilter~operand.html[Operand] which will be compared to the cell data
 
-Cross-Field Record Filters can be grouped logical in groups represented by the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfiltergroup.html[CrossFieldRecordFilterGroup] type. You can set the logical operator of such group using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.crossfieldrecordfiltergroup~logicaloperator.html[LogicalOperator] property.
+Cross-Field Record Filters can be grouped logical in groups represented by the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfiltergroup.html[CrossFieldRecordFilterGroup] type. You can set the logical operator of such group using the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.crossfieldrecordfiltergroup~logicaloperator.html[LogicalOperator] property.
 
 The following code snippet demonstrates how to define a Cross-Field Record Filters to satisfy the following matching criteria:
 

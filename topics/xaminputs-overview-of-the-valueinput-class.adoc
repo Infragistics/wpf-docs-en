@@ -26,39 +26,39 @@ The table below explains some of the more significant properties of the ValueInp
 |Description
 |Default Value
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valuetype.html[ValueType]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~valuetype.html[ValueType]
 |Type
 |The ValueType property specifies the type of values that are displayed/edited by the input. The ValueInput ensures that the user input is of this type. It automatically parses the entered data and converts it to an object of this type. If the data entered is not in the correct format, the value input rejects it and takes appropriate action based on the InvalidValueBehavior property setting.
 |null
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~value.html[Value]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~value.html[Value]
 |Object
 |The Value property gets or sets the value displayed/edited by the input control. It returns objects of type specified by the ValueType property. For example, if you set the ValueType of a xamMaskedinput™ to DateTime, the Value property returns DateTime objects. The xamMaskedInput automatically converts the data entered by the user into DateTime objects as mentioned above.
 |null
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valueconstraint.html[ValueConstraint]
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueconstraint.html[ValueConstraint]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~valueconstraint.html[ValueConstraint]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueconstraint.html[ValueConstraint]
 |The ValueConstraint property allows you to specify constraints for the values that the user can enter in the xamInputs. Some of the constraints you can specify are minimum value, maximum value, regular expression, nullable, maximum length, etc. The xamInput used validates user input against these constraints and if it doesn't satisfy the constraints, the value entered is considered invalid.
 |null
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~isvaluevalid.html[IsValueValid]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~isvaluevalid.html[IsValueValid]
 |bool
 |The IsValueValid property of the ValueInput indicates whether or not the current input is valid or not. If the input is invalid, the input control takes actions based on the InvalidValueBehavior property setting when the user tries to leave the control.
 |True
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.invalidvaluebehavior.html[InvalidValueBehavior]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~invalidvaluebehavior.html[InvalidValueBehavior]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.invalidvaluebehavior.html[InvalidValueBehavior]
 |The InvalidValueBehavior property specifies which action to take when the user attempts to leave the xamInput after entering an invalid value. The control considers user input to be invalid when the input cannot be properly parsed into the ValueInput's ValueType or it does not satisfy the value constraints specified by the ValueConstraint. The default value will display a message to the user indicating that the value entered is invalid.
 |DisplayErrorMessageAndRevertValue
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter]
 |IValueConverter
-|This property enables you to specify custom logic for converting between the Value and Text properties. It is used in both directions -- for converting value to text, and from text (user input) into the value type. For example, if a xamMaskedInput's ValueType is set to DateTime, the ValueToTextConverter property is used for converting DateTime objects to text to display when in edit mode and also for converting back the user input into DateTime objects. Typically there is no need to specify this converter because the default conversion logic provided by the xamInput controls is sufficient. You may, however, want to provide a custom conversion implementation if you have specialized needs . For an example see the link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter] page.
+|This property enables you to specify custom logic for converting between the Value and Text properties. It is used in both directions -- for converting value to text, and from text (user input) into the value type. For example, if a xamMaskedInput's ValueType is set to DateTime, the ValueToTextConverter property is used for converting DateTime objects to text to display when in edit mode and also for converting back the user input into DateTime objects. Typically there is no need to specify this converter because the default conversion logic provided by the xamInput controls is sufficient. You may, however, want to provide a custom conversion implementation if you have specialized needs . For an example see the link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter] page.
 |none
 
-| link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.textinputbase~valuetodisplaytextconverter.html[ValueToDisplayTextConverter]
+| link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.textinputbase~valuetodisplaytextconverter.html[ValueToDisplayTextConverter]
 |IValueConverter
-|This property is implemented by the TextInputBase class, but is mentioned here because it is similar to the ValueToTextConverter property. The key distinction is that ValueToDisplayTextConverter is used only in display mode. Therefore it is only used for converting from value to text. The reason for using two different converters -- one for edit mode and one for display mode -- is that it lets you display values with different formatting and edit values with different formatting. For example, in the case of DateTime, you may want to display dates as long dates (e.g., January 01, 2007). And when the end user enters edit mode to modify the value, you may want to display the same value as 01/01/07 for easier editing. After the user modifies the date in short date format and leaves the input control, the new date will automatically be displayed in the long date format using the ValueToDisplayTextConverter property. For an example see the link:{ApiPlatform}controls.editors.xammaskedinput.v{ProductVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter] page.
+|This property is implemented by the TextInputBase class, but is mentioned here because it is similar to the ValueToTextConverter property. The key distinction is that ValueToDisplayTextConverter is used only in display mode. Therefore it is only used for converting from value to text. The reason for using two different converters -- one for edit mode and one for display mode -- is that it lets you display values with different formatting and edit values with different formatting. For example, in the case of DateTime, you may want to display dates as long dates (e.g., January 01, 2007). And when the end user enters edit mode to modify the value, you may want to display the same value as 01/01/07 for easier editing. After the user modifies the date in short date format and leaves the input control, the new date will automatically be displayed in the long date format using the ValueToDisplayTextConverter property. For an example see the link:{ApiPlatform}controls.editors.xammaskedinput{ApiVersion}~infragistics.controls.editors.valueinput~valuetotextconverter.html[ValueToTextConverter] page.
 |none
 
 |====

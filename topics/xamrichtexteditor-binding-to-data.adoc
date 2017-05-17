@@ -19,7 +19,7 @@
 
 === Purpose
 
-This topic explains how to use document adapters for binding the link:{ApiPlatform}controls.editors.xamrichtexteditor.v{ProductVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control to various data sources.
+This topic explains how to use document adapters for binding the link:{ApiPlatform}controls.editors.xamrichtexteditor{ApiVersion}~infragistics.controls.editors.xamrichtexteditor.html[ _xamRichTextEditor_  ]™ control to various data sources.
 
 === Required background
 
@@ -61,16 +61,16 @@ You can use the document adapters to bind the  _xamRichTextEditor’s_   documen
 |====
 |Document Adapter|Assembly
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter_members.html[PlainTextDocumentAdapter]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter_members.html[PlainTextDocumentAdapter]
 | *{ApiPlatform}Documents.RichTextDocument.v{ProductVersion}* 
 
-| link:{ApiPlatform}documents.richtextdocument.rtf.v{ProductVersion}~infragistics.documents.richtext.rtf.rtfdocumentadapter_members.html[RtfDocumentAdapter]
+| link:{ApiPlatform}documents.richtextdocument.rtf{ApiVersion}~infragistics.documents.richtext.rtf.rtfdocumentadapter_members.html[RtfDocumentAdapter]
 | *{ApiPlatform}Documents.RichTextDocument.Rtf.v{ProductVersion}* 
 
-| link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.worddocumentadapter_members.html[WordDocumentAdapter]
+| link:{ApiPlatform}documents.richtextdocument.word{ApiVersion}~infragistics.documents.richtext.word.worddocumentadapter_members.html[WordDocumentAdapter]
 | *{ApiPlatform}Documents.RichTextDocument.Word.v{ProductVersion}* 
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter_members.html[HtmlDocumentAdapter]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter_members.html[HtmlDocumentAdapter]
 | *{ApiPlatform}Documents.RichTextDocument.Html.v{ProductVersion}* 
 
 |====
@@ -90,16 +90,16 @@ The following table maps the desired configuration to its specific property sett
 |====
 |Property|Purpose
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~document.html[Document]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~document.html[Document]
 |An instance of `RichTextDocument` from or to which content will be obtained or added.
 
 |`Value`
 |Individually defined, in each adapter, this property consists of various type, string for plain text and RTF format and as byte array for DOCX format, depending on the adapter’s purpose.
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshtrigger.html[RefreshTrigger]
-|Specify when the Value should be refreshed. Use one of the following link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextrefreshtrigger.html[RichTextRefreshTrigger] values. 
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshtrigger.html[RefreshTrigger]
+|Specify when the Value should be refreshed. Use one of the following link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextrefreshtrigger.html[RichTextRefreshTrigger] values. 
 
-* `Explicit` – Prevents the `Value` from automatically refreshing. You must call the link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshvalue.html[RefreshValue] method on the adapter to update the `Value`. 
+* `Explicit` – Prevents the `Value` from automatically refreshing. You must call the link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshvalue.html[RefreshValue] method on the adapter to update the `Value`. 
 
 * `Delayed` – The `DelayAfterFirstEdit` and `DelayAfterLastEdit` intervals can be set to non-null values to specify delays after certain user edits when the `Value` should be refreshed. If neither is set, this trigger will act like the `Explicit` trigger. 
 
@@ -117,10 +117,10 @@ Only use this trigger in editors with a small amount of content as large documen
 
 * `LostFocus` ( _default value_ ) – Refreshes the `Value` after the user leaves the editor hosting the `RichTextDocument`. Displaying the document in anything other than the editor causes the trigger will act like the `Explicit` trigger. 
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~delayafterfirstedit.html[DelayAfterFirstEdit]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~delayafterfirstedit.html[DelayAfterFirstEdit]
 |The nullable interval after the first edit of the `RichTextDocument` for refreshing the `Value`. Only use this interval when the `RefreshTrigger` is set to `Delayed`. Where the “first edit” is the initial edit following the display of the document or the first edit after the previous refresh of the `Value` property. This delay can be used in conjunction with `DelayAfterLastEdit`. The first delay which elapses refreshes the `Value`.
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~delayafterlastedit.html[DelayAfterLastEdit]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~delayafterlastedit.html[DelayAfterLastEdit]
 |The nullable interval after the last edit of the `RichTextDocument` for refreshing the `Value` . Only use this interval when the `RefreshTrigger` is set to `Delayed`. Where the “last edit” is the most recent edit by user. If this delay has not yet elapsed when the user makes another edit , the timer resets and the full interval will need to elapse again before refreshing the `Value`. Using this delay in conjunction with `DelayAfterFirstEdit` `allows you to [finish sentence]`. The first delay which elapses refreshes the `Value`.
 
 |====
@@ -133,10 +133,10 @@ The following table maps the desired behavior to its specific method.
 |====
 |Method|Purpose
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshdocument.html[RefreshDocument()]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshdocument.html[RefreshDocument()]
 |This method forces the content of the `RichTextDocument` to reflect any new values set on the adapter by calling `RefreshDocumentCore``(``)` if and only if, the new values have not yet been converted to document content.
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshvalue.html[RefreshValue()]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~refreshvalue.html[RefreshValue()]
 |This method calls `RefreshValueCore``(``)` if there are changes on the document not yet pushed into adapter’s exposed values .
 
 |====
@@ -147,7 +147,7 @@ The following table maps the desired behavior to its specific method.
 |====
 |Event|Purpose
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~documentloaderror_ev.html[DocumentLoadError]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.richtextdocumentadapterbase~documentloaderror_ev.html[DocumentLoadError]
 |This event is raised when an exception is thrown while attempting to load a document.
 
 |====
@@ -168,10 +168,10 @@ The following tables list the other members exposed by the supported document ad
 |====
 |Member|Description
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter~formatoptions.html[FormatOptions]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter~formatoptions.html[FormatOptions]
 |Specifies various options to use when determining how to down-convert rich text content to plain text or up-convert plain text content to rich text.
 
-| link:{ApiPlatform}documents.richtextdocument.v{ProductVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter~value.html[Value]
+| link:{ApiPlatform}documents.richtextdocument{ApiVersion}~infragistics.documents.richtext.serialization.plaintextdocumentadapter~value.html[Value]
 |A string containing the plain text content of the `RichTextDocument`.
 
 |====
@@ -182,7 +182,7 @@ The following tables list the other members exposed by the supported document ad
 |====
 |Member|Description
 
-| link:{ApiPlatform}documents.richtextdocument.rtf.v{ProductVersion}~infragistics.documents.richtext.rtf.rtfdocumentadapter~value.html[Value]
+| link:{ApiPlatform}documents.richtextdocument.rtf{ApiVersion}~infragistics.documents.richtext.rtf.rtfdocumentadapter~value.html[Value]
 |A string containing the RTF content of the `RichTextDocument`.
 
 |====
@@ -193,14 +193,14 @@ The following tables list the other members exposed by the supported document ad
 |====
 |Member|Description
 
-| link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.worddocumentadapter~format.html[Format]
+| link:{ApiPlatform}documents.richtextdocument.word{ApiVersion}~infragistics.documents.richtext.word.worddocumentadapter~format.html[Format]
 |Defines the format for saving the Value. This setting is not used when loading the data because the format can be inferred from the data. Currently supported values: 
 
 * StrictOpenXml – The DOCX, Strict Open XML file format. 
 
 * Word2007Document – The DOCX file format introduced in Word 2007. 
 
-| link:{ApiPlatform}documents.richtextdocument.word.v{ProductVersion}~infragistics.documents.richtext.word.worddocumentadapter~value.html[Value]
+| link:{ApiPlatform}documents.richtextdocument.word{ApiVersion}~infragistics.documents.richtext.word.worddocumentadapter~value.html[Value]
 |A byte array containing the Word file format content of the `RichTextDocument`.
 
 |====
@@ -211,7 +211,7 @@ The following tables list the other members exposed by the supported document ad
 |====
 |Member|Description
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter~baseuri.html[BaseUri]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter~baseuri.html[BaseUri]
 |Specify the base address from which relative files will be loaded/saved. 
 
 .Note 
@@ -224,16 +224,16 @@ A new base URI can be specified in the HTML document with the `<base>` header ta
 
 ==== 
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter~imagesavepreference.html[ImageSavePreference]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter~imagesavepreference.html[ImageSavePreference]
 |Specify how images are saved.
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter~localfilepath.html[LocalFilePath]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter~localfilepath.html[LocalFilePath]
 |Returns or sets a relative or absolute path where external files, like images, are written to.
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter~saveabsolutelocalfilepaths.html[SaveAbsoluteLocalFilePaths]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter~saveabsolutelocalfilepaths.html[SaveAbsoluteLocalFilePaths]
 |Returns or sets whether to save relative or absolute local file paths.
 
-| link:{ApiPlatform}documents.richtextdocument.html.v{ProductVersion}~infragistics.documents.richtext.html.htmldocumentadapter~value.html[Value]
+| link:{ApiPlatform}documents.richtextdocument.html{ApiVersion}~infragistics.documents.richtext.html.htmldocumentadapter~value.html[Value]
 |A string with the HTML content of the _RichTextDocument_ .
 
 |====

@@ -17,7 +17,7 @@
 
 === Purpose
 
-This topic explains how to save the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager.html[xamTileManager]™’s layout and later restore it using the Infragistics® Control Persistence Framework. Saving the layout using the framework allows the user to not have to reconfigure the application layout for each session.
+This topic explains how to save the link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtilemanager.html[xamTileManager]™’s layout and later restore it using the Infragistics® Control Persistence Framework. Saving the layout using the framework allows the user to not have to reconfigure the application layout for each session.
 
 === In this topic
 
@@ -54,13 +54,13 @@ The following table lists the prerequisites required for this topic:
 
 The xamTileManager allows users to fully configure the layout by enabling moving and resizing of tiles and the ability to change the state of tiles at run time. Users may expect you to save and load their custom layouts between sessions so they are not forced to reconfigure the xamTileManager every time the application restarts. Infragistics Control Persistence Framework allows you to save and load the tile layout for the xamTileManager.
 
-In order to save a tile's state information in a layout, you must name the tile or set xamTileManager's attached property link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~setserializationid.html[SerializationId] to a unique string value. If you set both the Name and the SerializationId property, the SerializationId property takes precedence. The xamTileManager offers several different ways to set a tile's serialization ID.
+In order to save a tile's state information in a layout, you must name the tile or set xamTileManager's attached property link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtilemanager~setserializationid.html[SerializationId] to a unique string value. If you set both the Name and the SerializationId property, the SerializationId property takes precedence. The xamTileManager offers several different ways to set a tile's serialization ID.
 
 * You can set the attached SerializationId property exposed by xamTileManager. You can use this approach when you manually add items derived from the DependencyObject class to xamTileManager's Items collection.
-* You can set xamTileManager's link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~serializationidpath.html[SerializationIdPath] property to the name of a property exposed by your data items. You can use this approach when you bind xamTileManager to data to create your tiles.
-* You can handle the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~savingitemmapping_ev.html[SavingItemMapping] event and set the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.savingitemmappingeventargs.html[SavingItemMappingEventArgs] object's SerializationId property. If you handle the SavingItemMapping event, you must also handle the link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtilemanager~loadingitemmapping_ev.html[LoadingItemMapping] event to map the serialization ID to a specific item.
+* You can set xamTileManager's link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtilemanager~serializationidpath.html[SerializationIdPath] property to the name of a property exposed by your data items. You can use this approach when you bind xamTileManager to data to create your tiles.
+* You can handle the link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtilemanager~savingitemmapping_ev.html[SavingItemMapping] event and set the link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.savingitemmappingeventargs.html[SavingItemMappingEventArgs] object's SerializationId property. If you handle the SavingItemMapping event, you must also handle the link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtilemanager~loadingitemmapping_ev.html[LoadingItemMapping] event to map the serialization ID to a specific item.
 
-If you name a tile or supply a serialization ID but you do not want to save the tile, you can set its link:{ApiPlatform}controls.layouts.xamtilemanager.v{ProductVersion}~infragistics.controls.layouts.xamtile~saveinlayout.html[SaveInLayout] property to False.
+If you name a tile or supply a serialization ID but you do not want to save the tile, you can set its link:{ApiPlatform}controls.layouts.xamtilemanager{ApiVersion}~infragistics.controls.layouts.xamtile~saveinlayout.html[SaveInLayout] property to False.
 
 === Control configuration chart
 
@@ -72,11 +72,11 @@ The table below lists the methods you can use to save and load xamTileManager’
 
 |<<SavingLayouts,Saving Layouts>>
 |Use the *Save* static method to save the xamTileManager’s tiles layout
-| link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~save.html[PersistenceManager.Save]
+| link:{ApiPlatform}persistence{ApiVersion}~infragistics.persistence.persistencemanager~save.html[PersistenceManager.Save]
 
 |<<LoadingLayouts,Loading Layouts>>
 |Use the *Load* static method to restore the xamTileManager’s tiles layout
-| link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager~load.html[PersistenceManager.Load]
+| link:{ApiPlatform}persistence{ApiVersion}~infragistics.persistence.persistencemanager~load.html[PersistenceManager.Load]
 
 |====
 
@@ -86,7 +86,7 @@ The table below lists the methods you can use to save and load xamTileManager’
 
 === Saving layouts details
 
-In order to save the xamTileManager state and tile’s layout, you must invoke the static Save method of the link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencemanager.html[PersistenceManager] class. There is an overload of the Save method, which accepts a link:{ApiPlatform}persistence.v{ProductVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] argument, which is used to configure what properties to save or exclude. The persistence methods return a MemoryStream object which you can then save to a persistent location.
+In order to save the xamTileManager state and tile’s layout, you must invoke the static Save method of the link:{ApiPlatform}persistence{ApiVersion}~infragistics.persistence.persistencemanager.html[PersistenceManager] class. There is an overload of the Save method, which accepts a link:{ApiPlatform}persistence{ApiVersion}~infragistics.persistence.persistencesettings.html[PersistenceSettings] argument, which is used to configure what properties to save or exclude. The persistence methods return a MemoryStream object which you can then save to a persistent location.
 
 *Note:* Depending on your application architecture you may choose different approaches on how to persist the MemoryStream (like XML file or database). Refer to the “Saving and Loading Layouts” sample to see how the layout is persisted in a byte array.
 

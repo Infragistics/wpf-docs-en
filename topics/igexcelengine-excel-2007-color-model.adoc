@@ -60,10 +60,10 @@ The following table summarizes the main features of the Excel 2007 Color Model. 
 |Feature|Description
 
 |Workbook palette
-|The color palette is exposed publicly, via the `Workbook`{empty}'s link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.workbook~palette.html[Palette] property, so you can choose which colors to use when opening saved files in an earlier version of Excel.
+|The color palette is exposed publicly, via the `Workbook`{empty}'s link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.workbook~palette.html[Palette] property, so you can choose which colors to use when opening saved files in an earlier version of Excel.
 
 |Filling cells
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill_members.html[CellFill] is an abstract class representing a fill of a cell. There are some derived types representing the various fills which can be created.
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill_members.html[CellFill] is an abstract class representing a fill of a cell. There are some derived types representing the various fills which can be created.
 
 |====
 
@@ -86,7 +86,7 @@ The color dialog in Excel does not display colors in the order they are represen
 .Note:
 [NOTE]
 ====
-In previous versions, the cell fill was defined by three properties on the `IWorksheetCellFormat` interface: `FillPattern`, `FillPatternBackgroundColor`, and `FillPatternForegroundColor`. They are all replaced by a single link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.iworksheetcellformat~fill.html[Fill] property, which is a reference to a `CellFill` instance.
+In previous versions, the cell fill was defined by three properties on the `IWorksheetCellFormat` interface: `FillPattern`, `FillPatternBackgroundColor`, and `FillPatternForegroundColor`. They are all replaced by a single link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.iworksheetcellformat~fill.html[Fill] property, which is a reference to a `CellFill` instance.
 ====
 
 The derived types, representing the various fills which can be created, are as follows:
@@ -95,7 +95,7 @@ The derived types, representing the various fills which can be created, are as f
 |====
 |Derived type|Description
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfillpattern_members.html[CellFillPattern]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfillpattern_members.html[CellFillPattern]
 |Represents one of the following: 
 
 * no color 
@@ -106,10 +106,10 @@ The derived types, representing the various fills which can be created, are as f
 
 It has background color info and a pattern color info which correspond directly to the color sections in the Fill tab of the Format Cells dialog of Excel. It also has a pattern style.
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfilllineargradient_members.html[CellFillLinearGradient]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfilllineargradient_members.html[CellFillLinearGradient]
 |Represents a linear gradient fill. It has an angle, which is degrees clockwise of the left to right linear gradient, and a gradients stops collection which describes two or more color transitions along the length of the gradient.
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfillrectangulargradient_members.html[CellFillRectangularGradient]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfillrectangulargradient_members.html[CellFillRectangularGradient]
 |Represents a rectangular gradient fill. It has top, left, right, and bottom values, which describe, in relative coordinates, the inner rectangle from which the gradient starts and goes out to the cell edges. It also has a gradient stops collection which describes two or more color transitions along the path from the inner rectangle to the cell edges.
 
 |====
@@ -120,7 +120,7 @@ You can create all possible fill types using static properties and methods on th
 |====
 |Property|Description
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~nocolor.html[NoColor]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill~nocolor.html[NoColor]
 |Represent a fill with no color, which allows a background image of the worksheet, if any, to show through.
 
 |====
@@ -129,16 +129,16 @@ You can create all possible fill types using static properties and methods on th
 |====
 |Method|Description
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createsolidfill.html[CreateSolidFill]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill~createsolidfill.html[CreateSolidFill]
 |Returns a `CellFillPattern` instance which has a pattern style of Solid and a background color set to the `Color` or `WorkbookColorInfo` specified in the method.
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createpatternfill.html[CreatePatternFill]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill~createpatternfill.html[CreatePatternFill]
 |Returns a `CellFillPattern` instance which has the specified pattern style and the `Color` or `WorkbookColorInfo` values, specified for the background and pattern colors. These methods can also be used to create solid and no color fills.
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createlineargradientfill.html[CreateLinearGradientFill]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill~createlineargradientfill.html[CreateLinearGradientFill]
 |Returns a `CellFillLinearGradient` instance with the specified angle and gradient stops.
 
-| link:{ApiPlatform}documents.excel.v{ProductVersion}~infragistics.documents.excel.cellfill~createrectangulargradientfill.html[CreateRectangularGradientFill]
+| link:{ApiPlatform}documents.excel{ApiVersion}~infragistics.documents.excel.cellfill~createrectangulargradientfill.html[CreateRectangularGradientFill]
 |Returns a `CellFillRectangularGradient` instance with the specified left, top, right, and bottom of the inner rectangle and gradient stops. If the inner rectangle values are not specified, the center of the cell is used as the inner rectangle.
 
 |====

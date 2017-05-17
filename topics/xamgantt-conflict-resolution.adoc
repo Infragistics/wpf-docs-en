@@ -51,25 +51,25 @@ The following table summarizes conflicts which can occur:
 |Conflict|Description
 
 |Actual Values Lost
-|Occurs when a change happens to a task which has actual values (e.g. link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~actualstart.html[ActualStart], link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~actualduration.html[ActualDuration], etc.) that will be lost from the project. 
+|Occurs when a change happens to a task which has actual values (e.g. link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~actualstart.html[ActualStart], link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~actualduration.html[ActualDuration], etc.) that will be lost from the project. 
 
 This may happen as a result of removing a task that has been started, changing the actual duration of a started task to 0, clearing the start of a started task, etc.
 
 |Conflicting Constraint and Dependency Information
-|Occurs when it is not possible to enforce the task’s constraint information (i.e. link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~constrainttype.html[ConstraintType] and link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~constraintdate.html[ConstraintDate]) and its dependencies (i.e. Predecessors and/or Successors) because one or more would be violated. 
+|Occurs when it is not possible to enforce the task’s constraint information (i.e. link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~constrainttype.html[ConstraintType] and link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~constraintdate.html[ConstraintDate]) and its dependencies (i.e. Predecessors and/or Successors) because one or more would be violated. 
 
 For example, if TaskB has TaskA as its Predecessor with a FinishToStart relationship and the ConstraintType of TaskB is set to MustStartOn with a ConstraintDate prior to the EarlyStart calculated for Task B. 
 
-If the change is allowed to continue the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~alwayshonortaskconstraintdates.html[AlwaysHonorTaskConstraintDates] of the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings_members.html[ProjectSettings] determines which information takes priority.
+If the change is allowed to continue the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~alwayshonortaskconstraintdates.html[AlwaysHonorTaskConstraintDates] of the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings_members.html[ProjectSettings] determines which information takes priority.
 
 |Constraint Warnings
-|Invoked when a constraint of a task is about to change or when constraint information cannot be honored. The types of warnings which can occur are presented in the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttaskconstraintwarningtype.html[ProjectTaskConstraintWarningType] enumeration.
+|Invoked when a constraint of a task is about to change or when constraint information cannot be honored. The types of warnings which can occur are presented in the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttaskconstraintwarningtype.html[ProjectTaskConstraintWarningType] enumeration.
 
 |Delete Project Root Task
-|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~delete.html[Delete] method of the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project_members.html[Project]’s link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~roottask.html[RootTask] is invoked such as when the end user has selected the root task and presses the Delete key.
+|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~delete.html[Delete] method of the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project_members.html[Project]’s link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~roottask.html[RootTask] is invoked such as when the end user has selected the root task and presses the Delete key.
 
 |Delete Summary Task
-|Occurs when the `Delete` method of a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask_members.html[ProjectTask] whose link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~issummary.html[IsSummary] is true is invoked. 
+|Occurs when the `Delete` method of a link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask_members.html[ProjectTask] whose link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~issummary.html[IsSummary] is true is invoked. 
 
 .Note 
 
@@ -85,17 +85,17 @@ This is not invoked when attempting to delete the RootTask of a Project. For tha
 |Occurs when the Predecessors or Successors of a task is changed such that it contains circular references such as a reference to the same task, a descendant/ancestor task or a task that directly or indirectly depends upon that original task.
 
 |Missing Resource Warning
-|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~autoaddnewresources.html[AutoAddNewResources] ProjectSettings property is false and the end user types a name into a Resources cell that does not match the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectresource~displayname.html[DisplayName] of a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectresource_members.html[ProjectResource] in the ResourceItems collection.
+|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~autoaddnewresources.html[AutoAddNewResources] ProjectSettings property is false and the end user types a name into a Resources cell that does not match the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectresource~displayname.html[DisplayName] of a link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectresource_members.html[ProjectResource] in the ResourceItems collection.
 
 |Task Start or Finish Set To NonWorking Day
-|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~start.html[Start] or link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projecttask~finish.html[Finish] of the task is set to be within a non-working day. 
+|Occurs when the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~start.html[Start] or link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projecttask~finish.html[Finish] of the task is set to be within a non-working day. 
 
-In this situation, the value can either be shifted to the adjacent working day or a link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectcalendarexception_members.html[ProjectCalendarException] can be created to define working hours for the containing day or the operation may be cancelled.
+In this situation, the value can either be shifted to the adjacent working day or a link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectcalendarexception_members.html[ProjectCalendarException] can be created to define working hours for the containing day or the operation may be cancelled.
 
 |Task Violates Project Bounds
-|Occurs when the constraint or dependency information for a task is set such that the start is before the Project link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~start.html[Start] for a project scheduled from the start or the finish is after the Project’s link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~finish.html[Finish] for a project scheduled from the finish. 
+|Occurs when the constraint or dependency information for a task is set such that the start is before the Project link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~start.html[Start] for a project scheduled from the start or the finish is after the Project’s link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~finish.html[Finish] for a project scheduled from the finish. 
 
-For example, this may happen when a task has its `ConstraintType` set to _MustStartOn/StartNoLaterThan_ and the Start value is set to a date prior to the Start of the Project and the link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~isscheduledfromstart.html[IsScheduledFromStart] is `true`.
+For example, this may happen when a task has its `ConstraintType` set to _MustStartOn/StartNoLaterThan_ and the Start value is set to a date prior to the Start of the Project and the link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~isscheduledfromstart.html[IsScheduledFromStart] is `true`.
 
 |====
 
@@ -110,31 +110,31 @@ The table below lists the conflicts and the properties that determine the defaul
 |Conflict|Default Action
 
 |Actual Values Lost
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~actualvalueslostdefaultaction.html[ActualValuesLostDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~actualvalueslostdefaultaction.html[ActualValuesLostDefaultAction]
 
 |Conflicting Constraint and Dependency Information
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~constraintordependencycannotbeenforceddefaultaction.html[ConstraintOrDependencyCannotBeEnforcedDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~constraintordependencycannotbeenforceddefaultaction.html[ConstraintOrDependencyCannotBeEnforcedDefaultAction]
 
 |Constraint Warnings
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~changeconstrainttypedefaultaction.html[ChangeConstraintTypeDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~constraintconflictswithsubtaskconstraintdefaultaction.html[ConstraintConflictsWithSubtaskConstraintDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~possiblefutureconflictdefaultaction.html[PossibleFutureConflictDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~changeconstrainttypedefaultaction.html[ChangeConstraintTypeDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~constraintconflictswithsubtaskconstraintdefaultaction.html[ConstraintConflictsWithSubtaskConstraintDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~possiblefutureconflictdefaultaction.html[PossibleFutureConflictDefaultAction]
 
 |Delete Project Root Task
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~deleteroottaskdefaultaction.html[DeleteRootTaskDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~deleteroottaskdefaultaction.html[DeleteRootTaskDefaultAction]
 
 |Delete Summary Task
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~deletesummarytaskdefaultaction.html[DeleteSummaryTaskDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~deletesummarytaskdefaultaction.html[DeleteSummaryTaskDefaultAction]
 
 |Dependency Circularity Warnings
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~dependencycircularitydetecteddefaultaction.html[DependencyCircularityDetectedDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~dependencycircularitydetectedwhentaskreparenteddefaultaction.html[DependencyCircularityDetectedWhenTaskReparentedDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~dependencycircularitydetecteddefaultaction.html[DependencyCircularityDetectedDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~dependencycircularitydetectedwhentaskreparenteddefaultaction.html[DependencyCircularityDetectedWhenTaskReparentedDefaultAction]
 
 |Missing Resource Warning
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~missingresourcedefaultaction.html[MissingResourceDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~missingresourcedefaultaction.html[MissingResourceDefaultAction]
 
 |Task Start or Finish Set To Nonworking Day
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~taskstartmovedtononworkingdaydefaultaction.html[TaskStartMovedToNonWorkingDayDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~taskfinishmovedtononworkingdaydefaultaction.html[TaskFinishMovedToNonWorkingDayDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~taskstartmovedtononworkingdaydefaultaction.html[TaskStartMovedToNonWorkingDayDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~taskfinishmovedtononworkingdaydefaultaction.html[TaskFinishMovedToNonWorkingDayDefaultAction]
 
 |Task Violates Project Bounds
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~taskmovedafterprojectfinishdefaultaction.html[TaskMovedAfterProjectFinishDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.projectsettings~taskmovedbeforeprojectstartdefaultaction.html[TaskMovedBeforeProjectStartDefaultAction]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~taskmovedafterprojectfinishdefaultaction.html[TaskMovedAfterProjectFinishDefaultAction] link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.projectsettings~taskmovedbeforeprojectstartdefaultaction.html[TaskMovedBeforeProjectStartDefaultAction]
 
 |====
 
@@ -149,10 +149,10 @@ The table below lists the events being raised when conflict occurs.
 |Conflict|Event
 
 |Actual Values Lost
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~actualvalueslostwarning_ev.html[ActualValuesLostWarning]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~actualvalueslostwarning_ev.html[ActualValuesLostWarning]
 
 |Conflicting Constraint and Dependency Information
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
 
 Type= `ConstraintOrDependencyCannotBeEnforced`
 
@@ -160,26 +160,26 @@ Type= `ConstraintOrDependencyCannotBeEnforced`
 |`TaskConstraintWarning`
 
 |Delete Project Root Task
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
 
 Type= `DeleteRootTask`
 
 |Delete Summary Task
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
 
 Type= `DeleteSummaryTask`
 
 |Dependency Circularity Warnings
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~dependencycircularitydetected_ev.html[DependencyCircularityDetected]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~dependencycircularitydetected_ev.html[DependencyCircularityDetected]
 
 |Missing Resource Warning
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~missingresourcewarning_ev.html[MissingResourceWarning]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~missingresourcewarning_ev.html[MissingResourceWarning]
 
 |Task Start or Finish Set To Nonworking Day
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskinnonworkingdaywarning_ev.html[TaskInNonWorkingDayWarning]
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~taskinnonworkingdaywarning_ev.html[TaskInNonWorkingDayWarning]
 
 |Task Violates Project Bounds
-| link:{ApiPlatform}controls.schedules.xamgantt.v{ProductVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
+| link:{ApiPlatform}controls.schedules.xamgantt{ApiVersion}~infragistics.controls.schedules.project~taskwarning_ev.html[TaskWarning] 
 
 Type= `TaskMovedAfterProjectFinish` or `TaskMovedBeforeProjectStart`
 

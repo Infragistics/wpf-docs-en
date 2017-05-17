@@ -63,7 +63,7 @@ This topic contains the following sections:
 
 When Excel-Style Filtering in the  _xamPivotGrid_   control and the data selector is enabled, users can add custom filter conditions for the measure values and for the captions of members from the row and column hierarchies.
 
-By default, Excel-Style Filtering in the  _xamPivotGrid_   is not enabled, so you need to explicitly enable it by setting the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[EnableAdvancedFiltering] property to  _True._   This property is available for both the  _xamPivotGrid_   and the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector_members.html[XamPivotDataSelector].
+By default, Excel-Style Filtering in the  _xamPivotGrid_   is not enabled, so you need to explicitly enable it by setting the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[EnableAdvancedFiltering] property to  _True._   This property is available for both the  _xamPivotGrid_   and the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotdataselector_members.html[XamPivotDataSelector].
 
 [[_Ref332040841]]
 [[_Ref333607318]]
@@ -80,11 +80,11 @@ The following table maps the desired configuration to property settings.
 |In order to:|Use this property:|And set it to:
 
 |Enable the Excel-Style Filtering UI in the pivot grid.
-| link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid~enableadvancedfiltering.html[XamPivotGrid.EnableAdvancedFiltering]
+| link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotgrid~enableadvancedfiltering.html[XamPivotGrid.EnableAdvancedFiltering]
 |`True`
 
 |Enable the Excel-Style Filtering UI in the data selector.
-| link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[XamPivotDataSelector.EnableAdvancedFiltering]
+| link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[XamPivotDataSelector.EnableAdvancedFiltering]
 |`True`
 
 |====
@@ -95,8 +95,8 @@ The following table maps the desired configuration to property settings.
 
 When using Excel-Style Filtering there are a few things you should keep in mind:
 
-* In order to enable Excel-Style Filtering, the data source set as the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid~datasource.html[DataSource] property of the pivot grid/data selector must implement the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.data.isupportfilters_members.html[ISupportFilters] interface. Currently this interface is implemented in the link:{ApiPlatform}olap.xmla.v{ProductVersion}~infragistics.olap.xmla.xmladatasource_members.html[XmlaDataSource].
-* The default value of link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[EnableAdvancedFiltering] is `False`.
+* In order to enable Excel-Style Filtering, the data source set as the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotgrid~datasource.html[DataSource] property of the pivot grid/data selector must implement the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.data.isupportfilters_members.html[ISupportFilters] interface. Currently this interface is implemented in the link:{ApiPlatform}olap.xmla{ApiVersion}~infragistics.olap.xmla.xmladatasource_members.html[XmlaDataSource].
+* The default value of link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotdataselector~enableadvancedfiltering.html[EnableAdvancedFiltering] is `False`.
 * The `EnableAdvancedFiltering` property should be set before any items are added to the columns, rows, filters or measures of the pivot grid or the data selector. This means that if you want to set the property in code (rather than XAML) and there are initial items in columns, rows etc., you should set it before the pivot grid is initialized. For example, a suitable place to set the property in code is the constructor of the Page/UserControl, where the pivot grid or data selector is used. Setting the property should be after `InitializeComponent``(``)` has been called.
 * Changing the value of the `EnableAdvancedFiltering` property at run-time does not change the existing UI filtering controls in the grid or data selector. However, all hierarchies that are added to the rows, columns, filters, or measures after that will support Excel-Style Filtering or not based on the value that was set to `EnableAdvancedFiltering`.
 

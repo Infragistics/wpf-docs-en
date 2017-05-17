@@ -52,9 +52,9 @@ This topic contains the following sections:
 
 === Introduction
 
-The link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor.html[ _xamSyntaxEditor_  ]™ supports placing margins in any of the four locations along the edges of the text editing area. To be able to position a margin in any of the four locations (top, bottom, left or right) the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase.html[MarginBase] class implements the link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning_members.html[ISupportPositioning] interface. You will most likely use left and right positioned margins to display information related to the text rows and top or bottom positioned margins to display information related to the text columns.
+The link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.xamsyntaxeditor.html[ _xamSyntaxEditor_  ]™ supports placing margins in any of the four locations along the edges of the text editing area. To be able to position a margin in any of the four locations (top, bottom, left or right) the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.marginbase.html[MarginBase] class implements the link:{RootAssembly}{ApiVersion}~infragistics.isupportpositioning_members.html[ISupportPositioning] interface. You will most likely use left and right positioned margins to display information related to the text rows and top or bottom positioned margins to display information related to the text columns.
 
-The  _xamSyntaxEditor_   is responsible for arranging all margins at the appropriate locations. The  _xamSyntaxEditor_   also ensures that all margins have presenters by invoking the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~createpresenter.html[CreatePresenter] method and passing the associated link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase] as an argument. The `DocumentViewBase` provides the presenter with the needed context to access the view and the control information (for example, access to visible lines, events for different user interactions, etc…).
+The  _xamSyntaxEditor_   is responsible for arranging all margins at the appropriate locations. The  _xamSyntaxEditor_   also ensures that all margins have presenters by invoking the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.marginbase~createpresenter.html[CreatePresenter] method and passing the associated link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.documentviewbase_members.html[DocumentViewBase] as an argument. The `DocumentViewBase` provides the presenter with the needed context to access the view and the control information (for example, access to visible lines, events for different user interactions, etc…).
 
 [[_Ref331672233]]
 
@@ -68,15 +68,15 @@ Create your custom margin class by extending from the `MarginBase` class.
 
 === 2. Set Margin Location
 
-Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~location.html[Location] property of `MarginBase` to position your margin at the desired location.
+Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.marginbase~location.html[Location] property of `MarginBase` to position your margin at the desired location.
 
 === 3. Set Margin Arrangement
 
-Override the link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning~after.html[After] and link:{ApiPlatform}v{ProductVersion}~infragistics.isupportpositioning~before.html[Before] members of the `ISupportPositioning` interface to position your margin along the other margins at this location.
+Override the link:{RootAssembly}{ApiVersion}~infragistics.isupportpositioning~after.html[After] and link:{RootAssembly}{ApiVersion}~infragistics.isupportpositioning~before.html[Before] members of the `ISupportPositioning` interface to position your margin along the other margins at this location.
 
 === 4. Provide a Unique Margin Key
 
-Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.marginbase~key.html[Key] property of `MarginBase` to give your margin a unique key so that other margins can position themselves relative to your margin.
+Override the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.marginbase~key.html[Key] property of `MarginBase` to give your margin a unique key so that other margins can position themselves relative to your margin.
 
 === 5. Provide a Presenter for your Margin
 
@@ -84,11 +84,11 @@ Override the `CreatePresenter` method of `MarginBase` to provide the presenter f
 
 === 6. Add logic to your Presenter to render your margin’s content
 
-Custom margin presenters typically override the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[DocumentViewBase.LayoutChanged] event to trigger the rendering of the custom margin’s content.
+Custom margin presenters typically override the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.documentviewbase~layoutchanged_ev.html[DocumentViewBase.LayoutChanged] event to trigger the rendering of the custom margin’s content.
 
 === 7. Add the Margin in the xamSyntaxEditor
 
-Add your margin in the link:{ApiPlatform}controls.editors.xamsyntaxeditor.v{ProductVersion}~infragistics.controls.editors.xamsyntaxeditor~custommargins.html[CustomMargins] collection of the  _xamSyntaxEditor_  .
+Add your margin in the link:{ApiPlatform}controls.editors.xamsyntaxeditor{ApiVersion}~infragistics.controls.editors.xamsyntaxeditor~custommargins.html[CustomMargins] collection of the  _xamSyntaxEditor_  .
 
 [[_Ref331672247]]
 == Related Content

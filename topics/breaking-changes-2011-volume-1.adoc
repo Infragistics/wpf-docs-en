@@ -18,7 +18,7 @@ This topic lists breaking changes in the 2011 Volume 1 release of the {ProductNa
 
 == xamDataChart™
 
-The default value of link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axis~labelsettings.html[LabelSettings] property of an link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axis.html[Axis] is null and this property must be instantiated with the link:{ApiPlatform}controls.charts.xamdatachart.v{ProductVersion}~infragistics.controls.charts.axislabelsettings.html[AxisLabelSettings] constructor before accessing properties of axis labels.
+The default value of link:{ApiPlatform}controls.charts.xamdatachart{ApiVersion}~infragistics.controls.charts.axis~labelsettings.html[LabelSettings] property of an link:{ApiPlatform}controls.charts.xamdatachart{ApiVersion}~infragistics.controls.charts.axis.html[Axis] is null and this property must be instantiated with the link:{ApiPlatform}controls.charts.xamdatachart{ApiVersion}~infragistics.controls.charts.axislabelsettings.html[AxisLabelSettings] constructor before accessing properties of axis labels.
 
 *In Visual Basic:*
 
@@ -62,7 +62,7 @@ Note that Infragistics Barcode Reader™ requires reference to the {ApiPlatform}
 
 == xamPivotGrid™ - FlatDataSource
 
-Starting from the 2011 Volume 1 release, the link:{ApiPlatform}olap.flatdata.v{ProductVersion}~infragistics.olap.flatdata.flatdatasource.html[FlatDataSource] requires unique names for hierarchies on which to base the slice of data to be computed for the link:{ApiPlatform}controls.grids.xampivotgrid.v{ProductVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid] control instead of specifying only the dimension name because there was just one hierarchy per dimension in prior releases.
+Starting from the 2011 Volume 1 release, the link:{ApiPlatform}olap.flatdata{ApiVersion}~infragistics.olap.flatdata.flatdatasource.html[FlatDataSource] requires unique names for hierarchies on which to base the slice of data to be computed for the link:{ApiPlatform}controls.grids.xampivotgrid{ApiVersion}~infragistics.controls.grids.xampivotgrid.html[xamPivotGrid] control instead of specifying only the dimension name because there was just one hierarchy per dimension in prior releases.
 
 *In C#:*
 
@@ -77,7 +77,7 @@ xmlaDataSource.Columns = DataSourceBase.GenerateInitialItems("[Company]");
 
 == xamPivotGrid - Custom Data Provider
 
-This change affects the developers that have implemented their custom data provider for the xamPivotGrid control. The following methods of the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.dataproviderbase.html[DataProviderBase] class have changed:
+This change affects the developers that have implemented their custom data provider for the xamPivotGrid control. The following methods of the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.dataproviderbase.html[DataProviderBase] class have changed:
 
 *In C#:*
 
@@ -100,7 +100,7 @@ this.OnLoadMeasureGroupsCompleted(new AsyncCompletedEventArgs(e.Error, e.Cancell
 this.OnLoadMeasureGroupDimensionsCompleted(new AsyncCompletedEventArgs(e.Error, e.Cancelled, cube));
 ----
 
-Another change which concerns the custom data providers in conjunction with the proper work of pre-filtering feature is the need to implement the LoadMembersAsync(ICube cube, IHierarchy hierarchy) method. When there are pre-filters applied the whole hierarchy must be populated. That happens through a call to the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.dataproviderbase~loadmembersasync.html[LoadMembersAsync] method. When all members of the hierarchy are filled into the hierarchy this method call should be as follows in order to fire the related event and notify the data source that operation is completed:
+Another change which concerns the custom data providers in conjunction with the proper work of pre-filtering feature is the need to implement the LoadMembersAsync(ICube cube, IHierarchy hierarchy) method. When there are pre-filters applied the whole hierarchy must be populated. That happens through a call to the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.dataproviderbase~loadmembersasync.html[LoadMembersAsync] method. When all members of the hierarchy are filled into the hierarchy this method call should be as follows in order to fire the related event and notify the data source that operation is completed:
 
 *In C#:*
 

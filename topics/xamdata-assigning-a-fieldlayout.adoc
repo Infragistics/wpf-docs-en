@@ -14,9 +14,9 @@
 
 = Assigning a FieldLayout
 
-A FieldLayout defines the Fields (columns) contained in a particular DataRecord. When a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] is created, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayouts.html[FieldLayouts] collection is searched for an existing link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] whose link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~fields.html[Fields] match the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord~dataitem.html[DataItem]'s properties. If a FieldLayout is found, it is associated with the DataRecord; if it is not found, a new FieldLayout is created. When a new FieldLayout is created, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitializing_ev.html[FieldLayoutInitializing] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized] events are raised.
+A FieldLayout defines the Fields (columns) contained in a particular DataRecord. When a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] is created, the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayouts.html[FieldLayouts] collection is searched for an existing link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout.html[FieldLayout] whose link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout~fields.html[Fields] match the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecord~dataitem.html[DataItem]'s properties. If a FieldLayout is found, it is associated with the DataRecord; if it is not found, a new FieldLayout is created. When a new FieldLayout is created, the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitializing_ev.html[FieldLayoutInitializing] and link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~fieldlayoutinitialized_ev.html[FieldLayoutInitialized] events are raised.
 
-If the new FieldLayout's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayout~autogeneratefieldsresolved.html[AutoGenerateFieldsResolved] property returns True, the Fields collection is automatically populated with a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.field.html[Field] for every public property on the data item.
+If the new FieldLayout's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayout~autogeneratefieldsresolved.html[AutoGenerateFieldsResolved] property returns True, the Fields collection is automatically populated with a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.field.html[Field] for every public property on the data item.
 
 .Note
 [NOTE]
@@ -29,16 +29,16 @@ The auto-generation of Fields is done between the FieldLayoutInitializing and Fi
 .Note
 [NOTE]
 ====
-Auto-generation of fields should not be confused with the "AutoArrange" feature which involves creating an arrangement (layout) for link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenters] within a link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordpresenter.html[DataRecordPresenter]. The 'AutoArrange' feature is described below under the heading "Arranging cells within the record".
+Auto-generation of fields should not be confused with the "AutoArrange" feature which involves creating an arrangement (layout) for link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.cellvaluepresenter.html[CellValuePresenters] within a link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecordpresenter.html[DataRecordPresenter]. The 'AutoArrange' feature is described below under the heading "Arranging cells within the record".
 ====
 
 The automatic generation of Fields combined with the automatic generation and view-dependent arrangement of CellValuePresenters (described below), provides a great "no-touch" development solution for binding to complex data sources and displaying a robust UI for displaying/editing data, all with minimal developer effort.
 
-The link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~assigningfieldlayouttoitem_ev.html[AssigningFieldLayoutToItem] event is then raised to allow a different FieldLayout to be assigned to the DataRecord. Then, finally, the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event is raised.
+The link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~assigningfieldlayouttoitem_ev.html[AssigningFieldLayoutToItem] event is then raised to allow a different FieldLayout to be assigned to the DataRecord. Then, finally, the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~initializerecord_ev.html[InitializeRecord] event is raised.
 
 == Accessing Properties Specific to a Derived Record Type
 
-The InitializeRecord event is raised for DataRecords, link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecords] and link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.expandablefieldrecord.html[ExpandableFieldRecords] so the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs.html[InitializeRecordEventArgs] exposes a property that returns the base link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs~record.html[Record] class. Therefore, to access properties that are specific to one of the derived Record types, you need to cast to the appropriate type, as shown in the example code below.
+The InitializeRecord event is raised for DataRecords, link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.groupbyrecord.html[GroupByRecords] and link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.expandablefieldrecord.html[ExpandableFieldRecords] so the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs.html[InitializeRecordEventArgs] exposes a property that returns the base link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.events.initializerecordeventargs~record.html[Record] class. Therefore, to access properties that are specific to one of the derived Record types, you need to cast to the appropriate type, as shown in the example code below.
 
 ----
 private void OnInitializeRecord(object sender, InitializeRecordEventArgs e)
@@ -53,7 +53,7 @@ private void OnInitializeRecord(object sender, InitializeRecordEventArgs e)
 
 == Manually Adding Fields
 
-The example XAML below shows how to manually add fields instead of using the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] feature. It also shows how to add additional unbound fields:
+The example XAML below shows how to manually add fields instead of using the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~autogeneratefields.html[AutoGenerateFields] feature. It also shows how to add additional unbound fields:
 
 ----
 <igDP:XamDataGrid> 

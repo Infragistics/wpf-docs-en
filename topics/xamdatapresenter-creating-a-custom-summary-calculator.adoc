@@ -51,7 +51,7 @@ using System.Windows.Media;
 ----
 
 [start=3]
-. Inherit from the abstract link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator.html[SummaryCalculator] class.
+. Inherit from the abstract link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator.html[SummaryCalculator] class.
 +
 *In Visual Basic:*
 +
@@ -97,7 +97,7 @@ double _squaredSum;
 ----
 
 [start=5]
-. Implement the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~begincalculation.html[BeginCalculation] method.
+. Implement the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~begincalculation.html[BeginCalculation] method.
 +
 The xamDataPresenter control calls the BeginCalculation method once at the beginning of a calculation. Use this method to initialize any variables required for the calculations.
 +
@@ -129,7 +129,7 @@ public override void BeginCalculation(SummaryResult summaryResult)
 ----
 
 [start=6]
-. Implement the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~canprocessdatatype.html[CanProcessDataType] method.
+. Implement the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~canprocessdatatype.html[CanProcessDataType] method.
 +
 The xamDataPresenter control calls the CanProcessDataType method to determine whether the summary calculator should be added to the summary selection dialog box. After testing the data type that is passed in to this method, you can return a Boolean value to indicate if this calculator shows up in the summary selection dialog box.
 +
@@ -157,7 +157,7 @@ public override bool CanProcessDataType(Type dataType)
 ----
 
 [start=7]
-. Implement the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~aggregate.html[Aggregate] method.
+. Implement the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~aggregate.html[Aggregate] method.
 +
 The xamDataPresenter control calls the Aggregate method once per field being calculated per row. Use this method to calculate any running totals or intermediate summaries that you need for the final result.
 +
@@ -196,7 +196,7 @@ public override void Aggregate(object dataValue, SummaryResult summaryResult, Re
 ----
 
 [start=8]
-. Implement the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~endcalculation.html[EndCalculation] method.
+. Implement the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~endcalculation.html[EndCalculation] method.
 +
 The xamDataPresenter control calls the EndCalculation method at the end of a calculation. Use this method to return the results of the calculation. The xamDataPresenter control displays the return value of this method in the summary display area.
 +
@@ -233,7 +233,7 @@ public override object EndCalculation(SummaryResult summaryResult)
 ----
 
 [start=9]
-. Override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~name.html[Name] property.
+. Override the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~name.html[Name] property.
 +
 Each SummaryCalculator derived class must have a unique name. The Name property is a read-only property; therefore, you cannot set it at run time. You must override this property and return a name for your custom summary calculator. If you do not return a name, xamDataPresenter will throw an exception. If two summary calculators have the same name, only the one that was registered last will be used.
 +
@@ -266,7 +266,7 @@ public override string Name
 ----
 
 [start=10]
-. Override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~description.html[Description] property.
+. Override the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~description.html[Description] property.
 +
 Use the Description property to return a string that xamDataPresenter displays as a tool tip in the summary selection dialog box. Unlike the previous methods and properties, the Description property is not required for creating a custom summary calculator.
 +
@@ -299,7 +299,7 @@ public override string Description
 ----
 
 [start=11]
-. Override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~iscalculationaffectedbysort.html[IsCalculationAffectedBySort] property.
+. Override the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~iscalculationaffectedbysort.html[IsCalculationAffectedBySort] property.
 +
 The IsCalculationAffectedBySort property determines whether the summary should be recalculated when you sort any field in xamDataPresenter. If you return True, xamDataPresenter will call BeginCalculation, Aggregate, and EndCalculation methods again. The SummaryCalculator base class returns a value of False for this property; therefore, it is not necessary to override this property unless you want to change the default value.
 +
@@ -334,7 +334,7 @@ public override bool IsCalculationAffectedBySort
 ----
 
 [start=12]
-. Override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~image.html[Image] property.
+. Override the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~image.html[Image] property.
 +
 The Image property is not required for the summary calculator to function properly. You can return an ImageSource object to display an image next to the summary calculator in the summary selection dialog box. You can also implement lazy loading for the image so you don't waste resources. To keep things simple, the sample code below does not use lazy loading.
 +
@@ -369,7 +369,7 @@ public override ImageSource Image
 ----
 
 [start=13]
-. Override the link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~applydefaultformat.html[ApplyDefaultFormat] method.
+. Override the link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~applydefaultformat.html[ApplyDefaultFormat] method.
 +
 The ApplyDefaultFormat method is not required for the summary calculator to function properly. In fact, if you set a field's SummaryStringFormats property to format this summary calculator, xamDataPresenter will not call the ApplyDefaultFormat method. You can return a formatted string representation of the calculated value in this method.
 +
@@ -397,7 +397,7 @@ public override string ApplyDefaultFormat(object summaryResultValue, SummaryResu
 ----
 
 [start=14]
-. Register the custom summary calculator using the SummaryCalculator object's static link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.summarycalculator~register.html[Register] method.
+. Register the custom summary calculator using the SummaryCalculator object's static link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.summarycalculator~register.html[Register] method.
 +
 You only need to register the summary calculator once. Once you register a summary calculator, all instances of xamDataPresenter within your project will automatically display the summary calculator in the summary selection dialog box. You can place the code to register the custom summary calculator in your main Window's Loaded event.
 +

@@ -53,9 +53,9 @@ This topic contains the following sections:
 
 === Overview
 
-link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase.html[AsyncPagingDataSourceBase] is an abstract base class that can be used to build threaded asynchronous paging data sources that are specifically designed to work with the  _xamDataPresenter_   family of controls.
+link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase.html[AsyncPagingDataSourceBase] is an abstract base class that can be used to build threaded asynchronous paging data sources that are specifically designed to work with the  _xamDataPresenter_   family of controls.
 
-The primary responsibility of `AsyncPagingDataSourceBase` is to coordinate communication between Infragistics' asynchronous and paged link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.datasource.virtualdatasource.html[VirtualDataSource] classes and the  _xamDataPresenter_   family of controls which were designed to work in a synchronous non-paged fashion.
+The primary responsibility of `AsyncPagingDataSourceBase` is to coordinate communication between Infragistics' asynchronous and paged link:{ApiPlatform}datavisualization{ApiVersion}~infragistics.controls.datasource.virtualdatasource.html[VirtualDataSource] classes and the  _xamDataPresenter_   family of controls which were designed to work in a synchronous non-paged fashion.
 
 `AsyncPagingDataSourceBase` provides a bridge between the functionality contained in the `VirtualDataSource` class and the  _xamDataPresenter_   family of controls.
 
@@ -67,8 +67,8 @@ Since the `VirtualDataSource` class (and its related classes) are not designed f
 
 To use the `AsyncPagingDataSourceBase` in your data source project you will need to add references to the following assemblies:
 
-* link:{ApiPlatform}datavisualization.v{ProductVersion}.html[{ApiPlatform}DataVisualization.v{ProductVersion}]
-* link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}.html[{ApiPlatform}DataPresenter.DataSources.Async.v{ProductVersion}]
+* link:{ApiPlatform}datavisualization{ApiVersion}.html[{ApiPlatform}DataVisualization.v{ProductVersion}]
+* link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}.html[{ApiPlatform}DataPresenter.DataSources.Async.v{ProductVersion}]
 
 [[_RefLink02]]
 == Usage
@@ -81,8 +81,8 @@ To create a concrete data source implementation you will need to provide derived
 
 For `AsyncPagingDataSourceBase`, simply derive from the abstract `AsyncPagingDataSourceBase` class and provide implementations for one or more virtual properties and methods as follows:
 
-* [required] Override the link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~createunderlyingdatasource.html[CreateUnderlyingDataSource] method and provide an instance of a `VirtualDataSource`-derived class.
-* [optional] Override the link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~canfilter.html[CanFilter], link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~cangroup.html[CanGroup] and link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~cansort.html[CanSort] properties as needed based on the capabilities of your backend data source. These virtual properties all return false by default.
+* [required] Override the link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~createunderlyingdatasource.html[CreateUnderlyingDataSource] method and provide an instance of a `VirtualDataSource`-derived class.
+* [optional] Override the link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~canfilter.html[CanFilter], link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~cangroup.html[CanGroup] and link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~cansort.html[CanSort] properties as needed based on the capabilities of your backend data source. These virtual properties all return false by default.
 
 .Note
 [NOTE]
@@ -92,7 +92,7 @@ Refer to the `ODataDataSource` class in the reference implementation project as 
 
 For `VirtualDataSource` and its related classes create derivations/implementations that provide the functionality required to access your specific backend:
 
-* [required] Create a class that derives from `VirtualDataSource` and expose properties that are required to define and control how the backend data is accessed. Override the link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.datasource.virtualdatasource~resolvedataprovideroverride.html[ResolveDataProviderOverride] method to return a custom link:{ApiPlatform}datavisualization.v{ProductVersion}~infragistics.controls.datasource.idatasourcevirtualdataprovider.html[IDataSourceVirtualDataProvider] implementation.
+* [required] Create a class that derives from `VirtualDataSource` and expose properties that are required to define and control how the backend data is accessed. Override the link:{ApiPlatform}datavisualization{ApiVersion}~infragistics.controls.datasource.virtualdatasource~resolvedataprovideroverride.html[ResolveDataProviderOverride] method to return a custom link:{ApiPlatform}datavisualization{ApiVersion}~infragistics.controls.datasource.idatasourcevirtualdataprovider.html[IDataSourceVirtualDataProvider] implementation.
 
 .Note
 [NOTE]
@@ -108,7 +108,7 @@ Refer to the `ODataVirtualDataSource` class in the reference implementation proj
 Refer to the ODataVirtualDataSourceDataProvider class in the reference implementation project as an example of an `IDataSourceVirtualDataProvider` implementation.
 ====
 
-* [required] Create a class that derives from link:{ApiPlatform}datavisualization.v{ProductVersion}~gridodatatest.asyncvirtualdatasourceproviderworker.html[AsyncVirtualDataSourceProviderWorker].
+* [required] Create a class that derives from link:{ApiPlatform}datavisualization{ApiVersion}~gridodatatest.asyncvirtualdatasourceproviderworker.html[AsyncVirtualDataSourceProviderWorker].
 
 .Note
 [NOTE]
@@ -120,7 +120,7 @@ Refer to the `ODataVirtualDataSourceDataProviderWorker` class in the reference i
 
 === Integration with Data Presenter
 
-The controls from the  _xamDataPresenter_   family are designed to work with the `AsyncPagingDataSourceBase` data source just like any other data source - simply set the control's link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~datasource.html[DataSource] property to an instance of an `AsyncPagingDataSourceBase` derived class and use the control as you normally would.
+The controls from the  _xamDataPresenter_   family are designed to work with the `AsyncPagingDataSourceBase` data source just like any other data source - simply set the control's link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~datasource.html[DataSource] property to an instance of an `AsyncPagingDataSourceBase` derived class and use the control as you normally would.
 
 There is one significant behavioral difference in the  _xamDataPresenter_   noticeable by the end user when using such a data source, and it relates to the fact that data is being accessed asynchronously.
 
@@ -132,8 +132,8 @@ To maximize performance and leverage the extended capabilities (if available) of
 
 Keeping in mind the asynchronous nature of the `AsyncPagingDataSourceBase` data source, there will be occasions when you may want to query whether the  _xamDataPresenter_   is waiting for previously requested data to be returned. The following properties can be used to determine if there are any unsatisfied data requests pending:
 
-* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecordcellarea~isdynamicdatapending.html[DataRecordCellArea.IsDynamicDataPending] - Returns true when the data for the associated link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] has been requested but has not yet been delivered.
-* link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.datapresenterbase~isasyncdatapending.html[DataPresenterBase.IsAsyncDataPending] - Returns true if any of the currently visible records are awaiting data as the result of an asynchronous data fetch, otherwise returns false.
+* link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecordcellarea~isdynamicdatapending.html[DataRecordCellArea.IsDynamicDataPending] - Returns true when the data for the associated link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datarecord.html[DataRecord] has been requested but has not yet been delivered.
+* link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.datapresenterbase~isasyncdatapending.html[DataPresenterBase.IsAsyncDataPending] - Returns true if any of the currently visible records are awaiting data as the result of an asynchronous data fetch, otherwise returns false.
 
 .Note
 [NOTE]
@@ -147,9 +147,9 @@ This property only reflects the data fetching status of currently visible record
 
 You can optimize the performance of a  _xamDataPresenter_   which is using the `AsyncPagingDataSourceBase` data source with the following techniques:
 
-* Reduce the data returned over the server connection by limiting the number of fields for which data is fetched by setting the link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~fieldsrequested.html[FieldsRequested] property. By setting this property on the `AsyncPagingDataSourceBase` to a subset of the fields in the backend schema, you can improve the response time when fetching data from the remote data source. Alternatively you can define a custom field layout in the data presenter which will also result in a request for a subset of the schema fields and ultimately reduce the amount of data transferred over the server connection.
-* Set the size of the logical page (the number of records to fetch) when issuing a request to the backend to return a "page" of data. You can do this using the link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~pagesizerequested.html[PageSizeRequested] property. By default the page size is set to 200 records. Decreasing the page size can result in quicker fetch times since less data is being returned over the connection for each fetch, but this will result in an increased number of fetches when scrolling thru large amounts of data. The performance/responsiveness of the backend is another factor that can affect your choice of page size.
-* Set the maximum number of logical pages to retain in memory before a request is sent to the backend data source by setting the link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~maxcachedpages.html[MaxCachedPages] property. A larger cache will result in better performance when requesting pages of data that have already been "seen", at the expense of increased memory usage. The performance/responsiveness of the backend is another factor that can affect your choice of cache size.
+* Reduce the data returned over the server connection by limiting the number of fields for which data is fetched by setting the link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~fieldsrequested.html[FieldsRequested] property. By setting this property on the `AsyncPagingDataSourceBase` to a subset of the fields in the backend schema, you can improve the response time when fetching data from the remote data source. Alternatively you can define a custom field layout in the data presenter which will also result in a request for a subset of the schema fields and ultimately reduce the amount of data transferred over the server connection.
+* Set the size of the logical page (the number of records to fetch) when issuing a request to the backend to return a "page" of data. You can do this using the link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~pagesizerequested.html[PageSizeRequested] property. By default the page size is set to 200 records. Decreasing the page size can result in quicker fetch times since less data is being returned over the connection for each fetch, but this will result in an increased number of fetches when scrolling thru large amounts of data. The performance/responsiveness of the backend is another factor that can affect your choice of page size.
+* Set the maximum number of logical pages to retain in memory before a request is sent to the backend data source by setting the link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~maxcachedpages.html[MaxCachedPages] property. A larger cache will result in better performance when requesting pages of data that have already been "seen", at the expense of increased memory usage. The performance/responsiveness of the backend is another factor that can affect your choice of cache size.
 
 [[_RefLink06]]
 
@@ -181,8 +181,8 @@ The following features are not supported when using the `AsyncPagingDataSourceBa
 * Hierarchical and non-homogenous data are not supported. Only flat homogeneous data is supported.
 * Editing as well as the addition and removal of records is not supported.
 * The  _xamDataPresenter's_   filter dropdown does not include a list of unique data values from the associated column since the data source does not support the ability to query the backend for those unique values.
-* A link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~filteruitype.html[FieldLayoutSettings.FilterUIType] of link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.filteruitype.html[LabelIcons] is not supported it will always resolve to link:{ApiPlatform}datapresenter.v{ProductVersion}~infragistics.windows.datapresenter.filteruitype.html[FilterRecord] when using this data source since the unique data values that would normally be displayed in the filter dropdown when the label icon is clicked are not available as described in the previous bullet.
-* The following link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.comparisonoperator.html[ComparisonOperator]s are not supported when filtering:
+* A link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.fieldlayoutsettings~filteruitype.html[FieldLayoutSettings.FilterUIType] of link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.filteruitype.html[LabelIcons] is not supported it will always resolve to link:{ApiPlatform}datapresenter{ApiVersion}~infragistics.windows.datapresenter.filteruitype.html[FilterRecord] when using this data source since the unique data values that would normally be displayed in the filter dropdown when the label icon is clicked are not available as described in the previous bullet.
+* The following link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.comparisonoperator.html[ComparisonOperator]s are not supported when filtering:
 ** Match
 ** DoesNotMatch
 ** Like
@@ -192,7 +192,7 @@ The following features are not supported when using the `AsyncPagingDataSourceBa
 ** Bottom
 ** BottomPercentile
 
-* The following link:{ApiPlatform}v{ProductVersion}~infragistics.windows.controls.specialfilteroperands.html[SpecialFilterOperands] are not supported:
+* The following link:{RootAssembly}{ApiVersion}~infragistics.windows.controls.specialfilteroperands.html[SpecialFilterOperands] are not supported:
 ** BlanksOperand
 ** AverageOperand
 
@@ -213,7 +213,7 @@ The `AsyncPagingDataSourceBase` exposes the following properties:
 * `FieldsRequested` - Returns/sets the list of properties in the data schema to include when fetching data from a remote data source.
 * `MaxCachedPages` – Returns/sets the maximum number of fetched pages to cache locally.
 * `PageSizeRequested` – Returns/sets the desired page size (i.e., the number of records returned for each data request) when fetching data from a remote data source.
-* link:{ApiPlatform}datapresenter.datasources.async.v{ProductVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~recordcount.html[RecordCount] – Returns the number of records in the remote data source. (read only)
+* link:{ApiPlatform}datapresenter.datasources.async{ApiVersion}~infragistics.windows.datapresenter.datasources.asyncpagingdatasourcebase~recordcount.html[RecordCount] – Returns the number of records in the remote data source. (read only)
 
 The `ODataDataSource` class exposes the following public properties (in addition to those exposed by the `AsyncPagingDataSourceBase` base class):
 

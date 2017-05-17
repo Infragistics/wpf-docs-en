@@ -29,7 +29,7 @@ The topic is organized as follows:
 [[Introduction]]
 == Introduction
 
-An aggregator is an algorithm or a function that evaluates the underlying data and provides a value for each cell in the PivotGrid based on the slice of all dimensions and filters that are applied. Most of the data that is displayed is aggregated in some way. The default set of predefined aggregators in the link:{ApiPlatform}olap.flatdata.v{ProductVersion}~infragistics.olap.flatdata.flatdatamodelprovider_members.html[FlatDataModelProvider] are Sum, Min, Max, Average, and Count. While these aggregators are quite useful, they might not be appropriate for any scenario. For this reason, the XamPivotGrid™ provides a way to create a custom aggregator.
+An aggregator is an algorithm or a function that evaluates the underlying data and provides a value for each cell in the PivotGrid based on the slice of all dimensions and filters that are applied. Most of the data that is displayed is aggregated in some way. The default set of predefined aggregators in the link:{ApiPlatform}olap.flatdata{ApiVersion}~infragistics.olap.flatdata.flatdatamodelprovider_members.html[FlatDataModelProvider] are Sum, Min, Max, Average, and Count. While these aggregators are quite useful, they might not be appropriate for any scenario. For this reason, the XamPivotGrid™ provides a way to create a custom aggregator.
 
 [[Creating_a_Custom_Aggregator]]
 == Creating a Custom Aggregator
@@ -38,7 +38,7 @@ An aggregator is an algorithm or a function that evaluates the underlying data a
 == Steps
 
 [start=1]
-. Implement the link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregator_members.html[IAggregator] interface.
+. Implement the link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.iaggregator_members.html[IAggregator] interface.
 +
 The first step in building your own custom aggregator is to implement the IAggregator interface.
 +
@@ -57,9 +57,9 @@ public interface IAggregator
 }
 ----
 +
-The link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregator~evaluate.html[Evaluate] method is where the actual computation takes place. It is called for every cell of the grid with the related to the cell items source. The item source is passed as the last parameter in the method. The implementation of link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregateable_members.html[IAggregateable] interface is responsible to extract right value from each item found in the cell’s items source. The first parameter is always `null`.
+The link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.iaggregator~evaluate.html[Evaluate] method is where the actual computation takes place. It is called for every cell of the grid with the related to the cell items source. The item source is passed as the last parameter in the method. The implementation of link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.iaggregateable_members.html[IAggregateable] interface is responsible to extract right value from each item found in the cell’s items source. The first parameter is always `null`.
 +
-The returned type link:{ApiPlatform}olap.v{ProductVersion}~infragistics.olap.iaggregationresult_members.html[IAggregationResult] has two properties – `Value` and `Cache`. The `Value` property is used to store the result that should be displayed in the PivotGrid’s cell – the actual result. The `Cache` property is provided for storage of auxiliary information that might be needed in case a more sophisticated logic is used. See the example further down in the article.
+The returned type link:{ApiPlatform}olap{ApiVersion}~infragistics.olap.iaggregationresult_members.html[IAggregationResult] has two properties – `Value` and `Cache`. The `Value` property is used to store the result that should be displayed in the PivotGrid’s cell – the actual result. The `Cache` property is provided for storage of auxiliary information that might be needed in case a more sophisticated logic is used. See the example further down in the article.
 +
 The `IAggregateable` parameter of the `Evaluate` method holds an instance of an aggregator. This could be used either for recursive logics where you need to access the aggregator’s instance or for compounding of several aggregators.
 +
