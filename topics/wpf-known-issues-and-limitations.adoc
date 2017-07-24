@@ -34,7 +34,7 @@ The ExportOptions object's ExcludeExpandState property only affects root-level r
 
 === Theme Assemblies Are Not Loaded When Copy Local Is True
 
-When you add a theme assembly to your project in Microsoft® Expression® Blend, its Copy Local property is automatically set to True. In this case, the CLR will not load the theme assembly at run time. The side effect of this behavior is that the external theme will not be applied to the controls in your application even if you set the control's Theme property to the name of the external theme. For example, if you add the {ApiPlatform}Themes.Fall.v{ProductVersion}.dll theme assembly to your project in Expression Blend and set the xamDataGrid™ control's Theme property to "Fall", the fall theme will not be applied to the xamDataGrid control at run time. You must either reference a type in the fall theme assembly or set the theme assembly's Copy Local property to False. For cases where you need to set the theme assemblies' Copy Local property to True, you can use the following example code to load the assembly.
+When you add a theme assembly to your project in Microsoft® Expression® Blend, its Copy Local property is automatically set to True. In this case, the CLR will not load the theme assembly at run time. The side effect of this behavior is that the external theme will not be applied to the controls in your application even if you set the control's Theme property to the name of the external theme. For example, if you add the {ApiPlatform}Themes.Fall.{DllVersion}dll theme assembly to your project in Expression Blend and set the xamDataGrid™ control's Theme property to "Fall", the fall theme will not be applied to the xamDataGrid control at run time. You must either reference a type in the fall theme assembly or set the theme assembly's Copy Local property to False. For cases where you need to set the theme assemblies' Copy Local property to True, you can use the following example code to load the assembly.
 
 *In XAML:*
 
@@ -355,9 +355,9 @@ This is the list of controls and the properties that will be ignored by default:
 
 When working with link:{ApiPlatform}controls.barcodes{ApiVersion}~infragistics.controls.barcodes.xamqrcodebarcode.html[xamQRCodeBarcode]™ control, be sure to include the following assembly to your project:
 
-* {ApiPlatform}Encoding.v{ProductVersion}.dll
+* {ApiPlatform}Encoding.{DllVersion}dll
 
-The encodings were extracted in a separate assembly to reduce the size of the {ApiPlatform}Controls.Barcodes.v{ProductVersion} assembly. The xamQRCodeBarcode control is the only barcode symbology from the xamBarcode™ series of controls which uses encodings that are not supported by the Silverlight framework.
+The encodings were extracted in a separate assembly to reduce the size of the {ApiPlatform}Controls.Barcodes.{DllVersion} assembly. The xamQRCodeBarcode control is the only barcode symbology from the xamBarcode™ series of controls which uses encodings that are not supported by the Silverlight framework.
 
 In order to increase the performance of the Barcode Reader, evaluate doing the following tweaks:
 
@@ -366,7 +366,7 @@ In order to increase the performance of the Barcode Reader, evaluate doing the f
 * Reduce the size of the image that is passed to the Decode or DecodeAsync methods.
 * Limit the number of Symbology Types sent to the Decode or DecodeAsync methods.
 
-Note that <a href=""></a>Infragistics Barcode Reader™ requires reference to the {ApiPlatform}Encodings.v{ProductVersion} assembly to decode QR Code symbols.
+Note that <a href=""></a>Infragistics Barcode Reader™ requires reference to the {ApiPlatform}Encodings.{DllVersion} assembly to decode QR Code symbols.
 
 == xamSparkline™
 
